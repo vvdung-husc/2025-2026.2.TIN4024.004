@@ -1,3 +1,13 @@
+/*
+THÔNG TIN NHÓM 10
+1. Hoàng Anh Quân
+2. Huỳnh Tấn Sang
+3. Lê Nhữ Hoàng
+4. Tôn Thất Bách
+5. Trần Nguyễn Phước Kiệt
+*/
+
+#include  <Arduino.h>
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
