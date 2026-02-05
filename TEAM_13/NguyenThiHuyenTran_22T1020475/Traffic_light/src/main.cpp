@@ -6,14 +6,12 @@
 #define LED_YELLOW  26
 #define LED_GREEN   25
 #define LED_BLUE    21
-
-// ===== TM1637 =====
 #define CLK 18
 #define DIO 19
-TM1637Display display(CLK, DIO);
-
-// ===== BUTTON =====
 #define BUTTON_PIN 23
+#define LDR_PIN 13          
+#define LDR_THRESHOLD 2000
+TM1637Display display(CLK, DIO);
 
 volatile bool displayEnabled = true;
 volatile bool buttonEvent = false;
@@ -30,9 +28,9 @@ void IRAM_ATTR handleButton() {
   }
 }
 
-// ===== Blink + Countdown =====
 void blinkLed(int pin, int times, const char* name) {
 
+  
   // ===== THÔNG BÁO ĐÈN BẬT =====
   Serial.print("LED[");
   Serial.print(name);
@@ -41,7 +39,9 @@ void blinkLed(int pin, int times, const char* name) {
   Serial.println(" seconds");
 
   for (int i = times; i >= 0; i--) {
-
+    if (analogRead(LDR_PIN) > LDR_THRESHOLD) {
+      return;
+    }
     // ===== SERIAL =====
     Serial.print("[");
     Serial.print(name);
@@ -65,7 +65,7 @@ void blinkLed(int pin, int times, const char* name) {
       digitalWrite(pin, LOW);
       delay(500);
     } else {
-      delay(1000); // giữ số 0
+      delay(1000);
     }
   }
 
@@ -86,35 +86,62 @@ void setup() {
   display.clear();
 
   attachInterrupt(
-    digitalPinToInterrupt(BUTTON_PIN),
-    handleButton,
-    FALLING
-  );
-
+    digitalPinToInterrupt(BUTTON_PIN), handleButton, FALLING);
   digitalWrite(LED_BLUE, HIGH);
-
   Serial.println("SYSTEM READY");
   Serial.println("DISPLAY: ON");
 }
 
-void loop() {
-
-  // ===== HIỂN THỊ TRẠNG THÁI NÚT =====
+// ===== XỬ LÝ NÚT NHẤN =====
+void handleButtonEvent() {
   if (buttonEvent) {
-    if (displayEnabled) {
-      Serial.println("DISPLAY: ON");
-    } else {
-      Serial.println("DISPLAY: OFF");
-    }
+    Serial.println(displayEnabled ? "DISPLAY: ON" : "DISPLAY: OFF");
     buttonEvent = false;
   }
+}
+
+// ===== KIỂM TRA BAN ĐÊM =====
+bool isNightMode() {
+  int ldrValue = analogRead(LDR_PIN);
+  return (ldrValue > LDR_THRESHOLD);
+}
+
+// ===== CHẾ ĐỘ BAN ĐÊM =====
+void nightMode() {
+  Serial.println("NIGHT MODE");
+
+  display.clear();
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_GREEN, LOW);
+  digitalWrite(LED_BLUE, LOW);
+
+  // Đèn vàng nhấp nháy
+  digitalWrite(LED_YELLOW, HIGH);
+  delay(500);
+  digitalWrite(LED_YELLOW, LOW);
+  delay(500);
+}
+
+// ===== CHẾ ĐỘ BAN NGÀY =====
+void dayMode() {
+  Serial.println("DAY MODE");
 
   blinkLed(LED_RED, 5, "RED");
-  delay(1000);
+  delay(500);
 
   blinkLed(LED_YELLOW, 3, "YELLOW");
-  delay(1000);
+  delay(500);
 
   blinkLed(LED_GREEN, 7, "GREEN");
-  delay(2000);
+  delay(500);
+}
+
+void loop() {
+  handleButtonEvent();
+
+  if (isNightMode()) {
+    nightMode();
+  } else {
+    dayMode();
+  }
 }

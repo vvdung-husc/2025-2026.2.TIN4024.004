@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "author": "Kỳ Châu",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 9.6, "left": 110.44, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -124.5, "left": 282.6, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -109.2,
+      "left": 157.4,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -109.2,
+      "left": 205.4,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": -109.2,
+      "left": 119,
+      "attrs": { "color": "cyan" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 52.8,
+      "left": 239.45,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 52.8,
+      "left": 201.05,
+      "rotate": 90,
+      "attrs": { "value": "220000" }
+    },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 51.14,
+      "left": -38.17,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 52.8,
+      "left": 277.85,
+      "rotate": 90,
+      "attrs": { "value": "10000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4",
+      "top": 52.8,
+      "left": 220.25,
+      "rotate": 90,
+      "attrs": { "value": "330" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "oled1:GND", "esp:GND.1", "black", [ "v-38.4", "h105.6", "v201.6" ] ],
+    [ "oled1:VCC", "esp:3V3", "red", [ "v-28.8", "h105.75", "v67.2" ] ],
+    [ "oled1:SDA", "esp:13", "green", [ "v-9.6", "h57.67", "v182.4" ] ],
+    [ "oled1:SCL", "esp:12", "green", [ "v-19.2", "h77.1", "v115.2" ] ],
+    [ "led2:C", "esp:GND.2", "black", [ "h0.4", "v48", "h-9.6" ] ],
+    [ "led1:C", "esp:GND.2", "black", [ "v48", "h58" ] ],
+    [ "led3:C", "esp:GND.2", "black", [ "v48", "h106" ] ],
+    [ "led3:A", "r2:1", "cyan", [ "v67.2", "h105.6" ] ],
+    [ "led1:A", "r4:1", "gold", [ "v57.6", "h67.2" ] ],
+    [ "led2:A", "r1:1", "red", [ "v48", "h38.4" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v19.2", "h-182.4", "v28.8" ] ],
+    [ "dht1:SDA", "r3:1", "green", [ "v0" ] ],
+    [ "r3:2", "esp:16", "green", [ "v56.4", "h-96" ] ],
+    [ "dht1:GND", "esp:GND.3", "black", [ "v105.6", "h-115.2" ] ],
+    [ "r2:2", "esp:15", "cyan", [ "v94.8", "h-19.2" ] ],
+    [ "r4:2", "esp:2", "gold", [ "v85.2", "h-38.4" ] ],
+    [ "r1:2", "esp:4", "red", [ "v66", "h-57.6" ] ]
+  ],
+  "dependencies": {}
+}
