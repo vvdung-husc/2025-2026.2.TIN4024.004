@@ -1,7 +1,7 @@
 // THÔNG TIN NHÓM 16
-// 1. Nguyễn Văn Bình
-// 2. Lê Nguyễn Hương Nguyên
-// 3. ...
+// 1.Châu Kỳ
+// 2.Nguyễn ÁI Danh
+// 3 Châu Văn Trường Huy
 
 #include <Arduino.h>
 #include <DHT.h>
