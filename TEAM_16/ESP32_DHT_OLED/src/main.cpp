@@ -1,7 +1,10 @@
-// THÔNG TIN NHÓM 16
-// 1.Châu Kỳ
-// 2.Nguyễn ÁI Danh
-// 3 Châu Văn Trường Huy
+/* THÔNG TIN NHÓM 16
+1.Châu Kỳ
+2.Nguyễn ÁI Danh
+3.Châu Văn Trường Huy
+4.
+5. 
+*/
 
 #include <Arduino.h>
 #include <DHT.h>
