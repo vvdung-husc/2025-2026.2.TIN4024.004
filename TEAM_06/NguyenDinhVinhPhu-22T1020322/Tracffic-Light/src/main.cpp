@@ -2,9 +2,9 @@
 #include "utils.h"
 #include <TM1637Display.h>
 
-#define PIN_LED_RED 25
-#define PIN_LED_YELLOW 33
-#define PIN_LED_GREEN 32
+#define PIN_LED_RED    18  
+#define PIN_LED_YELLOW 19  
+#define PIN_LED_GREEN  32
 
 // Module connection pins (Digital Pins)
 #define CLK 15
