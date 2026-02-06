@@ -1,8 +1,10 @@
 #include <Arduino.h>
 
-#define PIN_LED_RED 23
+#define LED_RED     25
+#define LED_YELLOW  33
+#define LED_GREEN   32
 
-//Non-blocking
+// Non-blocking timer
 bool IsReady(unsigned long &ulTimer, uint32_t millisecond) {
   if (millis() - ulTimer < millisecond) return false;
   ulTimer = millis();
@@ -10,21 +12,55 @@ bool IsReady(unsigned long &ulTimer, uint32_t millisecond) {
 }
 
 void setup() {
-  // put your setup code here, to run once:
-  printf("WELCOME IOT\n");
-  pinMode(PIN_LED_RED, OUTPUT);
+  Serial.begin(115200);
+
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_YELLOW, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+
+  Serial.println("WELCOME IOT");
 }
 
-//Non-Blocking
 void loop() {
   static unsigned long ulTimer = 0;
-  static bool lesStatus = false;
-  if (IsReady(ulTimer, 500)){
-    lesStatus = !lesStatus;
-    printf("LES IS [%s]\n",lesStatus ? "ON" : "OFF");
-    digitalWrite(PIN_LED_RED, lesStatus ? HIGH : LOW);
+  static uint8_t state = 0;  // 0=RED, 1=YELLOW, 2=GREEN
+
+  switch (state) {
+    case 0: // RED
+      digitalWrite(LED_RED, HIGH);
+      digitalWrite(LED_YELLOW, LOW);
+      digitalWrite(LED_GREEN, LOW);
+
+      if (IsReady(ulTimer, 5000)) {
+        Serial.println("LED [RED] ON => 5 Seconds");
+        state = 1;
+      }
+      break;
+
+    case 1: // YELLOW
+      digitalWrite(LED_RED, LOW);
+      digitalWrite(LED_YELLOW, HIGH);
+      digitalWrite(LED_GREEN, LOW);
+
+      if (IsReady(ulTimer, 3000)) {
+        Serial.println("LED [YELLOW] ON => 3 Seconds");
+        state = 2;
+      }
+      break;
+
+    case 2: // GREEN
+      digitalWrite(LED_RED, LOW);
+      digitalWrite(LED_YELLOW, LOW);
+      digitalWrite(LED_GREEN, HIGH);
+
+      if (IsReady(ulTimer, 7000)) {
+        Serial.println("LED [GREEN] ON => 7 Seconds");
+        state = 0;
+      }
+      break;
   }
 }
+
 
 //BLOCKING
 // void loop() {

@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "author": "Traffic Light No Resistor Blue",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led-green",
+      "top": -22.8,
+      "left": -188.2,
+      "rotate": 270,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-yellow",
+      "top": 66.4,
+      "left": -190.6,
+      "rotate": 270,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-red",
+      "top": 25.2,
+      "left": -188.2,
+      "rotate": 270,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res-green",
+      "top": 3.95,
+      "left": -105.6,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res-yellow",
+      "top": 90.35,
+      "left": -105.6,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res-red",
+      "top": 51.95,
+      "left": -105.6,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-tm1637-7segment",
+      "id": "display",
+      "top": -140,
+      "left": 60,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn",
+      "top": -41.8,
+      "left": 153.6,
+      "attrs": { "color": "blue", "label": "CONTROL" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-blue",
+      "top": -42,
+      "left": 282.2,
+      "attrs": { "color": "blue" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:25", "led-green:A", "green", [ "h0" ] ],
+    [ "led-green:C", "res-green:1", "black", [ "h0" ] ],
+    [ "res-green:2", "esp:GND.1", "black", [ "h37.2", "v134.4" ] ],
+    [ "esp:27", "led-yellow:A", "gold", [ "h-158.21", "v-38.4" ] ],
+    [ "led-yellow:C", "res-yellow:1", "black", [ "h19.2", "v-0.4", "h65.8" ] ],
+    [ "res-yellow:2", "esp:GND.1", "black", [ "h37.2", "v57.6" ] ],
+    [ "esp:26", "led-red:A", "red", [ "h0" ] ],
+    [ "led-red:C", "res-red:1", "black", [ "h0" ] ],
+    [ "res-red:2", "esp:GND.1", "black", [ "h37.2", "v86.4" ] ],
+    [ "esp:33", "display:CLK", "green", [ "h331.39", "v-207.16" ] ],
+    [ "esp:32", "display:DIO", "blue", [ "h331.39", "v-187.96" ] ],
+    [ "esp:5V", "display:VCC", "red", [ "h331.39", "v-293.56" ] ],
+    [ "esp:GND.3", "display:GND", "black", [ "v-30", "h235.24", "v-138.76" ] ],
+    [ "esp:23", "btn:2.r", "blue", [ "h168.04", "v-48", "h-48.2" ] ],
+    [ "btn:1.r", "esp:GND.2", "black", [ "h29", "v57.6" ] ],
+    [ "esp:21", "led-blue:A", "blue", [ "h0" ] ],
+    [ "led-blue:C", "esp:GND.2", "black", [ "h0.4", "v28.8" ] ]
+  ],
+  "dependencies": {}
+}

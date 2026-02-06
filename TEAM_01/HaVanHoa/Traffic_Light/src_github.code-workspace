@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"name": "Traffic_Light",
+			"path": "Traffic_Light"
+		},
+		{
+			"name": "Traffic_Light",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

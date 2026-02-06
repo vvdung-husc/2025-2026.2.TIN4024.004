@@ -7,7 +7,7 @@
     { "type": "wokwi-led", "id": "led-red", "top": -90, "left": 120, "attrs": { "color": "red" } },
     { "type": "wokwi-led", "id": "led-yellow", "top": -45, "left": 120, "attrs": { "color": "yellow" } },
     { "type": "wokwi-led", "id": "led-green", "top": 0, "left": 120, "attrs": { "color": "green" } },
-    { "type": "wokwi-led", "id": "led-street", "top": 50, "left": 150, "attrs": { "color": "blue", "label": "Đèn đường" } },
+    { "type": "wokwi-led", "id": "led-street", "top": 50, "left": 150, "attrs": { "color": "blue", "label": "Street Light" } },
     { "type": "wokwi-resistor", "id": "r1", "top": -90, "left": 60, "attrs": { "value": "220" } },
     { "type": "wokwi-resistor", "id": "r2", "top": -45, "left": 60, "attrs": { "value": "220" } },
     { "type": "wokwi-resistor", "id": "r3", "top": 0, "left": 60, "attrs": { "value": "220" } },

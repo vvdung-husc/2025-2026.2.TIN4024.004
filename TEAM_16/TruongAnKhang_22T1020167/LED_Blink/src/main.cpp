@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
-#define PIN_LED_RED 25 // Chân nối LED đỏ
-#define PIN_LED_GREEN 33 // Chân nối LED xanh
-#define PIN_LED_YELLOW 32 // Chân nối LED vàng 
+#define PIN_LED_RED 27 // Chân nối LED đỏ
+#define PIN_LED_GREEN 25// Chân nối LED xanh
+#define PIN_LED_YELLOW 26 // Chân nối LED vàng 
 
 // Hàm tạo bộ đếm thời gian (non-blocking)
 bool IsReady(unsigned long &uTimer, uint32_t millisecond){

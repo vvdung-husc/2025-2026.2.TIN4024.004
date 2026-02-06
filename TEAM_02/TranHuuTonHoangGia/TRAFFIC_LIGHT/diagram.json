@@ -51,7 +51,14 @@
       "left": -248.8,
       "attrs": {}
     },
-    { "type": "wokwi-led", "id": "led4", "top": 150, "left": 215, "attrs": { "color": "blue" } },
+    {
+      "type": "wokwi-led",
+      "id": "led4",
+      "top": 162,
+      "left": 237,
+      "rotate": 90,
+      "attrs": { "color": "blue" }
+    },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
@@ -81,8 +88,8 @@
     [ "ldr1:GND", "esp:GND.1", "black", [ "h67.2", "v-67.6" ] ],
     [ "ldr1:VCC", "esp:5V", "red", [ "h28.8", "v86.4", "h105.6" ] ],
     [ "ldr1:AO", "esp:13", "green", [ "h96", "v-77.5" ] ],
-    [ "esp:21", "led4:C", "blue", [ "h0" ] ],
-    [ "esp:GND.3", "led4:A", "black", [ "h0" ] ],
+    [ "esp:22", "led4:A", "blue", [ "h0" ] ],
+    [ "led4:C", "esp:GND.3", "black", [ "h0" ] ],
     [ "esp:23", "btn1:2.l", "blue", [ "h67.2", "v-19.2" ] ],
     [ "esp:GND.2", "btn1:1.l", "black", [ "v0" ] ],
     [ "esp:5V", "sevseg1:VCC", "red", [ "h0.15", "v96", "h384", "v-374.4" ] ],
