@@ -77,7 +77,7 @@ void setup() {
 
 void loop() {
   unsigned long now = millis();
-
+// Đọc cảm biến và cập nhật OLED 
   if (now - lastRead >= READ_INTERVAL) {
     lastRead = now;
 
