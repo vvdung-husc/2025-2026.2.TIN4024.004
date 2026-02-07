@@ -1,8 +1,9 @@
 /*
-THÔNG TIN NHÓM X
+THÔNG TIN NHÓM 07
 1. Huỳnh Thị Thủy
 2. Đào Thị Thùy Dương
-3. Hồ Thị Thanh Bình 
+3. Hồ Thị Thanh Bình
+4. Đặng Thị Tâm Nhi 
 */
 #include <Arduino.h>
 #include <Wire.h>
@@ -30,7 +31,7 @@ unsigned long previousDHT = 0;
 unsigned long previousBlink = 0;
 
 const long dhtInterval = 2000;   // đọc DHT mỗi 2s
-const long blinkInterval = 300;  // nhấp nháy LED
+const long blinkInterval = 500;  // nhấp nháy LED 0.5s
 
 // ===== BIẾN TRẠNG THÁI =====
 float temp = 0;
