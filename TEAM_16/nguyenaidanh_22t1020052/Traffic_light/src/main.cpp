@@ -1,88 +1,95 @@
 #include <Arduino.h>
+#include <TM1637Display.h>
 
-const int ledXanh = 25;
-const int ledVang = 27;
-const int ledDo = 26;
-const int buttonPin = 23; 
-const int ledBlue = 21;   
+const int RED_PIN = 18;
+const int YELLOW_PIN = 5;
+const int GREEN_PIN = 17;
+const int BLUE_LED_PIN = 12; // Đèn liên kết với nút bấm
+const int BUTTON_PIN = 13;
+const int LDR_PIN = 34;
 
-const int CLK = 33;
-const int DIO = 32;
+// Khởi tạo màn hình TM1637 (CLK: 22, DIO: 23)
+TM1637Display display(22, 23);
 
-const uint8_t DIGITS[] = { 
-  0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f 
-};
-
-void tm1637_start() {
-  digitalWrite(DIO, LOW); delayMicroseconds(100);
-  digitalWrite(CLK, LOW); delayMicroseconds(100);
-}
-
-void tm1637_stop() {
-  digitalWrite(DIO, LOW); delayMicroseconds(100);
-  digitalWrite(CLK, HIGH); delayMicroseconds(100);
-  digitalWrite(DIO, HIGH); delayMicroseconds(100);
-}
-
-void tm1637_writeByte(uint8_t b) {
-  for (int i = 0; i < 8; i++) {
-    digitalWrite(CLK, LOW);
-    if (b & 1) digitalWrite(DIO, HIGH);
-    else digitalWrite(DIO, LOW);
-    delayMicroseconds(100);
-    digitalWrite(CLK, HIGH);
-    delayMicroseconds(100);
-    b >>= 1;
-  }
-  digitalWrite(CLK, LOW); digitalWrite(DIO, LOW); 
-  digitalWrite(CLK, HIGH); digitalWrite(CLK, LOW);
-}
-
-void hienThiSo(int num) {
-  digitalWrite(ledBlue, HIGH); 
-
-  tm1637_start(); tm1637_writeByte(0x40); tm1637_stop();
-
-  tm1637_start(); tm1637_writeByte(0x8F); tm1637_stop();
-
-  int chuc = num / 10;
-  int donvi = num % 10;
-
-  tm1637_start();
-  tm1637_writeByte(0xC0);
-  
-  tm1637_writeByte(0x00);
-  tm1637_writeByte(0x00);
-  tm1637_writeByte(DIGITS[chuc]);
-  tm1637_writeByte(DIGITS[donvi]);
-  
-  tm1637_stop();
-}
+// Biến trạng thái
+bool displayEnabled = true; 
+int state = 0;              // 0: Xanh, 1: Vàng, 2: Đỏ
+unsigned long lastTick = 0;
+int timeLeft = 7;           // Bắt đầu với đèn Xanh 7 giây
+bool lastBtnState = HIGH;
 
 void setup() {
-  pinMode(ledXanh, OUTPUT); pinMode(ledVang, OUTPUT); pinMode(ledDo, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP); 
-  pinMode(ledBlue, OUTPUT);
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(YELLOW_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(BLUE_LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
   
-  pinMode(CLK, OUTPUT); pinMode(DIO, OUTPUT);
-  digitalWrite(CLK, HIGH); digitalWrite(DIO, HIGH);
-
+  display.setBrightness(7); // Độ sáng tối đa
   Serial.begin(115200);
-  Serial.println("--- SYSTEM START ---");
-}
-
-void chayPhaDen(int chanDen, int thoiGian) {
-  digitalWrite(ledXanh, LOW); digitalWrite(ledVang, LOW); digitalWrite(ledDo, LOW);
-  digitalWrite(chanDen, HIGH);
-
-  for (int i = thoiGian; i >= 0; i--) {
-    hienThiSo(i);
-    delay(1000);
-  }
 }
 
 void loop() {
-  chayPhaDen(ledXanh, 7);
-  chayPhaDen(ledVang, 3);
-  chayPhaDen(ledDo, 10);
+  // 1. Xử lý Nút bấm để Bật/Tắt bảng đếm ngược
+  bool currentBtn = digitalRead(BUTTON_PIN);
+  if (lastBtnState == HIGH && currentBtn == LOW) {
+    displayEnabled = !displayEnabled;
+    delay(50); // Chống rung nút
+  }
+  lastBtnState = currentBtn;
+
+  // Đèn Blue sáng khi bảng đếm ngược đang ở trạng thái Bật
+  digitalWrite(BLUE_LED_PIN, displayEnabled ? HIGH : LOW);
+
+  // 2. Đọc cảm biến ánh sáng (LDR)
+  int lightLevel = analogRead(LDR_PIN);
+
+  if (lightLevel > 3000) { 
+    // CHẾ ĐỘ TRỜI TỐI: Vàng nhấp nháy, tắt các đèn khác và bảng số
+    runNightMode();
+  } else {
+    // CHẾ ĐỘ BÌNH THƯỜNG: Đèn giao thông chạy và đếm ngược
+    runTrafficCycle();
+  }
+}
+
+void runTrafficCycle() {
+  unsigned long currentMillis = millis();
+  
+  if (currentMillis - lastTick >= 1000) {
+    lastTick = currentMillis;
+    
+    // Cập nhật đèn LED theo trạng thái hiện tại
+    digitalWrite(GREEN_PIN, state == 0);
+    digitalWrite(YELLOW_PIN, state == 1);
+    digitalWrite(RED_PIN, state == 2);
+
+    // Cập nhật bảng đếm ngược nếu được phép bật
+    if (displayEnabled) {
+      display.showNumberDec(timeLeft, true, 2, 2); // Luôn hiện 2 chữ số (ví dụ: 07, 02)
+    } else {
+      display.clear();
+    }
+
+    // Trừ thời gian
+    timeLeft--;
+
+    // Chuyển trạng thái khi hết thời gian
+    if (timeLeft < 0) {
+      state = (state + 1) % 3;
+      if (state == 0) timeLeft = 7;   // Xanh 7s
+      else if (state == 1) timeLeft = 3;  // Vàng 3s
+      else if (state == 2) timeLeft = 10; // Đỏ 10s
+    }
+  }
+}
+
+void runNightMode() {
+  // Tắt các đèn không liên quan
+  digitalWrite(RED_PIN, LOW);
+  digitalWrite(GREEN_PIN, LOW);
+  display.clear();
+  
+  // Đèn vàng nhấp nháy chu kỳ 1 giây (500ms sáng / 500ms tắt)
+  digitalWrite(YELLOW_PIN, (millis() / 500) % 2);
 }

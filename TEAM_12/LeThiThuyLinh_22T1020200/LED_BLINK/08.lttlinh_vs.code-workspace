@@ -2,14 +2,6 @@
 	"folders": [
 		{
 			"path": "../../../.."
-		},
-		{
-			"name": "LED_BLINK",
-			"path": "."
-		},
-		{
-			"name": "Project_Traffic_Light",
-			"path": "../Project_Traffic_Light"
 		}
 	],
 	"settings": {}
