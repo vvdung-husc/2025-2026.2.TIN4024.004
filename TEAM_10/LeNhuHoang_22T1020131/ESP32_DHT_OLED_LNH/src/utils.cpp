@@ -58,17 +58,29 @@ void DHT_OLED::updateLED() {
     _ledYellow.off();
     _ledRed.off();
 
-    if (_temperature < 20) {
+    if (_temperature < 13) {
+        _status = "TOO COLD";
+        _blinkLED = 0;   // GREEN
+    }
+    else if (_temperature < 20) {
         _status = "COLD";
-        _blinkLED = 0;
+        _blinkLED = 0;   // GREEN
+    }
+    else if (_temperature < 25) {
+        _status = "COOL";
+        _blinkLED = 1;   // YELLOW
     }
     else if (_temperature < 30) {
         _status = "WARM";
-        _blinkLED = 1;
+        _blinkLED = 1;   // YELLOW
+    }
+    else if (_temperature <= 35) {
+        _status = "HOT";
+        _blinkLED = 2;   // RED
     }
     else {
-        _status = "HOT";
-        _blinkLED = 2;
+        _status = "TOO HOT";
+        _blinkLED = 2;   // RED
     }
 }
 
