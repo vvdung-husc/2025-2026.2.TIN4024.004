@@ -11,140 +11,161 @@ THÔNG TIN NHÓM
 #include <Adafruit_SSD1306.h>
 #include <DHT.h>
 
-// ================= OLED =================
+
+#define PIN_DHT     16  
+#define DHT_TYPE    DHT22
+
+#define PIN_GREEN   15  
+#define PIN_YELLOW  2  
+#define PIN_RED     4 
+
+
+#define PIN_OLED_SDA 13 
+#define PIN_OLED_SCL 12
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define SCREEN_ADDRESS 0x3C
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+#define OLED_RESET    -1 
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-// ================= DHT22 =================
-#define DHTPIN 4
-#define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
 
-// ================= LED ==================
-#define LED_GREEN   25
-#define LED_YELLOW  26
-#define LED_RED     27
+DHT dht(PIN_DHT, DHT_TYPE);
 
-// ================= TIMER =================
-unsigned long lastBlinkMillis = 0;
-unsigned long lastReadMillis  = 0;
-bool ledState = false;
-int activeLed = -1;
 
-const long blinkInterval = 300;   // ms
-const long readInterval  = 2000;  // ms
-
-// =======================================
-
-void turnOffAllLED() {
-  digitalWrite(LED_GREEN, LOW);
-  digitalWrite(LED_YELLOW, LOW);
-  digitalWrite(LED_RED, LOW);
-}
-
-// =======================================
+float t = 0; 
+float h = 0;
+unsigned long lastReadTime = 0; 
+unsigned long lastBlinkTime = 0;
+bool ledState = false; 
 
 void setup() {
   Serial.begin(115200);
+  
+ 
+  pinMode(PIN_GREEN, OUTPUT);
+  pinMode(PIN_YELLOW, OUTPUT);
+  pinMode(PIN_RED, OUTPUT);
 
-  pinMode(LED_GREEN, OUTPUT);
-  pinMode(LED_YELLOW, OUTPUT);
-  pinMode(LED_RED, OUTPUT);
 
-  Wire.begin(21,22);   // SDA, SCL
   dht.begin();
 
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println("OLED FAIL");
-    while(true);
+
+  Wire.begin(PIN_OLED_SDA, PIN_OLED_SCL);
+
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
+    Serial.println(F("OLED khởi động thất bại!"));
+    for(;;);
   }
+  
 
   display.clearDisplay();
-  display.setTextColor(SSD1306_WHITE);
+  display.setTextColor(WHITE);
   display.setTextSize(1);
+  display.setCursor(10, 20);
+  display.println("WEATHER STATION");
+  display.setCursor(30, 40);
+  display.println("Loading...");
+  display.display();
+  delay(1000); 
 }
 
-// =======================================
+
+String getStatusMessage(float temp) {
+    if (temp < 13) return "TOO COLD";
+    if (temp < 20) return "COLD";
+    if (temp < 25) return "COOL";
+    if (temp < 30) return "WARM";
+    if (temp <= 35) return "HOT";
+    return "TOO HOT";
+}
+
+
+void blinkLedByTemp(float temp) {
+  if (isnan(temp)) {
+    digitalWrite(PIN_GREEN, LOW);
+    digitalWrite(PIN_YELLOW, LOW);
+    digitalWrite(PIN_RED, LOW);
+    return;
+  }
+
+
+  if (millis() - lastBlinkTime > 500) {
+    lastBlinkTime = millis();
+    ledState = !ledState;
+    
+  
+    digitalWrite(PIN_GREEN, LOW);
+    digitalWrite(PIN_YELLOW, LOW);
+    digitalWrite(PIN_RED, LOW);
+
+    if (ledState) {
+        if (temp < 20) {
+            digitalWrite(PIN_GREEN, HIGH);
+        } 
+        else if (temp >= 20 && temp < 30) {
+            digitalWrite(PIN_YELLOW, HIGH);
+        } 
+        else { 
+            digitalWrite(PIN_RED, HIGH);
+        }
+    }
+  }
+}
 
 void loop() {
 
-  // ===== ĐỌC CẢM BIẾN =====
-  if (millis() - lastReadMillis >= readInterval) {
-    lastReadMillis = millis();
+  if (millis() - lastReadTime > 2000) {
+    lastReadTime = millis();
+    
+    float newT = dht.readTemperature();
+    float newH = dht.readHumidity();
 
-    float temp = dht.readTemperature();
-    float humi = dht.readHumidity();
+    if (isnan(newT) || isnan(newH)) {
+      Serial.println("Lỗi đọc DHT22!");
+      display.clearDisplay();
+      display.setCursor(0,0);
+      display.println("Sensor Error!");
+      display.display();
+    } else {
+      t = newT;
+      h = newH;
+      
+ 
+      display.clearDisplay();
+      
 
-    if (isnan(temp) || isnan(humi)) {
-      Serial.println("DHT ERROR");
-      return;
-    }
+      display.drawRect(0, 0, 128, 64, WHITE);
+      
+  
+      display.setTextSize(1);
+      display.setCursor(5, 5);
+      display.print("STT: ");
+      display.println(getStatusMessage(t));
+      
+  
+      display.drawLine(0, 18, 128, 18, WHITE);
 
-    Serial.print("Temp: ");
-    Serial.println(temp);
+ 
+      display.setTextSize(2);
+      display.setCursor(5, 25);
+      display.print(t, 1);
+      display.setTextSize(1);
+      display.print("o");
+      display.setTextSize(2);
+      display.print("C");
 
-    String statusText = "";
 
-    // ===== PHÂN NGƯỠNG =====
-    if (temp < 13) {
-      statusText = "TOO COLD";
-      activeLed = LED_GREEN;
-    }
-    else if (temp < 20) {
-      statusText = "COLD";
-      activeLed = LED_GREEN;
-    }
-    else if (temp < 25) {
-      statusText = "COOL";
-      activeLed = LED_YELLOW;
-    }
-    else if (temp < 30) {
-      statusText = "WARM";
-      activeLed = LED_YELLOW;
-    }
-    else if (temp < 35) {
-      statusText = "HOT";
-      activeLed = LED_RED;
-    }
-    else {
-      statusText = "TOO HOT";
-      activeLed = LED_RED;
-    }
+      display.setTextSize(1);
+      display.setCursor(80, 25);
+      display.print("Humid");
+      display.setCursor(80, 40);
+      display.print(h, 0);
+      display.print("%");
 
-    // ===== OLED =====
-    display.clearDisplay();
-
-    display.setCursor(0,0);
-    display.print("Temp: ");
-    display.print(temp);
-    display.println(" C");
-
-    display.setCursor(0,15);
-    display.print("Humi: ");
-    display.print(humi);
-    display.println(" %");
-
-    display.setCursor(0,35);
-    display.print("Status:");
-    display.setCursor(0,50);
-    display.print(statusText);
-
-    display.display();
-  }
-
-  // ===== LED BLINK =====
-  if (activeLed != -1) {
-    if (millis() - lastBlinkMillis >= blinkInterval) {
-      lastBlinkMillis = millis();
-      ledState = !ledState;
-
-      turnOffAllLED();
-
-      if (ledState) {
-        digitalWrite(activeLed, HIGH);
-      }
+      display.display();
     }
   }
+
+
+  blinkLedByTemp(t);
 }
