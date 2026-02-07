@@ -3,7 +3,7 @@ THÔNG TIN NHÓM
 1. Phan Hữu Tuấn Kiệt
 2. Nguyễn Đại Quý
 3. Nguyễn Đình Hoàng
-4.
+4. Dương Quang Đat
 */
 #include <Arduino.h>
 #include <Wire.h>
