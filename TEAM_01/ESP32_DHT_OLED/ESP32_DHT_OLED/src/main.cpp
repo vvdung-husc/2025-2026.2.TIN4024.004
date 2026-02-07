@@ -1,6 +1,7 @@
 /*THÔNG TIN NHÓM 1
 1.
 2. Trương Công Bin
+3. Lê Văn Đình Dương
 */
 #include <Arduino.h>
 #include <Wire.h>
