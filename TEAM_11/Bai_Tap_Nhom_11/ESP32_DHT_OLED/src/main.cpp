@@ -2,7 +2,7 @@
 THÔNG TIN NHÓM
 1. Phan Hữu Tuấn Kiệt
 2. Nguyễn Đại Quý
-3.
+3. Dương Quang Đạt
 4.
 */
 #include <Arduino.h>
