@@ -4,6 +4,7 @@ THÔNG TIN NHÓM 07
 2. Đào Thị Thùy Dương
 3. Hồ Thị Thanh Bình
 4. Đặng Thị Tâm Nhi 
+5. Bùi Quang Quý
 */
 #include <Arduino.h>
 #include <Wire.h>
