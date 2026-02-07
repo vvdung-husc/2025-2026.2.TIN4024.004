@@ -44,7 +44,7 @@
       "id": "btn1",
       "top": -32.2,
       "left": -220.8,
-      "attrs": { "color": "green", "label": "BTN" }
+      "attrs": { "color": "blue", "label": "BTN" }
     },
     {
       "type": "wokwi-resistor",

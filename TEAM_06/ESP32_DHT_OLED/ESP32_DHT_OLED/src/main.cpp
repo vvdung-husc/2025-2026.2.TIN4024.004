@@ -1,10 +1,7 @@
 /*
 THÔNG TIN NHÓM 6
 1. Nguyễn Hữu Trình
-2. Ngô Thời Quang
-3. Hồ Sỹ Vinh
-4. Nguyễn Đinh Vĩnh Phú
-5. Nguyễn Đăng Bảo Toàn
+2.Ngô Thời Quang
 */
 
 #include <Arduino.h>
