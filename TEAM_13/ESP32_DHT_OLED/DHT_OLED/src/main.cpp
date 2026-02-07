@@ -55,12 +55,6 @@ void LedBlink(int pin, int offPin1, int offPin2)
   }
 }
 
-void turnOffAllLed()
-{
-  digitalWrite(RED_LED, LOW);
-  digitalWrite(YELLOW_LED, LOW);
-  digitalWrite(BLUE_LED, LOW);
-}
 
 void handleTemperature()
 {
