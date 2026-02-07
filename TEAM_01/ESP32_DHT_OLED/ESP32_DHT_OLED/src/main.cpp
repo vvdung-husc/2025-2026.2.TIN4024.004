@@ -1,5 +1,5 @@
 /*THÔNG TIN NHÓM 1
-1.
+1. Hà Văn Hòa
 2. Trương Công Bin
 3. Lê Văn Đình Dương
 */
@@ -123,4 +123,27 @@ void handleLedBlink() {
   } else {
     turnOffAllLeds();
   }
+}
+void updateDisplay() {
+  display.clearDisplay();
+  display.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
+  display.setTextColor(WHITE);
+  display.setTextSize(1);
+  
+  display.setCursor(10, 10);
+  display.print("Temp: "); display.print(currentTemp, 1); display.print(" C");
+  
+  display.setCursor(10, 22);
+  display.print("Hum:  "); display.print(currentHum, 1); display.print(" %");
+  display.drawLine(5, 35, 123, 35, WHITE);
+  display.setTextSize(2);
+  
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds(currentStatus, 0, 0, &x1, &y1, &w, &h);
+  
+  display.setCursor((SCREEN_WIDTH - w) / 2, 42); 
+  display.print(currentStatus);
+
+  display.display();
 }
