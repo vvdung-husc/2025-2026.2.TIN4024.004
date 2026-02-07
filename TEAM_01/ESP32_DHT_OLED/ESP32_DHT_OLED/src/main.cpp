@@ -70,3 +70,56 @@ void setup() {
   pinMode(PIN_LED_YELLOW, OUTPUT);
   pinMode(PIN_LED_RED, OUTPUT);
 }
+
+void loop() {
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousSensorMillis >= SENSOR_INTERVAL) {
+    previousSensorMillis = currentMillis;
+    handleSensorLogic();
+    updateDisplay();
+  }
+  if (currentMillis - previousBlinkMillis >= BLINK_INTERVAL) {
+    previousBlinkMillis = currentMillis;
+    handleLedBlink();
+  }
+}
+
+void turnOffAllLeds() {
+  digitalWrite(PIN_LED_GREEN, LOW);
+  digitalWrite(PIN_LED_YELLOW, LOW);
+  digitalWrite(PIN_LED_RED, LOW);
+}
+
+void handleSensorLogic() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  if (isnan(h) || isnan(t)) {
+    currentStatus = "Error";
+    currentLedPin = -1; 
+    return;
+  }
+
+  currentTemp = t;
+  currentHum = h;
+
+  int numStates = sizeof(states) / sizeof(states[0]);
+  for (int i = 0; i < numStates; i++) {
+    if (t < states[i].maxTemp) {
+      currentStatus = states[i].label;
+      if (currentLedPin != states[i].ledPin) {
+        turnOffAllLeds(); 
+      }
+      currentLedPin = states[i].ledPin;
+      return;
+    }
+  }
+}
+
+void handleLedBlink() {
+  ledState = !ledState;
+  if (currentLedPin != -1) {
+    digitalWrite(currentLedPin, ledState);
+  } else {
+    turnOffAllLeds();
+  }
+}
