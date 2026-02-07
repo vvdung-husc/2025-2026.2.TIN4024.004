@@ -1,67 +1,34 @@
-#include <Arduino.h>
 
-#define PIN_LED_RED     23
-#define PIN_LED_YELLOW  22
-#define PIN_LED_GREEN   21
+#include "main.h"
 
-enum TrafficState {
-  STATE_GREEN,
-  STATE_YELLOW,
-  STATE_RED
-};
+//Định nghĩa chân cho đèn LED
+#define PIN_LED_RED     18
+#define PIN_LED_YELLOW  5
+#define PIN_LED_GREEN    17
 
-unsigned long stateTimer = 0;
-TrafficState currentState = STATE_GREEN;
+//Định nghĩa cho LDR (Light Dependent Resistor)
+#define PIN_LDR 34 // Analog ADC1 GPIO34 connected to LDR
 
-void setLights(bool red, bool yellow, bool green) {
-  digitalWrite(PIN_LED_RED, red);
-  digitalWrite(PIN_LED_YELLOW, yellow);
-  digitalWrite(PIN_LED_GREEN, green);
-}
+int DAY_ADC_THRESHOLD = 2000; // Ngưỡng ánh sáng ban ngày
+
+//LED ledYellow;
+Trafic_Blink traficLight;
+LDR ldrSensor;
 
 void setup() {
-  Serial.begin(115200);
-  printf("WELCOME IOT\n");
+  // put your setup code here, to run once:
+  printf("Welcome IoT\n");
 
-  pinMode(PIN_LED_RED, OUTPUT);
-  pinMode(PIN_LED_YELLOW, OUTPUT);
-  pinMode(PIN_LED_GREEN, OUTPUT);
+  ldrSensor.DAY_THRESHOLD = DAY_ADC_THRESHOLD;
+  ldrSensor.setup(PIN_LDR, false); // VCC = 3.3V
 
-  // Bắt đầu với đèn xanh
-  setLights(LOW, LOW, HIGH);
-  stateTimer = millis();
+  traficLight.setupPin(PIN_LED_RED, PIN_LED_YELLOW, PIN_LED_GREEN);
+  traficLight.setupWaitTime(5, 3, 7); // seconds
 }
 
 void loop() {
-  unsigned long now = millis();
+  //ledYellow.blink(500);
 
-  switch (currentState) {
+  traficLight.run(ldrSensor);
 
-    case STATE_GREEN:
-      if (now - stateTimer >= 7000) {
-        printf("LED [GREEN ] ON => 7 Seconds\n");
-        setLights(LOW, HIGH, LOW);
-        currentState = STATE_YELLOW;
-        stateTimer = now;
-      }
-      break;
-
-    case STATE_YELLOW:
-      if (now - stateTimer >= 3000) {
-        printf("LED [YELLOW] ON => 3 Seconds\n");
-        setLights(HIGH, LOW, LOW);
-        currentState = STATE_RED;
-        stateTimer = now;
-      }
-      break;
-
-    case STATE_RED:
-      if (now - stateTimer >= 5000) {
-        printf("LED [RED   ] ON => 5 Seconds\n");
-        setLights(LOW, LOW, HIGH);
-        currentState = STATE_GREEN;
-        stateTimer = now;
-      }
-      break;
-  }
 }

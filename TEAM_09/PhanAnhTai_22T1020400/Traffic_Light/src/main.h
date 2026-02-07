@@ -1,3 +1,9 @@
-#pragma once
+#ifndef MAIN_H
+#define MAIN_H
 
-#include "utils.h"
+#include <Arduino.h>
+
+void setupPins();
+void loopTrafficLight();
+
+#endif

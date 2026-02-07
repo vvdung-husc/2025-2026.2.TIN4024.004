@@ -1,13 +1,13 @@
 #include "main.h"
 //#include <TM1637Display.h>
 
-#define PIN_LED_RED 25
-#define PIN_LED_YELLOW 33
-#define PIN_LED_GREEN 32
+#define PIN_LED_RED 27
+#define PIN_LED_YELLOW 26
+#define PIN_LED_GREEN 25
 
 // Module connection pins (Digital Pins)
-#define CLK 15
-#define DIO 2
+#define CLK 18
+#define DIO 19
 
 #define PIN_BUTTON_DISPLAY 23
 #define PIN_LED_BLUE 21
@@ -73,3 +73,4 @@ void loop()
   traffic.blink(btnBlue.isPressed());
   
 }
+

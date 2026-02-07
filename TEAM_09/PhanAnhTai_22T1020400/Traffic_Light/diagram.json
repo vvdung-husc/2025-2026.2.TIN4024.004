@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "",
   "editor": "wokwi",
   "parts": [
     { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 48, "left": -91.16, "attrs": {} },
@@ -80,7 +80,7 @@
     [ "sevseg1:DIO", "esp:2", "green", [ "h0", "v220.8" ] ],
     [ "sevseg1:GND", "esp:GND.3", "black", [ "h28.8", "v124.8" ] ],
     [ "sevseg1:CLK", "esp:15", "green", [ "h9.6", "v201.6" ] ],
-    [ "sevseg1:VCC", "esp:5V", "red", [ "h19.2", "v249.6", "h-316.95" ] ],
+    [ "sevseg1:VCC", "esp:5V", "red", [ "h19.2", "v211.2" ] ],
     [ "led1:C", "esp:GND.1", "black", [ "h-48", "v221.2", "h9.6" ] ],
     [ "led2:C", "esp:GND.1", "black", [ "h-48", "v192.4" ] ],
     [ "led3:C", "esp:GND.1", "black", [ "h-48", "v0.4" ] ],

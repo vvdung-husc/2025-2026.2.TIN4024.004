@@ -17,7 +17,6 @@ DANH SÁCH NHÓM 4
 16. Nguyễn Đình Vĩnh Phú
 17. Lê Thành Huy
 18. Hồ Ngọc Phúc Thăng
-17. Lê Thành Huy
 18. Trương Đức Long
 19. Võ Hoàng Minh Phước 
 20. Nguyễn Đại Quý
@@ -39,7 +38,7 @@ DANH SÁCH NHÓM 4
 36. Nguyễn Văn Quốc
 37. Lê Ngọc Minh
 38. Zơrâm Nhỏ
-39. Đặng Khánh Linh
+
 40. Châu Văn Trường Huy
 41. Phan Anh Tài
 42. Võ Lê Tuấn Hưng
@@ -48,3 +47,5 @@ DANH SÁCH NHÓM 4
 45. Phan Nguyễn Anh Nhật
 46. Đặng Thị Tâm Nhi
 47. Thái Thanh Sơn
+48. Phan Văn Việt
+49. Bùi Quang Quý

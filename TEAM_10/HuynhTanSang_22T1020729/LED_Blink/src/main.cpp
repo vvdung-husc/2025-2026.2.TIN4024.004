@@ -1,86 +1,35 @@
-#include <Arduino.h>
+#include "main.h"
 
-#define PIN_LED_RED     25
-#define PIN_LED_YELLOW  33
-#define PIN_LED_GREEN   32
+//Định nghĩa chân cho đèn LED
+#define PIN_LED_RED     18
+#define PIN_LED_YELLOW  5
+#define PIN_LED_GREEN    17
 
-#define BLINK_INTERVAL 500  // 1 giây = 1 lần nhấp nháy
+//Định nghĩa cho LDR (Light Dependent Resistor)
+#define PIN_LDR 34 // Analog ADC1 GPIO34 connected to LDR
 
-#define RED_BLINKS     5
-#define YELLOW_BLINKS  3
-#define GREEN_BLINKS   7
+int DAY_ADC_THRESHOLD = 2000; // Ngưỡng ánh sáng ban ngày
 
-enum LedState {
-  LED_RED,
-  LED_YELLOW,
-  LED_GREEN
-};
-
-bool IsReady(unsigned long &timer, uint32_t interval) {
-  if (millis() - timer < interval) return false;
-  timer = millis();
-  return true;
-}
-
-void allOff() {
-  digitalWrite(PIN_LED_RED, LOW);
-  digitalWrite(PIN_LED_YELLOW, LOW);
-  digitalWrite(PIN_LED_GREEN, LOW);
-}
+//LED ledYellow;
+Trafic_Blink traficLight;
+LDR ldrSensor;
 
 void setup() {
-  Serial.begin(115200);
-  Serial.println("START");
+  // put your setup code here, to run once:
+  printf("Welcome IoT\n");
 
-  pinMode(PIN_LED_RED, OUTPUT);
-  pinMode(PIN_LED_YELLOW, OUTPUT);
-  pinMode(PIN_LED_GREEN, OUTPUT);
+  ldrSensor.DAY_THRESHOLD = DAY_ADC_THRESHOLD;
+  ldrSensor.setup(PIN_LDR, false); // VCC = 3.3V
+
+  traficLight.setupPin(PIN_LED_RED, PIN_LED_YELLOW, PIN_LED_GREEN);
+  traficLight.setupWaitTime(5, 3, 7); // seconds
 }
 
 void loop() {
-  static unsigned long timer = 0;
-  static LedState state = LED_RED;
-  static bool ledOn = false;
-  static int blinkCount = 0;
+  //ledYellow.blink(500);
 
-  if (!IsReady(timer, BLINK_INTERVAL)) return;
+  traficLight.run(ldrSensor);
 
-  ledOn = !ledOn;
-  allOff();
-
-  switch (state) {
-
-    case LED_RED:
-      digitalWrite(PIN_LED_RED, ledOn);
-      Serial.print("RED   : ");
-      Serial.println(ledOn ? "ON" : "OFF");
-
-      if (!ledOn && ++blinkCount >= RED_BLINKS) {
-        blinkCount = 0;
-        state = LED_YELLOW;
-      }
-      break;
-
-    case LED_YELLOW:
-      digitalWrite(PIN_LED_YELLOW, ledOn);
-      Serial.print("YELLOW: ");
-      Serial.println(ledOn ? "ON" : "OFF");
-
-      if (!ledOn && ++blinkCount >= YELLOW_BLINKS) {
-        blinkCount = 0;
-        state = LED_GREEN;
-      }
-      break;
-
-    case LED_GREEN:
-      digitalWrite(PIN_LED_GREEN, ledOn);
-      Serial.print("GREEN : ");
-      Serial.println(ledOn ? "ON" : "OFF");
-
-      if (!ledOn && ++blinkCount >= GREEN_BLINKS) {
-        blinkCount = 0;
-        state = LED_RED;
-      }
-      break;
-  }
 }
+
+

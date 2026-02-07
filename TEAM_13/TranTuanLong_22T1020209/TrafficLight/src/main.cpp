@@ -61,12 +61,12 @@ void checkLight()
 
     if (isNight)
     {
-      Serial.println("IT IS NIGHT");
+      Serial.println("====NIGHT====");
       state = 3;                 // Yellow
     }
     else
     {
-      Serial.println("IT IS DAY");
+      Serial.println("====DAY====");
       state = 1;                 // Red
     }
 
