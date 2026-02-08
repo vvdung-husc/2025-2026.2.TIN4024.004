@@ -83,13 +83,13 @@ void updateOLED() {
 
   display.setTextSize(1);
   display.setCursor(0, 38);
+  display.print("Status: ");
+  display.print(Status);
+
+  display.setCursor(0, 54);
   display.print("Humidity: ");
   display.print(hum);
   display.print(" %");
-
-  display.setCursor(0, 54);
-  display.print("Status: ");
-  display.print(status);
 
   display.display();
 }
@@ -130,6 +130,9 @@ void loop() {
       Serial.print(temp);
       Serial.print("  Hum: ");
       Serial.println(hum);
+    } else {
+      status = "SENSOR ERROR";
+      updateOLED();
     }
   }
 
