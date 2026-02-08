@@ -4,6 +4,7 @@ THÔNG TIN NHÓM
 2. Nguyễn Đại Quý
 3. Nguyễn Đình Hoàng
 4. Dương Quang Đạt
+5. Phạm Quốc Bảo
 */
 
 #include <Arduino.h>
