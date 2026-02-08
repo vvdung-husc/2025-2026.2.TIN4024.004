@@ -21,14 +21,14 @@
 //   digitalWrite(ledDo, LOW);
 //   delay(7000); 
 
-//   // --- PHA 2: ĐÈN VÀNG (3 giây) ---
+// --- PHA 2: ĐÈN VÀNG (3 giây) ---
 //   Serial.println("VANG: Cham lai (3s)");
 //   digitalWrite(ledXanh, LOW);
 //   digitalWrite(ledVang, HIGH);
 //   digitalWrite(ledDo, LOW);
 //   delay(3000);
 
-//   // --- PHA 3: ĐÈN ĐỎ (10 giây) ---
+// --- PHA 3: ĐÈN ĐỎ (10 giây) ---
 //   Serial.println("DO: Dung lai (10s)");
 //   digitalWrite(ledXanh, LOW);
 //   digitalWrite(ledVang, LOW);
