@@ -2,7 +2,7 @@
 THÔNG TIN NHÓM 04
 1. Nguyễn Thành Doanh
 2. LÊ NGỌC MINH
-3. Hồ Ngọc Phúc Thăng
+
 4. Võ Hữu Lộc
 5. Nguyễn Bá Quý Đạt
 */
