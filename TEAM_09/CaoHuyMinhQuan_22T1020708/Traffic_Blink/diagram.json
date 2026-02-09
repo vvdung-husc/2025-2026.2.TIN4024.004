@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "author": "Minh Quan",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": -292.76, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -87.6,
+      "left": -108.6,
+      "rotate": 90,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -39.6,
+      "left": -108.6,
+      "rotate": 90,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": -1.2,
+      "left": -108.6,
+      "rotate": 90,
+      "attrs": { "color": "green" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "led1:C", "esp:GND.2", "black", [ "h0" ] ],
+    [ "led1:A", "esp:23", "red", [ "h-48", "v96" ] ],
+    [ "led3:C", "esp:GND.2", "black", [ "h-86.4", "v10" ] ],
+    [ "led2:C", "esp:GND.2", "black", [ "h-86.4", "v48.4" ] ],
+    [ "led2:A", "esp:22", "gold", [ "h-28.8", "v57.6" ] ],
+    [ "led3:A", "esp:21", "green", [ "h-9.6", "v48" ] ]
+  ],
+  "dependencies": {}
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "id": "esp", "type": "board-esp32-devkit-c-v4" },
+    { "id": "led", "type": "wokwi-led", "attrs": { "color": "red" } }
+  ],
+  "connections": [
+    [ "esp:2", "led:A", "" ],
+    [ "led:C", "esp:GND", "" ]
+  ]
+}

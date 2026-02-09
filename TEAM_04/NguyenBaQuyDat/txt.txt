@@ -1,2 +1,0 @@
-git config --global user.name "QuyDat12"
-git config --global user.email 22t1020055@husc.edu.vn

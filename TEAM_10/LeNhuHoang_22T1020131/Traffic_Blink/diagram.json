@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "author": "Lê Nhữ Hoàng",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 24.04, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": -118.8,
+      "left": 3.8,
+      "rotate": 90,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_yellow",
+      "top": -80.4,
+      "left": 3.8,
+      "rotate": 90,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": -42,
+      "left": 3.8,
+      "rotate": 90,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_red",
+      "top": 24,
+      "left": -86.95,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_yellow",
+      "top": 33.6,
+      "left": -67.75,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_green",
+      "top": 43.2,
+      "left": -48.55,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "led_red:C", "esp:GND.1", "black", [ "h-83.6", "v252.4" ] ],
+    [ "led_yellow:C", "esp:GND.1", "black", [ "h-83.6", "v214" ] ],
+    [ "led_green:C", "esp:GND.1", "black", [ "h-83.6", "v175.6" ] ],
+    [ "r_red:2", "esp:26", "red", [ "v56.4", "h86.25" ] ],
+    [ "r_red:1", "led_red:A", "red", [ "v-86.4", "h64.4" ] ],
+    [ "led_yellow:A", "r_yellow:1", "yellow", [ "h0" ] ],
+    [ "esp:25", "r_yellow:2", "yellow", [ "h-67.05", "v-37.2" ] ],
+    [ "led_green:A", "r_green:1", "green", [ "h0" ] ],
+    [ "r_green:2", "esp:33", "green", [ "v18", "h47.85" ] ]
+  ],
+  "dependencies": {}
+}
