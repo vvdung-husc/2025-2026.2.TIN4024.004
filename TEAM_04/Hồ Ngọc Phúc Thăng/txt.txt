@@ -1,2 +1,0 @@
-git config --global user.name "Ka3105"
-git config --global user.email 22t1020741@husc.edu.vn
