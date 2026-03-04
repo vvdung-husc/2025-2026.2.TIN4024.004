@@ -59,6 +59,18 @@
 -------------------------------
 ***2026-03-04***
 
+### - [Blynk | Traffic & DHT Sensor](https://wokwi.com/projects/424198235739151361)
++ ***Thư viện sử dụng***
+	> **# DHT sensor library** by Avishay - Arduino library for DHT11, DHT22, etc Temp & Humidity Sensors
+	
+![](https://raw.githubusercontent.com/vvdung/storage/refs/heads/main/IOT/traffic_blynk_1.png)
+
++ [***Đính kèm ảnh của mobile và web lên github***](https://raw.githubusercontent.com/vvdung/storage/refs/heads/main/IOT/mobile_esp32_dht.png)
+
+	> Ảnh phải có tên của cá nhân trong ứng dụng
+
+-------------------------------
+
 ### - [Esp32 | Blynk & Wokwi](https://wokwi.com/projects/423790624312911873)
 
 #### Tham khảo
@@ -80,6 +92,8 @@
 ## [***2. Dự án - TRAFFIC LIGHT***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/blob/main/Project_Traffic_Light.md)
 
 ## [***3. Dự án - DHT_OLED (Theo nhóm, hạn cuối 09/02/2026)***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/blob/main/Team_DHT_OLED.md)
+
+## [***4. Dự án - BLYNK_DHT***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/blob/main/README.md#--blynk--traffic--dht-sensor)
 
 -------------------------------
 
