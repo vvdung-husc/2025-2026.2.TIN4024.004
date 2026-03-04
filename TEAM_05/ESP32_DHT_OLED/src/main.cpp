@@ -2,8 +2,8 @@
 THÔNG TIN NHÓM 05
 1. Trương Đức Long 
 2. Trần Xuân Tấn Vinh
-3. Võ Hoàng Minh Phước
-4. Phan Nguyễn Anh Nhật
+3. Phan Nguyễn Anh Nhật
+4. Võ Hoàng Minh Phước
 */
 
 #include <Arduino.h>

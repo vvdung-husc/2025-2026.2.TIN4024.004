@@ -1,8 +1,17 @@
-#include<Arduino.h>
+#include <Arduino.h>
 
 const int ledXanh = 25;
 const int ledVang = 27;
 const int ledDo = 26;
+
+void nhapNhay(int pin, int soLan) {
+  for (int i = 0; i < soLan; i++) {
+    digitalWrite(pin, HIGH); // 1. Bật đèn
+    delay(500);              // 2. Chờ 0.5 giây (Sáng)
+    digitalWrite(pin, LOW);  // 3. TẮT ĐÈN (Quan trọng!)
+    delay(500);              // 4. Chờ 0.5 giây (Tối)
+  }
+}
 
 void setup() {
   pinMode(ledXanh, OUTPUT);
@@ -10,28 +19,19 @@ void setup() {
   pinMode(ledDo, OUTPUT);
 
   Serial.begin(115200);
-  Serial.println("--- HE THONG DEN GIAO THONG ---");
+  Serial.println("--- BAT DAU HE THONG ---");
 }
 
 void loop() {
-  // --- PHA 1: ĐÈN XANH (7 giây) ---
-  Serial.println("XANH: Di chuyen (7s)");
-  digitalWrite(ledXanh, HIGH);
-  digitalWrite(ledVang, LOW);
-  digitalWrite(ledDo, LOW);
-  delay(7000); 
+  // 1. ĐÈN XANH
+  Serial.println("XANH dang nhap nhay...");
+  nhapNhay(ledXanh, 7);
 
-  // --- PHA 2: ĐÈN VÀNG (3 giây) ---
-  Serial.println("VANG: Cham lai (3s)");
-  digitalWrite(ledXanh, LOW);
-  digitalWrite(ledVang, HIGH);
-  digitalWrite(ledDo, LOW);
-  delay(3000);
+  // 2. ĐÈN VÀNG
+  Serial.println("VANG dang nhap nhay...");
+  nhapNhay(ledVang, 3);
 
-  // --- PHA 3: ĐÈN ĐỎ (10 giây) ---
-  Serial.println("DO: Dung lai (10s)");
-  digitalWrite(ledXanh, LOW);
-  digitalWrite(ledVang, LOW);
-  digitalWrite(ledDo, HIGH);
-  delay(10000);
+  // 3. ĐÈN ĐỎ
+  Serial.println("DO dang nhap nhay...");
+  nhapNhay(ledDo, 10);
 }
