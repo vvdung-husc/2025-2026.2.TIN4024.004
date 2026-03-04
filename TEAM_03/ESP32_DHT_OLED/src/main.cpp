@@ -42,11 +42,88 @@ float humidity = 0;
 String statusText = "";
 uint8_t activeLed = 0; // 0-none, 1-green, 2-yellow, 3-red
 
+void updateStatus() {
+  if (temperature < 13) {
+    statusText = "TOO COLD";
+    activeLed = 1;
+  } else if (temperature < 20) {
+    statusText = "COLD";
+    activeLed = 1;
+  } else if (temperature < 25) {
+    statusText = "COOL";
+    activeLed = 2;
+  } else if (temperature < 30) {
+    statusText = "WARM";
+    activeLed = 2;
+  } else if (temperature < 35) {
+    statusText = "HOT";
+    activeLed = 3;
+  } else {
+    statusText = "TOO HOT";
+    activeLed = 3;
+  }
+}
+
+void updateLED() {
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, LOW);
+
+  if (!ledState) return;
+
+  if (activeLed == 1) digitalWrite(LED_GREEN, HIGH);
+  if (activeLed == 2) digitalWrite(LED_YELLOW, HIGH);
+  if (activeLed == 3) digitalWrite(LED_RED, HIGH);
+}
+
+void printConsole() {
+  Serial.print(F("Temperature: "));
+  Serial.println(statusText);
+
+  Serial.print(temperature, 2);
+  Serial.println(F(" °C"));
+
+  Serial.print(F("Humidity: "));
+  Serial.print(humidity, 2);
+  Serial.println(F(" %"));
+
+  Serial.println(F("------------------------"));
+}
+
+void updateOLED() {
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.print("Temperature: ");
+  display.println(statusText);
+
+  display.setTextSize(2);
+  display.setCursor(0, 14);
+  display.print(temperature, 2);
+  display.print(" ");
+  display.write(247); // ký hiệu độ ° trong ASCII
+  display.print("C");
+
+  display.setTextSize(1);
+  display.setCursor(0, 38);
+  display.println("Humidity:");
+
+  display.setTextSize(2);
+  display.setCursor(0, 48);
+  display.print(humidity, 2);
+  display.print(" %");
+
+  display.display();
+  printConsole(); 
+}
+
 void setup() {
+  Serial.begin(115200);
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_YELLOW, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
-  Wire.begin(13, 12); // SDA, SCL (theo diagram)
+  Wire.begin(13, 12); // SDA, SCL 
   dht.begin();
   if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
     while (true);
@@ -76,65 +153,4 @@ void loop() {
     ledState = !ledState;
     updateLED();
   }
-}
-
-void updateStatus() {
-  if (temperature < 13) {
-    statusText = "TOO COLD";
-    activeLed = 1;
-  } else if (temperature < 20) {
-    statusText = "COLD";
-    activeLed = 1;
-  } else if (temperature < 25) {
-    statusText = "COOL";
-    activeLed = 2;
-  } else if (temperature < 30) {
-    statusText = "WARM";
-    activeLed = 2;
-  } else if (temperature < 35) {
-    statusText = "HOT";
-    activeLed = 3;
-  } else {
-    statusText = "TOO HOT";
-    activeLed = 3;
-  }
-}
-
-void updateOLED() {
-  display.clearDisplay();
-
-  // Dòng 1: Temperature + trạng thái
-  display.setTextSize(1);
-  display.setCursor(0, 0);
-  display.print("Temperature: ");
-  display.println(statusText);
-
-  // Dòng 2: Giá trị nhiệt độ to
-  display.setTextSize(2);
-  display.setCursor(0, 12);
-  display.print(temperature, 2);
-  display.print((char)247); 
-  display.print("C");
-
-  // Dòng 3: Humidity
-  display.setTextSize(1);
-  display.setCursor(0, 38);
-  display.print("Humidity: ");
-  display.print(humidity, 2);
-  display.print(" %");
-
-  display.display();
-}
-
-
-void updateLED() {
-  digitalWrite(LED_RED, LOW);
-  digitalWrite(LED_YELLOW, LOW);
-  digitalWrite(LED_GREEN, LOW);
-
-  if (!ledState) return;
-
-  if (activeLed == 1) digitalWrite(LED_GREEN, HIGH);
-  if (activeLed == 2) digitalWrite(LED_YELLOW, HIGH);
-  if (activeLed == 3) digitalWrite(LED_RED, HIGH);
 }
