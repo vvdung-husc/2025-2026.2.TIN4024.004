@@ -65,6 +65,23 @@
 ## [***3. Dự án - DHT_OLED (Theo nhóm, hạn cuối 09/02/2026)***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/blob/main/Team_DHT_OLED.md)
 
 -------------------------------
+***2026-0304***
+
+### - [Esp32 | Blynk & Wokwi](https://wokwi.com/projects/423790624312911873)
+
+#### Tham khảo
+
++ [Sử dụng Blynk IOT với ESP32](https://dienthongminhesmart.com/lap-trinh-esp32/blynk-iot-va-esp32/)
++ ***Thư viện sử dụng***
+	> **TM1637** by Avishay - Arduino library for TM1637
+ 
+	> **Blynk** by Volodymyr Shymanskyy
+
++ [Sử dụng Blynk IOT trên ESP32 (nếu không xem được từ youtube)](https://it.iothings.vn/downloads/mp4/Blynk_IOT_ESP32_WEB.mp4)
+
++ [https://it.iothings.vn/downloads/mp4](https://it.iothings.vn/downloads/mp4/)
+
+-------------------------------
 
 ![](https://raw.githubusercontent.com/vvdung/storage/refs/heads/main/IOT/esp32-devkitC-v4-pinout.png)
 
