@@ -1,12 +1,13 @@
 /*
 THÔNG TIN NHÓM 10
-1. Lê Nhữ Hoàng
-2. Hoàng Anh Quân
-3. Trần Nguyễn Phước Kiệt
-4. Huỳnh Tấn Sang
-5.
+1. Hoàng Anh Quân
+2. Huỳnh Tấn Sang
+3. Lê Nhữ Hoàng
+4. Tôn Thất Bách
+5. Trần Nguyễn Phước Kiệt
 */
 
+#include  <Arduino.h>
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -85,3 +86,64 @@ String getWeatherText(float temp) {
   else return "TOO HOT";
 }
 
+// =================================================
+// OLED DISPLAY
+// =================================================
+void showOLED(float temp, float hum, String status) {
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setCursor(0,0);
+  display.println("Weather Monitor");
+
+  display.setCursor(0,16);
+  display.print("Temperature: ");
+  display.print(temp);
+  display.println(" C");
+
+  display.setCursor(0,32);
+  display.print("Humidity : ");
+  display.print(hum);
+  display.println(" %");
+
+  display.setCursor(0,48);
+  display.print("Status: ");
+  display.println(status);
+
+  display.display();
+}
+
+// =================================================
+// LOOP
+// =================================================
+void loop() {
+
+  float temp = dht.readTemperature();
+  float hum  = dht.readHumidity();
+
+  if (isnan(temp) || isnan(hum)) {
+    Serial.println("DHT Error");
+    return;
+  }
+
+  weatherStatus = getWeatherText(temp);
+  int level = getWeatherLevel(temp);
+
+  showOLED(temp, hum, weatherStatus);
+
+  // ===== BLINK LOGIC NON BLOCK =====
+  if (millis() - lastBlink >= blinkInterval) {
+lastBlink = millis();
+    ledState = !ledState;
+
+    digitalWrite(LED_COLD, LOW);
+    digitalWrite(LED_MILD, LOW);
+    digitalWrite(LED_HOT, LOW);
+
+    if (ledState) {
+      if (level == 1) digitalWrite(LED_COLD, HIGH);
+      if (level == 2) digitalWrite(LED_MILD, HIGH);
+      if (level == 3) digitalWrite(LED_HOT, HIGH);
+    }
+  }
+}
