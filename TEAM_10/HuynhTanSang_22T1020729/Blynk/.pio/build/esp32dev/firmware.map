@@ -1,5 +1,7 @@
 Archive member included to satisfy reference by file (symbol)
 
+.pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                              .pio\build\esp32dev\src\main.cpp.o (TM1637Display::TM1637Display(unsigned char, unsigned char, unsigned int))
 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
                               .pio\build\esp32dev\src\main.cpp.o (WiFi)
 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
@@ -16,8 +18,6 @@ Archive member included to satisfy reference by file (symbol)
                               .pio\build\esp32dev\src\main.cpp.o (BlynkWidgetRead)
 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                               .pio\build\esp32dev\src\main.cpp.o (BlynkTimer::BlynkTimer())
-.pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                              .pio\build\esp32dev\src\main.cpp.o (TM1637Display::TM1637Display(unsigned char, unsigned char, unsigned int))
 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
                               .pio\build\esp32dev\src\main.cpp.o (DHT::DHT(unsigned char, unsigned char, unsigned char))
 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
@@ -1725,6 +1725,23 @@ Discarded input sections
  .text          0x0000000000000000        0x0 .pio\build\esp32dev\src\main.cpp.o
  .data          0x0000000000000000        0x0 .pio\build\esp32dev\src\main.cpp.o
  .bss           0x0000000000000000        0x0 .pio\build\esp32dev\src\main.cpp.o
+ .literal._ZN13TM1637Display5clearEv
+                0x0000000000000000        0x4 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .literal._ZN13TM1637Display8showDotsEhPh
+                0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .literal._ZN13TM1637Display15showNumberHexExEthbhh
+                0x0000000000000000        0x4 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .literal._ZN13TM1637Display11encodeDigitEh
+                0x0000000000000000        0x4 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .text          0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .data          0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .bss           0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .text._ZN13TM1637Display5clearEv
+                0x0000000000000000       0x16 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .text._ZN13TM1637Display15showNumberHexExEthbhh
+                0x0000000000000000       0x20 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .text._ZN13TM1637Display11encodeDigitEh
+                0x0000000000000000       0x10 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .literal._ZN9WiFiClass9printDiagER5Print
                 0x0000000000000000       0x70 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
  .text          0x0000000000000000        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
@@ -2328,23 +2345,6 @@ Discarded input sections
                 0x0000000000000000       0x62 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .xt.prop._ZNSt14_Function_baseD2Ev
                 0x0000000000000000       0x30 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .literal._ZN13TM1637Display5clearEv
-                0x0000000000000000        0x4 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .literal._ZN13TM1637Display8showDotsEhPh
-                0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .literal._ZN13TM1637Display15showNumberHexExEthbhh
-                0x0000000000000000        0x4 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .literal._ZN13TM1637Display11encodeDigitEh
-                0x0000000000000000        0x4 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .text          0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .data          0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .bss           0x0000000000000000        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .text._ZN13TM1637Display5clearEv
-                0x0000000000000000       0x16 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .text._ZN13TM1637Display15showNumberHexExEthbhh
-                0x0000000000000000       0x20 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
- .text._ZN13TM1637Display11encodeDigitEh
-                0x0000000000000000       0x10 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .group         0x0000000000000000       0x24 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .literal._ZN3DHT11convertCtoFEf
                 0x0000000000000000       0x20 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
@@ -30390,10 +30390,10 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
 LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/xtensa-esp32-elf/8.4.0/no-rtti/crtbegin.o
 LOAD .pio\build\esp32dev\src\main.cpp.o
 START GROUP
+LOAD .pio\build\esp32dev\libdcd\libTM1637.a
 LOAD .pio\build\esp32dev\lib639\libBlynkNcpDriver.a
 LOAD .pio\build\esp32dev\lib13e\libWiFi.a
 LOAD .pio\build\esp32dev\lib020\libBlynk.a
-LOAD .pio\build\esp32dev\libdcd\libTM1637.a
 LOAD .pio\build\esp32dev\lib665\libAdafruit Unified Sensor.a
 LOAD .pio\build\esp32dev\libee4\libDHT sensor library.a
 LOAD .pio\build\esp32dev\libFrameworkArduino.a
@@ -38335,107 +38335,107 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
  .rodata._ZZN8BlynkApiI13BlynkProtocolI21BlynkArduinoClientGenI10WiFiClientEEE8sendInfoEvE7profile
                 0x000000003f40154c       0x72 .pio\build\esp32dev\src\main.cpp.o
                 0x000000003f40154c                BlynkApi<BlynkProtocol<BlynkArduinoClientGen<WiFiClient> > >::sendInfo()::profile
- .rodata._ZN10WiFiClient5writeEPKhj.str1.1
-                0x000000003f4015be       0x9a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZN18WiFiClientRxBuffer10fillBufferEv.str1.1
-                0x000000003f401658       0x3d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZN10WiFiClient15setSocketOptionEiiPKvj.str1.1
-                0x000000003f401695       0x34 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZN10WiFiClient7connectE9IPAddressti.str1.1
-                0x000000003f4016c9      0x1b8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN10WiFiClient9availableEvE12__FUNCTION__
-                0x000000003f401881        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN10WiFiClient4peekEvE12__FUNCTION__
-                0x000000003f40188b        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN18WiFiClientRxBuffer10fillBufferEvE12__FUNCTION__
-                0x000000003f401890        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN10WiFiClient4readEPhjE12__FUNCTION__
-                0x000000003f40189b        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN10WiFiClient5writeEPKhjE12__FUNCTION__
-                0x000000003f4018a0        0x6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN10WiFiClient15setSocketOptionEiiPKvjE12__FUNCTION__
-                0x000000003f4018a6       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .rodata._ZZN10WiFiClient7connectE9IPAddresstiE12__FUNCTION__
-                0x000000003f4018b6        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- *fill*         0x000000003f4018be        0x2 
- .rodata._ZTV10WiFiClient
-                0x000000003f4018c0       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000003f4018c0                vtable for WiFiClient
- .rodata._ZTVSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE
-                0x000000003f401920       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000003f401920                vtable for std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>
- .rodata._ZTVSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE
-                0x000000003f40193c       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000003f40193c                vtable for std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>
- .rodata._ZL22get_esp_netif_hostnamev$part$0.str1.1
-                0x000000003f401958       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._Z21set_esp_interface_dns15esp_interface_t9IPAddressS0_S0_.str1.1
-                0x000000003f40196e       0xf1 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._Z16postArduinoEventP15arduino_event_t.str1.1
-                0x000000003f401a5f       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZL17_arduino_event_cbPvPKciS_.str1.1
-                0x000000003f401ac7       0x5c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._Z9tcpipInitv.str1.1
-                0x000000003f401b23      0x2b6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._Z16wifiLowLevelInitb.str1.1
-                0x000000003f401dd9       0x29 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZN16WiFiGenericClass4modeE11wifi_mode_t.str1.1
-                0x000000003f401e02      0x139 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZN16WiFiGenericClass10hostByNameEPKcR9IPAddress.str1.1
-                0x000000003f401f3b       0x2a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._Z20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_.str1.1
-                0x000000003f401f65      0x31b .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZN16WiFiGenericClass14_eventCallbackEP15arduino_event_t.str1.1
-                0x000000003f402280       0x2f .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZN16WiFiGenericClass10hostByNameEPKcR9IPAddressE12__FUNCTION__
-                0x000000003f4022af        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZL12espWiFiStartvE12__FUNCTION__
-                0x000000003f4022ba        0xd .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZL11espWiFiStopvE12__FUNCTION__
-                0x000000003f4022c7        0xc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZN16WiFiGenericClass4modeE11wifi_mode_tE12__FUNCTION__
-                0x000000003f4022d3        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZN16WiFiGenericClass14_eventCallbackEP15arduino_event_tE12__FUNCTION__
-                0x000000003f4022d8        0xf .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZ16wifiLowLevelInitbE12__FUNCTION__
-                0x000000003f4022e7       0x11 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZL17_arduino_event_cbPvPKciS_E12__FUNCTION__
-                0x000000003f4022f8       0x12 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZL25_start_network_event_taskvE12__FUNCTION__
-                0x000000003f40230a       0x1a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZ9tcpipInitvE12__FUNCTION__
-                0x000000003f402324        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZ16postArduinoEventP15arduino_event_tE12__FUNCTION__
-                0x000000003f40232e       0x11 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZZ20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_E12__FUNCTION__
-                0x000000003f40233f       0x15 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .rodata._ZN12WiFiSTAClass10_setStatusE11wl_status_t.str1.1
-                0x000000003f402354       0x98 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZN12WiFiSTAClass5beginEPKcS1_iPKhb.str1.1
-                0x000000003f4023ec      0x13b .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZN12WiFiSTAClass5beginEv.str1.1
-                0x000000003f402527       0x7a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZN12WiFiSTAClass10disconnectEbb.str1.1
-                0x000000003f4025a1       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZN12WiFiSTAClass7localIPEv.str1.1
-                0x000000003f4025ce       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZZN12WiFiSTAClass7localIPEvE12__FUNCTION__
-                0x000000003f4025fb        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZZN12WiFiSTAClass10disconnectEbbE12__FUNCTION__
-                0x000000003f402603        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZZN12WiFiSTAClass5beginEvE12__FUNCTION__
-                0x000000003f40260e        0x6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZZN12WiFiSTAClass5beginEPKcS1_iPKhbE12__FUNCTION__
-                0x000000003f402614        0x6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .rodata._ZZN12WiFiSTAClass10_setStatusE11wl_status_tE12__FUNCTION__
-                0x000000003f40261a        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- *fill*         0x000000003f402625        0x3 
- .rodata._ZL23BlynkWriteHandlerVector
-                0x000000003f402628      0x200 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .rodata._ZL22BlynkReadHandlerVector
-                0x000000003f402828      0x200 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
  .rodata._ZL14digitToSegment
-                0x000000003f402a28       0x10 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x000000003f4015be       0x10 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .rodata._ZN10WiFiClient5writeEPKhj.str1.1
+                0x000000003f4015ce       0x9a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZN18WiFiClientRxBuffer10fillBufferEv.str1.1
+                0x000000003f401668       0x3d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZN10WiFiClient15setSocketOptionEiiPKvj.str1.1
+                0x000000003f4016a5       0x34 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZN10WiFiClient7connectE9IPAddressti.str1.1
+                0x000000003f4016d9      0x1b8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN10WiFiClient9availableEvE12__FUNCTION__
+                0x000000003f401891        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN10WiFiClient4peekEvE12__FUNCTION__
+                0x000000003f40189b        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN18WiFiClientRxBuffer10fillBufferEvE12__FUNCTION__
+                0x000000003f4018a0        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN10WiFiClient4readEPhjE12__FUNCTION__
+                0x000000003f4018ab        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN10WiFiClient5writeEPKhjE12__FUNCTION__
+                0x000000003f4018b0        0x6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN10WiFiClient15setSocketOptionEiiPKvjE12__FUNCTION__
+                0x000000003f4018b6       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .rodata._ZZN10WiFiClient7connectE9IPAddresstiE12__FUNCTION__
+                0x000000003f4018c6        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ *fill*         0x000000003f4018ce        0x2 
+ .rodata._ZTV10WiFiClient
+                0x000000003f4018d0       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000003f4018d0                vtable for WiFiClient
+ .rodata._ZTVSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE
+                0x000000003f401930       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000003f401930                vtable for std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>
+ .rodata._ZTVSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE
+                0x000000003f40194c       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000003f40194c                vtable for std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>
+ .rodata._ZL22get_esp_netif_hostnamev$part$0.str1.1
+                0x000000003f401968       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._Z21set_esp_interface_dns15esp_interface_t9IPAddressS0_S0_.str1.1
+                0x000000003f40197e       0xf1 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._Z16postArduinoEventP15arduino_event_t.str1.1
+                0x000000003f401a6f       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZL17_arduino_event_cbPvPKciS_.str1.1
+                0x000000003f401ad7       0x5c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._Z9tcpipInitv.str1.1
+                0x000000003f401b33      0x2b6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._Z16wifiLowLevelInitb.str1.1
+                0x000000003f401de9       0x29 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZN16WiFiGenericClass4modeE11wifi_mode_t.str1.1
+                0x000000003f401e12      0x139 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZN16WiFiGenericClass10hostByNameEPKcR9IPAddress.str1.1
+                0x000000003f401f4b       0x2a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._Z20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_.str1.1
+                0x000000003f401f75      0x31b .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZN16WiFiGenericClass14_eventCallbackEP15arduino_event_t.str1.1
+                0x000000003f402290       0x2f .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZN16WiFiGenericClass10hostByNameEPKcR9IPAddressE12__FUNCTION__
+                0x000000003f4022bf        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZL12espWiFiStartvE12__FUNCTION__
+                0x000000003f4022ca        0xd .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZL11espWiFiStopvE12__FUNCTION__
+                0x000000003f4022d7        0xc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZN16WiFiGenericClass4modeE11wifi_mode_tE12__FUNCTION__
+                0x000000003f4022e3        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZN16WiFiGenericClass14_eventCallbackEP15arduino_event_tE12__FUNCTION__
+                0x000000003f4022e8        0xf .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZ16wifiLowLevelInitbE12__FUNCTION__
+                0x000000003f4022f7       0x11 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZL17_arduino_event_cbPvPKciS_E12__FUNCTION__
+                0x000000003f402308       0x12 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZL25_start_network_event_taskvE12__FUNCTION__
+                0x000000003f40231a       0x1a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZ9tcpipInitvE12__FUNCTION__
+                0x000000003f402334        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZ16postArduinoEventP15arduino_event_tE12__FUNCTION__
+                0x000000003f40233e       0x11 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZZ20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_E12__FUNCTION__
+                0x000000003f40234f       0x15 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .rodata._ZN12WiFiSTAClass10_setStatusE11wl_status_t.str1.1
+                0x000000003f402364       0x98 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZN12WiFiSTAClass5beginEPKcS1_iPKhb.str1.1
+                0x000000003f4023fc      0x13b .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZN12WiFiSTAClass5beginEv.str1.1
+                0x000000003f402537       0x7a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZN12WiFiSTAClass10disconnectEbb.str1.1
+                0x000000003f4025b1       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZN12WiFiSTAClass7localIPEv.str1.1
+                0x000000003f4025de       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZZN12WiFiSTAClass7localIPEvE12__FUNCTION__
+                0x000000003f40260b        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZZN12WiFiSTAClass10disconnectEbbE12__FUNCTION__
+                0x000000003f402613        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZZN12WiFiSTAClass5beginEvE12__FUNCTION__
+                0x000000003f40261e        0x6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZZN12WiFiSTAClass5beginEPKcS1_iPKhbE12__FUNCTION__
+                0x000000003f402624        0x6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .rodata._ZZN12WiFiSTAClass10_setStatusE11wl_status_tE12__FUNCTION__
+                0x000000003f40262a        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ *fill*         0x000000003f402635        0x3 
+ .rodata._ZL23BlynkWriteHandlerVector
+                0x000000003f402638      0x200 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .rodata._ZL22BlynkReadHandlerVector
+                0x000000003f402838      0x200 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
  .rodata._ZN14HardwareSerialC2Eh.str1.1
                 0x000000003f402a38       0x95 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
  .rodata._ZN14HardwareSerial16_createEventTaskEPv.str1.1
@@ -41265,14 +41265,14 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
  *(.eh_frame)
  .eh_frame      0x000000003f4161a4        0x0 c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/xtensa-esp32-elf/8.4.0/no-rtti/crtbegin.o
  .eh_frame      0x000000003f4161a4      0x2b8 .pio\build\esp32dev\src\main.cpp.o
- .eh_frame      0x000000003f41645c       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .eh_frame      0x000000003f416484      0x47c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .eh_frame      0x000000003f416900      0x4c4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .eh_frame      0x000000003f416dc4      0x2e0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .eh_frame      0x000000003f4170a4       0xb8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .eh_frame      0x000000003f41715c       0x88 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .eh_frame      0x000000003f4171e4      0x118 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .eh_frame      0x000000003f4172fc      0x118 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .eh_frame      0x000000003f41645c      0x118 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .eh_frame      0x000000003f416574       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .eh_frame      0x000000003f41659c      0x47c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .eh_frame      0x000000003f416a18      0x4c4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .eh_frame      0x000000003f416edc      0x2e0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .eh_frame      0x000000003f4171bc       0xb8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .eh_frame      0x000000003f417274       0x88 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .eh_frame      0x000000003f4172fc      0x118 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .eh_frame      0x000000003f417414       0xe4 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .eh_frame      0x000000003f4174f8      0x2fc .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .eh_frame      0x000000003f4177f4      0x3f0 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -42435,242 +42435,242 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
  .literal.startup._GLOBAL__sub_I_Blynk
                 0x00000000400d0198       0x10 .pio\build\esp32dev\src\main.cpp.o
                                          0x40 (size before relaxing)
- .literal.startup._GLOBAL__sub_I__ZN9WiFiClass9printDiagER5Print
-                0x00000000400d01a8        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN10WiFiClient7connectE9IPAddresst
-                0x00000000400d01ac        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EED5Ev
-                0x00000000400d01ac        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x00000000400d01ac        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EED5Ev
-                0x00000000400d01ac        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x00000000400d01ac        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._ZN10WiFiClient7connectEPKcti
-                0x00000000400d01ac        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0xc (size before relaxing)
- .literal._ZN10WiFiClient5writeEPKhj
-                0x00000000400d01ac       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x40 (size before relaxing)
- .literal._ZN10WiFiClient9connectedEv
-                0x00000000400d01c8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x00000000400d01c8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x00000000400d01c8        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN18WiFiClientRxBuffer11r_availableEv
-                0x00000000400d01cc        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN10WiFiClient9availableEv
-                0x00000000400d01d0        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x34 (size before relaxing)
- .literal._ZN18WiFiClientRxBuffer10fillBufferEv
-                0x00000000400d01d4        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x34 (size before relaxing)
- .literal._ZN10WiFiClient4peekEv
-                0x00000000400d01dc        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x34 (size before relaxing)
- .literal._ZN10WiFiClient5flushEv
-                0x00000000400d01e0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN18WiFiClientRxBuffer4readEPhj
-                0x00000000400d01e0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x18 (size before relaxing)
- .literal._ZN10WiFiClient4readEPhj
-                0x00000000400d01e0        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x34 (size before relaxing)
- .literal._ZN10WiFiClientC2Ev
-                0x00000000400d01e4        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .literal._ZN10WiFiClient15setSocketOptionEiiPKvj
-                0x00000000400d01ec        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x34 (size before relaxing)
- .literal._ZN10WiFiClient15setSocketOptionEiPcj
-                0x00000000400d01f4        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN10WiFiClient10setTimeoutEj
-                0x00000000400d01f8        0xc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x14 (size before relaxing)
- .literal._ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EED5Ev
-                0x00000000400d0204        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .literal._ZN10WiFiClient4stopEv
-                0x00000000400d0208        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x10 (size before relaxing)
- .literal._ZN10WiFiClientD2Ev
-                0x00000000400d0208        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x10 (size before relaxing)
- .literal._ZN10WiFiClientD0Ev
-                0x00000000400d0208        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZNSt12__shared_ptrI22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE5resetIS0_EENSt9enable_ifIXsrSt21__sp_is_constructibleIS0_T_E5valueEvE4typeEPS7_
-                0x00000000400d0208        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x24 (size before relaxing)
- .literal._ZNSt12__shared_ptrI18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE5resetIS0_EENSt9enable_ifIXsrSt21__sp_is_constructibleIS0_T_E5valueEvE4typeEPS7_
-                0x00000000400d020c        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                         0x24 (size before relaxing)
- .literal._ZN10WiFiClient7connectE9IPAddressti
-                0x00000000400d0210       0x2c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                        0x140 (size before relaxing)
- .literal._ZL23wifi_dns_found_callbackPKcPK7ip_addrPv
-                0x00000000400d023c        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x10 (size before relaxing)
- .literal._ZL22get_esp_netif_hostnamev$part$0
-                0x00000000400d0244        0xc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x14 (size before relaxing)
- .literal._Z23get_esp_netif_interfaceP13esp_netif_obj
-                0x00000000400d0250        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .literal._Z23get_esp_interface_netif15esp_interface_t
-                0x00000000400d0254        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._Z26set_esp_interface_hostname15esp_interface_tPKc
-                0x00000000400d0254        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._Z16postArduinoEventP15arduino_event_t
-                0x00000000400d0254       0x14 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x44 (size before relaxing)
- .literal._ZL17_arduino_event_cbPvPKciS_
-                0x00000000400d0268       0x24 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x5c (size before relaxing)
- .literal._Z9tcpipInitv
-                0x00000000400d028c       0x54 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                        0x130 (size before relaxing)
- .literal._Z16wifiLowLevelInitb
-                0x00000000400d02e0       0x24 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x6c (size before relaxing)
- .literal._ZN16WiFiGenericClass13setStatusBitsEi
-                0x00000000400d0304        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN16WiFiGenericClass15clearStatusBitsEi
-                0x00000000400d0304        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN16WiFiGenericClass14waitStatusBitsEij
-                0x00000000400d0304        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN16WiFiGenericClass7getModeEv
-                0x00000000400d0304        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0xc (size before relaxing)
- .literal._ZN16WiFiGenericClass4modeE11wifi_mode_t
-                0x00000000400d0308       0x2c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0xc0 (size before relaxing)
- .literal._ZN16WiFiGenericClass9enableSTAEb
-                0x00000000400d0334        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN16WiFiGenericClass10hostByNameEPKcR9IPAddress
-                0x00000000400d0334       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x60 (size before relaxing)
- .literal._Z20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_
-                0x00000000400d0350       0x4c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                        0x18c (size before relaxing)
- .literal._ZNSt8functionIFv18arduino_event_id_t20arduino_event_info_tEEC5ERKS3_
-                0x00000000400d039c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN15WiFiEventCbListC5ERKS_
-                0x00000000400d039c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._ZN16WiFiGenericClass14_eventCallbackEP15arduino_event_t
-                0x00000000400d039c       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0xa4 (size before relaxing)
- .literal._ZL19_arduino_event_taskPv
-                0x00000000400d03b8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                         0x10 (size before relaxing)
- .literal.startup._GLOBAL__sub_I_ARDUINO_EVENTS
-                0x00000000400d03b8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0x4 (size before relaxing)
- .literal.exit._GLOBAL__sub_D_ARDUINO_EVENTS
-                0x00000000400d03b8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                          0xc (size before relaxing)
- .literal._ZL13_wifi_strncpyPcPKcj
-                0x00000000400d03b8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZN12WiFiSTAClass10_setStatusE11wl_status_t
-                0x00000000400d03b8       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                         0x3c (size before relaxing)
- .literal._ZN12WiFiSTAClass6statusEv
-                0x00000000400d03d0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                          0xc (size before relaxing)
- .literal._ZN12WiFiSTAClass5beginEPKcS1_iPKhb
-                0x00000000400d03d0       0x34 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                         0xf8 (size before relaxing)
- .literal._ZN12WiFiSTAClass5beginEv
-                0x00000000400d0404       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                         0x8c (size before relaxing)
- .literal._ZN12WiFiSTAClass10disconnectEbb
-                0x00000000400d0414        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                         0x58 (size before relaxing)
- .literal._ZN12WiFiSTAClass16getAutoReconnectEv
-                0x00000000400d041c        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .literal._ZN12WiFiSTAClass7localIPEv
-                0x00000000400d0420        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                         0x38 (size before relaxing)
- .literal._ZN13WiFiScanClass9_scanDoneEv
-                0x00000000400d0428       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
-                                         0x28 (size before relaxing)
- .literal._Z10BlynkDelayj
-                0x00000000400d0438        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
-                                          0x4 (size before relaxing)
- .literal._Z11BlynkMillisv
-                0x00000000400d0438        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
-                                          0x4 (size before relaxing)
- .literal.GetReadHandler
-                0x00000000400d0438        0x4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .literal.GetWriteHandler
-                0x00000000400d043c        0x4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .literal._ZN10BlynkTimer17findFirstFreeSlotEv
-                0x00000000400d0440        0x4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .literal._ZNSt8functionIFvvEE4swapERS1_
-                0x00000000400d0444        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                          0x8 (size before relaxing)
- .literal._ZNSt8functionIFvvEEaSEOS1_
-                0x00000000400d0444        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                         0x14 (size before relaxing)
- .literal._ZN10BlynkTimer11deleteTimerEj
-                0x00000000400d0444        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                         0x1c (size before relaxing)
- .literal._ZN10BlynkTimer3runEv
-                0x00000000400d0444        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                         0x10 (size before relaxing)
- .literal._ZN10BlynkTimer4initEv
-                0x00000000400d0444        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                         0x18 (size before relaxing)
- .literal._ZN10BlynkTimer10setupTimerEmRKSt8functionIFvvEEj
-                0x00000000400d0444        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                         0x24 (size before relaxing)
  .literal._ZN13TM1637DisplayC2Ehhj
-                0x00000000400d0444        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                          0x10 (size before relaxing)
  .literal._ZN13TM1637Display8bitDelayEv
-                0x00000000400d0444        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                           0x4 (size before relaxing)
  .literal._ZN13TM1637Display5startEv
-                0x00000000400d0444        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                           0x8 (size before relaxing)
  .literal._ZN13TM1637Display4stopEv
-                0x00000000400d0444        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                          0x18 (size before relaxing)
  .literal._ZN13TM1637Display9writeByteEh
-                0x00000000400d0444        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                          0x40 (size before relaxing)
  .literal._ZN13TM1637Display11setSegmentsEPKhhh
-                0x00000000400d0444        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                          0x28 (size before relaxing)
  .literal._ZN13TM1637Display16showNumberBaseExEathbhh
-                0x00000000400d0444        0x8 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01a8        0x8 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                           0xc (size before relaxing)
  .literal._ZN13TM1637Display15showNumberDecExEihbhh
-                0x00000000400d044c        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01b0        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                           0x4 (size before relaxing)
  .literal._ZN13TM1637Display13showNumberDecEibhh
-                0x00000000400d044c        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d01b0        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                           0x4 (size before relaxing)
+ .literal.startup._GLOBAL__sub_I__ZN9WiFiClass9printDiagER5Print
+                0x00000000400d01b0        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN10WiFiClient7connectE9IPAddresst
+                0x00000000400d01b4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EED5Ev
+                0x00000000400d01b4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
+                0x00000000400d01b4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EED5Ev
+                0x00000000400d01b4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
+                0x00000000400d01b4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._ZN10WiFiClient7connectEPKcti
+                0x00000000400d01b4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0xc (size before relaxing)
+ .literal._ZN10WiFiClient5writeEPKhj
+                0x00000000400d01b4       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x40 (size before relaxing)
+ .literal._ZN10WiFiClient9connectedEv
+                0x00000000400d01d0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
+                0x00000000400d01d0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
+                0x00000000400d01d0        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN18WiFiClientRxBuffer11r_availableEv
+                0x00000000400d01d4        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN10WiFiClient9availableEv
+                0x00000000400d01d8        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x34 (size before relaxing)
+ .literal._ZN18WiFiClientRxBuffer10fillBufferEv
+                0x00000000400d01dc        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x34 (size before relaxing)
+ .literal._ZN10WiFiClient4peekEv
+                0x00000000400d01e4        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x34 (size before relaxing)
+ .literal._ZN10WiFiClient5flushEv
+                0x00000000400d01e8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN18WiFiClientRxBuffer4readEPhj
+                0x00000000400d01e8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x18 (size before relaxing)
+ .literal._ZN10WiFiClient4readEPhj
+                0x00000000400d01e8        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x34 (size before relaxing)
+ .literal._ZN10WiFiClientC2Ev
+                0x00000000400d01ec        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .literal._ZN10WiFiClient15setSocketOptionEiiPKvj
+                0x00000000400d01f4        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x34 (size before relaxing)
+ .literal._ZN10WiFiClient15setSocketOptionEiPcj
+                0x00000000400d01fc        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN10WiFiClient10setTimeoutEj
+                0x00000000400d0200        0xc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x14 (size before relaxing)
+ .literal._ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EED5Ev
+                0x00000000400d020c        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .literal._ZN10WiFiClient4stopEv
+                0x00000000400d0210        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x10 (size before relaxing)
+ .literal._ZN10WiFiClientD2Ev
+                0x00000000400d0210        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x10 (size before relaxing)
+ .literal._ZN10WiFiClientD0Ev
+                0x00000000400d0210        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZNSt12__shared_ptrI22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE5resetIS0_EENSt9enable_ifIXsrSt21__sp_is_constructibleIS0_T_E5valueEvE4typeEPS7_
+                0x00000000400d0210        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x24 (size before relaxing)
+ .literal._ZNSt12__shared_ptrI18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE5resetIS0_EENSt9enable_ifIXsrSt21__sp_is_constructibleIS0_T_E5valueEvE4typeEPS7_
+                0x00000000400d0214        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                         0x24 (size before relaxing)
+ .literal._ZN10WiFiClient7connectE9IPAddressti
+                0x00000000400d0218       0x2c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                        0x140 (size before relaxing)
+ .literal._ZL23wifi_dns_found_callbackPKcPK7ip_addrPv
+                0x00000000400d0244        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x10 (size before relaxing)
+ .literal._ZL22get_esp_netif_hostnamev$part$0
+                0x00000000400d024c        0xc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x14 (size before relaxing)
+ .literal._Z23get_esp_netif_interfaceP13esp_netif_obj
+                0x00000000400d0258        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .literal._Z23get_esp_interface_netif15esp_interface_t
+                0x00000000400d025c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._Z26set_esp_interface_hostname15esp_interface_tPKc
+                0x00000000400d025c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._Z16postArduinoEventP15arduino_event_t
+                0x00000000400d025c       0x14 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x44 (size before relaxing)
+ .literal._ZL17_arduino_event_cbPvPKciS_
+                0x00000000400d0270       0x24 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x5c (size before relaxing)
+ .literal._Z9tcpipInitv
+                0x00000000400d0294       0x54 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                        0x130 (size before relaxing)
+ .literal._Z16wifiLowLevelInitb
+                0x00000000400d02e8       0x24 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x6c (size before relaxing)
+ .literal._ZN16WiFiGenericClass13setStatusBitsEi
+                0x00000000400d030c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN16WiFiGenericClass15clearStatusBitsEi
+                0x00000000400d030c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN16WiFiGenericClass14waitStatusBitsEij
+                0x00000000400d030c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN16WiFiGenericClass7getModeEv
+                0x00000000400d030c        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0xc (size before relaxing)
+ .literal._ZN16WiFiGenericClass4modeE11wifi_mode_t
+                0x00000000400d0310       0x2c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0xc0 (size before relaxing)
+ .literal._ZN16WiFiGenericClass9enableSTAEb
+                0x00000000400d033c        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN16WiFiGenericClass10hostByNameEPKcR9IPAddress
+                0x00000000400d033c       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x60 (size before relaxing)
+ .literal._Z20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_
+                0x00000000400d0358       0x4c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                        0x18c (size before relaxing)
+ .literal._ZNSt8functionIFv18arduino_event_id_t20arduino_event_info_tEEC5ERKS3_
+                0x00000000400d03a4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN15WiFiEventCbListC5ERKS_
+                0x00000000400d03a4        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._ZN16WiFiGenericClass14_eventCallbackEP15arduino_event_t
+                0x00000000400d03a4       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0xa4 (size before relaxing)
+ .literal._ZL19_arduino_event_taskPv
+                0x00000000400d03c0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                         0x10 (size before relaxing)
+ .literal.startup._GLOBAL__sub_I_ARDUINO_EVENTS
+                0x00000000400d03c0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal.exit._GLOBAL__sub_D_ARDUINO_EVENTS
+                0x00000000400d03c0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                          0xc (size before relaxing)
+ .literal._ZL13_wifi_strncpyPcPKcj
+                0x00000000400d03c0        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZN12WiFiSTAClass10_setStatusE11wl_status_t
+                0x00000000400d03c0       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                         0x3c (size before relaxing)
+ .literal._ZN12WiFiSTAClass6statusEv
+                0x00000000400d03d8        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                          0xc (size before relaxing)
+ .literal._ZN12WiFiSTAClass5beginEPKcS1_iPKhb
+                0x00000000400d03d8       0x34 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                         0xf8 (size before relaxing)
+ .literal._ZN12WiFiSTAClass5beginEv
+                0x00000000400d040c       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                         0x8c (size before relaxing)
+ .literal._ZN12WiFiSTAClass10disconnectEbb
+                0x00000000400d041c        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                         0x58 (size before relaxing)
+ .literal._ZN12WiFiSTAClass16getAutoReconnectEv
+                0x00000000400d0424        0x4 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .literal._ZN12WiFiSTAClass7localIPEv
+                0x00000000400d0428        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                         0x38 (size before relaxing)
+ .literal._ZN13WiFiScanClass9_scanDoneEv
+                0x00000000400d0430       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+                                         0x28 (size before relaxing)
+ .literal._Z10BlynkDelayj
+                0x00000000400d0440        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal._Z11BlynkMillisv
+                0x00000000400d0440        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                                          0x4 (size before relaxing)
+ .literal.GetReadHandler
+                0x00000000400d0440        0x4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .literal.GetWriteHandler
+                0x00000000400d0444        0x4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .literal._ZN10BlynkTimer17findFirstFreeSlotEv
+                0x00000000400d0448        0x4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+ .literal._ZNSt8functionIFvvEE4swapERS1_
+                0x00000000400d044c        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                          0x8 (size before relaxing)
+ .literal._ZNSt8functionIFvvEEaSEOS1_
+                0x00000000400d044c        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                         0x14 (size before relaxing)
+ .literal._ZN10BlynkTimer11deleteTimerEj
+                0x00000000400d044c        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                         0x1c (size before relaxing)
+ .literal._ZN10BlynkTimer3runEv
+                0x00000000400d044c        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                         0x10 (size before relaxing)
+ .literal._ZN10BlynkTimer4initEv
+                0x00000000400d044c        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                         0x18 (size before relaxing)
+ .literal._ZN10BlynkTimer10setupTimerEmRKSt8functionIFvvEEj
+                0x00000000400d044c        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                         0x24 (size before relaxing)
  .literal._ZN3DHTC2Ehhh
                 0x00000000400d044c        0x0 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
                                           0x4 (size before relaxing)
@@ -47551,362 +47551,362 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
                 0x00000000400d3b7c       0x73 .pio\build\esp32dev\src\main.cpp.o
                                          0x83 (size before relaxing)
  *fill*         0x00000000400d3bef        0x1 
+ .text._ZN13TM1637DisplayC2Ehhj
+                0x00000000400d3bf0       0x2e .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                         0x3e (size before relaxing)
+                0x00000000400d3bf0                TM1637Display::TM1637Display(unsigned char, unsigned char, unsigned int)
+                0x00000000400d3bf0                TM1637Display::TM1637Display(unsigned char, unsigned char, unsigned int)
+ *fill*         0x00000000400d3c1e        0x2 
+ .text._ZN13TM1637Display8bitDelayEv
+                0x00000000400d3c20        0xa .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                          0xe (size before relaxing)
+                0x00000000400d3c20                TM1637Display::bitDelay()
+ *fill*         0x00000000400d3c2a        0x2 
+ .text._ZN13TM1637Display5startEv
+                0x00000000400d3c2c       0x14 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                         0x18 (size before relaxing)
+                0x00000000400d3c2c                TM1637Display::start()
+ .text._ZN13TM1637Display4stopEv
+                0x00000000400d3c40       0x2e .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                         0x3e (size before relaxing)
+                0x00000000400d3c40                TM1637Display::stop()
+ *fill*         0x00000000400d3c6e        0x2 
+ .text._ZN13TM1637Display9writeByteEh
+                0x00000000400d3c70       0x95 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                         0xc9 (size before relaxing)
+                0x00000000400d3c70                TM1637Display::writeByte(unsigned char)
+ *fill*         0x00000000400d3d05        0x3 
+ .text._ZN13TM1637Display11setSegmentsEPKhhh
+                0x00000000400d3d08       0x64 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                         0x80 (size before relaxing)
+                0x00000000400d3d08                TM1637Display::setSegments(unsigned char const*, unsigned char, unsigned char)
+ .text._ZN13TM1637Display16showNumberBaseExEathbhh
+                0x00000000400d3d6c       0xca .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d3d6c                TM1637Display::showNumberBaseEx(signed char, unsigned short, unsigned char, bool, unsigned char, unsigned char)
+ *fill*         0x00000000400d3e36        0x2 
+ .text._ZN13TM1637Display15showNumberDecExEihbhh
+                0x00000000400d3e38       0x28 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d3e38                TM1637Display::showNumberDecEx(int, unsigned char, bool, unsigned char, unsigned char)
+ .text._ZN13TM1637Display13showNumberDecEibhh
+                0x00000000400d3e60       0x1a .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x00000000400d3e60                TM1637Display::showNumberDec(int, bool, unsigned char, unsigned char)
+ *fill*         0x00000000400d3e7a        0x2 
  .text.startup._GLOBAL__sub_I__ZN9WiFiClass9printDiagER5Print
-                0x00000000400d3bf0       0x15 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- *fill*         0x00000000400d3c05        0x3 
+                0x00000000400d3e7c       0x15 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ *fill*         0x00000000400d3e91        0x3 
  .text._ZN10WiFiClient7connectE9IPAddresst
-                0x00000000400d3c08       0x21 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x00000000400d3c08                WiFiClient::connect(IPAddress, unsigned short)
- *fill*         0x00000000400d3c29        0x3 
+                0x00000000400d3e94       0x21 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3e94                WiFiClient::connect(IPAddress, unsigned short)
+ *fill*         0x00000000400d3eb5        0x3 
  .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x00000000400d3c2c        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3eb8        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                           0xe (size before relaxing)
-                0x00000000400d3c2c                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
- *fill*         0x00000000400d3c36        0x2 
+                0x00000000400d3eb8                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
+ *fill*         0x00000000400d3ec2        0x2 
  .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x00000000400d3c38        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3ec4        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                           0xe (size before relaxing)
-                0x00000000400d3c38                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
- *fill*         0x00000000400d3c42        0x2 
+                0x00000000400d3ec4                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+ *fill*         0x00000000400d3ece        0x2 
  .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x00000000400d3c44        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3ed0        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                           0xe (size before relaxing)
-                0x00000000400d3c44                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
- *fill*         0x00000000400d3c4e        0x2 
+                0x00000000400d3ed0                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
+ *fill*         0x00000000400d3eda        0x2 
  .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x00000000400d3c50        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3edc        0xa .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                           0xe (size before relaxing)
-                0x00000000400d3c50                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
- *fill*         0x00000000400d3c5a        0x2 
+                0x00000000400d3edc                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+ *fill*         0x00000000400d3ee6        0x2 
  .text._ZN10WiFiClient7connectEPKcti
-                0x00000000400d3c5c       0x35 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3ee8       0x35 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x39 (size before relaxing)
-                0x00000000400d3c5c                WiFiClient::connect(char const*, unsigned short, int)
- *fill*         0x00000000400d3c91        0x3 
+                0x00000000400d3ee8                WiFiClient::connect(char const*, unsigned short, int)
+ *fill*         0x00000000400d3f1d        0x3 
  .text._ZN10WiFiClient5writeEPKhj
-                0x00000000400d3c94      0x154 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d3f20      0x154 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                         0x164 (size before relaxing)
-                0x00000000400d3c94                WiFiClient::write(unsigned char const*, unsigned int)
+                0x00000000400d3f20                WiFiClient::write(unsigned char const*, unsigned int)
  .text._ZN10WiFiClient9connectedEv
-                0x00000000400d3de8       0x55 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4074       0x55 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x5d (size before relaxing)
-                0x00000000400d3de8                WiFiClient::connected()
- *fill*         0x00000000400d3e3d        0x3 
+                0x00000000400d4074                WiFiClient::connected()
+ *fill*         0x00000000400d40c9        0x3 
  .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x00000000400d3e40       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d40cc       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x1a (size before relaxing)
-                0x00000000400d3e40                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
- *fill*         0x00000000400d3e56        0x2 
+                0x00000000400d40cc                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+ *fill*         0x00000000400d40e2        0x2 
  .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x00000000400d3e58       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d40e4       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x1a (size before relaxing)
-                0x00000000400d3e58                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
- *fill*         0x00000000400d3e6e        0x2 
+                0x00000000400d40e4                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+ *fill*         0x00000000400d40fa        0x2 
  .text._ZN18WiFiClientRxBuffer11r_availableEv
-                0x00000000400d3e70       0x23 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d40fc       0x23 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x27 (size before relaxing)
-                0x00000000400d3e70                WiFiClientRxBuffer::r_available()
- *fill*         0x00000000400d3e93        0x1 
+                0x00000000400d40fc                WiFiClientRxBuffer::r_available()
+ *fill*         0x00000000400d411f        0x1 
  .text._ZN10WiFiClient9availableEv
-                0x00000000400d3e94       0x87 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4120       0x87 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x9f (size before relaxing)
-                0x00000000400d3e94                WiFiClient::available()
- *fill*         0x00000000400d3f1b        0x1 
+                0x00000000400d4120                WiFiClient::available()
+ *fill*         0x00000000400d41a7        0x1 
  .text._ZN18WiFiClientRxBuffer10fillBufferEv
-                0x00000000400d3f1c       0xb3 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d41a8       0xb3 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0xc3 (size before relaxing)
-                0x00000000400d3f1c                WiFiClientRxBuffer::fillBuffer()
- *fill*         0x00000000400d3fcf        0x1 
+                0x00000000400d41a8                WiFiClientRxBuffer::fillBuffer()
+ *fill*         0x00000000400d425b        0x1 
  .text._ZN10WiFiClient4peekEv
-                0x00000000400d3fd0       0x9a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d425c       0x9a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0xad (size before relaxing)
-                0x00000000400d3fd0                WiFiClient::peek()
- *fill*         0x00000000400d406a        0x2 
+                0x00000000400d425c                WiFiClient::peek()
+ *fill*         0x00000000400d42f6        0x2 
  .text._ZN10WiFiClient5flushEv
-                0x00000000400d406c       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d42f8       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x20 (size before relaxing)
-                0x00000000400d406c                WiFiClient::flush()
+                0x00000000400d42f8                WiFiClient::flush()
  .text._ZN18WiFiClientRxBuffer4readEPhj
-                0x00000000400d4088       0xc0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4314       0xc0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0xc8 (size before relaxing)
-                0x00000000400d4088                WiFiClientRxBuffer::read(unsigned char*, unsigned int)
+                0x00000000400d4314                WiFiClientRxBuffer::read(unsigned char*, unsigned int)
  .text._ZN10WiFiClient4readEPhj
-                0x00000000400d4148       0x81 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d43d4       0x81 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x95 (size before relaxing)
-                0x00000000400d4148                WiFiClient::read(unsigned char*, unsigned int)
- *fill*         0x00000000400d41c9        0x3 
+                0x00000000400d43d4                WiFiClient::read(unsigned char*, unsigned int)
+ *fill*         0x00000000400d4455        0x3 
  .text._ZN10WiFiClientC2Ev
-                0x00000000400d41cc       0x27 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x00000000400d41cc                WiFiClient::WiFiClient()
-                0x00000000400d41cc                WiFiClient::WiFiClient()
- *fill*         0x00000000400d41f3        0x1 
+                0x00000000400d4458       0x27 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4458                WiFiClient::WiFiClient()
+                0x00000000400d4458                WiFiClient::WiFiClient()
+ *fill*         0x00000000400d447f        0x1 
  .text._ZN10WiFiClient15setSocketOptionEiiPKvj
-                0x00000000400d41f4       0x7c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4480       0x7c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x90 (size before relaxing)
-                0x00000000400d41f4                WiFiClient::setSocketOption(int, int, void const*, unsigned int)
+                0x00000000400d4480                WiFiClient::setSocketOption(int, int, void const*, unsigned int)
  .text._ZN10WiFiClient15setSocketOptionEiPcj
-                0x00000000400d4270       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x00000000400d4270                WiFiClient::setSocketOption(int, char*, unsigned int)
+                0x00000000400d44fc       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d44fc                WiFiClient::setSocketOption(int, char*, unsigned int)
  .text._ZN10WiFiClient10setTimeoutEj
-                0x00000000400d4288       0x56 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4514       0x56 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x5a (size before relaxing)
-                0x00000000400d4288                WiFiClient::setTimeout(unsigned int)
- *fill*         0x00000000400d42de        0x2 
+                0x00000000400d4514                WiFiClient::setTimeout(unsigned int)
+ *fill*         0x00000000400d456a        0x2 
  .text._ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x00000000400d42e0        0xf .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x00000000400d42e0                std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
-                0x00000000400d42e0                std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
- *fill*         0x00000000400d42ef        0x1 
+                0x00000000400d456c        0xf .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d456c                std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
+                0x00000000400d456c                std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
+ *fill*         0x00000000400d457b        0x1 
  .text._ZN10WiFiClient4stopEv
-                0x00000000400d42f0       0x3e .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d457c       0x3e .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x4a (size before relaxing)
-                0x00000000400d42f0                WiFiClient::stop()
- *fill*         0x00000000400d432e        0x2 
+                0x00000000400d457c                WiFiClient::stop()
+ *fill*         0x00000000400d45ba        0x2 
  .text._ZN10WiFiClientD2Ev
-                0x00000000400d4330       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d45bc       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x24 (size before relaxing)
-                0x00000000400d4330                WiFiClient::~WiFiClient()
-                0x00000000400d4330                WiFiClient::~WiFiClient()
+                0x00000000400d45bc                WiFiClient::~WiFiClient()
+                0x00000000400d45bc                WiFiClient::~WiFiClient()
  .text._ZN10WiFiClientD0Ev
-                0x00000000400d434c       0x12 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d45d8       0x12 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                          0x16 (size before relaxing)
-                0x00000000400d434c                WiFiClient::~WiFiClient()
- *fill*         0x00000000400d435e        0x2 
+                0x00000000400d45d8                WiFiClient::~WiFiClient()
+ *fill*         0x00000000400d45ea        0x2 
  .text._ZNSt12__shared_ptrI22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE5resetIS0_EENSt9enable_ifIXsrSt21__sp_is_constructibleIS0_T_E5valueEvE4typeEPS7_
-                0x00000000400d4360       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x00000000400d4360                std::enable_if<std::__sp_is_constructible<WiFiClientSocketHandle, WiFiClientSocketHandle>::value, void>::type std::__shared_ptr<WiFiClientSocketHandle, (__gnu_cxx::_Lock_policy)2>::reset<WiFiClientSocketHandle>(WiFiClientSocketHandle*)
+                0x00000000400d45ec       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d45ec                std::enable_if<std::__sp_is_constructible<WiFiClientSocketHandle, WiFiClientSocketHandle>::value, void>::type std::__shared_ptr<WiFiClientSocketHandle, (__gnu_cxx::_Lock_policy)2>::reset<WiFiClientSocketHandle>(WiFiClientSocketHandle*)
  .text._ZNSt12__shared_ptrI18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE5resetIS0_EENSt9enable_ifIXsrSt21__sp_is_constructibleIS0_T_E5valueEvE4typeEPS7_
-                0x00000000400d43c8       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x00000000400d43c8                std::enable_if<std::__sp_is_constructible<WiFiClientRxBuffer, WiFiClientRxBuffer>::value, void>::type std::__shared_ptr<WiFiClientRxBuffer, (__gnu_cxx::_Lock_policy)2>::reset<WiFiClientRxBuffer>(WiFiClientRxBuffer*)
+                0x00000000400d4654       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d4654                std::enable_if<std::__sp_is_constructible<WiFiClientRxBuffer, WiFiClientRxBuffer>::value, void>::type std::__shared_ptr<WiFiClientRxBuffer, (__gnu_cxx::_Lock_policy)2>::reset<WiFiClientRxBuffer>(WiFiClientRxBuffer*)
  .text._ZN10WiFiClient7connectE9IPAddressti
-                0x00000000400d4430      0x3cc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x00000000400d46bc      0x3cc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                         0x45c (size before relaxing)
-                0x00000000400d4430                WiFiClient::connect(IPAddress, unsigned short, int)
+                0x00000000400d46bc                WiFiClient::connect(IPAddress, unsigned short, int)
  .text._ZL23wifi_dns_found_callbackPKcPK7ip_addrPv
-                0x00000000400d47fc       0x1d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4a88       0x1d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x20 (size before relaxing)
- *fill*         0x00000000400d4819        0x3 
+ *fill*         0x00000000400d4aa5        0x3 
  .text._ZL22get_esp_netif_hostnamev$part$0
-                0x00000000400d481c       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4aa8       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x2c (size before relaxing)
  .text._Z23get_esp_netif_interfaceP13esp_netif_obj
-                0x00000000400d4844       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d4844                get_esp_netif_interface(esp_netif_obj*)
+                0x00000000400d4ad0       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4ad0                get_esp_netif_interface(esp_netif_obj*)
  .text._Z23get_esp_interface_netif15esp_interface_t
-                0x00000000400d4860       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d4860                get_esp_interface_netif(esp_interface_t)
- *fill*         0x00000000400d4876        0x2 
+                0x00000000400d4aec       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4aec                get_esp_interface_netif(esp_interface_t)
+ *fill*         0x00000000400d4b02        0x2 
  .text._Z26set_esp_interface_hostname15esp_interface_tPKc
-                0x00000000400d4878       0x20 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d4878                set_esp_interface_hostname(esp_interface_t, char const*)
+                0x00000000400d4b04       0x20 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4b04                set_esp_interface_hostname(esp_interface_t, char const*)
  .text._Z16postArduinoEventP15arduino_event_t
-                0x00000000400d4898       0x9a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4b24       0x9a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0xae (size before relaxing)
-                0x00000000400d4898                postArduinoEvent(arduino_event_t*)
- *fill*         0x00000000400d4932        0x2 
+                0x00000000400d4b24                postArduinoEvent(arduino_event_t*)
+ *fill*         0x00000000400d4bbe        0x2 
  .text._ZL17_arduino_event_cbPvPKciS_
-                0x00000000400d4934      0x290 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4bc0      0x290 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                         0x298 (size before relaxing)
  .text._Z9tcpipInitv
-                0x00000000400d4bc4      0x376 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d4e50      0x376 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                         0x3ba (size before relaxing)
-                0x00000000400d4bc4                tcpipInit()
- *fill*         0x00000000400d4f3a        0x2 
+                0x00000000400d4e50                tcpipInit()
+ *fill*         0x00000000400d51c6        0x2 
  .text._Z16wifiLowLevelInitb
-                0x00000000400d4f3c      0x170 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d51c8      0x170 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                         0x188 (size before relaxing)
-                0x00000000400d4f3c                wifiLowLevelInit(bool)
+                0x00000000400d51c8                wifiLowLevelInit(bool)
  .text._ZN16WiFiGenericClass13setStatusBitsEi
-                0x00000000400d50ac       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5338       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x1a (size before relaxing)
-                0x00000000400d50ac                WiFiGenericClass::setStatusBits(int)
- *fill*         0x00000000400d50c2        0x2 
+                0x00000000400d5338                WiFiGenericClass::setStatusBits(int)
+ *fill*         0x00000000400d534e        0x2 
  .text._ZN16WiFiGenericClass15clearStatusBitsEi
-                0x00000000400d50c4       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5350       0x16 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x1a (size before relaxing)
-                0x00000000400d50c4                WiFiGenericClass::clearStatusBits(int)
- *fill*         0x00000000400d50da        0x2 
+                0x00000000400d5350                WiFiGenericClass::clearStatusBits(int)
+ *fill*         0x00000000400d5366        0x2 
  .text._ZN16WiFiGenericClass14waitStatusBitsEij
-                0x00000000400d50dc       0x20 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d50dc                WiFiGenericClass::waitStatusBits(int, unsigned int)
+                0x00000000400d5368       0x20 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5368                WiFiGenericClass::waitStatusBits(int, unsigned int)
  .text._ZN16WiFiGenericClass7getModeEv
-                0x00000000400d50fc       0x23 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5388       0x23 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x27 (size before relaxing)
-                0x00000000400d50fc                WiFiGenericClass::getMode()
- *fill*         0x00000000400d511f        0x1 
+                0x00000000400d5388                WiFiGenericClass::getMode()
+ *fill*         0x00000000400d53ab        0x1 
  .text._ZN16WiFiGenericClass4modeE11wifi_mode_t
-                0x00000000400d5120      0x252 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d53ac      0x252 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                         0x286 (size before relaxing)
-                0x00000000400d5120                WiFiGenericClass::mode(wifi_mode_t)
- *fill*         0x00000000400d5372        0x2 
+                0x00000000400d53ac                WiFiGenericClass::mode(wifi_mode_t)
+ *fill*         0x00000000400d55fe        0x2 
  .text._ZN16WiFiGenericClass9enableSTAEb
-                0x00000000400d5374       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5600       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x2c (size before relaxing)
-                0x00000000400d5374                WiFiGenericClass::enableSTA(bool)
+                0x00000000400d5600                WiFiGenericClass::enableSTA(bool)
  .text._ZN16WiFiGenericClass10hostByNameEPKcR9IPAddress
-                0x00000000400d539c       0xbb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5628       0xbb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0xd3 (size before relaxing)
-                0x00000000400d539c                WiFiGenericClass::hostByName(char const*, IPAddress&)
- *fill*         0x00000000400d5457        0x1 
+                0x00000000400d5628                WiFiGenericClass::hostByName(char const*, IPAddress&)
+ *fill*         0x00000000400d56e3        0x1 
  .text._Z20set_esp_interface_ip15esp_interface_t9IPAddressS0_S0_S0_
-                0x00000000400d5458      0x742 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d5458                set_esp_interface_ip(esp_interface_t, IPAddress, IPAddress, IPAddress, IPAddress)
- *fill*         0x00000000400d5b9a        0x2 
+                0x00000000400d56e4      0x742 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d56e4                set_esp_interface_ip(esp_interface_t, IPAddress, IPAddress, IPAddress, IPAddress)
+ *fill*         0x00000000400d5e26        0x2 
  .text._ZNSt8functionIFv18arduino_event_id_t20arduino_event_info_tEEC2ERKS3_
-                0x00000000400d5b9c       0x32 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d5b9c                std::function<void (arduino_event_id_t, arduino_event_info_t)>::function(std::function<void (arduino_event_id_t, arduino_event_info_t)> const&)
-                0x00000000400d5b9c                std::function<void (arduino_event_id_t, arduino_event_info_t)>::function(std::function<void (arduino_event_id_t, arduino_event_info_t)> const&)
- *fill*         0x00000000400d5bce        0x2 
+                0x00000000400d5e28       0x32 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5e28                std::function<void (arduino_event_id_t, arduino_event_info_t)>::function(std::function<void (arduino_event_id_t, arduino_event_info_t)> const&)
+                0x00000000400d5e28                std::function<void (arduino_event_id_t, arduino_event_info_t)>::function(std::function<void (arduino_event_id_t, arduino_event_info_t)> const&)
+ *fill*         0x00000000400d5e5a        0x2 
  .text._ZN15WiFiEventCbListC2ERKS_
-                0x00000000400d5bd0       0x1f .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d5bd0                WiFiEventCbList::WiFiEventCbList(WiFiEventCbList const&)
-                0x00000000400d5bd0                WiFiEventCbList::WiFiEventCbList(WiFiEventCbList const&)
- *fill*         0x00000000400d5bef        0x1 
+                0x00000000400d5e5c       0x1f .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5e5c                WiFiEventCbList::WiFiEventCbList(WiFiEventCbList const&)
+                0x00000000400d5e5c                WiFiEventCbList::WiFiEventCbList(WiFiEventCbList const&)
+ *fill*         0x00000000400d5e7b        0x1 
  .text._ZN16WiFiGenericClass14_eventCallbackEP15arduino_event_t
-                0x00000000400d5bf0      0x32a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x00000000400d5bf0                WiFiGenericClass::_eventCallback(arduino_event_t*)
- *fill*         0x00000000400d5f1a        0x2 
+                0x00000000400d5e7c      0x32a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d5e7c                WiFiGenericClass::_eventCallback(arduino_event_t*)
+ *fill*         0x00000000400d61a6        0x2 
  .text._ZL19_arduino_event_taskPv
-                0x00000000400d5f1c       0x27 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d61a8       0x27 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                          0x2f (size before relaxing)
- *fill*         0x00000000400d5f43        0x1 
+ *fill*         0x00000000400d61cf        0x1 
  .text.startup._GLOBAL__sub_I_ARDUINO_EVENTS
-                0x00000000400d5f44       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d61d0       0x10 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
  .text.exit._GLOBAL__sub_D_ARDUINO_EVENTS
-                0x00000000400d5f54       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000400d61e0       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
  .text._ZL13_wifi_strncpyPcPKcj
-                0x00000000400d5f7c       0x27 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- *fill*         0x00000000400d5fa3        0x1 
+                0x00000000400d6208       0x27 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ *fill*         0x00000000400d622f        0x1 
  .text._ZN12WiFiSTAClass10_setStatusE11wl_status_t
-                0x00000000400d5fa4       0x5f .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d6230       0x5f .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                          0x73 (size before relaxing)
-                0x00000000400d5fa4                WiFiSTAClass::_setStatus(wl_status_t)
- *fill*         0x00000000400d6003        0x1 
+                0x00000000400d6230                WiFiSTAClass::_setStatus(wl_status_t)
+ *fill*         0x00000000400d628f        0x1 
  .text._ZN12WiFiSTAClass6statusEv
-                0x00000000400d6004       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d6290       0x1c .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                          0x1f (size before relaxing)
-                0x00000000400d6004                WiFiSTAClass::status()
- *fill*         0x00000000400d6020        0x0 
+                0x00000000400d6290                WiFiSTAClass::status()
+ *fill*         0x00000000400d62ac        0x0 
  .text._ZN12WiFiSTAClass5beginEPKcS1_iPKhb
-                0x00000000400d6020      0x2f6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d62ac      0x2f6 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                         0x33e (size before relaxing)
-                0x00000000400d6020                WiFiSTAClass::begin(char const*, char const*, int, unsigned char const*, bool)
- *fill*         0x00000000400d6316        0x2 
+                0x00000000400d62ac                WiFiSTAClass::begin(char const*, char const*, int, unsigned char const*, bool)
+ *fill*         0x00000000400d65a2        0x2 
  .text._ZN12WiFiSTAClass5beginEv
-                0x00000000400d6318      0x182 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d65a4      0x182 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                         0x1a6 (size before relaxing)
-                0x00000000400d6318                WiFiSTAClass::begin()
- *fill*         0x00000000400d649a        0x2 
+                0x00000000400d65a4                WiFiSTAClass::begin()
+ *fill*         0x00000000400d6726        0x2 
  .text._ZN12WiFiSTAClass10disconnectEbb
-                0x00000000400d649c       0xfb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d6728       0xfb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                         0x11f (size before relaxing)
-                0x00000000400d649c                WiFiSTAClass::disconnect(bool, bool)
- *fill*         0x00000000400d6597        0x1 
+                0x00000000400d6728                WiFiSTAClass::disconnect(bool, bool)
+ *fill*         0x00000000400d6823        0x1 
  .text._ZN12WiFiSTAClass16getAutoReconnectEv
-                0x00000000400d6598        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                0x00000000400d6598                WiFiSTAClass::getAutoReconnect()
- *fill*         0x00000000400d65a3        0x1 
+                0x00000000400d6824        0xb .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d6824                WiFiSTAClass::getAutoReconnect()
+ *fill*         0x00000000400d682f        0x1 
  .text._ZN12WiFiSTAClass7localIPEv
-                0x00000000400d65a4       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000400d6830       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                          0x73 (size before relaxing)
-                0x00000000400d65a4                WiFiSTAClass::localIP()
- *fill*         0x00000000400d6604        0x0 
+                0x00000000400d6830                WiFiSTAClass::localIP()
+ *fill*         0x00000000400d6890        0x0 
  .text._ZN13WiFiScanClass9_scanDoneEv
-                0x00000000400d6604       0x47 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+                0x00000000400d6890       0x47 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
                                          0x53 (size before relaxing)
-                0x00000000400d6604                WiFiScanClass::_scanDone()
- *fill*         0x00000000400d664b        0x1 
+                0x00000000400d6890                WiFiScanClass::_scanDone()
+ *fill*         0x00000000400d68d7        0x1 
  .text._Z10BlynkDelayj
-                0x00000000400d664c        0xa .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                0x00000000400d68d8        0xa .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
                                           0xe (size before relaxing)
-                0x00000000400d664c                BlynkDelay(unsigned int)
- *fill*         0x00000000400d6656        0x2 
+                0x00000000400d68d8                BlynkDelay(unsigned int)
+ *fill*         0x00000000400d68e2        0x2 
  .text._Z11BlynkMillisv
-                0x00000000400d6658        0xa .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                0x00000000400d68e4        0xa .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
                                           0xd (size before relaxing)
-                0x00000000400d6658                BlynkMillis()
- *fill*         0x00000000400d6662        0x2 
+                0x00000000400d68e4                BlynkMillis()
+ *fill*         0x00000000400d68ee        0x2 
  .text.GetReadHandler
-                0x00000000400d6664       0x19 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
-                0x00000000400d6664                GetReadHandler
- *fill*         0x00000000400d667d        0x3 
+                0x00000000400d68f0       0x19 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                0x00000000400d68f0                GetReadHandler
+ *fill*         0x00000000400d6909        0x3 
  .text.GetWriteHandler
-                0x00000000400d6680       0x19 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
-                0x00000000400d6680                GetWriteHandler
- *fill*         0x00000000400d6699        0x3 
+                0x00000000400d690c       0x19 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                0x00000000400d690c                GetWriteHandler
+ *fill*         0x00000000400d6925        0x3 
  .text._ZN10BlynkTimer17findFirstFreeSlotEv
-                0x00000000400d669c       0x27 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                0x00000000400d669c                BlynkTimer::findFirstFreeSlot()
- *fill*         0x00000000400d66c3        0x1 
+                0x00000000400d6928       0x27 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d6928                BlynkTimer::findFirstFreeSlot()
+ *fill*         0x00000000400d694f        0x1 
  .text._ZNSt8functionIFvvEE4swapERS1_
-                0x00000000400d66c4       0x46 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d6950       0x46 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                                          0x4a (size before relaxing)
-                0x00000000400d66c4                std::function<void ()>::swap(std::function<void ()>&)
- *fill*         0x00000000400d670a        0x2 
+                0x00000000400d6950                std::function<void ()>::swap(std::function<void ()>&)
+ *fill*         0x00000000400d6996        0x2 
  .text._ZNSt8functionIFvvEEaSEOS1_
-                0x00000000400d670c       0x3e .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d6998       0x3e .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                                          0x46 (size before relaxing)
-                0x00000000400d670c                std::function<void ()>::operator=(std::function<void ()>&&)
- *fill*         0x00000000400d674a        0x2 
+                0x00000000400d6998                std::function<void ()>::operator=(std::function<void ()>&&)
+ *fill*         0x00000000400d69d6        0x2 
  .text._ZN10BlynkTimer11deleteTimerEj
-                0x00000000400d674c       0x9a .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d69d8       0x9a .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                                          0xa6 (size before relaxing)
-                0x00000000400d674c                BlynkTimer::deleteTimer(unsigned int)
- *fill*         0x00000000400d67e6        0x2 
+                0x00000000400d69d8                BlynkTimer::deleteTimer(unsigned int)
+ *fill*         0x00000000400d6a72        0x2 
  .text._ZN10BlynkTimer3runEv
-                0x00000000400d67e8       0xa3 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d6a74       0xa3 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                                          0xa7 (size before relaxing)
-                0x00000000400d67e8                BlynkTimer::run()
- *fill*         0x00000000400d688b        0x1 
+                0x00000000400d6a74                BlynkTimer::run()
+ *fill*         0x00000000400d6b17        0x1 
  .text._ZN10BlynkTimer4initEv
-                0x00000000400d688c       0x7a .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d6b18       0x7a .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                                          0x86 (size before relaxing)
-                0x00000000400d688c                BlynkTimer::init()
- *fill*         0x00000000400d6906        0x2 
+                0x00000000400d6b18                BlynkTimer::init()
+ *fill*         0x00000000400d6b92        0x2 
  .text._ZN10BlynkTimer10setupTimerEmRKSt8functionIFvvEEj
-                0x00000000400d6908       0xc7 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                0x00000000400d6908                BlynkTimer::setupTimer(unsigned long, std::function<void ()> const&, unsigned int)
- *fill*         0x00000000400d69cf        0x1 
- .text._ZN13TM1637DisplayC2Ehhj
-                0x00000000400d69d0       0x2e .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                         0x3e (size before relaxing)
-                0x00000000400d69d0                TM1637Display::TM1637Display(unsigned char, unsigned char, unsigned int)
-                0x00000000400d69d0                TM1637Display::TM1637Display(unsigned char, unsigned char, unsigned int)
- *fill*         0x00000000400d69fe        0x2 
- .text._ZN13TM1637Display8bitDelayEv
-                0x00000000400d6a00        0xa .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                          0xe (size before relaxing)
-                0x00000000400d6a00                TM1637Display::bitDelay()
- *fill*         0x00000000400d6a0a        0x2 
- .text._ZN13TM1637Display5startEv
-                0x00000000400d6a0c       0x14 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                         0x18 (size before relaxing)
-                0x00000000400d6a0c                TM1637Display::start()
- .text._ZN13TM1637Display4stopEv
-                0x00000000400d6a20       0x2e .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                         0x3e (size before relaxing)
-                0x00000000400d6a20                TM1637Display::stop()
- *fill*         0x00000000400d6a4e        0x2 
- .text._ZN13TM1637Display9writeByteEh
-                0x00000000400d6a50       0x95 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                         0xc9 (size before relaxing)
-                0x00000000400d6a50                TM1637Display::writeByte(unsigned char)
- *fill*         0x00000000400d6ae5        0x3 
- .text._ZN13TM1637Display11setSegmentsEPKhhh
-                0x00000000400d6ae8       0x64 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                         0x80 (size before relaxing)
-                0x00000000400d6ae8                TM1637Display::setSegments(unsigned char const*, unsigned char, unsigned char)
- .text._ZN13TM1637Display16showNumberBaseExEathbhh
-                0x00000000400d6b4c       0xca .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                0x00000000400d6b4c                TM1637Display::showNumberBaseEx(signed char, unsigned short, unsigned char, bool, unsigned char, unsigned char)
- *fill*         0x00000000400d6c16        0x2 
- .text._ZN13TM1637Display15showNumberDecExEihbhh
-                0x00000000400d6c18       0x28 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                0x00000000400d6c18                TM1637Display::showNumberDecEx(int, unsigned char, bool, unsigned char, unsigned char)
- .text._ZN13TM1637Display13showNumberDecEibhh
-                0x00000000400d6c40       0x1a .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                0x00000000400d6c40                TM1637Display::showNumberDec(int, bool, unsigned char, unsigned char)
- *fill*         0x00000000400d6c5a        0x2 
+                0x00000000400d6b94       0xc7 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000400d6b94                BlynkTimer::setupTimer(unsigned long, std::function<void ()> const&, unsigned int)
+ *fill*         0x00000000400d6c5b        0x1 
  .text._ZN3DHTC2Ehhh
                 0x00000000400d6c5c       0x21 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
                 0x00000000400d6c5c                DHT::DHT(unsigned char, unsigned char, unsigned char)
@@ -61202,423 +61202,423 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
  *fill*         0x000000004014e4e0        0x0 
  *fill*         0x000000004014e4e0        0x0 
  *fill*         0x000000004014e4e0        0x0 
- .text._ZN5Print17availableForWriteEv
-                0x000000004014e4e0        0x7 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e4e0                Print::availableForWrite()
- *fill*         0x000000004014e4e7        0x1 
- .text._ZN6Stream9readBytesEPhj
-                0x000000004014e4e8       0x14 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e4e8                Stream::readBytes(unsigned char*, unsigned int)
- .text._ZN10WiFiClientcvbEv
-                0x000000004014e4fc       0x17 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e4fc                WiFiClient::operator bool()
- *fill*         0x000000004014e513        0x0 
- *fill*         0x000000004014e513        0x1 
- .text._ZN10WiFiClient7connectEPKct
-                0x000000004014e514       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e514                WiFiClient::connect(char const*, unsigned short)
- .text._ZN10WiFiClient5writeEh
-                0x000000004014e52c       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e52c                WiFiClient::write(unsigned char)
- .text._ZN10WiFiClient4readEv
-                0x000000004014e544       0x26 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e544                WiFiClient::read()
- *fill*         0x000000004014e56a        0x2 
- .text._ZNK10WiFiClient2fdEv
-                0x000000004014e56c        0xe .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e56c                WiFiClient::fd() const
- *fill*         0x000000004014e57a        0x2 
- .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x000000004014e57c        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e57c                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
-                0x000000004014e57c                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
- *fill*         0x000000004014e581        0x3 
- .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x000000004014e584        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e584                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
-                0x000000004014e584                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
- *fill*         0x000000004014e589        0x3 
- .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x000000004014e58c        0x7 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e58c                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
- *fill*         0x000000004014e593        0x1 
- .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x000000004014e594        0x7 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e594                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x0 
- *fill*         0x000000004014e59b        0x1 
- .text._ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE10_M_releaseEv
-                0x000000004014e59c       0x4a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                0x000000004014e59c                std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()
- *fill*         0x000000004014e5e6        0x0 
- *fill*         0x000000004014e5e6        0x0 
- *fill*         0x000000004014e5e6        0x0 
- *fill*         0x000000004014e5e6        0x0 
- *fill*         0x000000004014e5e6        0x0 
- *fill*         0x000000004014e5e6        0x0 
- *fill*         0x000000004014e5e6        0x2 
- .text._ZN16WiFiGenericClassC2Ev
-                0x000000004014e5e8        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x000000004014e5e8                WiFiGenericClass::WiFiGenericClass()
-                0x000000004014e5e8                WiFiGenericClass::WiFiGenericClass()
- *fill*         0x000000004014e5ed        0x0 
- *fill*         0x000000004014e5ed        0x0 
- *fill*         0x000000004014e5ed        0x3 
- .text._ZN16WiFiGenericClass22_isReconnectableReasonEh
-                0x000000004014e5f0       0x5e .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x000000004014e5f0                WiFiGenericClass::_isReconnectableReason(unsigned char)
- *fill*         0x000000004014e64e        0x0 
- *fill*         0x000000004014e64e        0x0 
- *fill*         0x000000004014e64e        0x0 
- *fill*         0x000000004014e64e        0x2 
- .text._ZN16WiFiGenericClass19calculateSubnetCIDRE9IPAddress
-                0x000000004014e650       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                0x000000004014e650                WiFiGenericClass::calculateSubnetCIDR(IPAddress)
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- *fill*         0x000000004014e6b8        0x0 
- .text.BlynkWidgetRead
-                0x000000004014e6b8        0x5 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
-                0x000000004014e6b8                BlynkWidgetRead127
-                0x000000004014e6b8                BlynkWidgetRead125
-                0x000000004014e6b8                BlynkWidgetRead5
-                0x000000004014e6b8                BlynkWidgetRead41
-                0x000000004014e6b8                BlynkWidgetRead3
-                0x000000004014e6b8                BlynkWidgetRead1
-                0x000000004014e6b8                BlynkWidgetRead43
-                0x000000004014e6b8                BlynkWidgetRead82
-                0x000000004014e6b8                BlynkWidgetRead49
-                0x000000004014e6b8                BlynkWidgetRead80
-                0x000000004014e6b8                BlynkWidgetRead47
-                0x000000004014e6b8                BlynkWidgetRead45
-                0x000000004014e6b8                BlynkWidgetRead86
-                0x000000004014e6b8                BlynkWidgetRead88
-                0x000000004014e6b8                BlynkWidgetRead84
-                0x000000004014e6b8                BlynkWidgetRead117
-                0x000000004014e6b8                BlynkWidgetRead123
-                0x000000004014e6b8                BlynkWidgetRead121
-                0x000000004014e6b8                BlynkWidgetReadDefault
-                0x000000004014e6b8                BlynkWidgetRead119
-                0x000000004014e6b8                BlynkWidgetRead13
-                0x000000004014e6b8                BlynkWidgetRead115
-                0x000000004014e6b8                BlynkWidgetRead113
-                0x000000004014e6b8                BlynkWidgetRead111
-                0x000000004014e6b8                BlynkWidgetRead15
-                0x000000004014e6b8                BlynkWidgetRead17
-                0x000000004014e6b8                BlynkWidgetRead50
-                0x000000004014e6b8                BlynkWidgetRead52
-                0x000000004014e6b8                BlynkWidgetRead19
-                0x000000004014e6b8                BlynkWidgetRead54
-                0x000000004014e6b8                BlynkWidgetRead7
-                0x000000004014e6b8                BlynkWidgetRead91
-                0x000000004014e6b8                BlynkWidgetRead9
-                0x000000004014e6b8                BlynkWidgetRead56
-                0x000000004014e6b8                BlynkWidgetRead58
-                0x000000004014e6b8                BlynkWidgetRead95
-                0x000000004014e6b8                BlynkWidgetRead99
-                0x000000004014e6b8                BlynkWidgetRead93
-                0x000000004014e6b8                BlynkWidgetRead97
-                0x000000004014e6b8                BlynkWidgetRead108
-                0x000000004014e6b8                BlynkWidgetRead11
-                0x000000004014e6b8                BlynkWidgetRead22
-                0x000000004014e6b8                BlynkWidgetRead106
-                0x000000004014e6b8                BlynkWidgetRead104
-                0x000000004014e6b8                BlynkWidgetRead102
-                0x000000004014e6b8                BlynkWidgetRead24
-                0x000000004014e6b8                BlynkWidgetRead26
-                0x000000004014e6b8                BlynkWidgetRead61
-                0x000000004014e6b8                BlynkWidgetRead63
-                0x000000004014e6b8                BlynkWidgetRead28
-                0x000000004014e6b8                BlynkWidgetRead65
-                0x000000004014e6b8                BlynkWidgetRead69
-                0x000000004014e6b8                BlynkWidgetRead67
-                0x000000004014e6b8                BlynkWidgetRead20
-                0x000000004014e6b8                BlynkWidgetRead100
-                0x000000004014e6b8                BlynkWidgetRead37
-                0x000000004014e6b8                BlynkWidgetRead33
-                0x000000004014e6b8                BlynkWidgetRead72
-                0x000000004014e6b8                BlynkWidgetRead31
-                0x000000004014e6b8                BlynkWidgetRead35
-                0x000000004014e6b8                BlynkWidgetRead78
-                0x000000004014e6b8                BlynkWidgetRead39
-                0x000000004014e6b8                BlynkWidgetRead70
-                0x000000004014e6b8                BlynkWidgetRead76
-                0x000000004014e6b8                BlynkWidgetRead74
-                0x000000004014e6b8                BlynkWidgetRead126
-                0x000000004014e6b8                BlynkWidgetRead124
-                0x000000004014e6b8                BlynkWidgetRead4
-                0x000000004014e6b8                BlynkWidgetRead40
-                0x000000004014e6b8                BlynkWidgetRead6
-                0x000000004014e6b8                BlynkWidgetRead81
-                0x000000004014e6b8                BlynkWidgetRead48
-                0x000000004014e6b8                BlynkWidgetRead0
-                0x000000004014e6b8                BlynkWidgetRead2
-                0x000000004014e6b8                BlynkWidgetRead44
-                0x000000004014e6b8                BlynkWidgetRead87
-                0x000000004014e6b8                BlynkWidgetRead42
-                0x000000004014e6b8                BlynkWidgetRead46
-                0x000000004014e6b8                BlynkWidgetRead85
-                0x000000004014e6b8                BlynkWidgetRead83
-                0x000000004014e6b8                BlynkWidgetRead89
-                0x000000004014e6b8                BlynkWidgetRead118
-                0x000000004014e6b8                BlynkWidgetRead122
-                0x000000004014e6b8                BlynkWidgetRead120
-                0x000000004014e6b8                BlynkWidgetRead10
-                0x000000004014e6b8                BlynkWidgetRead114
-                0x000000004014e6b8                BlynkWidgetRead12
-                0x000000004014e6b8                BlynkWidgetRead116
-                0x000000004014e6b8                BlynkWidgetRead14
-                0x000000004014e6b8                BlynkWidgetRead16
-                0x000000004014e6b8                BlynkWidgetRead112
-                0x000000004014e6b8                BlynkWidgetRead51
-                0x000000004014e6b8                BlynkWidgetRead90
-                0x000000004014e6b8                BlynkWidgetRead59
-                0x000000004014e6b8                BlynkWidgetRead18
-                0x000000004014e6b8                BlynkWidgetRead55
-                0x000000004014e6b8                BlynkWidgetRead8
-                0x000000004014e6b8                BlynkWidgetRead96
-                0x000000004014e6b8                BlynkWidgetRead53
-                0x000000004014e6b8                BlynkWidgetRead57
-                0x000000004014e6b8                BlynkWidgetRead94
-                0x000000004014e6b8                BlynkWidgetRead92
-                0x000000004014e6b8                BlynkWidgetRead98
-                0x000000004014e6b8                BlynkWidgetRead109
-                0x000000004014e6b8                BlynkWidgetRead110
-                0x000000004014e6b8                BlynkWidgetRead107
-                0x000000004014e6b8                BlynkWidgetRead105
-                0x000000004014e6b8                BlynkWidgetRead21
-                0x000000004014e6b8                BlynkWidgetRead23
-                0x000000004014e6b8                BlynkWidgetRead25
-                0x000000004014e6b8                BlynkWidgetRead103
-                0x000000004014e6b8                BlynkWidgetRead60
-                0x000000004014e6b8                BlynkWidgetRead62
-                0x000000004014e6b8                BlynkWidgetRead29
-                0x000000004014e6b8                BlynkWidgetRead27
-                0x000000004014e6b8                BlynkWidgetRead66
-                0x000000004014e6b8                BlynkWidgetRead64
-                0x000000004014e6b8                BlynkWidgetRead68
-                0x000000004014e6b8                BlynkWidgetRead
-                0x000000004014e6b8                BlynkWidgetRead101
-                0x000000004014e6b8                BlynkWidgetRead30
-                0x000000004014e6b8                BlynkWidgetRead32
-                0x000000004014e6b8                BlynkWidgetRead38
-                0x000000004014e6b8                BlynkWidgetRead36
-                0x000000004014e6b8                BlynkWidgetRead34
-                0x000000004014e6b8                BlynkWidgetRead73
-                0x000000004014e6b8                BlynkWidgetRead71
-                0x000000004014e6b8                BlynkWidgetRead77
-                0x000000004014e6b8                BlynkWidgetRead75
-                0x000000004014e6b8                BlynkWidgetRead79
- *fill*         0x000000004014e6bd        0x3 
- .text.BlynkWidgetWrite
-                0x000000004014e6c0        0x5 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinMETA
-                0x000000004014e6c0                BlynkWidgetWrite12
-                0x000000004014e6c0                BlynkWidgetWrite14
-                0x000000004014e6c0                BlynkWidgetWrite16
-                0x000000004014e6c0                BlynkWidgetWrite78
-                0x000000004014e6c0                BlynkWidgetWrite90
-                0x000000004014e6c0                BlynkWidgetWrite51
-                0x000000004014e6c0                BlynkWidgetWrite94
-                0x000000004014e6c0                BlynkWidgetWrite76
-                0x000000004014e6c0                BlynkWidgetWrite55
-                0x000000004014e6c0                BlynkWidgetWrite92
-                0x000000004014e6c0                BlynkWidgetWrite53
-                0x000000004014e6c0                BlynkWidgetWrite18
-                0x000000004014e6c0                BlynkWidgetWrite57
-                0x000000004014e6c0                BlynkWidgetWrite96
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinOTA
-                0x000000004014e6c0                BlynkWidgetWrite111
-                0x000000004014e6c0                BlynkWidgetWrite113
-                0x000000004014e6c0                BlynkWidgetWrite119
-                0x000000004014e6c0                BlynkWidgetWrite115
-                0x000000004014e6c0                BlynkWidgetWrite117
-                0x000000004014e6c0                BlynkWidgetWrite23
-                0x000000004014e6c0                BlynkWidgetWrite60
-                0x000000004014e6c0                BlynkWidgetWrite87
-                0x000000004014e6c0                BlynkWidgetWrite21
-                0x000000004014e6c0                BlynkWidgetWrite89
-                0x000000004014e6c0                BlynkWidgetWrite62
-                0x000000004014e6c0                BlynkWidgetWrite25
-                0x000000004014e6c0                BlynkWidgetWrite66
-                0x000000004014e6c0                BlynkWidgetWrite29
-                0x000000004014e6c0                BlynkWidgetWrite85
-                0x000000004014e6c0                BlynkWidgetWrite64
-                0x000000004014e6c0                BlynkWidgetWrite27
-                0x000000004014e6c0                BlynkWidgetWrite68
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinRTC
-                0x000000004014e6c0                BlynkWidgetWrite102
-                0x000000004014e6c0                BlynkWidgetWrite104
-                0x000000004014e6c0                BlynkWidgetWrite100
-                0x000000004014e6c0                BlynkWidgetWrite106
-                0x000000004014e6c0                BlynkWidgetWrite108
-                0x000000004014e6c0                BlynkWidgetWrite1
-                0x000000004014e6c0                BlynkWidgetWrite3
-                0x000000004014e6c0                BlynkWidgetWrite31
-                0x000000004014e6c0                BlynkWidgetWrite33
-                0x000000004014e6c0                BlynkWidgetWrite37
-                0x000000004014e6c0                BlynkWidgetWrite72
-                0x000000004014e6c0                BlynkWidgetWrite99
-                0x000000004014e6c0                BlynkWidgetWrite7
-                0x000000004014e6c0                BlynkWidgetWrite5
-                0x000000004014e6c0                BlynkWidgetWrite70
-                0x000000004014e6c0                BlynkWidgetWrite35
-                0x000000004014e6c0                BlynkWidgetWrite9
-                0x000000004014e6c0                BlynkWidgetWrite74
-                0x000000004014e6c0                BlynkWidgetWrite39
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinUTC
-                0x000000004014e6c0                BlynkWidgetWrite42
-                0x000000004014e6c0                BlynkWidgetWrite40
-                0x000000004014e6c0                BlynkWidgetWrite44
-                0x000000004014e6c0                BlynkWidgetWrite81
-                0x000000004014e6c0                BlynkWidgetWrite48
-                0x000000004014e6c0                BlynkWidgetWrite46
-                0x000000004014e6c0                BlynkWidgetWrite83
-                0x000000004014e6c0                BlynkWidgetWrite127
-                0x000000004014e6c0                BlynkWidgetWrite11
-                0x000000004014e6c0                BlynkWidgetWrite121
-                0x000000004014e6c0                BlynkWidgetWrite123
-                0x000000004014e6c0                BlynkWidgetWrite125
-                0x000000004014e6c0                BlynkWidgetWrite13
-                0x000000004014e6c0                BlynkWidgetWrite50
-                0x000000004014e6c0                BlynkWidgetWrite79
-                0x000000004014e6c0                BlynkWidgetWrite15
-                0x000000004014e6c0                BlynkWidgetWrite17
-                0x000000004014e6c0                BlynkWidgetWrite91
-                0x000000004014e6c0                BlynkWidgetWrite52
-                0x000000004014e6c0                BlynkWidgetWrite95
-                0x000000004014e6c0                BlynkWidgetWrite77
-                0x000000004014e6c0                BlynkWidgetWrite56
-                0x000000004014e6c0                BlynkWidgetWrite93
-                0x000000004014e6c0                BlynkWidgetWrite54
-                0x000000004014e6c0                BlynkWidgetWrite19
-                0x000000004014e6c0                BlynkWidgetWrite58
-                0x000000004014e6c0                BlynkWidgetWrite97
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinVFS
-                0x000000004014e6c0                BlynkWidgetWrite116
-                0x000000004014e6c0                BlynkWidgetWrite114
-                0x000000004014e6c0                BlynkWidgetWrite112
-                0x000000004014e6c0                BlynkWidgetWrite20
-                0x000000004014e6c0                BlynkWidgetWrite110
-                0x000000004014e6c0                BlynkWidgetWrite118
-                0x000000004014e6c0                BlynkWidgetWrite61
-                0x000000004014e6c0                BlynkWidgetWrite88
-                0x000000004014e6c0                BlynkWidgetWrite24
-                0x000000004014e6c0                BlynkWidgetWrite22
-                0x000000004014e6c0                BlynkWidgetWrite63
-                0x000000004014e6c0                BlynkWidgetWrite26
-                0x000000004014e6c0                BlynkWidgetWrite67
-                0x000000004014e6c0                BlynkWidgetWrite65
-                0x000000004014e6c0                BlynkWidgetWrite28
-                0x000000004014e6c0                BlynkWidgetWrite86
-                0x000000004014e6c0                BlynkWidgetWrite69
-                0x000000004014e6c0                BlynkWidgetWrite107
-                0x000000004014e6c0                BlynkWidgetWrite105
-                0x000000004014e6c0                BlynkWidgetWrite103
-                0x000000004014e6c0                BlynkWidgetWrite101
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinACON
-                0x000000004014e6c0                BlynkWidgetWrite109
-                0x000000004014e6c0                BlynkWidgetWrite4
-                0x000000004014e6c0                BlynkWidgetWrite2
-                0x000000004014e6c0                BlynkWidgetWrite6
-                0x000000004014e6c0                BlynkWidgetWrite32
-                0x000000004014e6c0                BlynkWidgetWrite30
-                0x000000004014e6c0                BlynkWidgetWrite59
-                0x000000004014e6c0                BlynkWidgetWrite8
-                0x000000004014e6c0                BlynkWidgetWrite34
-                0x000000004014e6c0                BlynkWidgetWrite98
-                0x000000004014e6c0                BlynkWidgetWrite38
-                0x000000004014e6c0                BlynkWidgetWrite73
-                0x000000004014e6c0                BlynkWidgetWrite71
-                0x000000004014e6c0                BlynkWidgetWrite36
-                0x000000004014e6c0                BlynkWidgetWrite75
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinADIS
-                0x000000004014e6c0                BlynkWidgetWrite
-                0x000000004014e6c0                BlynkWidgetWriteDefault
-                0x000000004014e6c0                BlynkWidgetWrite43
-                0x000000004014e6c0                BlynkWidgetWrite41
-                0x000000004014e6c0                BlynkWidgetWrite45
-                0x000000004014e6c0                BlynkWidgetWrite82
-                0x000000004014e6c0                BlynkWidgetWrite49
-                0x000000004014e6c0                BlynkWidgetWrite47
-                0x000000004014e6c0                BlynkWidgetWrite80
-                0x000000004014e6c0                BlynkWidgetWrite84
-                0x000000004014e6c0                BlynkWidgetWrite122
-                0x000000004014e6c0                BlynkWidgetWrite120
-                0x000000004014e6c0                BlynkWidgetWrite10
-                0x000000004014e6c0                BlynkWidgetWriteInternalPinDBG
-                0x000000004014e6c0                BlynkWidgetWrite124
-                0x000000004014e6c0                BlynkWidgetWrite126
- *fill*         0x000000004014e6c5        0x3 
- .text.BlynkNoOpCbk
-                0x000000004014e6c8        0x5 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
-                0x000000004014e6c8                BlynkNoOpCbk
-                0x000000004014e6c8                BlynkOnDisconnected
-                0x000000004014e6c8                BlynkOnConnected
- *fill*         0x000000004014e6cd        0x0 
- *fill*         0x000000004014e6cd        0x0 
- *fill*         0x000000004014e6cd        0x3 
- .text._ZN10BlynkTimer12isValidTimerEj
-                0x000000004014e6d0       0x22 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                0x000000004014e6d0                BlynkTimer::isValidTimer(unsigned int)
- *fill*         0x000000004014e6f2        0x2 
- .text._ZN10BlynkTimerC2Ev
-                0x000000004014e6f4       0x18 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                0x000000004014e6f4                BlynkTimer::BlynkTimer()
-                0x000000004014e6f4                BlynkTimer::BlynkTimer()
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
- *fill*         0x000000004014e70c        0x0 
  .text._ZN13TM1637Display13setBrightnessEhb
-                0x000000004014e70c       0x1a .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                0x000000004014e70c                TM1637Display::setBrightness(unsigned char, bool)
- *fill*         0x000000004014e726        0x0 
- *fill*         0x000000004014e726        0x0 
- *fill*         0x000000004014e726        0x0 
- *fill*         0x000000004014e726        0x2 
+                0x000000004014e4e0       0x1a .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x000000004014e4e0                TM1637Display::setBrightness(unsigned char, bool)
+ *fill*         0x000000004014e4fa        0x0 
+ *fill*         0x000000004014e4fa        0x0 
+ *fill*         0x000000004014e4fa        0x0 
+ *fill*         0x000000004014e4fa        0x2 
  .text._ZN13TM1637Display8showDotsEhPh
-                0x000000004014e728       0x26 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                0x000000004014e728                TM1637Display::showDots(unsigned char, unsigned char*)
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x0 
- *fill*         0x000000004014e74e        0x2 
+                0x000000004014e4fc       0x26 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x000000004014e4fc                TM1637Display::showDots(unsigned char, unsigned char*)
+ *fill*         0x000000004014e522        0x0 
+ *fill*         0x000000004014e522        0x0 
+ *fill*         0x000000004014e522        0x0 
+ *fill*         0x000000004014e522        0x2 
+ .text._ZN5Print17availableForWriteEv
+                0x000000004014e524        0x7 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e524                Print::availableForWrite()
+ *fill*         0x000000004014e52b        0x1 
+ .text._ZN6Stream9readBytesEPhj
+                0x000000004014e52c       0x14 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e52c                Stream::readBytes(unsigned char*, unsigned int)
+ .text._ZN10WiFiClientcvbEv
+                0x000000004014e540       0x17 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e540                WiFiClient::operator bool()
+ *fill*         0x000000004014e557        0x0 
+ *fill*         0x000000004014e557        0x1 
+ .text._ZN10WiFiClient7connectEPKct
+                0x000000004014e558       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e558                WiFiClient::connect(char const*, unsigned short)
+ .text._ZN10WiFiClient5writeEh
+                0x000000004014e570       0x18 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e570                WiFiClient::write(unsigned char)
+ .text._ZN10WiFiClient4readEv
+                0x000000004014e588       0x26 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e588                WiFiClient::read()
+ *fill*         0x000000004014e5ae        0x2 
+ .text._ZNK10WiFiClient2fdEv
+                0x000000004014e5b0        0xe .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e5b0                WiFiClient::fd() const
+ *fill*         0x000000004014e5be        0x2 
+ .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EED2Ev
+                0x000000004014e5c0        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e5c0                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
+                0x000000004014e5c0                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
+ *fill*         0x000000004014e5c5        0x3 
+ .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EED2Ev
+                0x000000004014e5c8        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e5c8                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
+                0x000000004014e5c8                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr()
+ *fill*         0x000000004014e5cd        0x3 
+ .text._ZNSt15_Sp_counted_ptrIP18WiFiClientRxBufferLN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
+                0x000000004014e5d0        0x7 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e5d0                std::_Sp_counted_ptr<WiFiClientRxBuffer*, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+ *fill*         0x000000004014e5d7        0x1 
+ .text._ZNSt15_Sp_counted_ptrIP22WiFiClientSocketHandleLN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
+                0x000000004014e5d8        0x7 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e5d8                std::_Sp_counted_ptr<WiFiClientSocketHandle*, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x0 
+ *fill*         0x000000004014e5df        0x1 
+ .text._ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE10_M_releaseEv
+                0x000000004014e5e0       0x4a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x000000004014e5e0                std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()
+ *fill*         0x000000004014e62a        0x0 
+ *fill*         0x000000004014e62a        0x0 
+ *fill*         0x000000004014e62a        0x0 
+ *fill*         0x000000004014e62a        0x0 
+ *fill*         0x000000004014e62a        0x0 
+ *fill*         0x000000004014e62a        0x0 
+ *fill*         0x000000004014e62a        0x2 
+ .text._ZN16WiFiGenericClassC2Ev
+                0x000000004014e62c        0x5 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x000000004014e62c                WiFiGenericClass::WiFiGenericClass()
+                0x000000004014e62c                WiFiGenericClass::WiFiGenericClass()
+ *fill*         0x000000004014e631        0x0 
+ *fill*         0x000000004014e631        0x0 
+ *fill*         0x000000004014e631        0x3 
+ .text._ZN16WiFiGenericClass22_isReconnectableReasonEh
+                0x000000004014e634       0x5e .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x000000004014e634                WiFiGenericClass::_isReconnectableReason(unsigned char)
+ *fill*         0x000000004014e692        0x0 
+ *fill*         0x000000004014e692        0x0 
+ *fill*         0x000000004014e692        0x0 
+ *fill*         0x000000004014e692        0x2 
+ .text._ZN16WiFiGenericClass19calculateSubnetCIDRE9IPAddress
+                0x000000004014e694       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x000000004014e694                WiFiGenericClass::calculateSubnetCIDR(IPAddress)
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ *fill*         0x000000004014e6fc        0x0 
+ .text.BlynkWidgetRead
+                0x000000004014e6fc        0x5 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                0x000000004014e6fc                BlynkWidgetRead127
+                0x000000004014e6fc                BlynkWidgetRead125
+                0x000000004014e6fc                BlynkWidgetRead5
+                0x000000004014e6fc                BlynkWidgetRead41
+                0x000000004014e6fc                BlynkWidgetRead3
+                0x000000004014e6fc                BlynkWidgetRead1
+                0x000000004014e6fc                BlynkWidgetRead43
+                0x000000004014e6fc                BlynkWidgetRead82
+                0x000000004014e6fc                BlynkWidgetRead49
+                0x000000004014e6fc                BlynkWidgetRead80
+                0x000000004014e6fc                BlynkWidgetRead47
+                0x000000004014e6fc                BlynkWidgetRead45
+                0x000000004014e6fc                BlynkWidgetRead86
+                0x000000004014e6fc                BlynkWidgetRead88
+                0x000000004014e6fc                BlynkWidgetRead84
+                0x000000004014e6fc                BlynkWidgetRead117
+                0x000000004014e6fc                BlynkWidgetRead123
+                0x000000004014e6fc                BlynkWidgetRead121
+                0x000000004014e6fc                BlynkWidgetReadDefault
+                0x000000004014e6fc                BlynkWidgetRead119
+                0x000000004014e6fc                BlynkWidgetRead13
+                0x000000004014e6fc                BlynkWidgetRead115
+                0x000000004014e6fc                BlynkWidgetRead113
+                0x000000004014e6fc                BlynkWidgetRead111
+                0x000000004014e6fc                BlynkWidgetRead15
+                0x000000004014e6fc                BlynkWidgetRead17
+                0x000000004014e6fc                BlynkWidgetRead50
+                0x000000004014e6fc                BlynkWidgetRead52
+                0x000000004014e6fc                BlynkWidgetRead19
+                0x000000004014e6fc                BlynkWidgetRead54
+                0x000000004014e6fc                BlynkWidgetRead7
+                0x000000004014e6fc                BlynkWidgetRead91
+                0x000000004014e6fc                BlynkWidgetRead9
+                0x000000004014e6fc                BlynkWidgetRead56
+                0x000000004014e6fc                BlynkWidgetRead58
+                0x000000004014e6fc                BlynkWidgetRead95
+                0x000000004014e6fc                BlynkWidgetRead99
+                0x000000004014e6fc                BlynkWidgetRead93
+                0x000000004014e6fc                BlynkWidgetRead97
+                0x000000004014e6fc                BlynkWidgetRead108
+                0x000000004014e6fc                BlynkWidgetRead11
+                0x000000004014e6fc                BlynkWidgetRead22
+                0x000000004014e6fc                BlynkWidgetRead106
+                0x000000004014e6fc                BlynkWidgetRead104
+                0x000000004014e6fc                BlynkWidgetRead102
+                0x000000004014e6fc                BlynkWidgetRead24
+                0x000000004014e6fc                BlynkWidgetRead26
+                0x000000004014e6fc                BlynkWidgetRead61
+                0x000000004014e6fc                BlynkWidgetRead63
+                0x000000004014e6fc                BlynkWidgetRead28
+                0x000000004014e6fc                BlynkWidgetRead65
+                0x000000004014e6fc                BlynkWidgetRead69
+                0x000000004014e6fc                BlynkWidgetRead67
+                0x000000004014e6fc                BlynkWidgetRead20
+                0x000000004014e6fc                BlynkWidgetRead100
+                0x000000004014e6fc                BlynkWidgetRead37
+                0x000000004014e6fc                BlynkWidgetRead33
+                0x000000004014e6fc                BlynkWidgetRead72
+                0x000000004014e6fc                BlynkWidgetRead31
+                0x000000004014e6fc                BlynkWidgetRead35
+                0x000000004014e6fc                BlynkWidgetRead78
+                0x000000004014e6fc                BlynkWidgetRead39
+                0x000000004014e6fc                BlynkWidgetRead70
+                0x000000004014e6fc                BlynkWidgetRead76
+                0x000000004014e6fc                BlynkWidgetRead74
+                0x000000004014e6fc                BlynkWidgetRead126
+                0x000000004014e6fc                BlynkWidgetRead124
+                0x000000004014e6fc                BlynkWidgetRead4
+                0x000000004014e6fc                BlynkWidgetRead40
+                0x000000004014e6fc                BlynkWidgetRead6
+                0x000000004014e6fc                BlynkWidgetRead81
+                0x000000004014e6fc                BlynkWidgetRead48
+                0x000000004014e6fc                BlynkWidgetRead0
+                0x000000004014e6fc                BlynkWidgetRead2
+                0x000000004014e6fc                BlynkWidgetRead44
+                0x000000004014e6fc                BlynkWidgetRead87
+                0x000000004014e6fc                BlynkWidgetRead42
+                0x000000004014e6fc                BlynkWidgetRead46
+                0x000000004014e6fc                BlynkWidgetRead85
+                0x000000004014e6fc                BlynkWidgetRead83
+                0x000000004014e6fc                BlynkWidgetRead89
+                0x000000004014e6fc                BlynkWidgetRead118
+                0x000000004014e6fc                BlynkWidgetRead122
+                0x000000004014e6fc                BlynkWidgetRead120
+                0x000000004014e6fc                BlynkWidgetRead10
+                0x000000004014e6fc                BlynkWidgetRead114
+                0x000000004014e6fc                BlynkWidgetRead12
+                0x000000004014e6fc                BlynkWidgetRead116
+                0x000000004014e6fc                BlynkWidgetRead14
+                0x000000004014e6fc                BlynkWidgetRead16
+                0x000000004014e6fc                BlynkWidgetRead112
+                0x000000004014e6fc                BlynkWidgetRead51
+                0x000000004014e6fc                BlynkWidgetRead90
+                0x000000004014e6fc                BlynkWidgetRead59
+                0x000000004014e6fc                BlynkWidgetRead18
+                0x000000004014e6fc                BlynkWidgetRead55
+                0x000000004014e6fc                BlynkWidgetRead8
+                0x000000004014e6fc                BlynkWidgetRead96
+                0x000000004014e6fc                BlynkWidgetRead53
+                0x000000004014e6fc                BlynkWidgetRead57
+                0x000000004014e6fc                BlynkWidgetRead94
+                0x000000004014e6fc                BlynkWidgetRead92
+                0x000000004014e6fc                BlynkWidgetRead98
+                0x000000004014e6fc                BlynkWidgetRead109
+                0x000000004014e6fc                BlynkWidgetRead110
+                0x000000004014e6fc                BlynkWidgetRead107
+                0x000000004014e6fc                BlynkWidgetRead105
+                0x000000004014e6fc                BlynkWidgetRead21
+                0x000000004014e6fc                BlynkWidgetRead23
+                0x000000004014e6fc                BlynkWidgetRead25
+                0x000000004014e6fc                BlynkWidgetRead103
+                0x000000004014e6fc                BlynkWidgetRead60
+                0x000000004014e6fc                BlynkWidgetRead62
+                0x000000004014e6fc                BlynkWidgetRead29
+                0x000000004014e6fc                BlynkWidgetRead27
+                0x000000004014e6fc                BlynkWidgetRead66
+                0x000000004014e6fc                BlynkWidgetRead64
+                0x000000004014e6fc                BlynkWidgetRead68
+                0x000000004014e6fc                BlynkWidgetRead
+                0x000000004014e6fc                BlynkWidgetRead101
+                0x000000004014e6fc                BlynkWidgetRead30
+                0x000000004014e6fc                BlynkWidgetRead32
+                0x000000004014e6fc                BlynkWidgetRead38
+                0x000000004014e6fc                BlynkWidgetRead36
+                0x000000004014e6fc                BlynkWidgetRead34
+                0x000000004014e6fc                BlynkWidgetRead73
+                0x000000004014e6fc                BlynkWidgetRead71
+                0x000000004014e6fc                BlynkWidgetRead77
+                0x000000004014e6fc                BlynkWidgetRead75
+                0x000000004014e6fc                BlynkWidgetRead79
+ *fill*         0x000000004014e701        0x3 
+ .text.BlynkWidgetWrite
+                0x000000004014e704        0x5 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                0x000000004014e704                BlynkWidgetWriteInternalPinMETA
+                0x000000004014e704                BlynkWidgetWrite12
+                0x000000004014e704                BlynkWidgetWrite14
+                0x000000004014e704                BlynkWidgetWrite16
+                0x000000004014e704                BlynkWidgetWrite78
+                0x000000004014e704                BlynkWidgetWrite90
+                0x000000004014e704                BlynkWidgetWrite51
+                0x000000004014e704                BlynkWidgetWrite94
+                0x000000004014e704                BlynkWidgetWrite76
+                0x000000004014e704                BlynkWidgetWrite55
+                0x000000004014e704                BlynkWidgetWrite92
+                0x000000004014e704                BlynkWidgetWrite53
+                0x000000004014e704                BlynkWidgetWrite18
+                0x000000004014e704                BlynkWidgetWrite57
+                0x000000004014e704                BlynkWidgetWrite96
+                0x000000004014e704                BlynkWidgetWriteInternalPinOTA
+                0x000000004014e704                BlynkWidgetWrite111
+                0x000000004014e704                BlynkWidgetWrite113
+                0x000000004014e704                BlynkWidgetWrite119
+                0x000000004014e704                BlynkWidgetWrite115
+                0x000000004014e704                BlynkWidgetWrite117
+                0x000000004014e704                BlynkWidgetWrite23
+                0x000000004014e704                BlynkWidgetWrite60
+                0x000000004014e704                BlynkWidgetWrite87
+                0x000000004014e704                BlynkWidgetWrite21
+                0x000000004014e704                BlynkWidgetWrite89
+                0x000000004014e704                BlynkWidgetWrite62
+                0x000000004014e704                BlynkWidgetWrite25
+                0x000000004014e704                BlynkWidgetWrite66
+                0x000000004014e704                BlynkWidgetWrite29
+                0x000000004014e704                BlynkWidgetWrite85
+                0x000000004014e704                BlynkWidgetWrite64
+                0x000000004014e704                BlynkWidgetWrite27
+                0x000000004014e704                BlynkWidgetWrite68
+                0x000000004014e704                BlynkWidgetWriteInternalPinRTC
+                0x000000004014e704                BlynkWidgetWrite102
+                0x000000004014e704                BlynkWidgetWrite104
+                0x000000004014e704                BlynkWidgetWrite100
+                0x000000004014e704                BlynkWidgetWrite106
+                0x000000004014e704                BlynkWidgetWrite108
+                0x000000004014e704                BlynkWidgetWrite1
+                0x000000004014e704                BlynkWidgetWrite3
+                0x000000004014e704                BlynkWidgetWrite31
+                0x000000004014e704                BlynkWidgetWrite33
+                0x000000004014e704                BlynkWidgetWrite37
+                0x000000004014e704                BlynkWidgetWrite72
+                0x000000004014e704                BlynkWidgetWrite99
+                0x000000004014e704                BlynkWidgetWrite7
+                0x000000004014e704                BlynkWidgetWrite5
+                0x000000004014e704                BlynkWidgetWrite70
+                0x000000004014e704                BlynkWidgetWrite35
+                0x000000004014e704                BlynkWidgetWrite9
+                0x000000004014e704                BlynkWidgetWrite74
+                0x000000004014e704                BlynkWidgetWrite39
+                0x000000004014e704                BlynkWidgetWriteInternalPinUTC
+                0x000000004014e704                BlynkWidgetWrite42
+                0x000000004014e704                BlynkWidgetWrite40
+                0x000000004014e704                BlynkWidgetWrite44
+                0x000000004014e704                BlynkWidgetWrite81
+                0x000000004014e704                BlynkWidgetWrite48
+                0x000000004014e704                BlynkWidgetWrite46
+                0x000000004014e704                BlynkWidgetWrite83
+                0x000000004014e704                BlynkWidgetWrite127
+                0x000000004014e704                BlynkWidgetWrite11
+                0x000000004014e704                BlynkWidgetWrite121
+                0x000000004014e704                BlynkWidgetWrite123
+                0x000000004014e704                BlynkWidgetWrite125
+                0x000000004014e704                BlynkWidgetWrite13
+                0x000000004014e704                BlynkWidgetWrite50
+                0x000000004014e704                BlynkWidgetWrite79
+                0x000000004014e704                BlynkWidgetWrite15
+                0x000000004014e704                BlynkWidgetWrite17
+                0x000000004014e704                BlynkWidgetWrite91
+                0x000000004014e704                BlynkWidgetWrite52
+                0x000000004014e704                BlynkWidgetWrite95
+                0x000000004014e704                BlynkWidgetWrite77
+                0x000000004014e704                BlynkWidgetWrite56
+                0x000000004014e704                BlynkWidgetWrite93
+                0x000000004014e704                BlynkWidgetWrite54
+                0x000000004014e704                BlynkWidgetWrite19
+                0x000000004014e704                BlynkWidgetWrite58
+                0x000000004014e704                BlynkWidgetWrite97
+                0x000000004014e704                BlynkWidgetWriteInternalPinVFS
+                0x000000004014e704                BlynkWidgetWrite116
+                0x000000004014e704                BlynkWidgetWrite114
+                0x000000004014e704                BlynkWidgetWrite112
+                0x000000004014e704                BlynkWidgetWrite20
+                0x000000004014e704                BlynkWidgetWrite110
+                0x000000004014e704                BlynkWidgetWrite118
+                0x000000004014e704                BlynkWidgetWrite61
+                0x000000004014e704                BlynkWidgetWrite88
+                0x000000004014e704                BlynkWidgetWrite24
+                0x000000004014e704                BlynkWidgetWrite22
+                0x000000004014e704                BlynkWidgetWrite63
+                0x000000004014e704                BlynkWidgetWrite26
+                0x000000004014e704                BlynkWidgetWrite67
+                0x000000004014e704                BlynkWidgetWrite65
+                0x000000004014e704                BlynkWidgetWrite28
+                0x000000004014e704                BlynkWidgetWrite86
+                0x000000004014e704                BlynkWidgetWrite69
+                0x000000004014e704                BlynkWidgetWrite107
+                0x000000004014e704                BlynkWidgetWrite105
+                0x000000004014e704                BlynkWidgetWrite103
+                0x000000004014e704                BlynkWidgetWrite101
+                0x000000004014e704                BlynkWidgetWriteInternalPinACON
+                0x000000004014e704                BlynkWidgetWrite109
+                0x000000004014e704                BlynkWidgetWrite4
+                0x000000004014e704                BlynkWidgetWrite2
+                0x000000004014e704                BlynkWidgetWrite6
+                0x000000004014e704                BlynkWidgetWrite32
+                0x000000004014e704                BlynkWidgetWrite30
+                0x000000004014e704                BlynkWidgetWrite59
+                0x000000004014e704                BlynkWidgetWrite8
+                0x000000004014e704                BlynkWidgetWrite34
+                0x000000004014e704                BlynkWidgetWrite98
+                0x000000004014e704                BlynkWidgetWrite38
+                0x000000004014e704                BlynkWidgetWrite73
+                0x000000004014e704                BlynkWidgetWrite71
+                0x000000004014e704                BlynkWidgetWrite36
+                0x000000004014e704                BlynkWidgetWrite75
+                0x000000004014e704                BlynkWidgetWriteInternalPinADIS
+                0x000000004014e704                BlynkWidgetWrite
+                0x000000004014e704                BlynkWidgetWriteDefault
+                0x000000004014e704                BlynkWidgetWrite43
+                0x000000004014e704                BlynkWidgetWrite41
+                0x000000004014e704                BlynkWidgetWrite45
+                0x000000004014e704                BlynkWidgetWrite82
+                0x000000004014e704                BlynkWidgetWrite49
+                0x000000004014e704                BlynkWidgetWrite47
+                0x000000004014e704                BlynkWidgetWrite80
+                0x000000004014e704                BlynkWidgetWrite84
+                0x000000004014e704                BlynkWidgetWrite122
+                0x000000004014e704                BlynkWidgetWrite120
+                0x000000004014e704                BlynkWidgetWrite10
+                0x000000004014e704                BlynkWidgetWriteInternalPinDBG
+                0x000000004014e704                BlynkWidgetWrite124
+                0x000000004014e704                BlynkWidgetWrite126
+ *fill*         0x000000004014e709        0x3 
+ .text.BlynkNoOpCbk
+                0x000000004014e70c        0x5 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                0x000000004014e70c                BlynkNoOpCbk
+                0x000000004014e70c                BlynkOnDisconnected
+                0x000000004014e70c                BlynkOnConnected
+ *fill*         0x000000004014e711        0x0 
+ *fill*         0x000000004014e711        0x0 
+ *fill*         0x000000004014e711        0x3 
+ .text._ZN10BlynkTimer12isValidTimerEj
+                0x000000004014e714       0x22 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x000000004014e714                BlynkTimer::isValidTimer(unsigned int)
+ *fill*         0x000000004014e736        0x2 
+ .text._ZN10BlynkTimerC2Ev
+                0x000000004014e738       0x18 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x000000004014e738                BlynkTimer::BlynkTimer()
+                0x000000004014e738                BlynkTimer::BlynkTimer()
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
+ *fill*         0x000000004014e750        0x0 
  .text._ZN14HardwareSerial9readBytesEPcj
                 0x000000004014e750       0x14 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
                 0x000000004014e750                HardwareSerial::readBytes(char*, unsigned int)
@@ -65562,23 +65562,23 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
                                         0x15c (size before relaxing)
  .xt.prop       0x000000000000003c      0x330 .pio\build\esp32dev\src\main.cpp.o
                                         0x354 (size before relaxing)
- .xt.prop       0x000000000000036c       0x3c .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
-                                         0xcc (size before relaxing)
- .xt.prop       0x00000000000003a8      0x534 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                        0x984 (size before relaxing)
- .xt.prop       0x00000000000008dc     0x1008 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                       0x1b30 (size before relaxing)
- .xt.prop       0x00000000000018e4      0x414 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                        0xdd4 (size before relaxing)
- .xt.prop       0x0000000000001cf8       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
-                                        0x3a8 (size before relaxing)
- .xt.prop       0x0000000000001d58       0x48 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
-                                        0x108 (size before relaxing)
- .xt.prop       0x0000000000001da0       0xfc .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .xt.prop       0x0000000000001e9c      0x1d4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                        0x48c (size before relaxing)
- .xt.prop       0x0000000000002070      0x240 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .xt.prop       0x000000000000036c      0x240 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                         0x33c (size before relaxing)
+ .xt.prop       0x00000000000005ac       0x3c .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+                                         0xcc (size before relaxing)
+ .xt.prop       0x00000000000005e8      0x534 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                        0x984 (size before relaxing)
+ .xt.prop       0x0000000000000b1c     0x1008 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                       0x1b30 (size before relaxing)
+ .xt.prop       0x0000000000001b24      0x414 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                        0xdd4 (size before relaxing)
+ .xt.prop       0x0000000000001f38       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+                                        0x3a8 (size before relaxing)
+ .xt.prop       0x0000000000001f98       0x48 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                                        0x108 (size before relaxing)
+ .xt.prop       0x0000000000001fe0       0xfc .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .xt.prop       0x00000000000020dc      0x1d4 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                        0x48c (size before relaxing)
  .xt.prop       0x00000000000022b0      0x27c .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
                                         0x3b4 (size before relaxing)
  .xt.prop       0x000000000000252c        0x0 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
@@ -66996,23 +66996,23 @@ LOAD c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/x
                                          0x18 (size before relaxing)
  .xt.lit        0x0000000000000000       0x40 .pio\build\esp32dev\src\main.cpp.o
                                          0x58 (size before relaxing)
- .xt.lit        0x0000000000000040        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .xt.lit        0x0000000000000040        0x8 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                                         0x60 (size before relaxing)
+ .xt.lit        0x0000000000000048        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
                                          0x10 (size before relaxing)
- .xt.lit        0x0000000000000048       0x48 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .xt.lit        0x0000000000000050       0x48 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
                                         0x108 (size before relaxing)
- .xt.lit        0x0000000000000090       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .xt.lit        0x0000000000000098       0x60 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
                                         0x188 (size before relaxing)
- .xt.lit        0x00000000000000f0       0x30 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .xt.lit        0x00000000000000f8       0x30 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
                                         0x128 (size before relaxing)
- .xt.lit        0x0000000000000120        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .xt.lit        0x0000000000000128        0x8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
                                          0x60 (size before relaxing)
- .xt.lit        0x0000000000000128        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .xt.lit        0x0000000000000130        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
                                          0x28 (size before relaxing)
- .xt.lit        0x0000000000000128       0x10 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .xt.lit        0x0000000000000138        0x8 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+ .xt.lit        0x0000000000000130       0x10 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .xt.lit        0x0000000000000140        0x8 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
                                          0x58 (size before relaxing)
- .xt.lit        0x0000000000000140        0x8 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
-                                         0x60 (size before relaxing)
  .xt.lit        0x0000000000000148        0x8 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
                                          0x50 (size before relaxing)
  .xt.lit        0x0000000000000150        0x0 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
@@ -70020,6 +70020,7 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
  .xtensa.info   0x0000000000000038        0x0 c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/xtensa-esp32-elf/8.4.0/no-rtti/crti.o
  .xtensa.info   0x0000000000000038        0x0 c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/xtensa-esp32-elf/8.4.0/no-rtti/crtbegin.o
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\src\main.cpp.o
+ .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
@@ -70028,7 +70029,6 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .xtensa.info   0x0000000000000038        0x0 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -70786,6 +70786,7 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
  .comment       0x0000000000000000       0x2c c:/users/admin/.platformio/packages/toolchain-xtensa-esp32/bin/../lib/gcc/xtensa-esp32-elf/8.4.0/no-rtti/crtbegin.o
                                          0x2d (size before relaxing)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\src\main.cpp.o
+ .comment       0x000000000000002c       0x2d .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
@@ -70794,7 +70795,6 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .comment       0x000000000000002c       0x2d .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .comment       0x000000000000002c       0x2d .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -72068,15 +72068,15 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 
 .debug_frame    0x0000000000000000    0x1f864
  .debug_frame   0x0000000000000000      0x2e4 .pio\build\esp32dev\src\main.cpp.o
- .debug_frame   0x00000000000002e4       0x70 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .debug_frame   0x0000000000000354      0x580 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .debug_frame   0x00000000000008d4      0x5e0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .debug_frame   0x0000000000000eb4      0x3b8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .debug_frame   0x000000000000126c      0x130 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .debug_frame   0x000000000000139c       0xa0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .debug_frame   0x000000000000143c       0x88 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .debug_frame   0x00000000000014c4      0x208 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .debug_frame   0x00000000000016cc      0x160 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_frame   0x00000000000002e4      0x160 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_frame   0x0000000000000444       0x70 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .debug_frame   0x00000000000004b4      0x580 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .debug_frame   0x0000000000000a34      0x5e0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .debug_frame   0x0000000000001014      0x3b8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .debug_frame   0x00000000000013cc      0x130 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .debug_frame   0x00000000000014fc       0xa0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .debug_frame   0x000000000000159c       0x88 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .debug_frame   0x0000000000001624      0x208 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_frame   0x000000000000182c      0x118 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_frame   0x0000000000001944      0x418 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .debug_frame   0x0000000000001d5c      0x3b8 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -72462,15 +72462,15 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 
 .debug_info     0x0000000000000000   0x54105e
  .debug_info    0x0000000000000000    0x11876 .pio\build\esp32dev\src\main.cpp.o
- .debug_info    0x0000000000011876     0xbceb .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .debug_info    0x000000000001d561    0x12850 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .debug_info    0x000000000002fdb1    0x15582 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .debug_info    0x0000000000045333     0xe9ba .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .debug_info    0x0000000000053ced     0xc138 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .debug_info    0x000000000005fe25     0x81bd .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .debug_info    0x0000000000067fe2     0x895a .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .debug_info    0x000000000007093c     0x9fff .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .debug_info    0x000000000007a93b     0x8e24 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_info    0x0000000000011876     0x8e24 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_info    0x000000000001a69a     0xbceb .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .debug_info    0x0000000000026385    0x12850 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .debug_info    0x0000000000038bd5    0x15582 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .debug_info    0x000000000004e157     0xe9ba .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .debug_info    0x000000000005cb11     0xc138 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .debug_info    0x0000000000068c49     0x81bd .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .debug_info    0x0000000000070e06     0x895a .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .debug_info    0x0000000000079760     0x9fff .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_info    0x000000000008375f     0x8dae .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_info    0x000000000008c50d     0xb22a .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .debug_info    0x0000000000097737     0xbb67 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -72894,15 +72894,15 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 
 .debug_abbrev   0x0000000000000000    0x70929
  .debug_abbrev  0x0000000000000000     0x1150 .pio\build\esp32dev\src\main.cpp.o
- .debug_abbrev  0x0000000000001150      0x9fe .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .debug_abbrev  0x0000000000001b4e     0x1126 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .debug_abbrev  0x0000000000002c74     0x11dc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .debug_abbrev  0x0000000000003e50      0xcb0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .debug_abbrev  0x0000000000004b00      0xa33 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .debug_abbrev  0x0000000000005533      0x87b .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .debug_abbrev  0x0000000000005dae      0x854 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .debug_abbrev  0x0000000000006602      0xc6a .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .debug_abbrev  0x000000000000726c      0x921 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_abbrev  0x0000000000001150      0x921 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_abbrev  0x0000000000001a71      0x9fe .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .debug_abbrev  0x000000000000246f     0x1126 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .debug_abbrev  0x0000000000003595     0x11dc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .debug_abbrev  0x0000000000004771      0xcb0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .debug_abbrev  0x0000000000005421      0xa33 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .debug_abbrev  0x0000000000005e54      0x87b .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .debug_abbrev  0x00000000000066cf      0x854 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .debug_abbrev  0x0000000000006f23      0xc6a .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_abbrev  0x0000000000007b8d      0xaf6 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_abbrev  0x0000000000008683      0xdfd .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .debug_abbrev  0x0000000000009480      0xd2d .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -73326,15 +73326,15 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 
 .debug_loc      0x0000000000000000    0xf2a19
  .debug_loc     0x0000000000000000     0x2c06 .pio\build\esp32dev\src\main.cpp.o
- .debug_loc     0x0000000000002c06      0x15b .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .debug_loc     0x0000000000002d61     0x29f8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .debug_loc     0x0000000000005759     0x3bb8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .debug_loc     0x0000000000009311     0x13c9 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .debug_loc     0x000000000000a6da      0x2ac .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .debug_loc     0x000000000000a986       0x18 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .debug_loc     0x000000000000a99e       0x4a .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .debug_loc     0x000000000000a9e8      0xa2f .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .debug_loc     0x000000000000b417      0x4da .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_loc     0x0000000000002c06      0x4da .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_loc     0x00000000000030e0      0x15b .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .debug_loc     0x000000000000323b     0x29f8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .debug_loc     0x0000000000005c33     0x3bb8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .debug_loc     0x00000000000097eb     0x13c9 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .debug_loc     0x000000000000abb4      0x2ac .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .debug_loc     0x000000000000ae60       0x18 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .debug_loc     0x000000000000ae78       0x4a .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .debug_loc     0x000000000000aec2      0xa2f .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_loc     0x000000000000b8f1      0x7b2 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_loc     0x000000000000c0a3      0xad1 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .debug_loc     0x000000000000cb74     0x118f .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -73707,23 +73707,23 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
  .debug_aranges
                 0x0000000000000000      0x108 .pio\build\esp32dev\src\main.cpp.o
  .debug_aranges
-                0x0000000000000108       0x38 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+                0x0000000000000108       0x88 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
  .debug_aranges
-                0x0000000000000140      0x1e8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                0x0000000000000190       0x38 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
  .debug_aranges
-                0x0000000000000328      0x208 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                0x00000000000001c8      0x1e8 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
  .debug_aranges
-                0x0000000000000530      0x150 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                0x00000000000003b0      0x208 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
  .debug_aranges
-                0x0000000000000680       0x78 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+                0x00000000000005b8      0x150 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
  .debug_aranges
-                0x00000000000006f8       0x48 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                0x0000000000000708       0x78 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
  .debug_aranges
-                0x0000000000000740       0x40 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                0x0000000000000780       0x48 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
  .debug_aranges
-                0x0000000000000780       0xc0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                0x00000000000007c8       0x40 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
  .debug_aranges
-                0x0000000000000840       0x88 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+                0x0000000000000808       0xc0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_aranges
                 0x00000000000008c8       0x70 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_aranges
@@ -74567,15 +74567,15 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 
 .debug_ranges   0x0000000000000000    0x1fed0
  .debug_ranges  0x0000000000000000      0x9b8 .pio\build\esp32dev\src\main.cpp.o
- .debug_ranges  0x00000000000009b8       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .debug_ranges  0x00000000000009e0      0x950 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .debug_ranges  0x0000000000001330      0x948 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .debug_ranges  0x0000000000001c78      0x2f0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .debug_ranges  0x0000000000001f68       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .debug_ranges  0x0000000000001fd0       0x38 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .debug_ranges  0x0000000000002008       0x30 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .debug_ranges  0x0000000000002038      0x2b8 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .debug_ranges  0x00000000000022f0       0xc8 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_ranges  0x00000000000009b8       0xc8 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_ranges  0x0000000000000a80       0x28 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .debug_ranges  0x0000000000000aa8      0x950 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .debug_ranges  0x00000000000013f8      0x948 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .debug_ranges  0x0000000000001d40      0x2f0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .debug_ranges  0x0000000000002030       0x68 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .debug_ranges  0x0000000000002098       0x38 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .debug_ranges  0x00000000000020d0       0x30 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .debug_ranges  0x0000000000002100      0x2b8 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_ranges  0x00000000000023b8      0x158 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_ranges  0x0000000000002510      0x1a8 .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .debug_ranges  0x00000000000026b8      0x438 .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -74925,15 +74925,15 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 
 .debug_line     0x0000000000000000   0x24461d
  .debug_line    0x0000000000000000     0x3d72 .pio\build\esp32dev\src\main.cpp.o
- .debug_line    0x0000000000003d72     0x13e0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
- .debug_line    0x0000000000005152     0x4178 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
- .debug_line    0x00000000000092ca     0x6e5a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
- .debug_line    0x0000000000010124     0x33a1 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
- .debug_line    0x00000000000134c5     0x19c0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
- .debug_line    0x0000000000014e85      0xd43 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
- .debug_line    0x0000000000015bc8      0xd38 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
- .debug_line    0x0000000000016900     0x1cb0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
- .debug_line    0x00000000000185b0     0x167a .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_line    0x0000000000003d72     0x167a .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_line    0x00000000000053ec     0x13e0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+ .debug_line    0x00000000000067cc     0x4178 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+ .debug_line    0x000000000000a944     0x6e5a .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+ .debug_line    0x000000000001179e     0x33a1 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+ .debug_line    0x0000000000014b3f     0x19c0 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+ .debug_line    0x00000000000164ff      0xd43 .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+ .debug_line    0x0000000000017242      0xd38 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+ .debug_line    0x0000000000017f7a     0x1cb0 .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
  .debug_line    0x0000000000019c2a     0x1bb5 .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
  .debug_line    0x000000000001b7df     0x21ad .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
  .debug_line    0x000000000001d98c     0x298f .pio\build\esp32dev\libFrameworkArduino.a(HardwareSerial.cpp.o)
@@ -75358,24 +75358,24 @@ OUTPUT(.pio\build\esp32dev\firmware.elf elf32-xtensa-le)
 .debug_str      0x0000000000000000    0x74bc9
  .debug_str     0x0000000000000000     0xb937 .pio\build\esp32dev\src\main.cpp.o
                                        0xc983 (size before relaxing)
- .debug_str     0x000000000000b937      0xd14 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
-                                       0x9ca4 (size before relaxing)
- .debug_str     0x000000000000c64b     0x4b55 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
-                                       0xdca2 (size before relaxing)
- .debug_str     0x00000000000111a0     0x66cc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
-                                      0x10916 (size before relaxing)
- .debug_str     0x000000000001786c      0x595 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
-                                       0xa5c5 (size before relaxing)
- .debug_str     0x0000000000017e01      0x25d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
-                                       0x9e66 (size before relaxing)
- .debug_str     0x000000000001805e       0xbd .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
-                                       0x5597 (size before relaxing)
- .debug_str     0x000000000001811b      0x120 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
-                                       0x5d1c (size before relaxing)
- .debug_str     0x000000000001823b      0x39b .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
-                                       0x6748 (size before relaxing)
- .debug_str     0x00000000000185d6       0x89 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
+ .debug_str     0x000000000000b937      0x112 .pio\build\esp32dev\libdcd\libTM1637.a(TM1637Display.cpp.o)
                                        0x59bf (size before relaxing)
+ .debug_str     0x000000000000ba49      0xd14 .pio\build\esp32dev\lib13e\libWiFi.a(WiFi.cpp.o)
+                                       0x9ca4 (size before relaxing)
+ .debug_str     0x000000000000c75d     0x4b55 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiClient.cpp.o)
+                                       0xdca2 (size before relaxing)
+ .debug_str     0x00000000000112b2     0x66cc .pio\build\esp32dev\lib13e\libWiFi.a(WiFiGeneric.cpp.o)
+                                      0x10916 (size before relaxing)
+ .debug_str     0x000000000001797e      0x595 .pio\build\esp32dev\lib13e\libWiFi.a(WiFiSTA.cpp.o)
+                                       0xa5c5 (size before relaxing)
+ .debug_str     0x0000000000017f13      0x25d .pio\build\esp32dev\lib13e\libWiFi.a(WiFiScan.cpp.o)
+                                       0x9e66 (size before relaxing)
+ .debug_str     0x0000000000018170       0xbd .pio\build\esp32dev\lib020\libBlynk.a(BlynkDebug.cpp.o)
+                                       0x5597 (size before relaxing)
+ .debug_str     0x000000000001822d       0x97 .pio\build\esp32dev\lib020\libBlynk.a(BlynkHandlers.cpp.o)
+                                       0x5d1c (size before relaxing)
+ .debug_str     0x00000000000182c4      0x39b .pio\build\esp32dev\lib020\libBlynk.a(BlynkTimer.cpp.o)
+                                       0x6748 (size before relaxing)
  .debug_str     0x000000000001865f      0x1ea .pio\build\esp32dev\libee4\libDHT sensor library.a(DHT.cpp.o)
                                        0x58ad (size before relaxing)
  .debug_str     0x0000000000018849     0x209e .pio\build\esp32dev\libFrameworkArduino.a(Esp.cpp.o)
