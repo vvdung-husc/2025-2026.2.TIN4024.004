@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "internet": true,
+  "name": "Blynk",
+  "author": "Huỳnh Tấn Sang",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": 34.8,
+      "left": 129,
+      "attrs": { "color": "blue", "flip": "1" }
+    },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 153.9, "left": 205.8, "attrs": {} },
+    {
+      "type": "wokwi-tm1637-7segment",
+      "id": "sevseg1",
+      "top": -124.84,
+      "left": 55.03,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 6.2,
+      "left": 153.6,
+      "attrs": { "color": "blue", "xray": "1" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "btn1:1.l", "esp:GND.2", "black", [ "h-48" ] ],
+    [ "esp:23", "btn1:2.l", "blue", [ "h52.84", "v9.6" ] ],
+    [ "led2:A", "esp:21", "blue", [ "h-43.24" ] ],
+    [ "esp:GND.3", "led2:C", "black", [ "h52.84" ] ],
+    [ "dht1:GND", "esp:GND.3", "black", [ "v28.8", "h-115.2", "v-153.6" ] ],
+    [ "sevseg1:GND", "esp:GND.3", "black", [ "h19.2", "v153.6" ] ],
+    [ "sevseg1:DIO", "esp:19", "green", [ "h57.6", "v182.4" ] ],
+    [ "sevseg1:CLK", "esp:18", "green", [ "h76.8", "v201.6" ] ],
+    [ "dht1:SDA", "esp:16", "green", [ "v19.2", "h-67.1", "v-153.6" ] ],
+    [ "esp:3V3", "dht1:VCC", "red", [ "h-23.81", "v249.6", "h240" ] ],
+    [ "sevseg1:VCC", "esp:5V", "red", [ "h38.4", "v192", "h-153.6", "v124.8", "h-110.59" ] ]
+  ],
+  "dependencies": {}
+}
