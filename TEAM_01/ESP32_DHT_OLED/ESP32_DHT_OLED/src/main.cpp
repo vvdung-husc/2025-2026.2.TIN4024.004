@@ -70,3 +70,81 @@ void setup() {
   pinMode(PIN_LED_YELLOW, OUTPUT);
   pinMode(PIN_LED_RED, OUTPUT);
 }
+
+void loop() {
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousSensorMillis >= SENSOR_INTERVAL) {
+    previousSensorMillis = currentMillis;
+    handleSensorLogic();
+    updateDisplay();
+  }
+  if (currentMillis - previousBlinkMillis >= BLINK_INTERVAL) {
+    previousBlinkMillis = currentMillis;
+    handleLedBlink();
+  }
+}
+
+void turnOffAllLeds() {
+  digitalWrite(PIN_LED_GREEN, LOW);
+  digitalWrite(PIN_LED_YELLOW, LOW);
+  digitalWrite(PIN_LED_RED, LOW);
+}
+
+void handleSensorLogic() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  if (isnan(h) || isnan(t)) {
+    currentStatus = "Error";
+    currentLedPin = -1; 
+    return;
+  }
+
+  currentTemp = t;
+  currentHum = h;
+
+  int numStates = sizeof(states) / sizeof(states[0]);
+  for (int i = 0; i < numStates; i++) {
+    if (t < states[i].maxTemp) {
+      currentStatus = states[i].label;
+      if (currentLedPin != states[i].ledPin) {
+        turnOffAllLeds(); 
+      }
+      currentLedPin = states[i].ledPin;
+      return;
+    }
+  }
+}
+
+void handleLedBlink() {
+  ledState = !ledState;
+  if (currentLedPin != -1) {
+    digitalWrite(currentLedPin, ledState);
+  } else {
+    turnOffAllLeds();
+  }
+}
+
+void updateDisplay() {
+  display.clearDisplay();
+  display.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
+  display.setTextColor(WHITE);
+  display.setTextSize(1);
+  
+  display.setCursor(10, 10);
+  display.print("Temp: "); display.print(currentTemp, 1); display.print(" C");
+  
+  display.setCursor(10, 22);
+  display.print("Hum:  "); display.print(currentHum, 1); display.print(" %");
+
+  display.drawLine(5, 35, 123, 35, WHITE);
+  display.setTextSize(2);
+  
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds(currentStatus, 0, 0, &x1, &y1, &w, &h);
+  
+  display.setCursor((SCREEN_WIDTH - w) / 2, 42); 
+  display.print(currentStatus);
+
+  display.display();
+}
