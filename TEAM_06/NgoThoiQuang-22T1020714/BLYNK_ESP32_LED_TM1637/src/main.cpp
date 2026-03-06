@@ -1,21 +1,17 @@
-// 1. BẮT BUỘC KHAI BÁO BLYNK TRÊN CÙNG
 #define BLYNK_TEMPLATE_ID "TMPL6MmOgzaXh"
 #define BLYNK_TEMPLATE_NAME "ESP32 LED TM1637"
 #define BLYNK_AUTH_TOKEN "kDc6eUsp8Gz4F_BA5JCIo7TPo_ZZOioM"
 #define BLYNK_PRINT Serial
 
-// 2. INCLUDE CÁC THƯ VIỆN CẦN THIẾT
-#include <WiFi.h>
-#include <WiFiClient.h>
-#include <BlynkSimpleEsp32.h>
-#include <DHT.h>
-#include <TM1637Display.h>
+#include "WiFi.h"
+#include "WiFiClient.h"
+#include "BlynkSimpleEsp32.h"
+#include "DHT.h"
+#include "TM1637Display.h"
 
-// --- Cấu hình WiFi ---
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
 
-// --- Định nghĩa chân kết nối ---
 #define PIN_LED      21
 #define PIN_BTN      23
 #define PIN_TM_CLK   18
@@ -23,20 +19,20 @@ char pass[] = "";
 #define PIN_DHT      16
 #define DHT_TYPE     DHT22
 
-// =========================================================
-// CÁC HÀM VÀ CLASS TIỆN ÍCH
-// =========================================================
-
-// Hàm xử lý thời gian không dùng delay
 bool IsReady(unsigned long &ulTimer, uint32_t millisecond) {
-    if (millis() - ulTimer < millisecond) return false;
+    if (millis() - ulTimer < millisecond) {
+        return false;
+    }
     ulTimer = millis();
     return true;
 }
 
 class MyLED {
 public:
-    MyLED() { _pin = -1; _state = false; }
+    MyLED() { 
+        _pin = -1; 
+        _state = false; 
+    }
     void setup(int pin) {
         _pin = pin;
         pinMode(_pin, OUTPUT);
@@ -44,10 +40,15 @@ public:
     }
     void set(bool state) {
         _state = state;
-        if (_state) digitalWrite(_pin, HIGH);
-        else digitalWrite(_pin, LOW);
+        if (_state) {
+            digitalWrite(_pin, HIGH);
+        } else {
+            digitalWrite(_pin, LOW);
+        }
     }
-    bool getState() { return _state; }
+    bool getState() { 
+        return _state; 
+    }
 private:
     int _pin;
     bool _state;
@@ -55,31 +56,50 @@ private:
 
 class MyButton {
 public:
-    MyButton() { _pin = -1; _lastState = HIGH; _debounceTimer = 0; }
+    MyButton() { 
+        _pin = -1; 
+        _lastState = HIGH; 
+        _buttonState = HIGH; 
+        _lastDebounceTime = 0; 
+    }
     void setup(int pin) {
         _pin = pin;
         pinMode(_pin, INPUT_PULLUP);
     }
     bool isPressed() {
-        bool currentState = digitalRead(_pin);
+        bool reading = digitalRead(_pin);
         bool pressed = false;
-        if (currentState != _lastState) {
-            if (IsReady(_debounceTimer, 50)) {
-                if (currentState == LOW) pressed = true;
-                _lastState = currentState;
+        
+        if (reading != _lastState) {
+            _lastDebounceTime = millis();
+        }
+        
+        if ((millis() - _lastDebounceTime) > 50) {
+            if (reading != _buttonState) {
+                _buttonState = reading;
+                if (_buttonState == LOW) {
+                    pressed = true;
+                }
             }
         }
+        _lastState = reading;
         return pressed;
     }
 private:
     int _pin;
     bool _lastState;
-    unsigned long _debounceTimer;
+    bool _buttonState;
+    unsigned long _lastDebounceTime;
 };
 
 class MyDHT {
 public:
-    MyDHT() { _dht = NULL; _temp = 0.0; _hum = 0.0; _timer = 0; }
+    MyDHT() { 
+        _dht = NULL; 
+        _temp = 0.0; 
+        _hum = 0.0; 
+        _timer = 0; 
+    }
     void setup(int pin, int type) {
         _pin = pin;
         _type = type;
@@ -87,14 +107,23 @@ public:
         _dht->begin();
     }
     void run() {
-        if (!IsReady(_timer, 2000)) return;
-        float t = _dht->readTemperature();
-        float h = _dht->readHumidity();
-        if (!isnan(t)) _temp = t;
-        if (!isnan(h)) _hum = h;
+        if (IsReady(_timer, 2000)) {
+            float t = _dht->readTemperature();
+            float h = _dht->readHumidity();
+            if (!isnan(t)) {
+                _temp = t;
+            }
+            if (!isnan(h)) {
+                _hum = h;
+            }
+        }
     }
-    float getTemp() { return _temp; }
-    float getHum() { return _hum; }
+    float getTemp() { 
+        return _temp; 
+    }
+    float getHum() { 
+        return _hum; 
+    }
 private:
     DHT* _dht;
     int _pin;
@@ -106,7 +135,9 @@ private:
 
 class MyDisplay {
 public:
-    MyDisplay() { _tm = NULL; }
+    MyDisplay() { 
+        _tm = NULL; 
+    }
     void setup(int clk, int dio) {
         _tm = new TM1637Display(clk, dio);
         _tm->setBrightness(0x0f);
@@ -142,7 +173,9 @@ public:
         return false;
     }
 
-    unsigned long getUptime() { return _uptime; }
+    unsigned long getUptime() { 
+        return _uptime; 
+    }
 
     bool getBtnTriggered() {
         if (_btnTriggered) {
@@ -153,17 +186,18 @@ public:
     }
 
     void run(MyLED &led, MyButton &btn, MyDHT &dht, MyDisplay &display) {
-        // Nút nhấn cứng
         if (btn.isPressed()) {
-            _isLedOn = !_isLedOn;
+            if (_isLedOn) {
+                _isLedOn = false;
+            } else {
+                _isLedOn = true;
+            }
             led.set(_isLedOn);
             _btnTriggered = true;
         }
 
-        // Đọc DHT
         dht.run();
 
-        // Cập nhật Uptime mỗi giây
         if (IsReady(_timer1s, 1000)) {
             _uptime++;
             display.showNumber(_uptime);
@@ -178,18 +212,14 @@ private:
     bool _btnTriggered;
 };
 
-// =========================================================
-// KHỞI TẠO ĐỐI TƯỢNG VÀ CHƯƠNG TRÌNH CHÍNH
-// =========================================================
-
 MyLED ledBlue;
 MyButton btnToggle;
 MyDHT dhtSensor;
 MyDisplay tmDisplay;
 SystemController mySystem;
 
-// Xử lý khi nhấn nút trên App Blynk (chân V1)
-BLYNK_WRITE(V1) {
+// Xử lý V0 - Switch điều khiển đèn
+BLYNK_WRITE(V0) {
     int pinValue = param.asInt(); 
     if (pinValue == 1) {
         mySystem.setLedState(true, ledBlue);
@@ -200,55 +230,37 @@ BLYNK_WRITE(V1) {
 
 void setup() {
     Serial.begin(115200);
-    Serial.println("Bat dau khoi dong...");
 
-    // 1. Cài đặt phần cứng
     ledBlue.setup(PIN_LED);
     btnToggle.setup(PIN_BTN);
     dhtSensor.setup(PIN_DHT, DHT_TYPE);
     tmDisplay.setup(PIN_TM_CLK, PIN_TM_DIO);
 
-    // 2. Kết nối WiFi thủ công để fix lỗi DNS trên Wokwi
-    Serial.print("Connecting to WiFi: ");
-    Serial.println(ssid);
     WiFi.begin(ssid, pass);
-
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("\nWiFi Connected!");
-    Serial.print("IP Address: ");
-    Serial.println(WiFi.localIP());
-
-    // Đợi 2 giây cho môi trường mạng ảo thật sự ổn định DNS
-    delay(2000); 
-    Serial.println("Connecting to Blynk...");
-
-    // 3. Khởi tạo Blynk sau khi đã chắc chắn có mạng
     Blynk.config(BLYNK_AUTH_TOKEN);
-    Blynk.connect();
 }
 
 void loop() {
-    Blynk.run();
-    
-    // Chạy logic của hệ thống
+    // Phần cứng luôn chạy mà không bị nghẽn mạng
     mySystem.run(ledBlue, btnToggle, dhtSensor, tmDisplay);
 
-    // Đồng bộ nút cứng lên Blynk
-    if (mySystem.getBtnTriggered()) {
-        if (ledBlue.getState()) {
-            Blynk.virtualWrite(V1, 1);
-        } else {
-            Blynk.virtualWrite(V1, 0);
-        }
-    }
+    if (WiFi.status() == WL_CONNECTED) {
+        Blynk.run();
 
-    // Gửi data định kỳ lên Blynk
-    if (mySystem.hasDataToUpdate()) {
-        Blynk.virtualWrite(V0, mySystem.getUptime());
-        Blynk.virtualWrite(V2, dhtSensor.getTemp());
-        Blynk.virtualWrite(V3, dhtSensor.getHum());
+        // Đồng bộ trạng thái đèn lên App qua V0
+        if (mySystem.getBtnTriggered()) {
+            if (ledBlue.getState()) {
+                Blynk.virtualWrite(V0, 1);
+            } else {
+                Blynk.virtualWrite(V0, 0);
+            }
+        }
+
+        // Cập nhật V1(Nhiệt độ), V2(Độ ẩm), V3(Thời gian)
+        if (mySystem.hasDataToUpdate()) {
+            Blynk.virtualWrite(V3, mySystem.getUptime());
+            Blynk.virtualWrite(V1, dhtSensor.getTemp());
+            Blynk.virtualWrite(V2, dhtSensor.getHum());
+        }
     }
 }
