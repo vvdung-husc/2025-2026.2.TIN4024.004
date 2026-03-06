@@ -28,42 +28,40 @@ char pass[] = "";
 TM1637Display display(CLK, DIO);
 DHT dht(DHTPIN, DHTTYPE);
 
-bool blueButtonON = true;
-unsigned long lastTime = 0;
+/* VARIABLE */
+bool blueButtonON = false;
+int lastButtonState = HIGH;
 
 /* TIMER */
 BlynkTimer timer;
 
 /* BUTTON FUNCTION */
 void checkButton() {
-  static int lastState = HIGH;
 
   int state = digitalRead(btnBLED);
 
-  if (state != lastState) {
-    delay(20);
-    lastState = state;
+  if (state == LOW && lastButtonState == HIGH) {
 
-    if (state == HIGH) {
-      blueButtonON = !blueButtonON;
+    blueButtonON = !blueButtonON;
 
-      digitalWrite(pinBLED, blueButtonON);
+    digitalWrite(pinBLED, blueButtonON);
 
-      Blynk.virtualWrite(V1, blueButtonON);
+    Blynk.virtualWrite(V0, blueButtonON);
 
-      if (!blueButtonON) {
-        display.clear();
-      }
-    }
+    if (!blueButtonON) display.clear();
+
+    delay(200); // chống dội
   }
+
+  lastButtonState = state;
 }
 
-/* UPTIME + DISPLAY */
-void sendUptime() {
+/* TIME */
+void sendTime() {
 
   unsigned long sec = millis() / 1000;
 
-  Blynk.virtualWrite(V0, sec);
+  Blynk.virtualWrite(V3, sec);
 
   if (blueButtonON) {
     display.showNumberDec(sec);
@@ -78,8 +76,8 @@ void readDHT() {
 
   if (!isnan(temp) && !isnan(hum)) {
 
-    Blynk.virtualWrite(V2, temp);
-    Blynk.virtualWrite(V3, hum);
+    Blynk.virtualWrite(V1, temp);
+    Blynk.virtualWrite(V2, hum);
 
     Serial.print("Temp: ");
     Serial.println(temp);
@@ -90,17 +88,16 @@ void readDHT() {
 }
 
 /* BLYNK BUTTON */
-BLYNK_WRITE(V1) {
+BLYNK_WRITE(V0) {
 
   blueButtonON = param.asInt();
 
   digitalWrite(pinBLED, blueButtonON);
 
-  if (!blueButtonON) {
-    display.clear();
-  }
+  if (!blueButtonON) display.clear();
 }
 
+/* SETUP */
 void setup() {
 
   Serial.begin(115200);
@@ -116,10 +113,11 @@ void setup() {
 
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  timer.setInterval(1000L, sendUptime);
+  timer.setInterval(1000L, sendTime);
   timer.setInterval(2000L, readDHT);
 }
 
+/* LOOP */
 void loop() {
 
   Blynk.run();
