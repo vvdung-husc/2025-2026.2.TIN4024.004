@@ -61,16 +61,15 @@ void setup() {
   display.setBrightness(0x0f);
   dht.begin();
 
-  // --- GIẢI PHÁP SỬA LỖI DNS ---
+  
   Serial.print("Dang ket noi WiFi...");
   WiFi.begin(ssid, pass);
   
-  // Ép buộc dùng DNS của Google để tránh lỗi hostByName()
+
   IPAddress dns(8, 8, 8, 8); 
   WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, dns);
 
-  // Dùng IP trực tiếp của Blynk Server (Tránh dùng tên miền blynk.cloud)
-  // Địa chỉ 128.199.144.129 là server Blynk khu vực Singapore/Châu Á
+
   Blynk.config(BLYNK_AUTH_TOKEN, IPAddress(128, 199, 144, 129), 80);
   
   timer.setInterval(1000L, sendUptime);
@@ -82,7 +81,7 @@ void loop() {
   Blynk.run();
   timer.run();
   
-  // Xử lý nút bấm local nhanh
+  
   static int lastState = HIGH;
   int btn = digitalRead(BTN_BLED);
   if (btn != lastState && btn == HIGH) {
