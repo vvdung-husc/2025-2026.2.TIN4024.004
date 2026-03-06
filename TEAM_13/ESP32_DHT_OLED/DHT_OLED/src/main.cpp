@@ -102,25 +102,28 @@ String getStatusText()
 void updateOLED()
 {
   display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
 
   display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-  display.println("DHT22 MONITOR");
-
-  display.setCursor(0, 16);
-  display.print("Temp: ");
-  display.print(temperature, 1);
-  display.println(" C");
-
-  display.setCursor(0, 28);
-  display.print("Humi: ");
-  display.print(humidity, 1);
-  display.println(" %");
-
-  display.setCursor(0, 44);
-  display.print("Status: ");
+  display.print("Temperature: ");
   display.println(getStatusText());
+
+  display.setTextSize(2);
+  display.setCursor(0, 14);
+  display.print(temperature, 1);
+  display.print(" ");
+  display.write(247); 
+  display.print("C");
+
+  display.setTextSize(1);
+  display.setCursor(0, 38);
+  display.println("Humidity:");
+
+  display.setTextSize(2);
+  display.setCursor(0, 48);
+  display.print(humidity, 2);
+  display.print(" %");
 
   display.display();
 }
