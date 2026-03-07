@@ -1,18 +1,85 @@
-#include <Arduino.h>
+#define BLYNK_TEMPLATE_ID "TMPL66jTw53rN"
+#define BLYNK_TEMPLATE_NAME "blynk"
+#define BLYNK_AUTH_TOKEN "sLhiqhPoV_3S0yXMneqjmVWRWs5qLT7o"
 
-// put function declarations here:
-int myFunction(int, int);
+#define BLYNK_PRINT Serial
 
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+#include <DHT.h>
+#include <TM1637Display.h>
+
+char ssid[] = "YOUR_WIFI";
+char pass[] = "YOUR_PASSWORD";
+
+/* PIN */
+#define LED_PIN 21
+#define BTN_PIN 23
+#define DHTPIN 16
+#define CLK 18
+#define DIO 19
+#define DHTTYPE DHT22
+
+DHT dht(DHTPIN, DHTTYPE);
+TM1637Display display(CLK, DIO);
+BlynkTimer timer;
+
+/******** LED ********/
+BLYNK_WRITE(V1) {
+  int s = param.asInt();
+  digitalWrite(LED_PIN, s);
+  Serial.println("LED = " + String(s));
+}
+
+/******** BUTTON ********/
+void checkButton() {
+  static int last = HIGH;
+  int now = digitalRead(BTN_PIN);
+
+  if (last == HIGH && now == LOW) {
+    int newState = !digitalRead(LED_PIN);
+    digitalWrite(LED_PIN, newState);
+    Blynk.virtualWrite(V1, newState);
+  }
+  last = now;
+}
+
+/******** SENSOR ********/
+void sendSensor() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  Serial.println("Temp: " + String(t));
+  Serial.println("Hum: " + String(h));
+
+  // ❗ luôn gửi (kể cả 0) để debug
+  Blynk.virtualWrite(V2, t);
+  Blynk.virtualWrite(V0, h);
+
+  display.showNumberDec((int)t);
+}
+
+/******** SETUP ********/
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  
+  Serial.begin(115200);
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BTN_PIN, INPUT_PULLUP);
+
+  dht.begin();
+  display.setBrightness(7);
+
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+
+  timer.setInterval(2000, sendSensor);
+  timer.setInterval(100, checkButton);
+
+  digitalWrite(LED_PIN, LOW);
 }
 
+/******** LOOP ********/
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  Blynk.run();
+  timer.run();
 }
