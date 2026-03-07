@@ -14,7 +14,6 @@
 #define WIFI_PASSWORD ""
 #define WIFI_CHANNEL  6
 
-// ─── Cấu trúc lưu thông tin IPv4, lat, lon ────────────────────────────────────
 struct IP4_Info {
   String ip4;
   String latitude;
@@ -24,7 +23,6 @@ struct IP4_Info {
 IP4_Info ip4Info;
 ulong currentMiliseconds = 0;
 
-// ─── Định dạng chuỗi kiểu printf ─────────────────────────────────────────────
 String StringFormat(const char* fmt, ...) {
   va_list vaArgs;
   va_start(vaArgs, fmt);
@@ -41,14 +39,12 @@ String StringFormat(const char* fmt, ...) {
   return s;
 }
 
-// ─── Timer helper ─────────────────────────────────────────────────────────────
 bool IsReady(ulong &ulTimer, uint32_t milisecond) {
   if (currentMiliseconds - ulTimer < milisecond) return false;
   ulTimer = currentMiliseconds;
   return true;
 }
 
-// ─── Parse chuỗi "IP|CC|Country|Region|City|Lon|Lat" ────────────────────────
 void parseGeoInfo(String payload, IP4_Info& ipInfo) {
   String values[7];
   int index = 0;
@@ -76,11 +72,11 @@ void parseGeoInfo(String payload, IP4_Info& ipInfo) {
   Serial.printf("Latitude    : %s\r\n", values[6].c_str());
 }
 
-// ─── OpenWeatherMap API key ───────────────────────────────────────────────────
+// OpenWeatherMap API key 
 #define OPENWEATHERMAP_KEY "YOUR_OPENWEATHER_API_KEY"  // <-- e5fbf5f20a3b8481bbe8a5cf79dea48c YOUR_OPENWEATHER_API_KEY
 String urlWeather;
 
-// ─── GET http://ip4.iothings.vn/?geo=1 ───────────────────────────────────────
+// GET http://ip4.iothings.vn/?geo=1 
 void getAPI() {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("getAPI() Error: WiFi not connected"); return;
@@ -105,7 +101,6 @@ void getAPI() {
     Serial.printf("IPv4      => %s\r\n", ip4Info.ip4.c_str());
     Serial.printf("Maps link => %s\r\n", urlGoogleMaps.c_str());
 
-    // Build URL thời tiết để dùng trong updateTemp()
     urlWeather = StringFormat(
       "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",
       ip4Info.latitude.c_str(), ip4Info.longitude.c_str(), OPENWEATHERMAP_KEY
@@ -117,7 +112,7 @@ void getAPI() {
   http.end();
 }
 
-// ─── Cập nhật nhiệt độ từ OpenWeatherMap mỗi 10 giây ─────────────────────────
+// Cập nhật nhiệt độ từ OpenWeatherMap mỗi 10 giây 
 void updateTemp() {
   static ulong lastTime = 0;
   static float temp_    = 0.0f;
@@ -140,7 +135,6 @@ void updateTemp() {
     Serial.println(code);
     Serial.println(response);
 
-    // ── Dùng JsonDocument (ArduinoJson v7 - không deprecated) ────────────────
     JsonDocument doc;
     DeserializationError error = deserializeJson(doc, response);
     if (error) {
@@ -158,7 +152,6 @@ void updateTemp() {
         temp_ = temp;
         Blynk.virtualWrite(V2, temp_);      // Nhiệt độ → V2
         Blynk.virtualWrite(V3, humidity);   // Độ ẩm   → V3
-        Blynk.virtualWrite(V4, desc);       // Mô tả   → V4
       }
     }
   } else {
@@ -167,7 +160,7 @@ void updateTemp() {
   http.end();
 }
 
-// ─── Gửi IPv4 + Google Maps lên Blynk (chỉ 1 lần) ───────────────────────────
+// Gửi IPv4 + Google Maps lên Blynk
 void onceCalled() {
   static bool done_ = false;
   if (done_) return;
@@ -182,7 +175,6 @@ void onceCalled() {
   Blynk.virtualWrite(V6, link.c_str());          // Maps   → V6
 }
 
-// ─── Uptime mỗi 1 giây → V0 ──────────────────────────────────────────────────
 void uptimeBlynk() {
   static ulong lastTime = 0;
   if (!IsReady(lastTime, 1000)) return;
@@ -190,7 +182,6 @@ void uptimeBlynk() {
   Blynk.virtualWrite(V0, value);
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
 void setup() {
   Serial.begin(115200);
 
@@ -202,12 +193,10 @@ void setup() {
   }
   Serial.println(" Connected!");
 
-  // ── Fix DNS cho Wokwi simulator ──────────────────────────────────────────
+  // DNS cho Wokwi simulator
   WiFi.config(WiFi.localIP(), WiFi.gatewayIP(), WiFi.subnetMask(),
               IPAddress(8, 8, 8, 8),   // DNS chính  - Google
               IPAddress(8, 8, 4, 4));  // DNS dự phòng - Google
-  delay(500);
-  // ─────────────────────────────────────────────────────────────────────────
 
   Serial.print("IP noi bo: ");
   Serial.println(WiFi.localIP());
@@ -229,9 +218,7 @@ void loop() {
   uptimeBlynk();   // Uptime mỗi 1 giây
 }
 
-// ─── Nhận lệnh từ Blynk app (V1 = Đèn) ──────────────────────────────────────
 BLYNK_WRITE(V1) {
   int val = param.asInt();
   Serial.printf("[Blynk] V1 Den = %d\n", val);
-  // digitalWrite(LED_PIN, val);
 }
