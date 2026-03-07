@@ -1,266 +1,237 @@
 #include <Arduino.h>
-#include <TM1637Display.h>
 
-/* Blynk */
-#define BLYNK_TEMPLATE_ID "TMPL6lGFdsfCS"
+#define BLYNK_TEMPLATE_ID   "TMPL6lGFdsfCS"
 #define BLYNK_TEMPLATE_NAME "IOT TEMPLATE"
-#define BLYNK_AUTH_TOKEN "YPy5vGILJQdifdYBigo0-Nn_olk54-SP"
+#define BLYNK_AUTH_TOKEN    "YPy5vGILJQdifdYBigo0-Nn_olk54-SP"
 
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
-
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-/* WIFI */
-char ssid[] = "Wokwi-GUEST";
-char pass[] = "";
+#define WIFI_SSID     "Wokwi-GUEST"
+#define WIFI_PASSWORD ""
+#define WIFI_CHANNEL  6
 
-/* PIN */
-#define btnBLED 23
-#define pinBLED 21
-
-#define CLK 18
-#define DIO 19
-
-TM1637Display display(CLK, DIO);
-
-/* TIMER */
-unsigned long currentMiliseconds = 0;
-bool blueButtonON = true;
-
-/*STRUCT LƯU THÔNG TIN IP + VỊ TRÍ*/
-
-struct IP4_Info{
-  String ip4;        // địa chỉ IPv4 của thiết bị
-  String latitude;   // vĩ độ
-  String longitude;  // kinh độ
+// ─── Cấu trúc lưu thông tin IPv4, lat, lon ────────────────────────────────────
+struct IP4_Info {
+  String ip4;
+  String latitude;
+  String longitude;
 };
 
 IP4_Info ip4Info;
+ulong currentMiliseconds = 0;
 
-/* WEATHER API */
-#define OPENWEATHERMAP_KEY "YOUR_API_KEY_HERE"
+// ─── Định dạng chuỗi kiểu printf ─────────────────────────────────────────────
+String StringFormat(const char* fmt, ...) {
+  va_list vaArgs;
+  va_start(vaArgs, fmt);
+  va_list vaArgsCopy;
+  va_copy(vaArgsCopy, vaArgs);
+  const int iLen = vsnprintf(NULL, 0, fmt, vaArgsCopy);
+  va_end(vaArgsCopy);
+  int iSize = iLen + 1;
+  char* buff = (char*)malloc(iSize);
+  vsnprintf(buff, iSize, fmt, vaArgs);
+  va_end(vaArgs);
+  String s = buff;
+  free(buff);
+  return s;
+}
 
-String urlWeather;
-
-
-bool IsReady(unsigned long &timer, uint32_t ms){
-  if (currentMiliseconds - timer < ms) return false;
-  timer = currentMiliseconds;
+// ─── Timer helper ─────────────────────────────────────────────────────────────
+bool IsReady(ulong &ulTimer, uint32_t milisecond) {
+  if (currentMiliseconds - ulTimer < milisecond) return false;
+  ulTimer = currentMiliseconds;
   return true;
 }
 
-/*TÁCH DỮ LIỆU TRẢ VỀ TỪ API IP */
-
-void parseGeoInfo(String payload){
-
-
+// ─── Parse chuỗi "IP|CC|Country|Region|City|Lon|Lat" ────────────────────────
+void parseGeoInfo(String payload, IP4_Info& ipInfo) {
   String values[7];
   int index = 0;
 
-  while(payload.length() > 0 && index < 7){
-
-    int delimiter = payload.indexOf('|');
-
-    if(delimiter == -1){
+  while (payload.length() > 0 && index < 7) {
+    int delimiterIndex = payload.indexOf('|');
+    if (delimiterIndex == -1) {
       values[index++] = payload;
       break;
     }
-
-    values[index++] = payload.substring(0,delimiter);
-    payload = payload.substring(delimiter + 1);
+    values[index++] = payload.substring(0, delimiterIndex);
+    payload = payload.substring(delimiterIndex + 1);
   }
 
-  /* LẤY THÔNG TIN CẦN THIẾT */
+  ipInfo.ip4       = values[0];
+  ipInfo.longitude = values[5];   // index 5 = Longitude
+  ipInfo.latitude  = values[6];   // index 6 = Latitude
 
-  ip4Info.ip4 = values[0];        // IPv4
-  ip4Info.longitude = values[5];  // kinh độ
-  ip4Info.latitude = values[6];   // vĩ độ
-
-  Serial.print("IP: ");
-  Serial.println(ip4Info.ip4);
+  Serial.printf("IP Address  : %s\r\n", values[0].c_str());
+  Serial.printf("Country Code: %s\r\n", values[1].c_str());
+  Serial.printf("Country     : %s\r\n", values[2].c_str());
+  Serial.printf("Region      : %s\r\n", values[3].c_str());
+  Serial.printf("City        : %s\r\n", values[4].c_str());
+  Serial.printf("Longitude   : %s\r\n", values[5].c_str());
+  Serial.printf("Latitude    : %s\r\n", values[6].c_str());
 }
 
-/* LẤY IPv4 + VỊ TRÍ ĐỊA LÝ*/
+// ─── OpenWeatherMap API key ───────────────────────────────────────────────────
+#define OPENWEATHERMAP_KEY "YOUR_OPENWEATHER_API_KEY"  // <-- e5fbf5f20a3b8481bbe8a5cf79dea48c YOUR_OPENWEATHER_API_KEY
+String urlWeather;
 
-void getAPI(){
+// ─── GET http://ip4.iothings.vn/?geo=1 ───────────────────────────────────────
+void getAPI() {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("getAPI() Error: WiFi not connected"); return;
+  }
 
   HTTPClient http;
-
-  // gọi API lấy IPv4 và vị trí
   http.begin("http://ip4.iothings.vn/?geo=1");
+  http.addHeader("Content-Type", "text/plain");
+
   int code = http.GET();
-
-  if(code == 200){
-
-    // nhận dữ liệu trả về
+  if (code > 0) {
     String response = http.getString();
+    Serial.println(code);
+    Serial.println(response);
 
-    // tách dữ liệu 
-    parseGeoInfo(response);
+    parseGeoInfo(response, ip4Info);
 
-    /*TẠO URL API LẤY THỜI TIẾT*/
+    String urlGoogleMaps = StringFormat(
+      "https://www.google.com/maps/place/%s,%s",
+      ip4Info.latitude.c_str(), ip4Info.longitude.c_str()
+    );
+    Serial.printf("IPv4      => %s\r\n", ip4Info.ip4.c_str());
+    Serial.printf("Maps link => %s\r\n", urlGoogleMaps.c_str());
 
-    urlWeather =
-    "http://api.openweathermap.org/data/2.5/weather?lat=" +
-    ip4Info.latitude +
-    "&lon=" +
-    ip4Info.longitude +
-    "&appid=" +
-    OPENWEATHERMAP_KEY +
-    "&units=metric";
-    Serial.println(urlWeather);
-    /*GỬI IPv4 LÊN BLYNK*/
-
-    Blynk.virtualWrite(V1, ip4Info.ip4);
-
-    /*TẠO LINK GOOGLE MAPS */
-
-    String link =
-    "https://www.google.com/maps/place/" +
-    ip4Info.latitude + "," +
-    ip4Info.longitude;
-
-    // gửi link lên Blynk
-    Blynk.virtualWrite(V2, link);
+    // Build URL thời tiết để dùng trong updateTemp()
+    urlWeather = StringFormat(
+      "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",
+      ip4Info.latitude.c_str(), ip4Info.longitude.c_str(), OPENWEATHERMAP_KEY
+    );
+    Serial.printf("Weather URL => %s\r\n", urlWeather.c_str());
+  } else {
+    Serial.printf("getAPI() HTTP error: %d\r\n", code);
   }
-
   http.end();
 }
 
-/*LẤY NHIỆT ĐỘ TỪ OPENWEATHERMAP*/
+// ─── Cập nhật nhiệt độ từ OpenWeatherMap mỗi 10 giây ─────────────────────────
+void updateTemp() {
+  static ulong lastTime = 0;
+  static float temp_    = 0.0f;
 
-void updateTemp(){
-
-  static unsigned long lastTime = 0;
-
-  if(!IsReady(lastTime,10000)) return;
-
-  if(urlWeather == "") return;
-
-  if(WiFi.status() != WL_CONNECTED) return;
+  if (!IsReady(lastTime, 10000)) return;
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("updateTemp() Error: WiFi not connected"); return;
+  }
+  if (urlWeather.length() == 0) {
+    Serial.println("updateTemp() urlWeather chưa có, bỏ qua."); return;
+  }
 
   HTTPClient http;
-
   http.begin(urlWeather);
+  http.addHeader("Content-Type", "text/plain");
 
   int code = http.GET();
-
-  if(code == 200){
-
+  if (code > 0) {
     String response = http.getString();
+    Serial.println(code);
+    Serial.println(response);
 
+    // ── Dùng JsonDocument (ArduinoJson v7 - không deprecated) ────────────────
     JsonDocument doc;
+    DeserializationError error = deserializeJson(doc, response);
+    if (error) {
+      Serial.println("updateTemp() Failed to parse JSON");
+    } else {
+      float temp     = doc["main"]["temp"]     | 0.0f;
+      float humidity = doc["main"]["humidity"] | 0.0f;
+      const char* desc = doc["weather"][0]["description"] | "N/A";
 
-    DeserializationError error = deserializeJson(doc,response);
+      Serial.printf("Nhiet do: %.1f °C\r\n", temp);
+      Serial.printf("Do am   : %.0f %%\r\n",  humidity);
+      Serial.printf("Mo ta   : %s\r\n",        desc);
 
-    if(error){
-      Serial.println("JSON ERROR");
-      http.end();
-      return;
+      if (temp_ != temp) {
+        temp_ = temp;
+        Blynk.virtualWrite(V2, temp_);      // Nhiệt độ → V2
+        Blynk.virtualWrite(V3, humidity);   // Độ ẩm   → V3
+        Blynk.virtualWrite(V4, desc);       // Mô tả   → V4
+      }
     }
-
-    // lấy nhiệt độ trong JSON
-    float temp = doc["main"]["temp"];
-
-    Serial.print("Temperature: ");
-    Serial.println(temp);
-
-    // gửi nhiệt độ lên Blynk
-    Blynk.virtualWrite(V3,temp);
+  } else {
+    Serial.printf("updateTemp() HTTP error: %d\r\n", code);
   }
-
   http.end();
 }
 
+// ─── Gửi IPv4 + Google Maps lên Blynk (chỉ 1 lần) ───────────────────────────
+void onceCalled() {
+  static bool done_ = false;
+  if (done_) return;
+  done_ = true;
 
+  String link = StringFormat(
+    "https://www.google.com/maps/place/%s,%s",
+    ip4Info.latitude.c_str(), ip4Info.longitude.c_str()
+  );
 
-void uptimeBlynk(){
-
-  static unsigned long lastTime = 0;
-
-  if(!IsReady(lastTime,1000)) return;
-
-  unsigned long value = lastTime / 1000;
-
-  Blynk.virtualWrite(V0,value);
-
-  if(blueButtonON){
-    display.showNumberDec(value);
-  }
+  Blynk.virtualWrite(V5, ip4Info.ip4.c_str());  // IPv4    → V5
+  Blynk.virtualWrite(V6, link.c_str());          // Maps   → V6
 }
 
-
-
-void updateBlueButton(){
-
-  static unsigned long lastTime = 0;
-  static int lastValue = HIGH;
-  if(!IsReady(lastTime,50)) return;
-  int v = digitalRead(btnBLED);
-  if(v == lastValue) return;
-
-  lastValue = v;
-
-  if(v == LOW) return;
-
-  blueButtonON = !blueButtonON;
-
-  digitalWrite(pinBLED,blueButtonON);
-
-  Blynk.virtualWrite(V4,blueButtonON);
-
-  if(!blueButtonON){
-    display.clear();
-  }
+// ─── Uptime mỗi 1 giây → V0 ──────────────────────────────────────────────────
+void uptimeBlynk() {
+  static ulong lastTime = 0;
+  if (!IsReady(lastTime, 1000)) return;
+  ulong value = lastTime / 1000;
+  Blynk.virtualWrite(V0, value);
 }
 
-
-
-BLYNK_WRITE(V4){
-
-  blueButtonON = param.asInt();
-
-  digitalWrite(pinBLED,blueButtonON);
-
-  if(!blueButtonON){
-    display.clear();
-  }
-}
-
-
-
-void setup(){
-
+// ═════════════════════════════════════════════════════════════════════════════
+void setup() {
   Serial.begin(115200);
 
-  pinMode(pinBLED,OUTPUT);
-  pinMode(btnBLED,INPUT_PULLUP);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD, WIFI_CHANNEL);
+  Serial.print("Connecting to WiFi " WIFI_SSID);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(100);
+    Serial.print(".");
+  }
+  Serial.println(" Connected!");
 
-  display.setBrightness(7);
+  // ── Fix DNS cho Wokwi simulator ──────────────────────────────────────────
+  WiFi.config(WiFi.localIP(), WiFi.gatewayIP(), WiFi.subnetMask(),
+              IPAddress(8, 8, 8, 8),   // DNS chính  - Google
+              IPAddress(8, 8, 4, 4));  // DNS dự phòng - Google
+  delay(500);
+  // ─────────────────────────────────────────────────────────────────────────
 
-  Serial.println("Connecting Blynk...");
+  Serial.print("IP noi bo: ");
+  Serial.println(WiFi.localIP());
+  Serial.print("DNS: ");
+  Serial.println(WiFi.dnsIP());
 
-  Blynk.begin(BLYNK_AUTH_TOKEN,ssid,pass);
+  Blynk.config(BLYNK_AUTH_TOKEN);
+  Blynk.connect();
 
-  Serial.println("Connected");
-
-  // lấy IPv4 + vị trí khi khởi động
   getAPI();
 }
 
-
-void loop(){
-
+void loop() {
   Blynk.run();
 
   currentMiliseconds = millis();
+  onceCalled();    // Gửi IPv4 + Maps link lên Blynk (1 lần duy nhất)
+  updateTemp();    // Cập nhật nhiệt độ / độ ẩm mỗi 10 giây
+  uptimeBlynk();   // Uptime mỗi 1 giây
+}
 
-  uptimeBlynk();
-
-  updateBlueButton();
-
-  updateTemp();
+// ─── Nhận lệnh từ Blynk app (V1 = Đèn) ──────────────────────────────────────
+BLYNK_WRITE(V1) {
+  int val = param.asInt();
+  Serial.printf("[Blynk] V1 Den = %d\n", val);
+  // digitalWrite(LED_PIN, val);
 }
