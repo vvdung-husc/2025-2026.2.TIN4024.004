@@ -66,7 +66,7 @@ void runTrafficCycle() {
 
     // Cập nhật bảng đếm ngược nếu được phép bật
     if (displayEnabled) {
-      display.showNumberDec(timeLeft, true, 2, 2); // Luôn hiện 2 chữ số (ví dụ: 07, 02)
+      display.showNumberDec(timeLeft, true, 2, 2); 
     } else {
       display.clear();
     }
