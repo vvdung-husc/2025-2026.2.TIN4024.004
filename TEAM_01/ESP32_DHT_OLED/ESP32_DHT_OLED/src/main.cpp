@@ -124,6 +124,7 @@ void handleLedBlink() {
     turnOffAllLeds();
   }
 }
+
 void updateDisplay() {
   display.clearDisplay();
   display.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
@@ -135,6 +136,7 @@ void updateDisplay() {
   
   display.setCursor(10, 22);
   display.print("Hum:  "); display.print(currentHum, 1); display.print(" %");
+
   display.drawLine(5, 35, 123, 35, WHITE);
   display.setTextSize(2);
   
