@@ -4,7 +4,7 @@
 /* Blynk */
 #define BLYNK_TEMPLATE_ID "TMPL6ijc-fK_k"
 #define BLYNK_TEMPLATE_NAME "ESP32 API"
-#define BLYNK_AUTH_TOKEN "luNH32gu7B8vTaAXlGJeDBW2-qY4Mr--"
+#define BLYNK_AUTH_TOKEN "YOUR_BLYNK_TOKEN"
 
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -40,7 +40,7 @@ struct IP4_Info{
 IP4_Info ip4Info;
 
 /* WEATHER API */
-#define OPENWEATHERMAP_KEY "064325168c720c6c09bacafca78f4d9c"
+#define OPENWEATHERMAP_KEY "YOUR_API_KEY"
 
 String urlWeather;
 
