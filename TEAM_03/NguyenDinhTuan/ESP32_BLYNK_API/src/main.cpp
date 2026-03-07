@@ -12,7 +12,6 @@
 
 #define WIFI_SSID     "Wokwi-GUEST"
 #define WIFI_PASSWORD ""
-#define WIFI_CHANNEL  6
 
 struct IP4_Info {
   String ip4;
@@ -94,17 +93,11 @@ void getAPI() {
 
     parseGeoInfo(response, ip4Info);
 
-    String urlGoogleMaps = StringFormat(
-      "https://www.google.com/maps/place/%s,%s",
-      ip4Info.latitude.c_str(), ip4Info.longitude.c_str()
-    );
+    String urlGoogleMaps = StringFormat("https://www.google.com/maps/place/%s,%s", ip4Info.latitude.c_str(), ip4Info.longitude.c_str());
     Serial.printf("IPv4      => %s\r\n", ip4Info.ip4.c_str());
     Serial.printf("Maps link => %s\r\n", urlGoogleMaps.c_str());
 
-    urlWeather = StringFormat(
-      "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",
-      ip4Info.latitude.c_str(), ip4Info.longitude.c_str(), OPENWEATHERMAP_KEY
-    );
+    urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric", ip4Info.latitude.c_str(), ip4Info.longitude.c_str(), OPENWEATHERMAP_KEY);
     Serial.printf("Weather URL => %s\r\n", urlWeather.c_str());
   } else {
     Serial.printf("getAPI() HTTP error: %d\r\n", code);
@@ -122,7 +115,7 @@ void updateTemp() {
     Serial.println("updateTemp() Error: WiFi not connected"); return;
   }
   if (urlWeather.length() == 0) {
-    Serial.println("updateTemp() urlWeather chưa có, bỏ qua."); return;
+    Serial.println("Warning: updateTemp() urlWeather not present."); return;
   }
 
   HTTPClient http;
@@ -142,11 +135,9 @@ void updateTemp() {
     } else {
       float temp     = doc["main"]["temp"]     | 0.0f;
       float humidity = doc["main"]["humidity"] | 0.0f;
-      const char* desc = doc["weather"][0]["description"] | "N/A";
 
       Serial.printf("Nhiet do: %.1f °C\r\n", temp);
       Serial.printf("Do am   : %.0f %%\r\n",  humidity);
-      Serial.printf("Mo ta   : %s\r\n",        desc);
 
       if (temp_ != temp) {
         temp_ = temp;
@@ -166,10 +157,7 @@ void onceCalled() {
   if (done_) return;
   done_ = true;
 
-  String link = StringFormat(
-    "https://www.google.com/maps/place/%s,%s",
-    ip4Info.latitude.c_str(), ip4Info.longitude.c_str()
-  );
+  String link = StringFormat("https://www.google.com/maps/place/%s,%s", ip4Info.latitude.c_str(), ip4Info.longitude.c_str());
 
   Blynk.virtualWrite(V5, ip4Info.ip4.c_str());  // IPv4    → V5
   Blynk.virtualWrite(V6, link.c_str());          // Maps   → V6
@@ -185,7 +173,7 @@ void uptimeBlynk() {
 void setup() {
   Serial.begin(115200);
 
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD, WIFI_CHANNEL);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to WiFi " WIFI_SSID);
   while (WiFi.status() != WL_CONNECTED) {
     delay(100);
@@ -194,11 +182,9 @@ void setup() {
   Serial.println(" Connected!");
 
   // DNS cho Wokwi simulator
-  WiFi.config(WiFi.localIP(), WiFi.gatewayIP(), WiFi.subnetMask(),
-              IPAddress(8, 8, 8, 8),   // DNS chính  - Google
-              IPAddress(8, 8, 4, 4));  // DNS dự phòng - Google
+  WiFi.config(WiFi.localIP(), WiFi.gatewayIP(), WiFi.subnetMask(), IPAddress(8, 8, 8, 8), IPAddress(8, 8, 4, 4));  // Google DNS to get it work
 
-  Serial.print("IP noi bo: ");
+  Serial.print("local IP: ");
   Serial.println(WiFi.localIP());
   Serial.print("DNS: ");
   Serial.println(WiFi.dnsIP());
