@@ -2,6 +2,14 @@
 	"folders": [
 		{
 			"path": "../../../.."
+		},
+		{
+			"name": "BLYNK_API",
+			"path": "C:/Users/Admin/Documents/PlatformIO/Projects/BLYNK_API"
+		},
+		{
+			"name": "BLYNK_DHT",
+			"path": "../BLYNK_DHT"
 		}
 	],
 	"settings": {}
