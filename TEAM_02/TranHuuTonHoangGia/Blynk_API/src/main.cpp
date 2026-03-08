@@ -16,6 +16,8 @@ BlynkTimer timer;
 
 String apiKey = "6470fea3e9213cde2af02e2d2530ab46";
 
+String ipv4 = "";
+
 // Tọa độ Huế
 float lat = 16.4591267;
 float lon = 107.5901477;
@@ -25,12 +27,36 @@ unsigned long uptime = 0;
 //////////////////////////////////////////////////////
 // UPTIME
 void sendUptime() {
+
   uptime++;
 
   Serial.print("Uptime: ");
   Serial.println(uptime);
 
   Blynk.virtualWrite(V0, uptime);
+}
+
+//////////////////////////////////////////////////////
+// LẤY IPv4
+void getIP() {
+
+  HTTPClient http;
+
+  http.begin("http://api.ipify.org");
+
+  int code = http.GET();
+
+  if (code == 200) {
+
+    ipv4 = http.getString();
+
+    Serial.print("IPv4: ");
+    Serial.println(ipv4);
+
+    Blynk.virtualWrite(V5, ipv4);
+  }
+
+  http.end();
 }
 
 //////////////////////////////////////////////////////
@@ -59,6 +85,7 @@ void getWeather() {
   if (code == 200) {
 
     String payload = http.getString();
+
     Serial.println(payload);
 
     DynamicJsonDocument doc(2048);
@@ -73,11 +100,25 @@ void getWeather() {
 
   } else {
 
-    Serial.println("Failed to get weather data");
+    Serial.println("Weather API error");
 
   }
 
   http.end();
+}
+
+//////////////////////////////////////////////////////
+// GỬI LINK GOOGLE MAP
+void sendMap() {
+
+  String mapLink =
+  "https://www.google.com/maps?q=" +
+  String(lat,6) + "," + String(lon,6);
+
+  Serial.print("Map: ");
+  Serial.println(mapLink);
+
+  Blynk.virtualWrite(V6, mapLink);
 }
 
 //////////////////////////////////////////////////////
@@ -91,6 +132,9 @@ void setup() {
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
   Serial.println("WiFi Connected");
+
+  getIP();        // lấy IPv4
+  sendMap();      // gửi Google Map
 
   timer.setInterval(1000L, sendUptime);
   timer.setInterval(15000L, getWeather);
