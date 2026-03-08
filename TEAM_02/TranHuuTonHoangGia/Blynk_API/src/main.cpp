@@ -14,7 +14,7 @@ char pass[] = "";
 
 BlynkTimer timer;
 
-String apiKey = "6470fea3e9213cde2af02e2d2530ab46";
+String apiKey = "YOUR_API_KEY"; //6470fea3e9213cde2af02e2d2530ab46
 
 String ipv4 = "";
 
