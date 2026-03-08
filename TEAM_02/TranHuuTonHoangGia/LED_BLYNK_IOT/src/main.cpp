@@ -9,8 +9,8 @@
 #include <DHT.h>
 #include <TM1637Display.h>
 
-char ssid[] = "YOUR_WIFI";
-char pass[] = "YOUR_PASSWORD";
+char ssid[] = "TEN_WIFI";
+char pass[] = "MAT_KHAU_WIFI";
 
 /* PIN */
 #define LED_PIN 21
@@ -28,7 +28,6 @@ BlynkTimer timer;
 BLYNK_WRITE(V1) {
   int s = param.asInt();
   digitalWrite(LED_PIN, s);
-  Serial.println("LED = " + String(s));
 }
 
 /******** BUTTON ********/
@@ -46,13 +45,16 @@ void checkButton() {
 
 /******** SENSOR ********/
 void sendSensor() {
+
   float t = dht.readTemperature();
   float h = dht.readHumidity();
 
-  Serial.println("Temp: " + String(t));
-  Serial.println("Hum: " + String(h));
+  Serial.print("Temp: ");
+  Serial.println(t);
 
-  // ❗ luôn gửi (kể cả 0) để debug
+  Serial.print("Hum: ");
+  Serial.println(h);
+
   Blynk.virtualWrite(V2, t);
   Blynk.virtualWrite(V0, h);
 
@@ -78,9 +80,9 @@ void setup() {
     Serial.print(".");
   }
 
-  Serial.println("WiFi Connected");
+  Serial.println("\nWiFi Connected");
 
-  Blynk.config(BLYNK_AUTH_TOKEN);
+  Blynk.config(BLYNK_AUTH_TOKEN, "blynk.cloud", 80);
 
   if (Blynk.connect()) {
     Serial.println("Blynk Connected");
