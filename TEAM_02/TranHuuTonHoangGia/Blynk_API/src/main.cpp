@@ -200,8 +200,8 @@ void loop() {
 
   currentMiliseconds = millis();
   onceCalled();    
-  updateTemp();    // Cập nhật nhiệt độ / độ ẩm mỗi 10 giây
-  uptimeBlynk();   // Uptime mỗi 1 giây
+  updateTemp();    
+  uptimeBlynk();   
 }
 
 BLYNK_WRITE(V1) {
