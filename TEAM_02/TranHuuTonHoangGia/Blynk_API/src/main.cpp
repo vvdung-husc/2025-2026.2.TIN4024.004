@@ -140,6 +140,8 @@ void setup() {
   timer.setInterval(15000L, getWeather);
 }
 
+//////////////////////////////////////////////////////
+// LOOP
 void loop() {
 
   Blynk.run();
