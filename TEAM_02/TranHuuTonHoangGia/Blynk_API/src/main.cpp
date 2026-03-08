@@ -1,166 +1,161 @@
-#include <Arduino.h>
-
 #define BLYNK_TEMPLATE_ID "TMPL6fvtn-tDn"
 #define BLYNK_TEMPLATE_NAME "BLYNK API"
 #define BLYNK_AUTH_TOKEN "m3Q8wBe0WCtgNqHR4IQFyBN7PSSpyQeL"
+
+#define BLYNK_PRINT Serial
 
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <BlynkSimpleEsp32.h>
 
-#define WIFI_SSID "Wokwi-GUEST"
-#define WIFI_PASSWORD ""
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
 
-#define OPENWEATHERMAP_KEY "6470fea3e9213cde2af02e2d2530ab46"
+BlynkTimer timer;
 
 String ipv4 = "";
-String latitude = "";
-String longitude = "";
-String weatherURL = "";
+float lat = 0;
+float lon = 0;
+float temperature = 0;
 
-unsigned long lastWeather = 0;
+String apiKey = "6470fea3e9213cde2af02e2d2530ab46";
 
-void getIPLocation()
-{
+unsigned long uptime = 0;
+
+//////////////////////////////////////////////////////
+// ===== Thời gian hoạt động =====
+void sendUptime() {
+
+  uptime++;
+
+  Serial.print("Uptime: ");
+  Serial.println(uptime);
+
+  Blynk.virtualWrite(V0, uptime);
+}
+
+//////////////////////////////////////////////////////
+// ===== Lấy IPv4 + vị trí =====
+void getLocation() {
+
   HTTPClient http;
-
-  http.begin("http://ip4.iothings.vn/?geo=1");
+  http.begin("http://ip-api.com/json");
 
   int httpCode = http.GET();
 
-  if (httpCode > 0)
-  {
+  if (httpCode == 200) {
+
     String payload = http.getString();
+
+    Serial.println("Location API Response:");
     Serial.println(payload);
 
-    String data[7];
-    int index = 0;
+    StaticJsonDocument<1024> doc;
 
-    while (payload.length() > 0 && index < 7)
-    {
-      int pos = payload.indexOf('|');
+    DeserializationError error = deserializeJson(doc, payload);
 
-      if (pos == -1)
-      {
-        data[index++] = payload;
-        break;
-      }
+    if (!error) {
 
-      data[index++] = payload.substring(0, pos);
-      payload = payload.substring(pos + 1);
+      ipv4 = doc["query"].as<String>();
+      lat = doc["lat"];
+      lon = doc["lon"];
+
+      Serial.print("IPv4: ");
+      Serial.println(ipv4);
+
+      String googleMap =
+      "https://www.google.com/maps?q=" +
+      String(lat,6) + "," + String(lon,6);
+
+      Serial.println("Google Maps:");
+      Serial.println(googleMap);
+
+      Blynk.virtualWrite(V5, ipv4);
+      Blynk.virtualWrite(V6, googleMap);
     }
-
-    ipv4 = data[0];
-    longitude = data[5];
-    latitude = data[6];
-
-    Serial.println(ipv4);
-    Serial.println(latitude);
-    Serial.println(longitude);
-
-    weatherURL =
-        "https://api.openweathermap.org/data/2.5/weather?lat=16.27&lon=107.35&appid=6470fea3e9213cde2af02e2d2530ab46" +
-        latitude +
-        "&lon=" +
-        longitude +
-        "&appid=" +
-        OPENWEATHERMAP_KEY +
-        "&units=metric";
+    else {
+      Serial.println("JSON Location Error");
+    }
+  }
+  else {
+    Serial.println("Location API Error");
   }
 
   http.end();
 }
 
-void sendLocationToBlynk()
-{
-  String mapLink =
-      "https://www.google.com/maps/place/" +
-      latitude +
-      "," +
-      longitude;
+//////////////////////////////////////////////////////
+// ===== Lấy nhiệt độ =====
+void getWeather() {
 
-  Blynk.virtualWrite(V5, ipv4);
-  Blynk.virtualWrite(V6, mapLink);
-}
-
-void getWeather()
-{
-  if (millis() - lastWeather < 10000)
-    return;
-
-  lastWeather = millis();
-
-  if (weatherURL == "")
-    return;
+  if(lat == 0 || lon == 0) return;
 
   HTTPClient http;
 
-  http.begin(weatherURL);
+  String url =
+  "http://api.openweathermap.org/data/2.5/weather?lat=" +
+  String(lat) +
+  "&lon=" + String(lon) +
+  "&appid=" + apiKey +
+  "&units=metric";
+
+  http.begin(url);
 
   int httpCode = http.GET();
 
-  if (httpCode > 0)
-  {
+  if (httpCode == 200) {
+
     String payload = http.getString();
 
+    Serial.println("Weather API Response:");
     Serial.println(payload);
 
-    JsonDocument doc;
+    StaticJsonDocument<2048> doc;
 
-    deserializeJson(doc, payload);
+    DeserializationError error = deserializeJson(doc, payload);
 
-    float temp = doc["main"]["temp"];
+    if (!error) {
 
-    Serial.print("Temp: ");
-    Serial.println(temp);
+      temperature = doc["main"]["temp"];
 
-    Blynk.virtualWrite(V2, temp);
+      Serial.print("Temperature: ");
+      Serial.println(temperature);
+
+      Blynk.virtualWrite(V2, temperature);
+    }
+    else {
+      Serial.println("JSON Weather Error");
+    }
+  }
+  else {
+    Serial.println("Weather API Error");
   }
 
   http.end();
 }
 
-void sendUptime()
-{
-  static unsigned long last = 0;
+//////////////////////////////////////////////////////
+// ===== Setup =====
+void setup() {
 
-  if (millis() - last < 1000)
-    return;
-
-  last = millis();
-
-  Blynk.virtualWrite(V0, millis() / 1000);
-}
-
-void setup()
-{
   Serial.begin(115200);
 
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.println("Connecting WiFi...");
 
-  Serial.print("Connecting WiFi");
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(300);
-    Serial.print(".");
-  }
+  Serial.println("Connected to Blynk");
 
-  Serial.println("Connected");
-
-  Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASSWORD);
-
-  getIPLocation();
-
-  sendLocationToBlynk();
+  timer.setInterval(1000L, sendUptime);
+  timer.setInterval(10000L, getLocation);
+  timer.setInterval(15000L, getWeather);
 }
 
-void loop()
-{
+//////////////////////////////////////////////////////
+// ===== Loop =====
+void loop() {
+
   Blynk.run();
-
-  sendUptime();
-
-  getWeather();
+  timer.run();
 }
