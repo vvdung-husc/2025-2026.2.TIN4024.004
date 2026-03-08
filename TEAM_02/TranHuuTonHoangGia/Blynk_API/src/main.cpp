@@ -16,16 +16,15 @@ BlynkTimer timer;
 
 String apiKey = "6470fea3e9213cde2af02e2d2530ab46";
 
-String ipv4 = "";
-float lat = 0;
-float lon = 0;
+// Tọa độ Huế
+float lat = 16.4591267;
+float lon = 107.5901477;
 
 unsigned long uptime = 0;
 
 //////////////////////////////////////////////////////
 // UPTIME
 void sendUptime() {
-
   uptime++;
 
   Serial.print("Uptime: ");
@@ -35,71 +34,34 @@ void sendUptime() {
 }
 
 //////////////////////////////////////////////////////
-// LẤY VỊ TRÍ (1 LẦN)
-void getLocation() {
-
-  HTTPClient http;
-  http.begin("http://ip-api.com/json");
-
-  int code = http.GET();
-
-  if (code == 200) {
-
-    String payload = http.getString();
-
-    Serial.println("Location Data:");
-    Serial.println(payload);
-
-    JsonDocument doc;
-
-    deserializeJson(doc, payload);
-
-    ipv4 = doc["query"].as<String>();
-    lat = doc["lat"];
-    lon = doc["lon"];
-
-    Serial.print("IP: ");
-    Serial.println(ipv4);
-
-    String mapLink =
-    "https://www.google.com/maps?q=" +
-    String(lat,6) + "," + String(lon,6);
-
-    Blynk.virtualWrite(V5, ipv4);
-    Blynk.virtualWrite(V6, mapLink);
-  }
-
-  http.end();
-}
-
-//////////////////////////////////////////////////////
 // LẤY NHIỆT ĐỘ
 void getWeather() {
-
-  if (lat == 0 || lon == 0) return;
 
   HTTPClient http;
 
   String url =
   "http://api.openweathermap.org/data/2.5/weather?lat=" +
-  String(lat) +
-  "&lon=" + String(lon) +
+  String(lat,6) +
+  "&lon=" + String(lon,6) +
   "&appid=" + apiKey +
   "&units=metric";
+
+  Serial.println("Request:");
+  Serial.println(url);
 
   http.begin(url);
 
   int code = http.GET();
 
+  Serial.print("HTTP Code: ");
+  Serial.println(code);
+
   if (code == 200) {
 
     String payload = http.getString();
-
-    Serial.println("Weather Data:");
     Serial.println(payload);
 
-    JsonDocument doc;
-
+    DynamicJsonDocument doc(2048);
     deserializeJson(doc, payload);
 
     float temp = doc["main"]["temp"];
@@ -108,6 +70,11 @@ void getWeather() {
     Serial.println(temp);
 
     Blynk.virtualWrite(V2, temp);
+
+  } else {
+
+    Serial.println("Failed to get weather data");
+
   }
 
   http.end();
@@ -124,8 +91,6 @@ void setup() {
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
   Serial.println("WiFi Connected");
-
-  getLocation();   // lấy vị trí 1 lần
 
   timer.setInterval(1000L, sendUptime);
   timer.setInterval(15000L, getWeather);
