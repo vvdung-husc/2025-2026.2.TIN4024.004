@@ -61,7 +61,7 @@ void sendSensor() {
 
 /******** SETUP ********/
 void setup() {
-  
+
   Serial.begin(115200);
 
   pinMode(LED_PIN, OUTPUT);
@@ -70,16 +70,37 @@ void setup() {
   dht.begin();
   display.setBrightness(7);
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  WiFi.begin(ssid, pass);
 
-  timer.setInterval(2000, sendSensor);
-  timer.setInterval(100, checkButton);
+  Serial.print("Connecting WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("WiFi Connected");
+
+  Blynk.config(BLYNK_AUTH_TOKEN);
+
+  if (Blynk.connect()) {
+    Serial.println("Blynk Connected");
+  } else {
+    Serial.println("Blynk Failed");
+  }
+
+  timer.setInterval(2000L, sendSensor);
+  timer.setInterval(100L, checkButton);
 
   digitalWrite(LED_PIN, LOW);
 }
 
 /******** LOOP ********/
 void loop() {
+
+  if (!Blynk.connected()) {
+    Blynk.connect();
+  }
+
   Blynk.run();
   timer.run();
 }
