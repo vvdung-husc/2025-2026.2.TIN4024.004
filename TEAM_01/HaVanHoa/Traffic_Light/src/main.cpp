@@ -6,15 +6,15 @@
 #define PIN_LED_GREEN  32
 #define PIN_LED_BLUE   21 
 #define PIN_BUTTON     23
-#define PIN_LDR        13   // Chân cảm biến ánh sáng theo sơ đồ của bạn
+#define PIN_LDR        13
 
 #define CLK 18
 #define DIO 19
 
-// Ngưỡng ánh sáng: Bạn có thể điều chỉnh số này tùy theo độ sáng trong Wokwi
-#define LDR_THRESHOLD  1500 
+#define LDR_THRESHOLD  3000 
 
 TM1637Display display(CLK, DIO);
+
 enum TrafficState {
   STATE_GREEN,
   STATE_YELLOW,
@@ -28,6 +28,7 @@ unsigned long ulTimer = 0;
 
 bool isDisplayEnabled = true;
 int lastButtonState = HIGH;
+bool daInThongBaoToi = false; 
 
 bool IsReady(unsigned long &ulTimer, uint32_t millisecond) {
   if (millis() - ulTimer < millisecond) return false;
@@ -46,52 +47,62 @@ void setup() {
 
   display.setBrightness(0x0f);
 
-  Serial.printf("LED [GREEN ] ON => 7 Seconds\r\n");
+  Serial.println("SYSTEM STARTED...");
   digitalWrite(PIN_LED_BLUE, HIGH);
   
   if(isDisplayEnabled) display.showNumberDec(counter);
 }
 
 void loop() {
-  // --- Đọc cảm biến ánh sáng ---
   int ldrValue = analogRead(PIN_LDR);
-  bool isNight = (ldrValue < LDR_THRESHOLD);
+  bool isNight = (ldrValue > LDR_THRESHOLD);
 
-  // Giữ nguyên logic nút bấm của bạn
   int currentButtonState = digitalRead(PIN_BUTTON);
   if (lastButtonState == HIGH && currentButtonState == LOW) {
     isDisplayEnabled = !isDisplayEnabled; 
     digitalWrite(PIN_LED_BLUE, isDisplayEnabled ? HIGH : LOW);
-    if (!isDisplayEnabled) {
-      display.clear();
-    } else {
-      display.showNumberDec(counter); 
+    
+    if (!isNight) {
+        if (!isDisplayEnabled) display.clear();
+        else display.showNumberDec(counter); 
     }
     delay(50); 
   }
   lastButtonState = currentButtonState;
 
+
   if (IsReady(ulTimer, 500)) { 
     ledStatus = !ledStatus; 
 
     if (isNight) {
-      // --- CHẾ ĐỘ BAN ĐÊM: CHỈ NHẤP NHÁY VÀNG ---
       digitalWrite(PIN_LED_GREEN, LOW);
       digitalWrite(PIN_LED_RED, LOW);
       digitalWrite(PIN_LED_YELLOW, ledStatus ? HIGH : LOW);
-      display.clear(); // Tắt số khi ban đêm
+      display.clear(); 
+
+      if (daInThongBaoToi == false) {
+        Serial.println("IT IS DARK");
+        daInThongBaoToi = true; 
+      }
     } 
     else {
-      // --- CHẾ ĐỘ BAN NGÀY: GIỮ NGUYÊN CODE CŨ CỦA BẠN ---
+      daInThongBaoToi = false; 
+
       switch (currentState) {
         case STATE_GREEN:
           digitalWrite(PIN_LED_GREEN, ledStatus ? HIGH : LOW);
+          digitalWrite(PIN_LED_YELLOW, LOW);
+          digitalWrite(PIN_LED_RED, LOW);
           break;
         case STATE_YELLOW:
           digitalWrite(PIN_LED_YELLOW, ledStatus ? HIGH : LOW);
+          digitalWrite(PIN_LED_GREEN, LOW);
+          digitalWrite(PIN_LED_RED, LOW);
           break;
         case STATE_RED:
           digitalWrite(PIN_LED_RED, ledStatus ? HIGH : LOW);
+          digitalWrite(PIN_LED_GREEN, LOW);
+          digitalWrite(PIN_LED_YELLOW, LOW);
           break;
       }
 
@@ -99,9 +110,7 @@ void loop() {
         const char* colorName = (currentState == STATE_GREEN) ? "GREEN" : (currentState == STATE_YELLOW) ? "YELLOW" : "RED ";
         Serial.printf("[%s] => Seconds: %d\r\n", colorName, counter);
 
-        if (isDisplayEnabled) {
-          display.showNumberDec(counter);
-        }
+        if (isDisplayEnabled) display.showNumberDec(counter);
 
         counter--; 
 
@@ -127,10 +136,7 @@ digitalWrite(PIN_LED_GREEN, LOW);
               Serial.printf("LED [GREEN ] ON => 7 Seconds\r\n");
               break;
           }
-
-          if (isDisplayEnabled) {
-             display.showNumberDec(counter);
-          }
+          if (isDisplayEnabled) display.showNumberDec(counter);
         }
       }
     }

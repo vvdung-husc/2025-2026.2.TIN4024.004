@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "../../../IOT_WEB"
+		},
+		{
+			"name": "Blynk_Traffic",
+			"path": "../../../IOT_WEB/Blynk_Traffic"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
