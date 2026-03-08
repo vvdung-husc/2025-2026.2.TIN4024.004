@@ -14,17 +14,16 @@ char pass[] = "";
 
 BlynkTimer timer;
 
+String apiKey = "6470fea3e9213cde2af02e2d2530ab46";
+
 String ipv4 = "";
 float lat = 0;
 float lon = 0;
-float temperature = 0;
-
-String apiKey = "6470fea3e9213cde2af02e2d2530ab46";
 
 unsigned long uptime = 0;
 
 //////////////////////////////////////////////////////
-// ===== Thời gian hoạt động =====
+// UPTIME
 void sendUptime() {
 
   uptime++;
@@ -36,60 +35,48 @@ void sendUptime() {
 }
 
 //////////////////////////////////////////////////////
-// ===== Lấy IPv4 + vị trí =====
+// LẤY VỊ TRÍ (1 LẦN)
 void getLocation() {
 
   HTTPClient http;
   http.begin("http://ip-api.com/json");
 
-  int httpCode = http.GET();
+  int code = http.GET();
 
-  if (httpCode == 200) {
+  if (code == 200) {
 
     String payload = http.getString();
 
-    Serial.println("Location API Response:");
+    Serial.println("Location Data:");
     Serial.println(payload);
 
-    StaticJsonDocument<1024> doc;
+    JsonDocument doc;
 
-    DeserializationError error = deserializeJson(doc, payload);
+    deserializeJson(doc, payload);
 
-    if (!error) {
+    ipv4 = doc["query"].as<String>();
+    lat = doc["lat"];
+    lon = doc["lon"];
 
-      ipv4 = doc["query"].as<String>();
-      lat = doc["lat"];
-      lon = doc["lon"];
+    Serial.print("IP: ");
+    Serial.println(ipv4);
 
-      Serial.print("IPv4: ");
-      Serial.println(ipv4);
+    String mapLink =
+    "https://www.google.com/maps?q=" +
+    String(lat,6) + "," + String(lon,6);
 
-      String googleMap =
-      "https://www.google.com/maps?q=" +
-      String(lat,6) + "," + String(lon,6);
-
-      Serial.println("Google Maps:");
-      Serial.println(googleMap);
-
-      Blynk.virtualWrite(V5, ipv4);
-      Blynk.virtualWrite(V6, googleMap);
-    }
-    else {
-      Serial.println("JSON Location Error");
-    }
-  }
-  else {
-    Serial.println("Location API Error");
+    Blynk.virtualWrite(V5, ipv4);
+    Blynk.virtualWrite(V6, mapLink);
   }
 
   http.end();
 }
 
 //////////////////////////////////////////////////////
-// ===== Lấy nhiệt độ =====
+// LẤY NHIỆT ĐỘ
 void getWeather() {
 
-  if(lat == 0 || lon == 0) return;
+  if (lat == 0 || lon == 0) return;
 
   HTTPClient http;
 
@@ -102,41 +89,32 @@ void getWeather() {
 
   http.begin(url);
 
-  int httpCode = http.GET();
+  int code = http.GET();
 
-  if (httpCode == 200) {
+  if (code == 200) {
 
     String payload = http.getString();
 
-    Serial.println("Weather API Response:");
+    Serial.println("Weather Data:");
     Serial.println(payload);
 
-    StaticJsonDocument<2048> doc;
+    JsonDocument doc;
 
-    DeserializationError error = deserializeJson(doc, payload);
+    deserializeJson(doc, payload);
 
-    if (!error) {
+    float temp = doc["main"]["temp"];
 
-      temperature = doc["main"]["temp"];
+    Serial.print("Temperature: ");
+    Serial.println(temp);
 
-      Serial.print("Temperature: ");
-      Serial.println(temperature);
-
-      Blynk.virtualWrite(V2, temperature);
-    }
-    else {
-      Serial.println("JSON Weather Error");
-    }
-  }
-  else {
-    Serial.println("Weather API Error");
+    Blynk.virtualWrite(V2, temp);
   }
 
   http.end();
 }
 
 //////////////////////////////////////////////////////
-// ===== Setup =====
+// SETUP
 void setup() {
 
   Serial.begin(115200);
@@ -145,15 +123,16 @@ void setup() {
 
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  Serial.println("Connected to Blynk");
+  Serial.println("WiFi Connected");
+
+  getLocation();   // lấy vị trí 1 lần
 
   timer.setInterval(1000L, sendUptime);
-  timer.setInterval(10000L, getLocation);
   timer.setInterval(15000L, getWeather);
 }
 
 //////////////////////////////////////////////////////
-// ===== Loop =====
+// LOOP
 void loop() {
 
   Blynk.run();
