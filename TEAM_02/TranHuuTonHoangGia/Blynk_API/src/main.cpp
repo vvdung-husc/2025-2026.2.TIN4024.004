@@ -199,7 +199,7 @@ void loop() {
   Blynk.run();
 
   currentMiliseconds = millis();
-  onceCalled();    // Gửi IPv4 + Maps link lên Blynk (1 lần duy nhất)
+  onceCalled();    
   updateTemp();    // Cập nhật nhiệt độ / độ ẩm mỗi 10 giây
   uptimeBlynk();   // Uptime mỗi 1 giây
 }
