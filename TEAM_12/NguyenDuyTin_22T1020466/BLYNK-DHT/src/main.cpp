@@ -44,7 +44,7 @@ void setup() {
   dht.begin(); 
   
   Serial.print("Connecting to ");Serial.println(ssid);
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass); 
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
   Serial.println();
   Serial.println("WiFi connected");
