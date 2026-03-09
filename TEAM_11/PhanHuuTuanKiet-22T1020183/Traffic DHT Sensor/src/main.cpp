@@ -1,11 +1,10 @@
-
 #include <Arduino.h>
 #include <TM1637Display.h>
 #include <DHT.h>
 
-#define BLYNK_TEMPLATE_ID "TMPL6EQg8owH7"
-#define BLYNK_TEMPLATE_NAME "DHT"
-#define BLYNK_AUTH_TOKEN "_2YLExirjuoMpVPKZrPbCnQSfhr1m8uW"
+#define BLYNK_TEMPLATE_ID "TMPL6ZwGEwQJw"
+#define BLYNK_TEMPLATE_NAME "DHT Sensor"
+#define BLYNK_AUTH_TOKEN "Ao7CVbIHLEI4rDJEOIcExK2b6HfmBX4F"
 
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
@@ -39,7 +38,7 @@ void checkButton();
 
 BLYNK_CONNECTED() {
   Serial.println("Blynk connected");
-  Blynk.syncVirtual(V1);
+  Blynk.syncVirtual(V3);   // sync switch
 }
 
 void setup() {
@@ -57,8 +56,6 @@ void setup() {
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
   digitalWrite(PIN_LED, ledState);
-
-  Serial.println("=== START ===");
 
   timer.setInterval(2000L, readDHT);
   timer.setInterval(1000L, updateUptime);
@@ -86,8 +83,9 @@ void readDHT() {
   Serial.print("Humidity: ");
   Serial.println(h);
 
-  Blynk.virtualWrite(V2, t);
-  Blynk.virtualWrite(V3, h);
+  // Gửi lên Blynk
+ Blynk.virtualWrite(V0, String(t,1));  // 1 số sau dấu phẩy
+  Blynk.virtualWrite(V1, String(h,1));
 }
 
 void updateUptime() {
@@ -98,7 +96,7 @@ void updateUptime() {
 
   display.showNumberDec(uptime, true);
 
-  Blynk.virtualWrite(V0, uptime);
+  Blynk.virtualWrite(V2, uptime);  // Thời gian hoạt động
 }
 
 void checkButton() {
@@ -117,7 +115,7 @@ void checkButton() {
 
   digitalWrite(PIN_LED, ledState);
 
-  Blynk.virtualWrite(V1, ledState);
+  Blynk.virtualWrite(V3, ledState);
 
   if (!ledState) {
     uptime = 0;
@@ -127,7 +125,7 @@ void checkButton() {
   Serial.println(ledState ? "LED ON" : "LED OFF");
 }
 
-BLYNK_WRITE(V1) {
+BLYNK_WRITE(V3) {
 
   ledState = param.asInt();
 

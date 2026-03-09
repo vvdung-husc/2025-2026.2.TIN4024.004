@@ -1,6 +1,6 @@
-#define BLYNK_TEMPLATE_ID "TMPL6fvtn-tDn"
-#define BLYNK_TEMPLATE_NAME "BLYNK API"
-#define BLYNK_AUTH_TOKEN "m3Q8wBe0WCtgNqHR4IQFyBN7PSSpyQeL"
+#define BLYNK_TEMPLATE_ID "TMPL65DqTYs6o"
+#define BLYNK_TEMPLATE_NAME "BlynkAPI"
+#define BLYNK_AUTH_TOKEN "G6RidV6rr54U7oiL6M-0wZKhSglPNDx2"
 
 #define BLYNK_PRINT Serial
 
@@ -14,7 +14,7 @@ char pass[] = "";
 
 BlynkTimer timer;
 
-String apiKey = "api cua ban";//6470fea3e9213cde2af02e2d2530ab46
+String apiKey = "f776a4341c39f68ae84c5f5dfcdc9f09";
 
 String ipv4 = "";
 
@@ -53,7 +53,7 @@ void getIP() {
     Serial.print("IPv4: ");
     Serial.println(ipv4);
 
-    Blynk.virtualWrite(V5, ipv4);
+    Blynk.virtualWrite(V1, ipv4);
   }
 
   http.end();
@@ -96,7 +96,7 @@ void getWeather() {
     Serial.print("Temperature: ");
     Serial.println(temp);
 
-    Blynk.virtualWrite(V2, temp);
+    Blynk.virtualWrite(V3, temp);
 
   } else {
 
@@ -118,7 +118,7 @@ void sendMap() {
   Serial.print("Map: ");
   Serial.println(mapLink);
 
-  Blynk.virtualWrite(V6, mapLink);
+  Blynk.virtualWrite(V2, mapLink);
 }
 
 //////////////////////////////////////////////////////

@@ -2,6 +2,7 @@
   "version": 1,
   "author": "Nhóm 16",
   "editor": "wokwi",
+  "internet": true,
   "parts": [
     { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 9.6, "left": 110.44, "attrs": {} },
     { "type": "wokwi-dht22", "id": "dht1", "top": -134.1, "left": 282.6, "attrs": {} },
