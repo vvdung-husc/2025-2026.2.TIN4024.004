@@ -4,12 +4,12 @@
 			"path": "../../../.."
 		},
 		{
-			"name": "LED_BLINK",
-			"path": "."
+			"name": "BLYNK_API",
+			"path": "C:/Users/Admin/Documents/PlatformIO/Projects/BLYNK_API"
 		},
 		{
-			"name": "Project_Traffic_Light",
-			"path": "../Project_Traffic_Light"
+			"name": "BLYNK_DHT",
+			"path": "../BLYNK_DHT"
 		}
 	],
 	"settings": {}
