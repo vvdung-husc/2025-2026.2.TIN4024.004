@@ -1,17 +1,11 @@
-#include <Arduino.h>
-#include <TM1637Display.h>
-
-#define BLYNK_TEMPLATE_ID "TMPL6Gudo3IY3"
-#define BLYNK_TEMPLATE_NAME "esp32"
-#define BLYNK_AUTH_TOKEN "V6ubA_9tBbKZkkuzY8ZQvRDUnPozq-4l"
-
-#define BLYNK_PRINT Serial
+#define BLYNK_TEMPLATE_ID "TMPL69qGFtIO3"
+#define BLYNK_TEMPLATE_NAME "DHT Sensor"
+#define BLYNK_AUTH_TOKEN "dZjzSdmSIDDZg7s8MwSayFOte1M7J40f"
 
 #include <WiFi.h>
-#include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
 #include <DHT.h>
-
+#include <TM1637Display.h>
 
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
