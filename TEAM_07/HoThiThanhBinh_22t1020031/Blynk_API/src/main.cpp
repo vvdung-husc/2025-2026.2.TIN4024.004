@@ -1,9 +1,9 @@
 #include <Arduino.h>
 
 //Thay thông số BLYNK của bạn vào đây
-#define BLYNK_TEMPLATE_ID "TMPL67KDorDOp"
-#define BLYNK_TEMPLATE_NAME "Blynk API"
-#define BLYNK_AUTH_TOKEN "Wme8YuZUG2vKHjBvE88M4UqG2UxqTFqe" 
+#define BLYNK_TEMPLATE_ID "TMPL6qW0LcMuj"
+#define BLYNK_TEMPLATE_NAME "BLYNK ESP32 API"
+#define BLYNK_AUTH_TOKEN "KBPcD7cUAeoHU3TRGlBQ2g5M0zmxrLGT"
 
 
 #include <WiFi.h>
@@ -56,35 +56,34 @@ String StringFormat(const char* fmt, ...){
 void parseGeoInfo(String payload, IP4_Info& ipInfo) {
   String values[7];
   int index = 0;
-  
+
   while (payload.length() > 0 && index < 7) {
-      int delimiterIndex = payload.indexOf('|');
-      
-      if (delimiterIndex == -1) {
-          values[index++] = payload;
-          break;
-      }
-      
-      values[index++] = payload.substring(0, delimiterIndex);
-      payload = payload.substring(delimiterIndex + 1);
+    int delimiterIndex = payload.indexOf('|');
+
+    if (delimiterIndex == -1) {
+      values[index++] = payload;
+      break;
+    }
+
+    values[index++] = payload.substring(0, delimiterIndex);
+    payload = payload.substring(delimiterIndex + 1);
   }
 
   ipInfo.ip4 = values[0];
-  ipInfo.latitude = values[6].c_str();
-  ipInfo.longtitude = values[5].c_str();
-  
-  Serial.printf("IP Address: %s\r\n", values[0].c_str());
+  ipInfo.latitude = values[6];
+  ipInfo.longtitude = values[5];
+
+  Serial.printf("IP Address: %s\r\n", ipInfo.ip4.c_str());
   Serial.printf("Country Code: %s\r\n", values[1].c_str());
   Serial.printf("Country: %s\r\n", values[2].c_str());
   Serial.printf("Region: %s\r\n", values[3].c_str());
   Serial.printf("City: %s\r\n", values[4].c_str());
-  Serial.printf("Longitude: %s\r\n", values[5].c_str());
-  Serial.printf("Latitude: %s\r\n", values[6].c_str());
+  Serial.printf("Longitude: %s\r\n", ipInfo.longtitude.c_str());
+  Serial.printf("Latitude: %s\r\n", ipInfo.latitude.c_str());
 }
 
 //Key lấy từ openweathermap.org khi đăng ký tài khoản
-#define OPENWEATHERMAP_KEY "xxxxxx" //Thay KEY của bạn vào đây
-//KEY "https://home.openweathermap.org/api_keys"
+#define OPENWEATHERMAP_KEY "YOUR_KEY" //Thay KEY của bạn vào đây
 String urlWeather;  //Biến lưu url https://openweathermap.org/
 
 //API Get http://ip4.iothings.vn/?geo=1
@@ -99,7 +98,7 @@ void getAPI(){
   int httpResponseCode = http.GET();
   if(httpResponseCode>0){
     String response = http.getString();
-    Serial.println(httpResponseCode);
+    Serial.println(httpResponseCode);   
     Serial.println(response);
           
     parseGeoInfo(response, ip4Info);

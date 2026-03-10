@@ -1,9 +1,12 @@
 #include <Arduino.h>
 
 //Thay thông số BLYNK của bạn vào đây
-#define BLYNK_TEMPLATE_ID "TMPL67KDorDOp"
-#define BLYNK_TEMPLATE_NAME "Blynk API"
-#define BLYNK_AUTH_TOKEN "Wme8YuZUG2vKHjBvE88M4UqG2UxqTFqe" 
+#define BLYNK_TEMPLATE_ID "TMPL6ZuP2QqCC"
+#define BLYNK_TEMPLATE_NAME "BLYNK API"
+#define BLYNK_AUTH_TOKEN "PSS04dml7Yfyea6G7sBEBerHqEFdE-Py" 
+
+
+
 
 
 #include <WiFi.h>
@@ -84,7 +87,6 @@ void parseGeoInfo(String payload, IP4_Info& ipInfo) {
 
 //Key lấy từ openweathermap.org khi đăng ký tài khoản
 #define OPENWEATHERMAP_KEY "xxxxxx" //Thay KEY của bạn vào đây
-//KEY "https://home.openweathermap.org/api_keys"
 String urlWeather;  //Biến lưu url https://openweathermap.org/
 
 //API Get http://ip4.iothings.vn/?geo=1
@@ -108,8 +110,7 @@ void getAPI(){
     Serial.printf("IPv4 => %s \r\n",ip4Info.ip4.c_str());
     Serial.println(urlGooleMaps.c_str());
 
-    urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str(),OPENWEATHERMAP_KEY);
-
+urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str(),OPENWEATHERMAP_KEY);
     Serial.printf("URL => %s \r\n",urlWeather.c_str());      
   }else{
     Serial.print("Error on sending POST: ");
@@ -201,7 +202,7 @@ void setup(void) {
 }
 
 void loop(void) {
-  // return; //commnet để chạy vòng lặp
+ // return; //commnet để chạy vòng lặp
   
   Blynk.run();  // Chạy vòng lặp Blynk
   
