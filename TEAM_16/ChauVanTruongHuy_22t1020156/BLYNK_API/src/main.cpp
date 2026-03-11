@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-//Thay thông số BLYNK của bạn vào đây
 #define BLYNK_TEMPLATE_ID "TMPL6opXQI0CF"
 #define BLYNK_TEMPLATE_NAME "Châu Văn Trường Huy"
 #define BLYNK_AUTH_TOKEN "F4gnw7vRdGwCdaR5MgG5FgdfKn00t9_3"
@@ -15,7 +14,6 @@
 #define WIFI_PASSWORD ""
 #define WIFI_CHANNEL 6
 
-//Cấu trúc lưu thông tin IPv4, lat, long từ http://ip4.iothings.vn/?geo=1
 struct IP4_Info{
   String ip4;
   String latitude;
@@ -72,8 +70,7 @@ void parseGeoInfo(String payload, IP4_Info& ipInfo) {
   ipInfo.longtitude = values[5].c_str();
 }
 
-// ĐÃ SỬA LỖI: Bỏ dấu chấm phẩy ở cuối
-#define OPENWEATHERMAP_KEY "35eb5f9eb8b3b8f03519b4f82ee7892f" 
+#define OPENWEATHERMAP_KEY "40438fa01109ad143d661574d1825764" 
 String urlWeather;  
 
 //API Get http://ip4.iothings.vn/?geo=1
@@ -93,12 +90,11 @@ void getAPI(){
           
     parseGeoInfo(response, ip4Info);
 
-    // ĐÃ SỬA LỖI: Thêm định dạng link Google Maps cho đúng
+    //Thêm định dạng link Google Maps 
     String urlGooleMaps = StringFormat("https://www.google.com/maps/place/%s,%s",ip4Info.latitude.c_str(), ip4Info.longtitude.c_str());
     Serial.printf("IPv4 => %s \r\n",ip4Info.ip4.c_str());
     Serial.println(urlGooleMaps.c_str());
 
-    // ĐÃ SỬA LỖI: Đổi %ss thành %s
     urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str(),OPENWEATHERMAP_KEY);
 
     Serial.printf("URL Weather => %s \r\n",urlWeather.c_str());      
@@ -156,7 +152,7 @@ void onceCalled(){
   if (done_) return;
   done_ = true;
   
-  // ĐÃ SỬA LỖI: Sửa lại format link
+  //format link
   String link = StringFormat("https://www.google.com/maps/place/%s,%s",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str());
 
   Blynk.virtualWrite(V1, ip4Info.ip4.c_str());  
@@ -189,8 +185,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  // ĐÃ SỬA LỖI: Ẩn lệnh return để mạch chạy được
-  // return; 
   
   Blynk.run();  
   
