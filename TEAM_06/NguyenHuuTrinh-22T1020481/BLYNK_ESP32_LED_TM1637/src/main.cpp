@@ -91,7 +91,6 @@ private:
     bool _buttonState;
     unsigned long _lastDebounceTime;
 };
-
 class MyDHT {
 public:
     MyDHT() { 
