@@ -7,6 +7,7 @@
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
+// IMPORTANT: Replace this with a NEW token from @BotFather
 #define BOTtoken "8762169458:AAHQGTWKy0zZmKkx334JhZw1FBxG5kXm6p8"
 #define GROUP_ID "-1003509405398"
 
@@ -18,7 +19,9 @@ const int ledPin = 23;
 bool motionDetected = false;
 bool ledState = false;
 
-int Bot_mtbs = 200;
+// SPEED FIX 1: Increased to 1000ms. 
+// This prevents the ESP32 from choking on constant connection attempts.
+int Bot_mtbs = 1000; 
 long Bot_lasttime;
 
 String StringFormat(const char* fmt, ...) {
@@ -90,7 +93,10 @@ void setup() {
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  client.setCACert(TELEGRAM_CERTIFICATE_ROOT);
+  
+  // SPEED FIX 2: Skip certificate validation. 
+  // This removes ~1 to 2 seconds of delay from every single Telegram request.
+  client.setInsecure(); 
 
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
