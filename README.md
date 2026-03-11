@@ -61,7 +61,11 @@
 
 [Telegram IoT - Link Testing](https://t.me/+xwMWxFovgndmN2U1)
 
-### Cách lấy ID GROUP, chat 1 câu bắt kỳ trong Group và gửi API sau để lấy tin GROUP_ID
+### Cách lấy ID GROUP
+
+> Thêm tài khoản @RawDataBot và sau đó hủy tài khoản đó khỏi Group (Mục đích có cập nhật thay đổi tài khoản trong Group)
+> 
+> Gửi API sau để lấy tin GROUP_ID, trong nội dung JSON trả về sẽ có GROUP_ID
 
 [https://api.telegram.org/botTOKEN/getUpdates](https://api.telegram.org/bot<TOKEN>/getUpdates)
 
