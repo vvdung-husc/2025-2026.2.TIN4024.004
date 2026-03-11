@@ -2,90 +2,123 @@
 #define BLYNK_TEMPLATE_NAME "Hà Văn Hòa"
 #define BLYNK_AUTH_TOKEN "Z6AaCUWeBtYACR9wlENMHDOHselKTJk0"
 
+#define BLYNK_PRINT Serial
+
 #include <WiFi.h>
+#include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
 #include <DHT.h>
 #include <TM1637Display.h>
 
-char ssid[] = "Wokwi-GUEST";
-char pass[] = "";
-
 #define LED_PIN 21
-#define BUTTON_PIN 23
-#define DHTPIN 16
+#define BTN_PIN 23
+#define DHT_PIN 16
 #define DHTTYPE DHT22
 
 #define CLK 18
 #define DIO 19
 
-DHT dht(DHTPIN, DHTTYPE);
-TM1637Display display(CLK, DIO);
 
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
+
+
+DHT dht(DHT_PIN, DHTTYPE);
+TM1637Display display(CLK, DIO);
 BlynkTimer timer;
 
-int timeCounter = 0;
-bool running = false;
 
-void sendDHT()
-{
-  float temp = dht.readTemperature();
-  float hum = dht.readHumidity();
+bool systemOn = false;          
+unsigned long secondsCount = 0; 
 
-  Blynk.virtualWrite(V1, temp);
-  Blynk.virtualWrite(V2, hum);
-}
+int buttonState;             
+int lastButtonState = HIGH;   
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50;
 
-void updateTime()
-{
-  if (running)
-  {
-    timeCounter++; // đếm tăng
-    display.showNumberDec(timeCounter);
 
-    Blynk.virtualWrite(V3, timeCounter);
+void updateSystemState() {
+  if (systemOn) {
+    digitalWrite(LED_PIN, HIGH);         
+    display.showNumberDec(secondsCount); 
+  } else {
+    digitalWrite(LED_PIN, LOW);          
+    display.clear();                     
   }
+  Blynk.virtualWrite(V0, systemOn); 
 }
 
-BLYNK_WRITE(V0)
-{
-  int value = param.asInt();
 
-  digitalWrite(LED_PIN, value);
-  running = value;
+BLYNK_WRITE(V0) {
+  systemOn = param.asInt();
+  updateSystemState();
 }
 
-void setup()
-{
-  Serial.begin(115200);
 
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-
-  dht.begin();
-
-  display.setBrightness(7);
-  display.showNumberDec(0);
-
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
-
-  timer.setInterval(1000L, updateTime);
-  timer.setInterval(2000L, sendDHT);
+void countTime() {
+  secondsCount++; 
   
+  if (systemOn) {
+    display.showNumberDec(secondsCount);
+  }
+  String timeString = String(secondsCount) + " Giây";
+  Blynk.virtualWrite(V1, timeString);
 }
 
-void loop()
-{
-  Blynk.run();
-  timer.run();
 
-  if (digitalRead(BUTTON_PIN) == LOW)
-  {
-    running = !running;
+void sendSensor() {
 
-    digitalWrite(LED_PIN, running);
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
 
-    Blynk.virtualWrite(V0, running);
-
-    delay(300);
+  Serial.print("Nhiệt độ: "); Serial.print(t);
+  Serial.print(" *C  ---  Độ ẩm: "); Serial.print(h);
+  Serial.println(" %");
+  if (!isnan(t) && !isnan(h)) {
+    Blynk.virtualWrite(V2, t); 
+    Blynk.virtualWrite(V3, h); 
+  } else {
+    Serial.println("CẢNH BÁO: Không đọc được dữ liệu từ DHT22!");
   }
+}
+
+
+void setup() {
+  Serial.begin(115200);
+  
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BTN_PIN, INPUT_PULLUP);
+  
+  display.setBrightness(0x0f);
+  display.clear();
+  digitalWrite(LED_PIN, LOW);
+  
+  dht.begin();
+  
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  
+  timer.setInterval(1000L, countTime);   
+  timer.setInterval(2000L, sendSensor);   
+}
+
+void loop() {
+  Blynk.run();
+  timer.run(); 
+  int reading = digitalRead(BTN_PIN);
+  
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
+  }
+  
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonState) {
+      buttonState = reading;
+      
+      if (buttonState == LOW) {
+        systemOn = !systemOn; 
+        updateSystemState();  
+      }
+    }
+  }
+  lastButtonState = reading; 
 }

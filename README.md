@@ -57,6 +57,37 @@
   
 + [Cài đặt thư viện cho PlatformIO](https://khuenguyencreator.com/huong-dan-cai-dat-platform-io-lap-trinh-esp32/#Cai_dat_thu_vien_cho_Platformio)
 --------------------
+***2026-03-11***
+
+[Telegram IoT - Link Testing](https://t.me/+xwMWxFovgndmN2U1)
+
+### Cách lấy ID GROUP
+
+> Thêm tài khoản @RawDataBot và sau đó hủy tài khoản đó khỏi Group (Mục đích có cập nhật thay đổi tài khoản trong Group)
+> 
+> Gửi API sau để lấy tin GROUP_ID, trong nội dung JSON trả về sẽ có GROUP_ID
+
+[https://api.telegram.org/botTOKEN/getUpdates](https://api.telegram.org/bot<TOKEN>/getUpdates)
+
+>***Thay TOKEN bằng token của bot - có bot ở phía trước***
+
+### - [Esp32 |  TELEGRAM BOT (***mã nguồn minh họa***)](https://wokwi.com/projects/425361659331202049)
+
+#### Tham khảo
+
++ [ESP32 Telegram Bot](https://www.iotzone.vn/esp32/cach-dung-esp32-telegram-dieu-khien-den-led-voi-arduino-ide/)
+
+#### Ứng dụng Telegram
+
+>[Telegram Applications](https://telegram.org/apps)
+
+>[Telegram APIs](https://core.telegram.org/api)
+
+## => Yêu cầu thực hiện được đoạn mã nguồn minh họa để hiển thị trong ứng dụng Telegram
+
+![](https://raw.githubusercontent.com/vvdung/storage/refs/heads/main/IOT/esp32_telegram_led_control.png)
+
+--------------------
 ***2026-03-07***
 
 ### - [Esp32 | API HTTP GET (***mã nguồn minh họa***)](https://wokwi.com/projects/425209099504209921)
@@ -129,6 +160,8 @@
 ## [***4. Dự án - BLYNK_DHT***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/blob/main/README.md#--blynk--traffic--dht-sensor)
 
 ## [***5. Dự án - BLYNK_API***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/tree/main?tab=readme-ov-file#-%C4%91%C4%83ng-k%C3%BD-t%C3%A0i-kho%E1%BA%A3n-httpsopenweathermaporg-s%E1%BB%AD-d%E1%BB%A5ng-api-httpip4iothingsvngeo1-v%C3%A0-api-httpsapiopenweathermaporgdata25weatherlatlatlonlonappidapi-key-%C4%91%E1%BB%83-th%E1%BB%B1c-hi%E1%BB%87n-tr%C3%AAn-blynk-nh%C6%B0-h%C3%ACnh-sau)
+
+## [***6. Dự án - TELEGRAM_LED***](https://github.com/vvdung-husc/2025-2026.2.TIN4024.004/blob/main/README.md#-y%C3%AAu-c%E1%BA%A7u-th%E1%BB%B1c-hi%E1%BB%87n-%C4%91%C6%B0%E1%BB%A3c-%C4%91o%E1%BA%A1n-m%C3%A3-ngu%E1%BB%93n-minh-h%E1%BB%8Da-%C4%91%E1%BB%83-hi%E1%BB%83n-th%E1%BB%8B-trong-%E1%BB%A9ng-d%E1%BB%A5ng-telegram)
 
 -------------------------------
 
