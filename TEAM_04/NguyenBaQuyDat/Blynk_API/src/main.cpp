@@ -15,7 +15,7 @@
 #define WIFI_PASSWORD ""
 
 // Key OpenWeatherMap của bạn
-#define OPENWEATHERMAP_KEY "0e460abbe0dd6cb0d6af4482c76ef17d"
+#define OPENWEATHERMAP_KEY ""
 
 struct IP4_Info
 {
