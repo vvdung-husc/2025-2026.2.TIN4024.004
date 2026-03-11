@@ -2,6 +2,14 @@
 	"folders": [
 		{
 			"path": "../../../.."
+		},
+		{
+			"name": "BLYNK_DHT",
+			"path": "../BLYNK_DHT"
+		},
+		{
+			"name": "BLYNK_API",
+			"path": "../BLYNK_API"
 		}
 	],
 	"settings": {}
