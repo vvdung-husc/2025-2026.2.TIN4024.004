@@ -12,7 +12,7 @@
 #define WIFI_PASSWORD ""
 
 // Bot Telegram
-#define BOTtoken "8646963702:AAEih2EXlOAOgdtGmffWgIweFjO0-QDNxDU"
+#define BOTtoken "xxx"
 #define CHAT_ID "7984027108"
 
 WiFiClientSecure client;
