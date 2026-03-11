@@ -3,8 +3,8 @@ THÔNG TIN NHÓM 12
 1. Lê Thị Thuỳ Linh
 2. Nguyễn Tống Bảo Phúc
 3. Võ Lê Tuấn Hưng
-4.
-5.
+4. Phan Nguyễn Thành Đạt
+5. Nguyễn Duy Tín
 */
 #include <Arduino.h>
 #include <Wire.h>
