@@ -13,7 +13,7 @@
 #define WIFI_SSID "Wokwi-GUEST"
 #define WIFI_PASSWORD ""
 
-#define OPENWEATHERMAP_KEY "eb912a2c2355036a5da46c9d22fb52d5"
+#define OPENWEATHERMAP_KEY ""
 
 struct IP4_Info {
   String ip4;
