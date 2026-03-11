@@ -57,7 +57,7 @@ void loop() {
            if (counter <= 0) {
              printf("LED [YELLOW] ON => 3 Seconds\n");
              
-             currentState = STATE_RED;
+             currentState = STATE_RED;p
              counter = 5; 
              digitalWrite(PIN_LED_YELLOW, LOW);
            }
