@@ -1,7 +1,7 @@
 // Blynk
 #define BLYNK_TEMPLATE_ID "TMPL60VV6-MLb"
 #define BLYNK_TEMPLATE_NAME "BlynkAPI"
-#define BLYNK_AUTH_TOKEN "YOUR_BLYNK_TOKEN"
+#define BLYNK_AUTH_TOKEN "-paCzdHHiA6m7YcHti5AlWZUKjCRQjGN"
 
 
 #include <Arduino.h>
@@ -15,7 +15,7 @@
 #define WIFI_PASSWORD ""
 
 // OpenWeather API
-#define OPENWEATHERMAP_KEY "YOUR_OPENWEATHER_KEY"
+#define OPENWEATHERMAP_KEY "081d8093d495408b03ff136294814e90"
 
 // Lưu thông tin IP
 struct IP4_Info {
