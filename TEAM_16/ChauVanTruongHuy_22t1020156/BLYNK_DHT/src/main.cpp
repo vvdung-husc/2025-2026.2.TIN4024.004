@@ -1,95 +1,128 @@
+// BẮT BUỘC ĐỂ 3 DÒNG NÀY LÊN TRÊN CÙNG
+#define BLYNK_TEMPLATE_ID "TMPL6gVLxnkTK-"
+#define BLYNK_TEMPLATE_NAME "BLYNK DHT"
+#define BLYNK_AUTH_TOKEN "jrKa_8ML3qXH6uOMMBQrhJhxSGFdXc4g"
+
+// Sau đó mới include thư viện
 #include <Arduino.h>
 #include <TM1637Display.h>
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+#include <DHT.h> 
 
-const int RED_PIN = 18;
-const int YELLOW_PIN = 5;
-const int GREEN_PIN = 17;
-const int BLUE_LED_PIN = 12; // Đèn liên kết với nút bấm
-const int BUTTON_PIN = 13;
-const int LDR_PIN = 34;
+char ssid[] = "Wokwi-GUEST";  //Tên mạng WiFi
+char pass[] = "";             //Mật khẩu mạng WiFi
 
-// Khởi tạo màn hình TM1637 (CLK: 22, DIO: 23)
-TM1637Display display(22, 23);
+// Chân kết nối 
+#define btnBLED  23 //Chân kết nối nút bấm
+#define pinBLED  21 //Chân kết nối đèn xanh
+#define CLK 18  //Chân kết nối CLK của TM1637
+#define DIO 19  //Chân kết nối DIO của TM1637
 
-// Biến trạng thái
-bool displayEnabled = true; 
-int state = 0;              // 0: Xanh, 1: Vàng, 2: Đỏ
-unsigned long lastTick = 0;
-int timeLeft = 7;           // Bắt đầu với đèn Xanh 7 giây
-bool lastBtnState = HIGH;
+// Khai báo chân cho cảm biến DHT22
+#define DHTPIN 15
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+// SỬA LỖI: Đổi ulong thành unsigned long
+unsigned long currentMiliseconds = 0; 
+bool blueButtonON = true;     
+
+TM1637Display display(CLK, DIO);
+
+bool IsReady(unsigned long &ulTimer, uint32_t milisecond);
+void updateBlueButton();
+void uptimeBlynk();
 
 void setup() {
-  pinMode(RED_PIN, OUTPUT);
-  pinMode(YELLOW_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
-  pinMode(BLUE_LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  
-  display.setBrightness(7); // Độ sáng tối đa
   Serial.begin(115200);
-}
-
-void loop() {
-  // 1. Xử lý Nút bấm để Bật/Tắt bảng đếm ngược
-  bool currentBtn = digitalRead(BUTTON_PIN);
-  if (lastBtnState == HIGH && currentBtn == LOW) {
-    displayEnabled = !displayEnabled;
-    delay(50); // Chống rung nút
-  }
-  lastBtnState = currentBtn;
-
-  // Đèn Blue sáng khi bảng đếm ngược đang ở trạng thái Bật
-  digitalWrite(BLUE_LED_PIN, displayEnabled ? HIGH : LOW);
-
-  // 2. Đọc cảm biến ánh sáng (LDR)
-  int lightLevel = analogRead(LDR_PIN);
-
-  if (lightLevel > 3000) { 
-    // CHẾ ĐỘ TRỜI TỐI: Vàng nhấp nháy, tắt các đèn khác và bảng số
-    runNightMode();
-  } else {
-    // CHẾ ĐỘ BÌNH THƯỜNG: Đèn giao thông chạy và đếm ngược
-    runTrafficCycle();
-  }
-}
-
-void runTrafficCycle() {
-  unsigned long currentMillis = millis();
-  
-  if (currentMillis - lastTick >= 1000) {
-    lastTick = currentMillis;
+  pinMode(pinBLED, OUTPUT);
+  pinMode(btnBLED, INPUT_PULLUP);
     
-    // Cập nhật đèn LED theo trạng thái hiện tại
-    digitalWrite(GREEN_PIN, state == 0);
-    digitalWrite(YELLOW_PIN, state == 1);
-    digitalWrite(RED_PIN, state == 2);
+  display.setBrightness(0x0f);
+  dht.begin(); 
+  
+  Serial.print("Connecting to ");Serial.println(ssid);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-    // Cập nhật bảng đếm ngược nếu được phép bật
-    if (displayEnabled) {
-      display.showNumberDec(timeLeft, true, 2, 2); 
-    } else {
-      display.clear();
-    }
+  Serial.println();
+  Serial.println("WiFi connected");
+  
+  digitalWrite(pinBLED, blueButtonON ? HIGH : LOW);  
+  Blynk.virtualWrite(V1, blueButtonON); 
+  
+  Serial.println("== START ==>");
+}
 
-    // Trừ thời gian
-    timeLeft--;
+void loop() {  
+  Blynk.run();  
 
-    // Chuyển trạng thái khi hết thời gian
-    if (timeLeft < 0) {
-      state = (state + 1) % 3;
-      if (state == 0) timeLeft = 7;   // Xanh 7s
-      else if (state == 1) timeLeft = 3;  // Vàng 3s
-      else if (state == 2) timeLeft = 10; // Đỏ 10s
-    }
+  currentMiliseconds = millis();
+  uptimeBlynk();
+  updateBlueButton();
+}
+
+bool IsReady(unsigned long &ulTimer, uint32_t milisecond) {
+  if (currentMiliseconds - ulTimer < milisecond) return false;
+  ulTimer = currentMiliseconds;
+  return true;
+}
+
+void updateBlueButton(){
+  static unsigned long lastTime = 0; 
+  static int lastValue = HIGH;
+  if (!IsReady(lastTime, 50)) return;
+  int v = digitalRead(btnBLED);
+  if (v == lastValue) return;
+  lastValue = v;
+  if (v == LOW) return;
+
+  if (!blueButtonON){
+    Serial.println("Blue Light ON");
+    digitalWrite(pinBLED, HIGH);
+    blueButtonON = true;
+    Blynk.virtualWrite(V1, blueButtonON);
+  }
+  else {
+    Serial.println("Blue Light OFF");
+    digitalWrite(pinBLED, LOW);    
+    blueButtonON = false;
+    Blynk.virtualWrite(V1, blueButtonON);
+    display.clear();
+  }    
+}
+
+void uptimeBlynk(){
+  static unsigned long lastTime = 0; 
+  if (!IsReady(lastTime, 1000)) return; 
+  
+  unsigned long value = lastTime / 1000; 
+  Blynk.virtualWrite(V0, value);  
+  if (blueButtonON){
+    display.showNumberDec(value);
+  }
+
+  // --- PHẦN BỔ SUNG: ĐỌC VÀ GỬI NHIỆT ĐỘ, ĐỘ ẨM ---
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  
+  if (!isnan(h) && !isnan(t)) {
+    // V2: Nhiệt độ, V3: Độ ẩm 
+    Blynk.virtualWrite(V2, t); 
+    Blynk.virtualWrite(V3, h); 
   }
 }
 
-void runNightMode() {
-  // Tắt các đèn không liên quan
-  digitalWrite(RED_PIN, LOW);
-  digitalWrite(GREEN_PIN, LOW);
-  display.clear();
-  
-  // Đèn vàng nhấp nháy chu kỳ 1 giây (500ms sáng / 500ms tắt)
-  digitalWrite(YELLOW_PIN, (millis() / 500) % 2);
+BLYNK_WRITE(V1) { 
+  blueButtonON = param.asInt();  
+  if (blueButtonON){
+    Serial.println("Blynk -> Blue Light ON");
+    digitalWrite(pinBLED, HIGH);
+  }
+  else {
+    Serial.println("Blynk -> Blue Light OFF");
+    digitalWrite(pinBLED, LOW);   
+    display.clear(); 
+  }
 }

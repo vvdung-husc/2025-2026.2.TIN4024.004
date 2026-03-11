@@ -1,95 +1,196 @@
 #include <Arduino.h>
-#include <TM1637Display.h>
 
-const int RED_PIN = 18;
-const int YELLOW_PIN = 5;
-const int GREEN_PIN = 17;
-const int BLUE_LED_PIN = 12; // Đèn liên kết với nút bấm
-const int BUTTON_PIN = 13;
-const int LDR_PIN = 34;
+#define BLYNK_TEMPLATE_ID "TMPL6Ub2n9rxe"
+#define BLYNK_TEMPLATE_NAME "BLYNK API""
+#define BLYNK_TEMPLATE_NAME "BLYNK API"
+#define BLYNK_AUTH_TOKEN "bqLfUbhNqPQZxTptjtKgpn7ExqoabEWU"
 
-// Khởi tạo màn hình TM1637 (CLK: 22, DIO: 23)
-TM1637Display display(22, 23);
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+#include <HTTPClient.h>   //Thư viện gọi API
+#include <ArduinoJson.h>  //Thư viện xử lý JSON
 
-// Biến trạng thái
-bool displayEnabled = true; 
-int state = 0;              // 0: Xanh, 1: Vàng, 2: Đỏ
-unsigned long lastTick = 0;
-int timeLeft = 7;           // Bắt đầu với đèn Xanh 7 giây
-bool lastBtnState = HIGH;
+#define WIFI_SSID "Wokwi-GUEST"
+#define WIFI_PASSWORD ""
+#define WIFI_CHANNEL 6
 
-void setup() {
-  pinMode(RED_PIN, OUTPUT);
-  pinMode(YELLOW_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
-  pinMode(BLUE_LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+struct IP4_Info{
+  String ip4;
+  String latitude;
+  String longtitude;
+};
+
+IP4_Info ip4Info;
+
+ulong currentMiliseconds = 0; 
+
+bool IsReady(ulong &ulTimer, uint32_t milisecond)
+{
+  if (currentMiliseconds - ulTimer < milisecond) return false;
+  ulTimer = currentMiliseconds;
+  return true;
+}
+
+//Định dạng chuỗi %s,%s,...
+String StringFormat(const char* fmt, ...){
+  va_list vaArgs;
+  va_start(vaArgs, fmt);
+  va_list vaArgsCopy;
+  va_copy(vaArgsCopy, vaArgs);
+  const int iLen = vsnprintf(NULL, 0, fmt, vaArgsCopy);
+  va_end(vaArgsCopy);
+  int iSize = iLen + 1;
+  char* buff = (char*)malloc(iSize);
+  vsnprintf(buff, iSize, fmt, vaArgs);
+  va_end(vaArgs);
+  String s = buff;
+  free(buff);
+  return String(s);
+}
+
+//Phân tích chuỗi trả về từ http://ip4.iothings.vn/?geo=1 và điền vào ipInfo
+void parseGeoInfo(String payload, IP4_Info& ipInfo) {
+  String values[7];
+  int index = 0;
   
-  display.setBrightness(7); // Độ sáng tối đa
+  while (payload.length() > 0 && index < 7) {
+      int delimiterIndex = payload.indexOf('|');
+      
+      if (delimiterIndex == -1) {
+          values[index++] = payload;
+          break;
+      }
+      
+      values[index++] = payload.substring(0, delimiterIndex);
+      payload = payload.substring(delimiterIndex + 1);
+  }
+
+  ipInfo.ip4 = values[0];
+  ipInfo.latitude = values[6].c_str();
+  ipInfo.longtitude = values[5].c_str();
+}
+
+#define OPENWEATHERMAP_KEY "40438fa01109ad143d661574d1825764" 
+String urlWeather;  
+
+//API Get http://ip4.iothings.vn/?geo=1
+void getAPI(){
+  if(WiFi.status() != WL_CONNECTED) {
+    Serial.println("getAPI() Error in WiFi connection"); return;
+  }
+  HTTPClient http;   
+  http.begin("http://ip4.iothings.vn/?geo=1");
+  http.addHeader("Content-Type", "text/plain");
+
+  int httpResponseCode = http.GET();
+  if(httpResponseCode>0){
+    String response = http.getString();
+    Serial.println("== DATA IP API ==");
+    Serial.println(response);
+          
+    parseGeoInfo(response, ip4Info);
+
+    //Thêm định dạng link Google Maps 
+    String urlGooleMaps = StringFormat("https://www.google.com/maps/place/%s,%s",ip4Info.latitude.c_str(), ip4Info.longtitude.c_str());
+    Serial.printf("IPv4 => %s \r\n",ip4Info.ip4.c_str());
+    Serial.println(urlGooleMaps.c_str());
+
+    urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str(),OPENWEATHERMAP_KEY);
+
+    Serial.printf("URL Weather => %s \r\n",urlWeather.c_str());      
+  }else{
+    Serial.print("Error on sending GET IP: ");
+    Serial.println(httpResponseCode);
+  }
+  http.end();
+}
+
+//Cập nhật nhiêt độ từ urlWeather bằng API GET
+void updateTemp(){
+  static ulong lastTime = 0;
+  static float temp_ = 0.0;
+
+  if (!IsReady(lastTime, 10000)) return; 
+  if(WiFi.status() != WL_CONNECTED){
+    Serial.println("updateTemp() Error in WiFi connection"); 
+    return;
+  }
+
+  HTTPClient http;   
+  http.begin(urlWeather);
+  http.addHeader("Content-Type", "text/plain");
+  
+  int httpResponseCode = http.GET();
+  if(httpResponseCode>0){
+    String response = http.getString();
+          
+    //Xử lý JSON trả về từ API
+    JsonDocument doc;
+    DeserializationError error = deserializeJson(doc, response);
+    if (error) {
+      Serial.println("Failed to parse JSON");
+    }
+    else {
+      float temp = doc["main"]["temp"];
+      
+      if (temp_ != temp){
+        temp_ = temp;
+        Serial.print("Nhiet do: "); Serial.println(temp); 
+        Blynk.virtualWrite(V3, temp_);
+      }
+    }
+  }else{
+    Serial.print("Error on sending GET Weather: ");
+    Serial.println(httpResponseCode);
+  }
+  http.end();
+}
+
+//Chỉ gọi 1 lần để cập nhật IPv4, Link GoogleMaps
+void onceCalled(){
+  static bool done_ = false;
+  if (done_) return;
+  done_ = true;
+  
+  //format link
+  String link = StringFormat("https://www.google.com/maps/place/%s,%s",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str());
+
+  Blynk.virtualWrite(V1, ip4Info.ip4.c_str());  
+  Blynk.virtualWrite(V2, link.c_str());  
+}
+
+//Cập nhật uptime lên Blynk
+void uptimeBlynk(){
+  static ulong lastTime = 0;
+  
+  if (!IsReady(lastTime, 1000)) return; 
+  ulong value = lastTime / 1000;
+  Blynk.virtualWrite(V0, value);  
+}
+
+void setup(void) {
   Serial.begin(115200);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD, WIFI_CHANNEL);
+  Serial.print("Connecting to WiFi ");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(100);
+    Serial.print(".");
+  }
+  Serial.println(" Connected!");
+
+  Blynk.config(BLYNK_AUTH_TOKEN); 
+  Blynk.connect();                
+
+  getAPI();
 }
 
-void loop() {
-  // 1. Xử lý Nút bấm để Bật/Tắt bảng đếm ngược
-  bool currentBtn = digitalRead(BUTTON_PIN);
-  if (lastBtnState == HIGH && currentBtn == LOW) {
-    displayEnabled = !displayEnabled;
-    delay(50); // Chống rung nút
-  }
-  lastBtnState = currentBtn;
-
-  // Đèn Blue sáng khi bảng đếm ngược đang ở trạng thái Bật
-  digitalWrite(BLUE_LED_PIN, displayEnabled ? HIGH : LOW);
-
-  // 2. Đọc cảm biến ánh sáng (LDR)
-  int lightLevel = analogRead(LDR_PIN);
-
-  if (lightLevel > 3000) { 
-    // CHẾ ĐỘ TRỜI TỐI: Vàng nhấp nháy, tắt các đèn khác và bảng số
-    runNightMode();
-  } else {
-    // CHẾ ĐỘ BÌNH THƯỜNG: Đèn giao thông chạy và đếm ngược
-    runTrafficCycle();
-  }
-}
-
-void runTrafficCycle() {
-  unsigned long currentMillis = millis();
+void loop(void) {
   
-  if (currentMillis - lastTick >= 1000) {
-    lastTick = currentMillis;
-    
-    // Cập nhật đèn LED theo trạng thái hiện tại
-    digitalWrite(GREEN_PIN, state == 0);
-    digitalWrite(YELLOW_PIN, state == 1);
-    digitalWrite(RED_PIN, state == 2);
-
-    // Cập nhật bảng đếm ngược nếu được phép bật
-    if (displayEnabled) {
-      display.showNumberDec(timeLeft, true, 2, 2); 
-    } else {
-      display.clear();
-    }
-
-    // Trừ thời gian
-    timeLeft--;
-
-    // Chuyển trạng thái khi hết thời gian
-    if (timeLeft < 0) {
-      state = (state + 1) % 3;
-      if (state == 0) timeLeft = 7;   // Xanh 7s
-      else if (state == 1) timeLeft = 3;  // Vàng 3s
-      else if (state == 2) timeLeft = 10; // Đỏ 10s
-    }
-  }
-}
-
-void runNightMode() {
-  // Tắt các đèn không liên quan
-  digitalWrite(RED_PIN, LOW);
-  digitalWrite(GREEN_PIN, LOW);
-  display.clear();
+  Blynk.run();  
   
-  // Đèn vàng nhấp nháy chu kỳ 1 giây (500ms sáng / 500ms tắt)
-  digitalWrite(YELLOW_PIN, (millis() / 500) % 2);
+  currentMiliseconds = millis();
+  onceCalled(); 
+  updateTemp();
+  uptimeBlynk();
 }
