@@ -4,7 +4,7 @@
 /* Blynk */
 #define BLYNK_TEMPLATE_ID "TMPL6EGlnb4kY"
 #define BLYNK_TEMPLATE_NAME "Api"
-#define BLYNK_AUTH_TOKEN "SXEwYrU-VDzso93bMNOwCS0JikspwfgC"
+#define BLYNK_AUTH_TOKEN "YOUR_BLYNK_TOKEN"
 
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -40,7 +40,7 @@ struct IP4_Info{
 IP4_Info ip4Info;
 
 /* WEATHER API */
-#define OPENWEATHERMAP_KEY "0f746d56be5e86767777b5896e7b8f9e"
+#define OPENWEATHERMAP_KEY "YOUR_API_KEY"
 
 String urlWeather;
 
@@ -230,7 +230,8 @@ void setup(){
 
   Serial.println("Connecting Blynk...");
 
-  Blynk.config(BLYNK_AUTH_TOKEN, "45.55.96.146", 80);
+  /* SỬA LỖI SERVER BLYNK */
+  Blynk.config(BLYNK_AUTH_TOKEN, "blynk.cloud", 80);
 
   while(!Blynk.connect()){
     Serial.println("Retry Blynk...");
