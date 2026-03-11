@@ -73,7 +73,7 @@ void handleNewMessages(int numNewMessages) {
       digitalWrite(ledPin, HIGH);
       ledState = true;
 
-      Serial.print("\nLED is ON");
+      Serial.print("LED is ON\n");
       bot.sendMessage(chat_id, "LED bật sáng", "");
     }
 
@@ -82,18 +82,18 @@ void handleNewMessages(int numNewMessages) {
       digitalWrite(ledPin, LOW);
       ledState = false;
 
-      Serial.print("\nLED is OFF");
+      Serial.print("LED is OFF\n");
       bot.sendMessage(chat_id, "LED đã tắt", "");
     }
 
     if (text == "/get_state") {
 
       if (ledState){
-        Serial.print("\nState of LED is ON");
+        Serial.print("State of LED is ON\n");
         bot.sendMessage(chat_id, "LED is ON", "");
       }
       else{
-        Serial.print("\nState of LED is OFF");
+        Serial.print("State of LED is OFF\n");
         bot.sendMessage(chat_id, "LED is OFF", "");
       }
     }
