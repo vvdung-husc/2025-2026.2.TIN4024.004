@@ -1,7 +1,7 @@
 // BẮT BUỘC ĐỂ 3 DÒNG NÀY LÊN TRÊN CÙNG
-#define BLYNK_TEMPLATE_ID "TMPL6o04aN1A-"
-#define BLYNK_TEMPLATE_NAME "Châu Văn Trường Huy"
-#define BLYNK_AUTH_TOKEN "p04d2jqqWxtcAv9yLaHcyv9LvSVA4Iw2"
+#define BLYNK_TEMPLATE_ID "TMPL6gVLxnkTK-"
+#define BLYNK_TEMPLATE_NAME "BLYNK DHT"
+#define BLYNK_AUTH_TOKEN "jrKa_8ML3qXH6uOMMBQrhJhxSGFdXc4g"
 
 // Sau đó mới include thư viện
 #include <Arduino.h>

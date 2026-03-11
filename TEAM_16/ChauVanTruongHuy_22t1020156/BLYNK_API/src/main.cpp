@@ -1,8 +1,9 @@
 #include <Arduino.h>
 
-#define BLYNK_TEMPLATE_ID "TMPL6opXQI0CF"
-#define BLYNK_TEMPLATE_NAME "Châu Văn Trường Huy"
-#define BLYNK_AUTH_TOKEN "F4gnw7vRdGwCdaR5MgG5FgdfKn00t9_3"
+#define BLYNK_TEMPLATE_ID "TMPL6Ub2n9rxe"
+#define BLYNK_TEMPLATE_NAME "BLYNK API""
+#define BLYNK_TEMPLATE_NAME "BLYNK API"
+#define BLYNK_AUTH_TOKEN "bqLfUbhNqPQZxTptjtKgpn7ExqoabEWU"
 
 #include <WiFi.h>
 #include <WiFiClient.h>
