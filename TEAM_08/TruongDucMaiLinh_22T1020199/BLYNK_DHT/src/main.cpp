@@ -1,3 +1,7 @@
+#define BLYNK_TEMPLATE_ID "TMPL69TudFJH4"
+#define BLYNK_TEMPLATE_NAME "ESP32 LED TM1637"
+
+
 #include <Arduino.h>
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
