@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "author": "ESP32 API",
+  "devices": [
+    {
+      "type": "esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0
+    }
+  ],
+  "connections": []
+}
