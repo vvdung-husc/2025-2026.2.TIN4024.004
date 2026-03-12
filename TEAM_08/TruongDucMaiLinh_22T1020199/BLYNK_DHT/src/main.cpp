@@ -1,7 +1,14 @@
+#define BLYNK_TEMPLATE_ID "TMPL69TudFJH4"
+#define BLYNK_TEMPLATE_NAME "ESP32 LED TM1637"
+#define BLYNK_AUTH_TOKEN "vhbMTd7zkt2xmFD4h2V0sYwXbij4jJsG"
+
 #include <Arduino.h>
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 #include <TM1637Display.h>
+
+char ssid[] = "Wokwi-GUEST";   
+char pass[] = "";              
 
 #define PIN_LED_RED 23
 #define PIN_LED_GREEN 22
@@ -13,16 +20,10 @@
 #define CLK 32
 #define DIO 33
 
-char auth[] = "BLYNK_TOKEN";
-char ssid[] = "WIFI_NAME";
-char pass[] = "WIFI_PASSWORD";
-
 TM1637Display display(CLK, DIO);
-
 BlynkTimer timer;
 
 int counter = 0;
-bool buttonState = false;
 
 int redTime = 15;
 int yellowTime = 5;
@@ -40,6 +41,7 @@ void trafficRun()
 {
   int ldr = analogRead(PIN_LDR);
 
+  
   if (ldr < 500)
   {
     digitalWrite(PIN_LED_RED, LOW);
@@ -84,7 +86,6 @@ void trafficRun()
   }
 
   display.showNumberDec(sec);
-
   counter++;
 }
 
@@ -92,14 +93,10 @@ void handleButton()
 {
   bool btn = digitalRead(PIN_BUTTON);
 
-  if (btn == HIGH)
-  {
+  if (btn == LOW)
     digitalWrite(PIN_LED_BLUE, HIGH);
-  }
   else
-  {
     digitalWrite(PIN_LED_BLUE, LOW);
-  }
 }
 
 void setup()
@@ -111,13 +108,13 @@ void setup()
   pinMode(PIN_LED_YELLOW, OUTPUT);
   pinMode(PIN_LED_BLUE, OUTPUT);
 
-  pinMode(PIN_BUTTON, INPUT);
+  pinMode(PIN_BUTTON, INPUT_PULLUP);
   pinMode(PIN_LDR, INPUT);
 
   display.setBrightness(7);
   display.clear();
 
-  Blynk.begin(auth, ssid, pass);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
   sec = redTime;
 
