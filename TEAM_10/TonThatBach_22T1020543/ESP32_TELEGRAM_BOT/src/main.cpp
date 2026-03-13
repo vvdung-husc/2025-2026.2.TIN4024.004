@@ -2,12 +2,10 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
+#include "secrets.h"
 
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
-
-// #define BOTtoken "8741985594:AAHNiX4lLB1lpDY58TOAz3Hc1uIbiz4y9YE"
-// #define CHAT_ID "-5066392525"
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
