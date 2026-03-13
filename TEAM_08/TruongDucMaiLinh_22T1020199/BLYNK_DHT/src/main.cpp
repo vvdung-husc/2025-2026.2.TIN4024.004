@@ -1,6 +1,6 @@
 #define BLYNK_TEMPLATE_ID "TMPL69TudFJH4"
 #define BLYNK_TEMPLATE_NAME "ESP32 LED TM1637"
-#define BLYNK_AUTH_TOKEN "vhbMTd7zkt2xmFD4h2V0sYwXbij4jJsG"
+#define BLYNK_AUTH_TOKEN "vhbMTd7zkt2xmFD4h2V0sYwXbij4jJsG"  
 
 #include <Arduino.h>
 #include <WiFi.h>
@@ -35,6 +35,10 @@ int sec = 0;
 void sendData()
 {
   Blynk.virtualWrite(V3, counter);
+   Blynk.virtualWrite(V1, random(20, 35));   
+  Blynk.virtualWrite(V2, random(40, 80));   
+  Blynk.virtualWrite(V3, counter);
+
 }
 
 void trafficRun()
@@ -114,7 +118,8 @@ void setup()
   display.setBrightness(7);
   display.clear();
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  Serial.println("Connecting to Blynk...");
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass, "blynk.cloud", 80);
 
   sec = redTime;
 
