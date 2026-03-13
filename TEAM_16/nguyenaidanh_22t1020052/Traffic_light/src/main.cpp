@@ -56,30 +56,35 @@ void loop() {
 void runTrafficCycle() {
   unsigned long currentMillis = millis();
   
+  // Tạo biến blink: TRUE trong 500ms đầu, FALSE trong 500ms sau của mỗi giây
+  bool isBlinkPhase = (currentMillis % 1000 < 500);
+
+  // 1. Logic điều khiển NHẤP NHÁY cho từng loại đèn
+  // Đèn chỉ nháy khi đúng trạng thái (state) VÀ đang ở pha sáng (isBlinkPhase)
+  digitalWrite(GREEN_PIN, (state == 0 && isBlinkPhase) ? HIGH : LOW);
+  digitalWrite(YELLOW_PIN, (state == 1 && isBlinkPhase) ? HIGH : LOW);
+  digitalWrite(RED_PIN, (state == 2 && isBlinkPhase) ? HIGH : LOW);
+
+  // 2. Logic cập nhật bộ đếm mỗi 1 giây
   if (currentMillis - lastTick >= 1000) {
     lastTick = currentMillis;
     
-    // Cập nhật đèn LED theo trạng thái hiện tại
-    digitalWrite(GREEN_PIN, state == 0);
-    digitalWrite(YELLOW_PIN, state == 1);
-    digitalWrite(RED_PIN, state == 2);
-
     // Cập nhật bảng đếm ngược nếu được phép bật
     if (displayEnabled) {
-      display.showNumberDec(timeLeft, true, 2, 2); // Luôn hiện 2 chữ số (ví dụ: 07, 02)
+      display.showNumberDec(timeLeft, true, 2, 0); // Hiển thị số giây còn lại
     } else {
       display.clear();
     }
 
-    // Trừ thời gian
+    // Giảm thời gian
     timeLeft--;
 
     // Chuyển trạng thái khi hết thời gian
     if (timeLeft < 0) {
       state = (state + 1) % 3;
-      if (state == 0) timeLeft = 7;   // Xanh 7s
-      else if (state == 1) timeLeft = 3;  // Vàng 3s
-      else if (state == 2) timeLeft = 10; // Đỏ 10s
+      if (state == 0) timeLeft = 7;      // Xanh nháy 7s
+      else if (state == 1) timeLeft = 3;  // Vàng nháy 3s
+      else if (state == 2) timeLeft = 10; // Đỏ nháy 10s
     }
   }
 }
