@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "author": "Phan Anh Tai",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 30,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": -50,
+      "left": -120,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -10,
+      "left": 200,
+      "attrs": { "color": "red" }
+    }
+  ],
+  "connections": [
+
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "pir1:VCC", "esp:3V3", "red", [] ],
+    [ "pir1:GND", "esp:GND.1", "black", [] ],
+    [ "pir1:OUT", "esp:27", "green", [] ],
+
+    [ "led1:A", "esp:23", "green", [] ],
+    [ "led1:C", "esp:GND.2", "black", [] ]
+
+  ],
+  "dependencies": {}
+}
+
