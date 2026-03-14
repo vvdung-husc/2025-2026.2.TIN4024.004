@@ -8,7 +8,7 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 // TELEGRAM
-#define BOTtoken "8633664176:AAGcwbrw_CFlhMj3AchCXqA6km1VAIQS5oM"
+#define BOTtoken "8615595008:AAEriAzQy5l0zlaYLZVsGs9NneoB1S_H-uQ"
 #define GROUP_ID "-5158052780"
 
 // PIN
