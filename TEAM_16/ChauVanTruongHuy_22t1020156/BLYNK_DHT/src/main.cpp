@@ -1,128 +1,142 @@
-// BẮT BUỘC ĐỂ 3 DÒNG NÀY LÊN TRÊN CÙNG
-#define BLYNK_TEMPLATE_ID "TMPL6o04aN1A-"
-#define BLYNK_TEMPLATE_NAME "Châu Văn Trường Huy"
-#define BLYNK_AUTH_TOKEN "p04d2jqqWxtcAv9yLaHcyv9LvSVA4Iw2"
+#define BLYNK_TEMPLATE_ID "TMPL6zc48IliA"
+#define BLYNK_TEMPLATE_NAME "BLYNK DHT"
+#define BLYNK_AUTH_TOKEN "oi_sPOBjzqvNYcgXYxRx2pK8-EhIcF_o"
 
-// Sau đó mới include thư viện
-#include <Arduino.h>
-#include <TM1637Display.h>
+#define BLYNK_PRINT Serial
+
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
-#include <DHT.h> 
+#include <DHT.h>
+#include <TM1637Display.h>
 
-char ssid[] = "Wokwi-GUEST";  //Tên mạng WiFi
-char pass[] = "";             //Mật khẩu mạng WiFi
-
-// Chân kết nối 
-#define btnBLED  23 //Chân kết nối nút bấm
-#define pinBLED  21 //Chân kết nối đèn xanh
-#define CLK 18  //Chân kết nối CLK của TM1637
-#define DIO 19  //Chân kết nối DIO của TM1637
-
-// Khai báo chân cho cảm biến DHT22
-#define DHTPIN 15
+#define LED_PIN 21
+#define BTN_PIN 23
+#define DHT_PIN 16
 #define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
 
-// SỬA LỖI: Đổi ulong thành unsigned long
-unsigned long currentMiliseconds = 0; 
-bool blueButtonON = true;     
+#define CLK 18
+#define DIO 19
 
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
+
+DHT dht(DHT_PIN, DHTTYPE);
 TM1637Display display(CLK, DIO);
+BlynkTimer timer;
 
-bool IsReady(unsigned long &ulTimer, uint32_t milisecond);
-void updateBlueButton();
-void uptimeBlynk();
+bool systemOn = false;
+unsigned long secondsCount = 0;
+
+int buttonState;
+int lastButtonState = HIGH;
+
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50;
+
+
+// ===== CẬP NHẬT TRẠNG THÁI HỆ THỐNG =====
+void updateSystemState() {
+
+  if (systemOn) {
+    digitalWrite(LED_PIN, HIGH);
+    display.showNumberDec(secondsCount);
+  } else {
+    digitalWrite(LED_PIN, LOW);
+    display.clear();
+  }
+
+  Blynk.virtualWrite(V0, systemOn); // LED
+}
+
+
+// ===== ĐIỀU KHIỂN TỪ BLYNK =====
+BLYNK_WRITE(V0) {
+
+  systemOn = param.asInt();
+  updateSystemState();
+
+}
+
+
+// ===== ĐẾM THỜI GIAN =====
+void countTime() {
+
+  if(systemOn){
+    secondsCount++;
+    display.showNumberDec(secondsCount);
+  }
+
+  Blynk.virtualWrite(V3, secondsCount); // ThoiGian
+}
+
+
+// ===== ĐỌC DHT22 =====
+void sendSensor() {
+
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  Serial.print("Nhiet do: ");
+  Serial.print(t);
+  Serial.print(" C | Do am: ");
+  Serial.print(h);
+  Serial.println(" %");
+
+  if (!isnan(t) && !isnan(h)) {
+
+    Blynk.virtualWrite(V1, t); // NhietDo
+    Blynk.virtualWrite(V2, h); // DoAm
+
+  }
+}
+
 
 void setup() {
+
   Serial.begin(115200);
-  pinMode(pinBLED, OUTPUT);
-  pinMode(btnBLED, INPUT_PULLUP);
-    
-  display.setBrightness(0x0f);
-  dht.begin(); 
-  
-  Serial.print("Connecting to ");Serial.println(ssid);
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BTN_PIN, INPUT_PULLUP);
+
+  display.setBrightness(7);
+  display.clear();
+
+  digitalWrite(LED_PIN, LOW);
+
+  dht.begin();
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  Serial.println();
-  Serial.println("WiFi connected");
-  
-  digitalWrite(pinBLED, blueButtonON ? HIGH : LOW);  
-  Blynk.virtualWrite(V1, blueButtonON); 
-  
-  Serial.println("== START ==>");
+  timer.setInterval(1000L, countTime);
+  timer.setInterval(2000L, sendSensor);
 }
 
-void loop() {  
-  Blynk.run();  
 
-  currentMiliseconds = millis();
-  uptimeBlynk();
-  updateBlueButton();
-}
+void loop() {
 
-bool IsReady(unsigned long &ulTimer, uint32_t milisecond) {
-  if (currentMiliseconds - ulTimer < milisecond) return false;
-  ulTimer = currentMiliseconds;
-  return true;
-}
+  Blynk.run();
+  timer.run();
 
-void updateBlueButton(){
-  static unsigned long lastTime = 0; 
-  static int lastValue = HIGH;
-  if (!IsReady(lastTime, 50)) return;
-  int v = digitalRead(btnBLED);
-  if (v == lastValue) return;
-  lastValue = v;
-  if (v == LOW) return;
+  int reading = digitalRead(BTN_PIN);
 
-  if (!blueButtonON){
-    Serial.println("Blue Light ON");
-    digitalWrite(pinBLED, HIGH);
-    blueButtonON = true;
-    Blynk.virtualWrite(V1, blueButtonON);
-  }
-  else {
-    Serial.println("Blue Light OFF");
-    digitalWrite(pinBLED, LOW);    
-    blueButtonON = false;
-    Blynk.virtualWrite(V1, blueButtonON);
-    display.clear();
-  }    
-}
-
-void uptimeBlynk(){
-  static unsigned long lastTime = 0; 
-  if (!IsReady(lastTime, 1000)) return; 
-  
-  unsigned long value = lastTime / 1000; 
-  Blynk.virtualWrite(V0, value);  
-  if (blueButtonON){
-    display.showNumberDec(value);
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
   }
 
-  // --- PHẦN BỔ SUNG: ĐỌC VÀ GỬI NHIỆT ĐỘ, ĐỘ ẨM ---
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  
-  if (!isnan(h) && !isnan(t)) {
-    // V2: Nhiệt độ, V3: Độ ẩm 
-    Blynk.virtualWrite(V2, t); 
-    Blynk.virtualWrite(V3, h); 
-  }
-}
+  if ((millis() - lastDebounceTime) > debounceDelay) {
 
-BLYNK_WRITE(V1) { 
-  blueButtonON = param.asInt();  
-  if (blueButtonON){
-    Serial.println("Blynk -> Blue Light ON");
-    digitalWrite(pinBLED, HIGH);
+    if (reading != buttonState) {
+
+      buttonState = reading;
+
+      if (buttonState == LOW) {
+
+        systemOn = !systemOn;
+        updateSystemState();
+
+      }
+    }
   }
-  else {
-    Serial.println("Blynk -> Blue Light OFF");
-    digitalWrite(pinBLED, LOW);   
-    display.clear(); 
-  }
+
+  lastButtonState = reading;
 }

@@ -2,148 +2,144 @@
 #define BLYNK_TEMPLATE_NAME "BlynkAPI"
 #define BLYNK_AUTH_TOKEN "G6RidV6rr54U7oiL6M-0wZKhSglPNDx2"
 
-#define BLYNK_PRINT Serial
-
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <BlynkSimpleEsp32.h>
 
-char ssid[] = "Wokwi-GUEST";
-char pass[] = "";
+#define WIFI_SSID "Wokwi-GUEST"
+#define WIFI_PASSWORD ""
+#define WIFI_CHANNEL 6
 
-BlynkTimer timer;
+#define OPENWEATHERMAP_KEY "YOUR_KEY"
 
-String apiKey = "f776a4341c39f68ae84c5f5dfcdc9f09";
+String ip4;
+String lat;
+String lon;
+String weatherURL;
 
-String ipv4 = "";
+unsigned long lastTemp = 0;
+unsigned long lastUptime = 0;
 
-// Tọa độ Huế
-float lat = 16.4591267;
-float lon = 107.5901477;
 
-unsigned long uptime = 0;
-
-//////////////////////////////////////////////////////
-// UPTIME
-void sendUptime() {
-
-  uptime++;
-
-  Serial.print("Uptime: ");
-  Serial.println(uptime);
-
-  Blynk.virtualWrite(V0, uptime);
-}
-
-//////////////////////////////////////////////////////
-// LẤY IPv4
-void getIP() {
-
+// ================= LẤY IP + LAT + LON =================
+void getAPI()
+{
   HTTPClient http;
-
-  http.begin("http://api.ipify.org");
+  http.begin("http://ip4.iothings.vn/?geo=1");
 
   int code = http.GET();
 
-  if (code == 200) {
+  if (code > 0)
+  {
+    String res = http.getString();
+    Serial.println(res);
 
-    ipv4 = http.getString();
+    String data[7];
+    int i = 0;
 
-    Serial.print("IPv4: ");
-    Serial.println(ipv4);
+    while (res.length() && i < 7)
+    {
+      int p = res.indexOf('|');
+      if (p == -1) { data[i++] = res; break; }
 
-    Blynk.virtualWrite(V1, ipv4);
+      data[i++] = res.substring(0, p);
+      res = res.substring(p + 1);
+    }
+
+    ip4 = data[0];
+    lon = data[5];
+    lat = data[6];
+
+    String mapLink = "https://www.google.com/maps/place/" + lat + "," + lon;
+
+    Serial.println(ip4);
+    Serial.println(mapLink);
+
+    Blynk.virtualWrite(V1, ip4);
+    Blynk.virtualWrite(V2, mapLink);
+
+    weatherURL =
+      "https://api.openweathermap.org/data/2.5/weather?lat=" +
+      lat +
+      "&lon=" +
+      lon +
+      "&appid=" +
+      OPENWEATHERMAP_KEY +
+      "&units=metric";
   }
 
   http.end();
 }
 
-//////////////////////////////////////////////////////
-// LẤY NHIỆT ĐỘ
-void getWeather() {
+
+// ================= LẤY NHIỆT ĐỘ =================
+void updateTemp()
+{
+  if (millis() - lastTemp < 10000) return;
+  lastTemp = millis();
 
   HTTPClient http;
-
-  String url =
-  "http://api.openweathermap.org/data/2.5/weather?lat=" +
-  String(lat,6) +
-  "&lon=" + String(lon,6) +
-  "&appid=" + apiKey +
-  "&units=metric";
-
-  Serial.println("Request:");
-  Serial.println(url);
-
-  http.begin(url);
+  http.begin(weatherURL);
 
   int code = http.GET();
 
-  Serial.print("HTTP Code: ");
-  Serial.println(code);
+  if (code > 0)
+  {
+    String res = http.getString();
 
-  if (code == 200) {
-
-    String payload = http.getString();
-
-    Serial.println(payload);
-
-    DynamicJsonDocument doc(2048);
-    deserializeJson(doc, payload);
+    DynamicJsonDocument doc(1024);
+    deserializeJson(doc, res);
 
     float temp = doc["main"]["temp"];
 
-    Serial.print("Temperature: ");
+    Serial.print("Temp: ");
     Serial.println(temp);
 
     Blynk.virtualWrite(V3, temp);
-
-  } else {
-
-    Serial.println("Weather API error");
-
   }
 
   http.end();
 }
 
-//////////////////////////////////////////////////////
-// GỬI LINK GOOGLE MAP
-void sendMap() {
 
-  String mapLink =
-  "https://www.google.com/maps?q=" +
-  String(lat,6) + "," + String(lon,6);
+// ================= UPTIME =================
+void uptime()
+{
+  if (millis() - lastUptime < 1000) return;
+  lastUptime = millis();
 
-  Serial.print("Map: ");
-  Serial.println(mapLink);
-
-  Blynk.virtualWrite(V2, mapLink);
+  Blynk.virtualWrite(V0, millis() / 1000);
 }
 
-//////////////////////////////////////////////////////
-// SETUP
-void setup() {
 
+// ================= SETUP =================
+void setup()
+{
   Serial.begin(115200);
 
-  Serial.println("Connecting WiFi...");
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD, WIFI_CHANNEL);
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(200);
+    Serial.print(".");
+  }
 
-  Serial.println("WiFi Connected");
+  Serial.println("\nWiFi Connected");
 
-  getIP();        // lấy IPv4
-  sendMap();      // gửi Google Map
+  Blynk.config(BLYNK_AUTH_TOKEN);
+  Blynk.connect();
 
-  timer.setInterval(1000L, sendUptime);
-  timer.setInterval(15000L, getWeather);
+  getAPI();
 }
 
-//////////////////////////////////////////////////////
-// LOOP
-void loop() {
 
+// ================= LOOP =================
+void loop()
+{
   Blynk.run();
-  timer.run();
+
+  updateTemp();
+  uptime();
 }
