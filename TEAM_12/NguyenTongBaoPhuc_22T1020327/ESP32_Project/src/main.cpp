@@ -160,7 +160,7 @@ void setup() {
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_6x10_tf);
   u8g2.drawStr(20, 25, "ESP8266 IoT");
-  u8g2.drawStr(10, 42, "Khoa CNTT - DHC");
+  u8g2.drawStr(10, 42, "Nguyen Tong Bao Phuc");
   u8g2.sendBuffer();
   delay(1500);
 
