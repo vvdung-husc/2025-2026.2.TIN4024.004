@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"name": "TELEGRAM_LED",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
