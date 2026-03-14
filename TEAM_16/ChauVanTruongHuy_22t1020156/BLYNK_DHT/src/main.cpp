@@ -1,95 +1,142 @@
-#include <Arduino.h>
+#define BLYNK_TEMPLATE_ID "TMPL6zc48IliA"
+#define BLYNK_TEMPLATE_NAME "BLYNK DHT"
+#define BLYNK_AUTH_TOKEN "oi_sPOBjzqvNYcgXYxRx2pK8-EhIcF_o"
+
+#define BLYNK_PRINT Serial
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+#include <DHT.h>
 #include <TM1637Display.h>
 
-const int RED_PIN = 18;
-const int YELLOW_PIN = 5;
-const int GREEN_PIN = 17;
-const int BLUE_LED_PIN = 12; // Đèn liên kết với nút bấm
-const int BUTTON_PIN = 13;
-const int LDR_PIN = 34;
+#define LED_PIN 21
+#define BTN_PIN 23
+#define DHT_PIN 16
+#define DHTTYPE DHT22
 
-// Khởi tạo màn hình TM1637 (CLK: 22, DIO: 23)
-TM1637Display display(22, 23);
+#define CLK 18
+#define DIO 19
 
-// Biến trạng thái
-bool displayEnabled = true; 
-int state = 0;              // 0: Xanh, 1: Vàng, 2: Đỏ
-unsigned long lastTick = 0;
-int timeLeft = 7;           // Bắt đầu với đèn Xanh 7 giây
-bool lastBtnState = HIGH;
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
+
+DHT dht(DHT_PIN, DHTTYPE);
+TM1637Display display(CLK, DIO);
+BlynkTimer timer;
+
+bool systemOn = false;
+unsigned long secondsCount = 0;
+
+int buttonState;
+int lastButtonState = HIGH;
+
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50;
+
+
+// ===== CẬP NHẬT TRẠNG THÁI HỆ THỐNG =====
+void updateSystemState() {
+
+  if (systemOn) {
+    digitalWrite(LED_PIN, HIGH);
+    display.showNumberDec(secondsCount);
+  } else {
+    digitalWrite(LED_PIN, LOW);
+    display.clear();
+  }
+
+  Blynk.virtualWrite(V0, systemOn); // LED
+}
+
+
+// ===== ĐIỀU KHIỂN TỪ BLYNK =====
+BLYNK_WRITE(V0) {
+
+  systemOn = param.asInt();
+  updateSystemState();
+
+}
+
+
+// ===== ĐẾM THỜI GIAN =====
+void countTime() {
+
+  if(systemOn){
+    secondsCount++;
+    display.showNumberDec(secondsCount);
+  }
+
+  Blynk.virtualWrite(V3, secondsCount); // ThoiGian
+}
+
+
+// ===== ĐỌC DHT22 =====
+void sendSensor() {
+
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  Serial.print("Nhiet do: ");
+  Serial.print(t);
+  Serial.print(" C | Do am: ");
+  Serial.print(h);
+  Serial.println(" %");
+
+  if (!isnan(t) && !isnan(h)) {
+
+    Blynk.virtualWrite(V1, t); // NhietDo
+    Blynk.virtualWrite(V2, h); // DoAm
+
+  }
+}
+
 
 void setup() {
-  pinMode(RED_PIN, OUTPUT);
-  pinMode(YELLOW_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
-  pinMode(BLUE_LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  
-  display.setBrightness(7); // Độ sáng tối đa
+
   Serial.begin(115200);
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BTN_PIN, INPUT_PULLUP);
+
+  display.setBrightness(7);
+  display.clear();
+
+  digitalWrite(LED_PIN, LOW);
+
+  dht.begin();
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+
+  timer.setInterval(1000L, countTime);
+  timer.setInterval(2000L, sendSensor);
 }
+
 
 void loop() {
-  // 1. Xử lý Nút bấm để Bật/Tắt bảng đếm ngược
-  bool currentBtn = digitalRead(BUTTON_PIN);
-  if (lastBtnState == HIGH && currentBtn == LOW) {
-    displayEnabled = !displayEnabled;
-    delay(50); // Chống rung nút
+
+  Blynk.run();
+  timer.run();
+
+  int reading = digitalRead(BTN_PIN);
+
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
   }
-  lastBtnState = currentBtn;
 
-  // Đèn Blue sáng khi bảng đếm ngược đang ở trạng thái Bật
-  digitalWrite(BLUE_LED_PIN, displayEnabled ? HIGH : LOW);
+  if ((millis() - lastDebounceTime) > debounceDelay) {
 
-  // 2. Đọc cảm biến ánh sáng (LDR)
-  int lightLevel = analogRead(LDR_PIN);
+    if (reading != buttonState) {
 
-  if (lightLevel > 3000) { 
-    // CHẾ ĐỘ TRỜI TỐI: Vàng nhấp nháy, tắt các đèn khác và bảng số
-    runNightMode();
-  } else {
-    // CHẾ ĐỘ BÌNH THƯỜNG: Đèn giao thông chạy và đếm ngược
-    runTrafficCycle();
-  }
-}
+      buttonState = reading;
 
-void runTrafficCycle() {
-  unsigned long currentMillis = millis();
-  
-  if (currentMillis - lastTick >= 1000) {
-    lastTick = currentMillis;
-    
-    // Cập nhật đèn LED theo trạng thái hiện tại
-    digitalWrite(GREEN_PIN, state == 0);
-    digitalWrite(YELLOW_PIN, state == 1);
-    digitalWrite(RED_PIN, state == 2);
+      if (buttonState == LOW) {
 
-    // Cập nhật bảng đếm ngược nếu được phép bật
-    if (displayEnabled) {
-      display.showNumberDec(timeLeft, true, 2, 2); 
-    } else {
-      display.clear();
-    }
+        systemOn = !systemOn;
+        updateSystemState();
 
-    // Trừ thời gian
-    timeLeft--;
-
-    // Chuyển trạng thái khi hết thời gian
-    if (timeLeft < 0) {
-      state = (state + 1) % 3;
-      if (state == 0) timeLeft = 7;   // Xanh 7s
-      else if (state == 1) timeLeft = 3;  // Vàng 3s
-      else if (state == 2) timeLeft = 10; // Đỏ 10s
+      }
     }
   }
-}
 
-void runNightMode() {
-  // Tắt các đèn không liên quan
-  digitalWrite(RED_PIN, LOW);
-  digitalWrite(GREEN_PIN, LOW);
-  display.clear();
-  
-  // Đèn vàng nhấp nháy chu kỳ 1 giây (500ms sáng / 500ms tắt)
-  digitalWrite(YELLOW_PIN, (millis() / 500) % 2);
+  lastButtonState = reading;
 }
