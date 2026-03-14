@@ -1,6 +1,6 @@
 #define BLYNK_TEMPLATE_ID "TMPL6FP6o8Exj"
 #define BLYNK_TEMPLATE_NAME "ESP32 API"
-#define BLYNK_AUTH_TOKEN "Nlea05kEKJcCLA85VK8t1DAIAYLQIKoM"
+#define BLYNK_AUTH_TOKEN "Nlea05kEKJcCLA85VK8t1DAIAYLQIKoM"  
 
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -29,6 +29,51 @@ void getLocation()
   if (httpCode > 0)
   {
     String payload = http.getString();
+    Serial.println(payload);
+
+    int p1 = payload.indexOf("|");
+    int p6 = payload.lastIndexOf("|");
+
+    ip = payload.substring(0, p1);
+    lon = payload.substring(payload.lastIndexOf("|", p6 - 1) + 1, p6).toFloat();
+    lat = payload.substring(p6 + 1).toFloat();
+
+
+  ip = WiFi.localIP().toString();
+
+     Serial.print("IPv4: ");
+     Serial.println(ip);
+
+    /*Serial.print("IPv4: ");
+    Serial.println(WiFi.localIP());
+    Serial.println(ip); */
+
+    String mapLink = "https://www.google.com/maps/place/" +
+                     String(lat,6) + "," + String(lon,6);
+
+    Serial.println("Google Maps:");
+    Serial.println(mapLink);
+
+    Blynk.virtualWrite(V0, millis()/1000);  // thời gian hoạt động (giây)
+    Blynk.virtualWrite(V1, ip);             // IPv4
+    Blynk.virtualWrite(V2, mapLink);        // Google Maps
+    Blynk.virtualWrite(V3, temp);           // nhiệt độ
+  }
+
+  http.end();
+}
+
+
+/*void getLocation()
+{
+  HTTPClient http;
+
+  http.begin("http://ip4.iothings.vn/?geo=1");
+  int httpCode = http.GET();
+
+  if (httpCode > 0)
+  {
+    String payload = http.getString();
 
     Serial.println(payload);
 
@@ -39,7 +84,8 @@ void getLocation()
     lat = doc["latitude"];
     lon = doc["longitude"];
 
-    Serial.println("IPv4: " + ip);
+    Serial.println("IPv4: ");
+    Serial.println(ip);
 
     String mapLink = "https://www.google.com/maps/place/" +
                      String(lat,6) + "," + String(lon,6);
@@ -48,11 +94,13 @@ void getLocation()
     Serial.println(mapLink);
 
     Blynk.virtualWrite(V1, ip);
-    Blynk.virtualWrite(V2, mapLink);
+    Blynk.virtualWrite(V2, mapLink); // gửi vị trí cho map
+    Blynk.virtualWrite(V3, temp);
   }
 
   http.end();
-}
+} */
+
 
 void getWeather()
 {
