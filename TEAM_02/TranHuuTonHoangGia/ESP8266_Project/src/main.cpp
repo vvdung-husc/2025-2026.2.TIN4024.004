@@ -3,7 +3,7 @@
 #include <U8g2lib.h>
 #include <DHT.h>
 
-// OLED
+// OLED SH1106
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 
 // DHT
@@ -14,31 +14,38 @@ DHT dht(DHTPIN, DHTTYPE);
 // MQ2
 #define MQ2_PIN A0
 
-#define LED LED_BUILTIN
+// LED ngoài
+#define LED_PIN D6
 
 float temperature;
 float humidity;
 int gasValue;
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
-  pinMode(LED, OUTPUT);
+
+  pinMode(LED_PIN, OUTPUT);
 
   dht.begin();
   u8g2.begin();
+
+  Serial.println("System Start");
 }
 
-void loop() {
-
-  // LED blink
-  digitalWrite(LED, LOW);
+void loop()
+{
+  // LED nhấp nháy
+  digitalWrite(LED_PIN, HIGH);
   delay(500);
-  digitalWrite(LED, HIGH);
+  digitalWrite(LED_PIN, LOW);
   delay(500);
 
-  // Read sensors
+  // đọc DHT
   temperature = dht.readTemperature();
   humidity = dht.readHumidity();
+
+  // đọc MQ2
   gasValue = analogRead(MQ2_PIN);
 
   // OLED
