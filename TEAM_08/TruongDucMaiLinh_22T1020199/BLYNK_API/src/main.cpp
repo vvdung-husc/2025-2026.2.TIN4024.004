@@ -20,7 +20,6 @@ IP4_Info ip4Info;
 unsigned long currentMiliseconds = 0;
 String urlWeather;
 
-#define OPENWEATHERMAP_KEY "29975be309f32b6598d4fcb2883ae0bb"
 
 bool IsReady(unsigned long &timer, uint32_t ms)
 {
