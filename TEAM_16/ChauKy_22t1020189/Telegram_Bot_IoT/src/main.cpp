@@ -5,31 +5,29 @@
 
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
-
+// Token của bot Telegram
 #define BOTtoken "8596904885:AAEn5nzGt3JO0Ft2DH6bSj7uN_Iqik5GFQw"
-#define CHAT_ID "-5255423534"
+#define CHAT_ID "-5255423534" //chat id của nhóm
 
-WiFiClientSecure client;
-UniversalTelegramBot bot(BOTtoken, client);
+WiFiClientSecure client; // Khởi tạo client HTTPS cho Telegram Bot
+UniversalTelegramBot bot(BOTtoken, client); // Khởi tạo bot Telegram với token và client HTTPS
 
-// check message delay
-int bot_delay = 1000;
-unsigned long lastTimeBotRan;
+int bot_delay = 1000; // thời gian kiểm tra tin nhắn mới (1s)
+unsigned long lastTimeBotRan; // biến lưu thời điểm lần cuối bot kiểm tra tin nhắn mới
 
 // LED
 const int ledPin = 23;
 bool ledState = LOW;
 
-// PIR
+// 
 const int motionSensor = 27;
-bool motionDetected = false;
+bool motionDetected = false; // biến lưu trạng thái phát hiện chuyển động
 
-// interrupt PIR
+// hàm xử lý khi phát hiện chuyển động
 void IRAM_ATTR detectsMovement() {
   motionDetected = true;
 }
 
-// format string
 String StringFormat(const char* fmt, ...) {
   va_list vaArgs;
   va_start(vaArgs, fmt);
@@ -59,7 +57,7 @@ void handleNewMessages(int numNewMessages) {
   Serial.println("Handling New Message");
 
   for (int i = 0; i < numNewMessages; i++) {
-
+// lấy chat id của người gửi tin nhắn
     String chat_id = String(bot.messages[i].chat_id);
 
     if (chat_id != CHAT_ID) {

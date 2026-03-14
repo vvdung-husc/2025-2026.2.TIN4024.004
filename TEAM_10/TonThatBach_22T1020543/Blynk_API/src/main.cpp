@@ -15,7 +15,7 @@
 #define WIFI_SSID "Wokwi-GUEST"
 #define WIFI_PASSWORD ""
 
-
+#define OPENWEATHERMAP_KEY "d16b55039d1462fde46c5dd50db2f5b0"
 
 // dùng IP trực tiếp tránh lỗi DNS
 #define WEATHER_HOST "http://147.75.40.76"
