@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "Blynk_API",
+			"path": "../Blynk_API"
+		},
+		{
+			"name": "Traffic DHT Sensor",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
