@@ -70,7 +70,7 @@ void updateOLED() {
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_6x10_tf);
 
-  u8g2.drawStr(8, 10, "==  IOT SENSOR  ==");
+  u8g2.drawStr(8, 10, "Thong tin nhiet do");
   u8g2.drawHLine(0, 13, 128);
 
   char buf[32];
@@ -130,7 +130,9 @@ void setup() {
 
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_6x10_tf);
-  u8g2.drawStr(22, 28, "ESP8266 | Sensor");
+  int strWidth = u8g2.getStrWidth("ESP8266 | Sensor");
+  int xPos = (128 - strWidth) / 2;
+  u8g2.drawStr(xPos, 35, "ESP8266 | Sensor");
   u8g2.sendBuffer();
   delay(1500);
 
@@ -144,7 +146,6 @@ void setup() {
 void loop() {
   unsigned long now = millis();
 
-  // ✅ LED NHẤP NHÁY mỗi 500ms
   if (now - lastLEDBlink >= LED_INTERVAL) {
     lastLEDBlink = now;
     ledState = !ledState;
