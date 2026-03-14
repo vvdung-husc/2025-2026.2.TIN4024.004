@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "DHT_OLED",
+			"path": "../../DHT_OLED"
+		},
+		{
+			"name": "DHT-OLED_CaNhan",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
