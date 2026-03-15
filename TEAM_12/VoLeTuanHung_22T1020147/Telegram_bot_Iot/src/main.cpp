@@ -7,7 +7,7 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 // Token của bot Telegram
 #define BOTtoken "8504067791:AAF41L6u7yYPH3T_AEI5Rl1au2_KGaps004"
-#define CHAT_ID "-5255423534" //chat id của nhóm
+#define CHAT_ID "5947726417" //chat id của nhóm
 
 WiFiClientSecure client; // Khởi tạo client HTTPS cho Telegram Bot
 UniversalTelegramBot bot(BOTtoken, client); // Khởi tạo bot Telegram với token và client HTTPS
