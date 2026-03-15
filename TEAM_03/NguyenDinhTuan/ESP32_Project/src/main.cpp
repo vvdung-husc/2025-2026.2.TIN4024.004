@@ -3,15 +3,14 @@
 #include <U8g2lib.h>
 #include <Wire.h>
 
-// --- Chân DHT ---
 // Nếu đọc sai → thử đổi DHT_PIN: D3, D4, D5, D6, D7, D8
 // Xem Serial Monitor để biết chân nào đúng
 #define DHT_PIN     D3        // Board ghi "DHT11/DHT22" → nối vào D2
 #define DHT_TYPE    DHT11     // Đổi DHT22 nếu vẫn lỗi
 
 // --- LED ---
-#define LED_RED     D6        // LED đỏ = chân DIR trên board (giảng viên xác nhận)
-#define LED_BLUE    D4        // LED xanh ESP8266 module (active LOW)
+#define LED_RED     D6        // LED đỏ = chân DIR trên board
+#define LED_BLUE    D4        // LED xanh = ESP8266 module (active LOW)
 
 // --- MQ2 ---
 #define MQ2_PIN     A0
@@ -79,9 +78,12 @@ void updateOLED() {
     u8g2.drawStr(0, 26, "DHT: LOI! Xem Serial");
     u8g2.drawStr(0, 38, "Doi lai chan DHT_PIN");
   } else {
-    snprintf(buf, sizeof(buf), "Nhiet do: %.1f C", temperature);
+    // Cập nhật: Hiển thị dạng "24.0oC"
+    snprintf(buf, sizeof(buf), "Nhiet do: %.1foC", temperature);
     u8g2.drawStr(0, 26, buf);
-    snprintf(buf, sizeof(buf), "Do am   : %.1f %%", humidity);
+    
+    // Cập nhật: Hiển thị dạng "10.0%" (Bỏ khoảng trắng trước dấu %)
+    snprintf(buf, sizeof(buf), "Do am   : %.1f%%", humidity);
     u8g2.drawStr(0, 38, buf);
   }
 
