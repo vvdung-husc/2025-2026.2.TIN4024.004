@@ -4,9 +4,11 @@
 #include <DHT.h>
 #include <TM1637Display.h>
 
-#define BLYNK_TEMPLATE_ID "TMPL6SlZKTuH0"
-#define BLYNK_TEMPLATE_NAME "ESP32 LED TM1637"
-#define BLYNK_AUTH_TOKEN "EfOvrkcKdXwEAkpaEifM8iUZTo0FTsWU"
+
+#define BLYNK_TEMPLATE_ID "TMPL69ZGu9hFg"
+#define BLYNK_TEMPLATE_NAME "Esp32blynk"
+#define BLYNK_AUTH_TOKEN "JyuKUoYYd2Q27eZapfIdy9x4-zvyLMb9"
+
 
 // WiFi
 char ssid[] = "Wokwi-GUEST";  //Tên mạng WiFi
