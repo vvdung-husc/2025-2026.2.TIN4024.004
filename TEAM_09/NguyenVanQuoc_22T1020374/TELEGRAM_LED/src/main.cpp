@@ -1,93 +1,105 @@
-#include <Arduino.h>
+#ifdef ESP32
+  #include <WiFi.h>
+#else
+  #include <ESP8266WiFi.h>
+#endif
 
-/*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/telegram-esp32-motion-detection-arduino/
-  
-  Project created using Brian Lough's Universal Telegram Bot Library: https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot
-*/
-
-#include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
 
-// Replace with your network credentials
-const char* ssid = "Wokwi-GUEST";
-const char* password = "";
+#define WIFI_SSID "Wokwi-GUEST"
+#define WIFI_PASSWORD ""
 
-// Initialize Telegram BOT
-#define BOTtoken "8785356162:AAFWBQCwHi-_RW5znQfCWVwFHiM1JnTqGUc"  // your Bot Token (Get from Botfather)
+// Bot Telegram
+#define BOTtoken "8785356162:AAFWBQCwHi-_RW5znQfCWVwFHiM1JnTqGUc"
 
-// Dùng ChatGPT để nhờ hướng dẫn tìm giá trị GROUP_ID này
-#define GROUP_ID "group_chatid" //thường là một số âm
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
-const int motionSensor = 27; // PIR Motion Sensor
-bool motionDetected = false;
+unsigned long lastTimeBotRan;
+int bot_delay = 1000;
 
-//Định dạng chuỗi %s,%d,...
-String StringFormat(const char* fmt, ...){
-  va_list vaArgs;
-  va_start(vaArgs, fmt);
-  va_list vaArgsCopy;
-  va_copy(vaArgsCopy, vaArgs);
-  const int iLen = vsnprintf(NULL, 0, fmt, vaArgsCopy);
-  va_end(vaArgsCopy);
-  int iSize = iLen + 1;
-  char* buff = (char*)malloc(iSize);
-  vsnprintf(buff, iSize, fmt, vaArgs);
-  va_end(vaArgs);
-  String s = buff;
-  free(buff);
-  return String(s);
-}
+const int ledPin = 23;   // LED ESP32
+bool ledState = LOW;
 
-// Indicates when motion is detected
-void IRAM_ATTR detectsMovement() {
-  //Serial.println("MOTION DETECTED!!!");
-  motionDetected = true;
+void handleNewMessages(int numNewMessages) {
+
+  for (int i = 0; i < numNewMessages; i++) {
+
+    String chat_id = String(bot.messages[i].chat_id);
+
+    String text = bot.messages[i].text;
+    String from_name = bot.messages[i].from_name;
+
+    if (text == "/start") {
+
+      String welcome = "Welcome " + from_name + "\n";
+      welcome += "/led2_on : Bat LED\n";
+      welcome += "/led2_off : Tat LED\n";
+      welcome += "/get_state : Trang thai LED\n";
+
+      bot.sendMessage(chat_id, welcome, "");
+    }
+
+    if (text == "/led2_on") {
+      digitalWrite(ledPin, HIGH);   // bật LED
+      ledState = HIGH;
+      bot.sendMessage(chat_id, "LED ON", "");
+    }
+
+    if (text == "/led2_off") {
+      digitalWrite(ledPin, LOW);   // tắt LED
+      ledState = LOW;
+      bot.sendMessage(chat_id, "LED OFF", "");
+    }
+
+    if (text == "/get_state") {
+      if (ledState) {
+        bot.sendMessage(chat_id, "LED dang BAT", "");
+      } else {
+        bot.sendMessage(chat_id, "LED dang TAT", "");
+      }
+    }
+  }
 }
 
 void setup() {
+
   Serial.begin(115200);
 
-  // PIR Motion Sensor mode INPUT_PULLUP
-  pinMode(motionSensor, INPUT_PULLUP);
-  // Set motionSensor pin as interrupt, assign interrupt function and set RISING mode
-  attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
-
-  // Attempt to connect to Wifi network:
-  Serial.print("Connecting Wifi: ");
-  Serial.println(ssid);
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
-  
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  client.setInsecure();
+
+  Serial.print("Dang ket noi WiFi");
+
   while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
     Serial.print(".");
-    delay(100);
   }
 
-  Serial.println("");
-  Serial.println("WiFi connected");
-  
-  bot.sendMessage(GROUP_ID, "IoT Developer started up");
+  Serial.println();
+  Serial.println("WiFi da ket noi");
+  Serial.println(WiFi.localIP());
 }
 
-
 void loop() {
-  static uint count_ = 0;
 
-  if(motionDetected){
-    ++count_;
-    Serial.print(count_);Serial.println(". MOTION DETECTED => Waiting to send to Telegram");    
-    String msg = StringFormat("%u => Motion detected!",count_);
-    bot.sendMessage(GROUP_ID, msg.c_str());
-    Serial.print(count_);Serial.println(". Sent successfully to Telegram: Motion Detected");
-    motionDetected = false;
+  if (millis() - lastTimeBotRan > bot_delay) {
+
+    int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+
+    while (numNewMessages) {
+      handleNewMessages(numNewMessages);
+      numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    }
+
+    lastTimeBotRan = millis();
   }
 }
