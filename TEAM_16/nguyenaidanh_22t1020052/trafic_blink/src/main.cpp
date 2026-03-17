@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include <TM1637Display.h>
 
+void runTrafficCycle();
+void runNightMode();
+
 const int RED_PIN = 18;
 const int YELLOW_PIN = 5;
 const int GREEN_PIN = 17;
