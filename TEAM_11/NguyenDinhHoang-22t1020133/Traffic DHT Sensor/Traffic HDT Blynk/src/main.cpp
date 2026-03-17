@@ -1,106 +1,142 @@
 #include <Arduino.h>
-#include <WiFi.h>
-#include <BlynkSimpleEsp32.h>
-#include <DHT.h>
 #include <TM1637Display.h>
-
+#include <DHT.h>
 
 #define BLYNK_TEMPLATE_ID "TMPL69ZGu9hFg"
 #define BLYNK_TEMPLATE_NAME "Esp32blynk"
 #define BLYNK_AUTH_TOKEN "JyuKUoYYd2Q27eZapfIdy9x4-zvyLMb9"
 
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
 
-// WiFi
-char ssid[] = "Wokwi-GUEST";  //Tên mạng WiFi
-char pass[] = "";             //Mật khẩu mạng WiFi
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
 
-// ===== DHT22 =====
-#define DHTPIN 16
-#define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
+// LED + Button
+#define BTN_LED 23
+#define PIN_LED 21
 
-// ===== LED =====
-#define LED_PIN 21
-
-// ===== Button =====
-#define BTN_PIN 23
-
-// ===== TM1637 =====
+// TM1637
 #define CLK 18
 #define DIO 19
-TM1637Display display(CLK, DIO);
 
-// ===== Timer =====
+// DHT22
+#define DHTPIN 16
+#define DHTTYPE DHT22
+
+TM1637Display display(CLK, DIO);
+DHT dht(DHTPIN, DHTTYPE);
+
 BlynkTimer timer;
 
-// ===== Variables =====
-unsigned long startTime;
-int runTime = 0;
-bool ledState = false;
+bool ledState = true;
+unsigned long uptime = 0;
 
-// ===== Blynk Button =====
-BLYNK_WRITE(V0)
-{
-  ledState = param.asInt();
-  digitalWrite(LED_PIN, ledState);
+void readDHT();
+void updateUptime();
+void checkButton();
+
+BLYNK_CONNECTED() {
+  Serial.println("Blynk connected");
+  Blynk.syncVirtual(V3);   // sync switch
 }
 
-// ===== Read DHT =====
-void sendDHT()
-{
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
+void setup() {
 
-  if (!isnan(t) && !isnan(h)) {
-    Blynk.virtualWrite(V1, t);
-    Blynk.virtualWrite(V2, h);
-  }
-}
-
-// ===== Runtime counter =====
-void updateRuntime()
-{
-  runTime = (millis() - startTime) / 1000;
-
-  display.showNumberDec(runTime, true);
-
-  Blynk.virtualWrite(V3, runTime);
-}
-
-// ===== Button control =====
-void checkButton()
-{
-  if (digitalRead(BTN_PIN) == LOW)
-  {
-    ledState = !ledState;
-    digitalWrite(LED_PIN, ledState);
-    Blynk.virtualWrite(V0, ledState);
-    delay(300);
-  }
-}
-
-void setup()
-{
   Serial.begin(115200);
 
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(BTN_PIN, INPUT_PULLUP);
-
-  dht.begin();
+  pinMode(PIN_LED, OUTPUT);
+  pinMode(BTN_LED, INPUT_PULLUP);
 
   display.setBrightness(7);
 
+  dht.begin();
+
+  Serial.println("Connecting WiFi...");
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  startTime = millis();
+  digitalWrite(PIN_LED, ledState);
 
-  timer.setInterval(2000L, sendDHT);
-  timer.setInterval(1000L, updateRuntime);
+  timer.setInterval(2000L, readDHT);
+  timer.setInterval(1000L, updateUptime);
+  timer.setInterval(50L, checkButton);
 }
 
-void loop()
-{
+void loop() {
   Blynk.run();
   timer.run();
-  checkButton();
+}
+
+void readDHT() {
+  if (!ledState) return;
+
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  if (isnan(t) || isnan(h)) {
+    Serial.println("DHT error");
+    return;
+  }
+
+  Serial.print("Temp: ");
+  Serial.println(t);
+
+  Serial.print("Humidity: ");
+  Serial.println(h);
+
+  // Gửi lên Blynk
+  Blynk.virtualWrite(V1, String(t,1));  // V1 là Temp
+  Blynk.virtualWrite(V2, String(h,1));  // V2 là Humidity
+}
+
+void updateUptime() {
+
+  if (!ledState) return;
+
+  uptime++;
+
+  display.showNumberDec(uptime, true);
+
+  // (Đã sửa V2 thành V4 để không bị trùng với chân Độ ẩm V2 ở trên)
+  Blynk.virtualWrite(V4, uptime);  // Thời gian hoạt động
+}
+
+void checkButton() {
+
+  static int lastState = HIGH;
+
+  int v = digitalRead(BTN_LED);
+
+  if (v == lastState) return;
+
+  lastState = v;
+
+  if (v == LOW) return;
+
+  ledState = !ledState;
+
+  digitalWrite(PIN_LED, ledState);
+
+  Blynk.virtualWrite(V3, ledState);
+
+  if (!ledState) {
+    uptime = 0;
+    display.clear();
+  }
+
+  Serial.println(ledState ? "LED ON" : "LED OFF");
+}
+
+BLYNK_WRITE(V3) {
+
+  ledState = param.asInt();
+
+  digitalWrite(PIN_LED, ledState);
+
+  if (!ledState) {
+    uptime = 0;
+    display.clear();
+  }
+
+  Serial.println(ledState ? "Blynk -> LED ON" : "Blynk -> LED OFF");
 }
