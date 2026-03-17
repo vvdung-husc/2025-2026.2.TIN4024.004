@@ -2,6 +2,10 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"name": "Traffic DHT Sensor",
+			"path": "TEAM_11/NguyenDinhHoang-22t1020133/Traffic DHT Sensor"
 		}
 	],
 	"settings": {

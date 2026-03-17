@@ -1,47 +1,26 @@
-/*
- * ESP32_Project - NodeMCU ESP8266
- * FIX: Tự động tìm chân DHT + LED nhấp nháy đúng
- */
-
 #include <Arduino.h>
 #include <DHT.h>
 #include <U8g2lib.h>
 #include <Wire.h>
 
-// ============================================================
-// ⚙️ CẤU HÌNH - THAY ĐỔI Ở ĐÂY NẾU CẦN
-// ============================================================
+#define DHT_PIN     D3        
+#define DHT_TYPE    DHT11    
 
-// --- Chân DHT ---
-// Nếu đọc sai → thử đổi DHT_PIN: D3, D4, D5, D6, D7, D8
-// Xem Serial Monitor để biết chân nào đúng
-#define DHT_PIN     D3        // Board ghi "DHT11/DHT22" → nối vào D2
-#define DHT_TYPE    DHT11     // Đổi DHT22 nếu vẫn lỗi
 
 // --- LED ---
-#define LED_RED     D6        // LED đỏ = chân DIR trên board (giảng viên xác nhận)
-#define LED_BLUE    D4        // LED xanh ESP8266 module (active LOW)
+#define LED_RED     D6        // LED đỏ
+#define LED_BLUE    D4        // LED xanh
 
 // --- MQ2 ---
 #define MQ2_PIN     A0
 
-// --- Relay ---
-// #define RELAY1_PIN  D5
-// #define RELAY2_PIN  D6
-
-// ============================================================
 // OLED SH1106 I2C: SDA=D2, SCL=D1
-// ============================================================
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 
-// ============================================================
 // DHT
-// ============================================================
 DHT dht(DHT_PIN, DHT_TYPE);
 
-// ============================================================
 // BIẾN
-// ============================================================
 float temperature = 0.0;
 float humidity    = 0.0;
 int   gasValue    = 0;
@@ -56,9 +35,7 @@ const unsigned long DHT_INTERVAL  = 2000;
 const unsigned long LED_INTERVAL  = 500;
 const unsigned long OLED_INTERVAL = 1000;
 
-// ============================================================
-// ĐỌC DHT - có thông báo lỗi rõ ràng qua Serial
-// ============================================================
+// ĐỌC DHT
 void readDHT() {
   float t = dht.readTemperature();
   float h = dht.readHumidity();
@@ -81,17 +58,13 @@ void readDHT() {
   }
 }
 
-// ============================================================
 // ĐỌC MQ2
-// ============================================================
 void readMQ2() {
   gasValue = analogRead(MQ2_PIN);
   Serial.printf("[MQ2] Gas: %d\n", gasValue);
 }
 
-// ============================================================
 // HIỂN THỊ OLED
-// ============================================================
 void updateOLED() {
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_6x10_tf);
@@ -124,9 +97,7 @@ void updateOLED() {
   u8g2.sendBuffer();
 }
 
-// ============================================================
 // SETUP
-// ============================================================
 void setup() {
   Serial.begin(115200);
   delay(1000);
@@ -140,13 +111,9 @@ void setup() {
   // LED
   pinMode(LED_RED,    OUTPUT);
   pinMode(LED_BLUE,   OUTPUT);
-  // pinMode(RELAY1_PIN, OUTPUT);
-  // pinMode(RELAY2_PIN, OUTPUT);
 
   digitalWrite(LED_RED,    LOW);
   digitalWrite(LED_BLUE,   HIGH); // active LOW → HIGH = tắt
-  // digitalWrite(RELAY1_PIN, HIGH); // active LOW → HIGH = tắt
-  // digitalWrite(RELAY2_PIN, HIGH);
 
   // DHT cần 2 giây để ổn định sau khi cấp nguồn
   dht.begin();
@@ -171,13 +138,11 @@ void setup() {
   Serial.println("[READY] San sang!\n");
 }
 
-// ============================================================
-// LOOP
-// ============================================================
+//LOOP
 void loop() {
   unsigned long now = millis();
 
-  // ✅ LED NHẤP NHÁY mỗi 500ms
+  //LED NHẤP NHÁY mỗi 500ms
   if (now - lastLEDBlink >= LED_INTERVAL) {
     lastLEDBlink = now;
     ledState = !ledState;
