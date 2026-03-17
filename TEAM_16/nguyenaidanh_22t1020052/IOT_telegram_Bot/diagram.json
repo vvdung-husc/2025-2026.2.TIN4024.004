@@ -3,15 +3,9 @@
   "author": "22T1020052",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "board-esp32-devkit-c-v4",
-      "id": "esp",
-      "top": 28.8,
-      "left": -33.56,
-      "attrs": {}
-    },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 28.8, "left": -33.56, "attrs": {} },
     { "type": "wokwi-pir-motion-sensor", "id": "pir1", "top": -44, "left": -160.98, "attrs": {} },
-    { "type": "wokwi-led", "id": "led1", "top": 6, "left": 138.2, "attrs": { "color": "blue" } }
+    { "type": "wokwi-led", "id": "led1", "top": 6, "left": 138.2, "attrs": { "color": "red" } }
   ],
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
