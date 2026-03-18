@@ -2,6 +2,7 @@
 THÔNG TIN NHÓM 10.004
 1. Tôn Thất Bách
 2. Hoàng Anh Quân
+3. Huỳnh Tấn Sang
 */
 #define BLYNK_TEMPLATE_ID "TMPL6_gtV30Gj"
 #define BLYNK_TEMPLATE_NAME "ESP8266"
