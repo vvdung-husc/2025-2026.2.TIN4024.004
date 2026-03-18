@@ -4,12 +4,12 @@
 #include <ArduinoJson.h>
 
 // WiFi
-const char* ssid = "Wokwi-GUEST";
-const char* password = "";
+const char* ssid = "qfwewr";
+const char* password = "12345678";
 
 // Telegram
-#define BOTtoken "8008199172:AAHLiQogIZUweALDiytUDkfvXQ0c7MqiMAA"
-#define GROUP_ID "-5115367463"
+#define BOTtoken "8785416571:AAG4ezhAd6Q5qYrpY0gqQHZMOPFszoCXJbk"
+#define GROUP_ID "5115367463"
 
 // Pin
 const int motionSensor = 27;
