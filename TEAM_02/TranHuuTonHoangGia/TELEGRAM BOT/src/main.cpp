@@ -3,134 +3,123 @@
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
 
-// Thông tin WiFi
+// WiFi
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
-// Thông tin Telegram đã lấy từ ảnh của bạn
+// Telegram
 #define BOTtoken "8008199172:AAHLiQogIZUweALDiytUDkfvXQ0c7MqiMAA"
 #define GROUP_ID "-5115367463"
 
-// 3. Khai báo chân Pin (Theo hình ảnh bạn gửi)
-const int motionSensor = 27; // Cảm biến PIR chân 27
-const int ledPin = 23;       // Đèn LED chân 23
+// Pin
+const int motionSensor = 27;
+const int ledPin = 23;
 
-bool motionDetected = false;
-unsigned long lastTimeBotRan;
-int delayBetweenChecks = 1000; 
+// Biến
+volatile bool motionDetected = false;
+unsigned long lastTimeBotRan = 0;
+const unsigned long delayBetweenChecks = 1000;
 
+// Client
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
-// Hàm định dạng chuỗi
-String StringFormat(const char *fmt, ...) {
-  va_list vaArgs;
-  va_start(vaArgs, fmt);
-  va_list vaArgsCopy;
-  va_copy(vaArgsCopy, vaArgs);
-  const int iLen = vsnprintf(NULL, 0, fmt, vaArgsCopy);
-  va_end(vaArgsCopy);
-  int iSize = iLen + 1;
-  char *buff = (char *)malloc(iSize);
-  vsnprintf(buff, iSize, fmt, vaArgs);
-  va_end(vaArgs);
-  String s = buff;
-  free(buff);
-  return String(s);
-}
-
+// ===== INTERRUPT =====
 void IRAM_ATTR detectsMovement() {
   motionDetected = true;
 }
 
+// ===== HANDLE TELEGRAM =====
 void handleNewMessages(int numNewMessages) {
   for (int i = 0; i < numNewMessages; i++) {
-    String chat_id = String(bot.messages[i].chat_id);
-    if (chat_id != GROUP_ID) continue; 
+
+    String chat_id = bot.messages[i].chat_id;
+    if (chat_id != GROUP_ID) continue;
 
     String text = bot.messages[i].text;
     String from_name = bot.messages[i].from_name;
 
     if (text == "/start") {
-      String welcome = "Xin chào, " + from_name + ".\n";
-      welcome += "Sử dụng các lệnh sau để điều khiển đèn LED.\n\n";
-      welcome += "Gửi /led_on để bật đèn\n";
-      welcome += "Gửi /led_off để tắt đèn\n";
-      welcome += "Gửi /get_state để xem trạng thái hiện tại";
-      bot.sendMessage(GROUP_ID, welcome, "");
+      String welcome = "Xin chào " + from_name + "\n";
+      welcome += "/led_on - Bật LED\n";
+      welcome += "/led_off - Tắt LED\n";
+      welcome += "/get_state - Xem trạng thái";
+
+      bot.sendMessage(chat_id, welcome, "");
     }
 
-    if (text == "/led_on") {
+    else if (text == "/led_on") {
       digitalWrite(ledPin, HIGH);
-      bot.sendMessage(GROUP_ID, "LED đã bật sáng", "");
+      bot.sendMessage(chat_id, "LED ON", "");
     }
 
-    if (text == "/led_off") {
+    else if (text == "/led_off") {
       digitalWrite(ledPin, LOW);
-      bot.sendMessage(GROUP_ID, "LED đã tắt", "");
+      bot.sendMessage(chat_id, "LED OFF", "");
     }
 
-    if (text == "/get_state") {
+    else if (text == "/get_state") {
       String state = digitalRead(ledPin) ? "ON" : "OFF";
-      bot.sendMessage(GROUP_ID, "LED is " + state, "");
+      bot.sendMessage(chat_id, "LED is " + state, "");
     }
   }
 }
 
+// ===== SETUP =====
 void setup() {
   Serial.begin(115200);
 
   pinMode(motionSensor, INPUT_PULLUP);
   pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW); 
+  digitalWrite(ledPin, LOW);
 
   attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
 
-  Serial.print("Connecting Wifi: ");
+  // WiFi
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  
-  // Cài đặt chứng chỉ cho Telegram
-  client.setCACert(TELEGRAM_CERTIFICATE_ROOT);
 
+  Serial.print("Connecting WiFi");
   while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
     Serial.print(".");
-    delay(100);
   }
 
-  // --- PHẦN SỬA LỖI DNS ---
-  // Thiết lập Google DNS để ESP32 tìm được api.telegram.org
-  IPAddress dns(8, 8, 8, 8);
-  WiFi.config(WiFi.localIP(), WiFi.gatewayIP(), WiFi.subnetMask(), dns);
-  // -------------------------
-
   Serial.println("\nWiFi connected");
-  
-  // Thử gửi tin nhắn chào mừng, nếu DNS lỗi lệnh này sẽ thất bại
-  if(bot.sendMessage(GROUP_ID, "Hệ thống IoT đã sẵn sàng!", "")) {
-    Serial.println("Telegram sẵn sàng!");
+
+  // 🔥 FIX SSL + DNS (QUAN TRỌNG)
+  client.setInsecure(); // bỏ certificate (ổn định hơn)
+
+  // Gửi tin nhắn test
+  if (bot.sendMessage(GROUP_ID, "✅ Hệ thống đã sẵn sàng!", "")) {
+    Serial.println("Telegram OK");
   } else {
-    Serial.println("Lỗi gửi tin nhắn khởi động - Kiểm tra lại DNS/Token");
+    Serial.println("Telegram lỗi!");
   }
 }
 
+// ===== LOOP =====
 void loop() {
-  static uint count_ = 0;
 
+  // PIR detect
   if (motionDetected) {
-    ++count_;
-    Serial.println("MOTION DETECTED!");
-    String msg = StringFormat("%u => Phát hiện có người chuyển động!", count_);
-    bot.sendMessage(GROUP_ID, msg.c_str(), "");
     motionDetected = false;
+
+    Serial.println("MOTION DETECTED!");
+
+    bot.sendMessage(GROUP_ID, "🚨 Có chuyển động!", "");
   }
 
-  if (millis() > lastTimeBotRan + delayBetweenChecks) {
+  // Telegram check
+  if (millis() - lastTimeBotRan > delayBetweenChecks) {
+
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+
     while (numNewMessages) {
       handleNewMessages(numNewMessages);
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
+
     lastTimeBotRan = millis();
   }
 }
