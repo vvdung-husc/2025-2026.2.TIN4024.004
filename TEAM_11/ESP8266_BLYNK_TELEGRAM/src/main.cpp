@@ -1,6 +1,12 @@
+	/*
+	THÔNG TIN NHÓM 11
+	1. Nguyễn Đình Hoàng
+	2.
+	3. ...
+	*/
 #include <Arduino.h>
 
-// put function declarations here:
+
 int myFunction(int, int);
 
 void setup() {
