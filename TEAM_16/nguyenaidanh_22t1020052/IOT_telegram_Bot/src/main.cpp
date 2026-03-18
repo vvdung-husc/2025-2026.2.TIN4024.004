@@ -12,7 +12,7 @@ const char* password = "";
 #define BOT_TOKEN "8395175272:AAGv_RXH4CylJGITAU-dAzCvf2wUCHuYjGQ"
 
 // Cấu hình Group ID (Đã điền Group ID từ ảnh của bạn)
-#define GROUP_CHAT_ID "-5115367463"
+#define GROUP_CHAT_ID "-5216104297"
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
