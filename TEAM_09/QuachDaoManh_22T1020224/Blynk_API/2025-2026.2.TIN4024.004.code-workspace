@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"name": "Blynk_Traffic_DHTSensor",
+			"path": "../Blynk_Traffic_DHTSensor"
+		}
+	],
+	"settings": {}
+}
