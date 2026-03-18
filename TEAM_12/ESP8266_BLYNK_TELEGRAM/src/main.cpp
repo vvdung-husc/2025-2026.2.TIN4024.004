@@ -1,7 +1,7 @@
 /*
 	THÔNG TIN NHÓM 12
 	1. Nguyễn Tống Bảo Phúc
-	2. 
+	2. Lê Thị Thuỳ Linh
 	3. 
   4.
   5.
