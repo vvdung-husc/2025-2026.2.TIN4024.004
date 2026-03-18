@@ -1,11 +1,11 @@
 /*
 	THÔNG TIN NHÓM 12
 	1. Nguyễn Tống Bảo Phúc
-	2. 
+	2. Lê Thị Thuỳ Linh
 	3. 
   4.
   5.
-	*/
+*/
 
 #define BLYNK_TEMPLATE_ID   "TMPL6ji_DGcOL"      // ← thay của bạn
 #define BLYNK_TEMPLATE_NAME "BLYNK TELEGRAM IOT 12"
