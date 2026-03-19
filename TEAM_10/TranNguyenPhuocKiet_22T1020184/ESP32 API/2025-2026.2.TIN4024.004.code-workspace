@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"name": "ESP32_DHT_OLED",
+			"path": "../../ESP32_DHT_OLED"
+		},
+		{
+			"name": "ESP32_Blynk_LED",
+			"path": "../ESP32_Blynk_LED"
+		},
+		{
+			"name": "ESP32 API",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
