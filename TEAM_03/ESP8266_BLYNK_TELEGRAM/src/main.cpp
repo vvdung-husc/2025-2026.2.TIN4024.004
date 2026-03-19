@@ -88,7 +88,7 @@ void sendToBlynk() {
   unsigned long h = uptimeSeconds / 3600;
   unsigned long m = (uptimeSeconds % 3600) / 60;
   unsigned long s = uptimeSeconds % 60;
-  char uptimeStr[12];
+  char uptimeStr[16];
   snprintf(uptimeStr, sizeof(uptimeStr), "%02lu:%02lu:%02lu", h, m, s);
  
   Blynk.virtualWrite(V1, uptimeStr);
