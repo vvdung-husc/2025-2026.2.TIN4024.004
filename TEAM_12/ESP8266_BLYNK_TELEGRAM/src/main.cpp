@@ -2,8 +2,8 @@
 	THÔNG TIN NHÓM 12
 	1. Nguyễn Tống Bảo Phúc
 	2. Lê Thị Thuỳ Linh
-	3. 
-  4.
+	3. Nguyễn Duy Tín
+  4. Phan Nguyễn Thành Đạt
   5.
 */
 
