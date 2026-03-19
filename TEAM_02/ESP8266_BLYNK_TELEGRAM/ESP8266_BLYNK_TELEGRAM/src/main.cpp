@@ -43,6 +43,8 @@ BlynkTimer timer;
 float temp = 0;
 float hum = 0;
 int gas = 0;
+int gas_ppm = 0;
+
 unsigned long startTime;
 
 // ===== Blynk LED =====
@@ -53,14 +55,35 @@ BLYNK_WRITE(V1) {
 
 // ===== đọc cảm biến =====
 void readSensor() {
-  temp = dht.readTemperature();
-  hum = dht.readHumidity();
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  if (!isnan(t)) temp = t;
+  if (!isnan(h)) hum = h;
 
   gas = analogRead(GAS_PIN);
 
+  // quy đổi giả lập ppm (0–1000)
+  gas_ppm = map(gas, 0, 4095, 0, 1000);
+
+  // gửi Blynk
   Blynk.virtualWrite(V2, temp);
   Blynk.virtualWrite(V3, hum);
   Blynk.virtualWrite(V4, gas);
+
+  // debug
+  Serial.print("Gas ADC: ");
+  Serial.print(gas);
+  Serial.print(" | PPM: ");
+  Serial.println(gas_ppm);
+
+  // cảnh báo gas
+  static bool sent = false;
+  if (gas_ppm > 700 && !sent) {
+    bot.sendMessage(CHAT_ID, "⚠️ CANH BAO: Khi gas cao!", "");
+    sent = true;
+  }
+  if (gas_ppm < 500) sent = false;
 }
 
 // ===== OLED =====
@@ -82,7 +105,8 @@ void updateOLED() {
   display.println(hum);
 
   display.print("Gas: ");
-  display.println(gas);
+  display.print(gas);
+  display.println(" ADC");
 
   display.setCursor(0, 54);
   display.println("Team X");
@@ -120,6 +144,12 @@ void handleTelegram() {
         "Temp: " + String(temp) + "C\nHum: " + String(hum) + "%",
         "");
     }
+
+    if (text == "/gas") {
+      bot.sendMessage(CHAT_ID,
+        "Gas (ADC): " + String(gas),
+        "");
+    }
   }
 }
 
@@ -130,12 +160,13 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   dht.begin();
 
-  Wire.begin(27, 26); // đúng với diagram
+  Wire.begin(27, 26);
 
   WiFi.begin(ssid, pass);
   client.setInsecure();
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  Blynk.config(BLYNK_AUTH_TOKEN);
+  Blynk.connect();
 
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
