@@ -11,7 +11,7 @@
 #include <BlynkSimpleEsp32.h>
 
 #include <HTTPClient.h>   //Thư viện gọi API
-#include <ArduinoJson.h>  //Thư viện xử lý JSON 
+#include <ArduinoJson.h>  //Thư viện xử lý JSON
 
 #define WIFI_SSID "Wokwi-GUEST"
 #define WIFI_PASSWORD ""
