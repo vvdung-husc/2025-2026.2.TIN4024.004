@@ -10,11 +10,9 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 
-// WiFi
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
 
-// Telegram
 #define BOT_TOKEN "8785416571:AAG4ezhAd6Q5qYrpY0gqQHZMOPFszoCXJbk"
 #define CHAT_ID "-1003770400645"
 
@@ -33,13 +31,10 @@ bool ledState = false;
 // GAS
 #define GAS_PIN 32
 
-// OLED
 Adafruit_SSD1306 display(128, 64, &Wire);
 
-// Timer
 BlynkTimer timer;
 
-// Data
 float temp = 0;
 float hum = 0;
 int gas = 0;
@@ -47,13 +42,11 @@ int gas_ppm = 0;
 
 unsigned long startTime;
 
-// ===== Blynk LED =====
 BLYNK_WRITE(V1) {
   ledState = param.asInt();
   digitalWrite(LED_PIN, ledState);
 }
 
-// ===== đọc cảm biến =====
 void readSensor() {
   float t = dht.readTemperature();
   float h = dht.readHumidity();
@@ -86,7 +79,6 @@ void readSensor() {
   if (gas_ppm < 500) sent = false;
 }
 
-// ===== OLED =====
 void updateOLED() {
   display.clearDisplay();
   display.setTextSize(1);
