@@ -2,14 +2,14 @@
   THÔNG TIN NHÓM X
   1. Châu Kỳ
   2. Nguyễn Ái Danh
-  3.
+  3. Châu Văn Trường Huy
   4. 
   5. 
 */
 
-#define BLYNK_TEMPLATE_ID "TMPL6haiWo-5w"
+#define BLYNK_TEMPLATE_ID "TMPL6GePC9FAO"
 #define BLYNK_TEMPLATE_NAME "ESP32BlynkTelegram"
-#define BLYNK_AUTH_TOKEN "hPZd_EqsL49KSzap970iPuu5L7ABRjq1"
+#define BLYNK_AUTH_TOKEN "4bvaSB5fMkGKM_mal8czWRzHhLUXID3T"
 
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
