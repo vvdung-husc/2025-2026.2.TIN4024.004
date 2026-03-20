@@ -1,11 +1,7 @@
 /*
   THÔNG TIN NHÓM X
   1. Châu Kỳ
-<<<<<<< HEAD
-  2. 
-=======
   2. Nguyễn Ái Danh
->>>>>>> d001edd (up)
   3.
   4. 
   5. 
