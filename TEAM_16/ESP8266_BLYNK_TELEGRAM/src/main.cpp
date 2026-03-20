@@ -6,10 +6,15 @@
   4. 
   5. 
 */
+#define BLYNK_PRINT Serial
 
-#define BLYNK_TEMPLATE_ID "TMPL6GePC9FAO"
 #define BLYNK_TEMPLATE_NAME "ESP32BlynkTelegram"
+/* Huy
+#define BLYNK_TEMPLATE_ID "TMPL6GePC9FAO"
 #define BLYNK_AUTH_TOKEN "4bvaSB5fMkGKM_mal8czWRzHhLUXID3T"
+*/
+#define BLYNK_TEMPLATE_ID "TMPL6haiWo-5w"
+#define BLYNK_AUTH_TOKEN "hPZd_EqsL49KSzap970iPuu5L7ABRjq1"
 
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
@@ -35,6 +40,7 @@ const char* password = "";
 // ================= TELEGRAM =================
 #define BOTtoken "8645992932:AAGNLi7s_jUyHqNFLO4ht-KFSOosxhpHq_4"
 #define CHAT_ID "-5193448236"
+
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
@@ -96,7 +102,7 @@ void readSensor() {
   Blynk.virtualWrite(V2, hum);
   Blynk.virtualWrite(V3, gasPPM);
   Blynk.virtualWrite(V4, (millis() - startTime) / 1000UL);
-  Blynk.virtualWrite(V5, "TEAM 16 ");
+  Blynk.virtualWrite(V5, "TEAM 16");
   // ===== TELEGRAM (TEMP + HUM) =====
   if (abs(temp - lastTemp) > 0.5 || abs(hum - lastHum) > 1) {
     String msg = "Dữ liệu mới từ cảm biến:\n";
@@ -223,12 +229,12 @@ void setup() {
 
   dht.begin();
 
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) delay(500);
+  //WiFi.begin(ssid, password);
+  //while (WiFi.status() != WL_CONNECTED) delay(500);
 
   client.setInsecure();
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, password);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, password); 
 
   startTime = millis();
 
