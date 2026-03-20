@@ -4,6 +4,7 @@ THÔNG TIN NHÓM 07
 2. Đào Thị Thùy Dương
 3. Hồ Thị Thanh Bình
 4. Đặng Thị Tâm Nhi 
+5. Bùi Quang Quý
 */
 #include <Arduino.h>
 #include <Wire.h>
@@ -82,13 +83,13 @@ void updateOLED() {
 
   display.setTextSize(1);
   display.setCursor(0, 38);
+  display.print("Status: ");
+  display.print(Status);
+
+  display.setCursor(0, 54);
   display.print("Humidity: ");
   display.print(hum);
   display.print(" %");
-
-  display.setCursor(0, 54);
-  display.print("Status: ");
-  display.print(status);
 
   display.display();
 }
@@ -129,6 +130,9 @@ void loop() {
       Serial.print(temp);
       Serial.print("  Hum: ");
       Serial.println(hum);
+    } else {
+      status = "SENSOR ERROR";
+      updateOLED();
     }
   }
 
