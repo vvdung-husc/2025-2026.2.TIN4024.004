@@ -4,7 +4,7 @@
 
 
 
-  
+
 */
 
 #define BLYNK_TEMPLATE_ID   " "// ae ai làm được cái blynk thì điền hộ vào đống này với
@@ -34,7 +34,7 @@ const char* BOT_TOKEN = "8645266510:AAE9yYZFO0G-scxNUms3ViTluuwUnxFRFwc";
 const char* CHAT_ID = "";
 
 // ================= THONG TIN NHOM =================
-const char* GROUP_INFO = "Nhom 6 - Nguyen Huu Trinh";
+const char* GROUP_INFO = "IoT-Nhóm 2-Team 6";
 
 // ================= PIN ESP32 =================
 #define DHTPIN      15
