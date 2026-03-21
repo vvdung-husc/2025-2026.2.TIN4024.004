@@ -114,5 +114,122 @@ void setup() {
   } else {
     Serial.println("\nWiFi THAT BAI!");
   }
+// Khởi tạo Blynk sau khi WiFi đã kết nối (Tránh xung đột)
+  Blynk.config(BLYNK_AUTH);
+  Blynk.connect();
+  Blynk.virtualWrite(V5, TEAM_NAME);
+
+  // Cấu hình bỏ qua xác thực chứng chỉ SSL cho Telegram
+  secured_client.setInsecure();
+  
+  Serial.println("Setup xong!");
+
+  // --- PHẦN THÊM MỚI: THÔNG BÁO KẾT NỐI TELEGRAM THÀNH CÔNG ---
+  
+  // 1. Hiển thị ở Terminal (Serial Monitor)
+  Serial.println("Ket noi voi Telegram thanh cong!");
+  
+  // 2. Gửi thông báo trực tiếp vào nhóm Telegram
+  if (ALLOWED_CHAT.length() > 0) {
+    String startupMsg = "✅ *KẾT NỐI THÀNH CÔNG!*\n";
+    startupMsg += "Bot " + TEAM_NAME + " đã sẵn sàng hoạt động.\n";
+    startupMsg += "Gõ /help để xem danh sách lệnh.";
+    bot.sendMessage(ALLOWED_CHAT, startupMsg, "");
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  LOOP
+// ════════════════════════════════════════════════════════════
+void loop() {
+  Blynk.run();
+
+  unsigned long now = millis();
+
+  if (now - lastUptimeTick >= 1000) {
+    lastUptimeTick = now;
+    uptimeSeconds++;
+  }
+
+  if (now - lastSensorRead >= SENSOR_INTERVAL) {
+    lastSensorRead = now;
+    readSensors();
+  }
+
+  if (now - lastBlynkUpdate >= BLYNK_INTERVAL) {
+    lastBlynkUpdate = now;
+    updateBlynk();
+  }
+
+  if (now - lastOledUpdate >= OLED_INTERVAL) {
+    lastOledUpdate = now;
+    updateOLED();
+  }
+
+  if (now - lastTelegramPoll >= TELEGRAM_POLL) {
+    lastTelegramPoll = now;
+    handleTelegram();
+  }
+
+  checkAndNotifyTelegram();
+}
+
+// ════════════════════════════════════════════════════════════
+//  CÁC HÀM XỬ LÝ
+// ════════════════════════════════════════════════════════════
+
+void readSensors() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+  if (!isnan(t)) temperature = t;
+  if (!isnan(h)) humidity    = h;
+
+  gasRaw = analogRead(MQ2_PIN);
+}
+
+BLYNK_WRITE(V1) {
+  ledState = param.asInt();
+  digitalWrite(LED_PIN, ledState ? HIGH : LOW);
+  Serial.println("LED (Blynk): " + String(ledState ? "ON" : "OFF"));
+}
+
+void updateBlynk() {
+  Blynk.virtualWrite(V0, uptimeSeconds);
+  Blynk.virtualWrite(V2, temperature);
+  Blynk.virtualWrite(V3, humidity);
+  Blynk.virtualWrite(V4, gasRaw);
+  Blynk.virtualWrite(V5, TEAM_NAME);
+}
+
+void updateOLED() {
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+  display.setTextSize(1);
+
+  unsigned long hh = uptimeSeconds / 3600;
+  unsigned long mm = (uptimeSeconds % 3600) / 60;
+  unsigned long ss = uptimeSeconds % 60;
+  char upBuf[22];
+  sprintf(upBuf, "Up:%02lu:%02lu:%02lu", hh, mm, ss);
+  display.setCursor(0, 0);
+  display.println(upBuf);
+
+  display.setCursor(0, 12);
+  display.print("Temp: "); display.print(temperature, 1); display.println(" C");
+
+  display.setCursor(0, 22);
+  display.print("Hum : "); display.print(humidity, 1); display.println(" %");
+
+  display.setCursor(0, 32);
+  display.print("Gas : "); display.print(gasRaw); display.println(" raw");
+
+  display.setCursor(0, 42);
+  display.print("LED : "); display.println(ledState ? "ON" : "OFF");
+
+  display.setCursor(0, 54);
+  display.println(TEAM_NAME);
+
+  display.display();
+}
 
   
