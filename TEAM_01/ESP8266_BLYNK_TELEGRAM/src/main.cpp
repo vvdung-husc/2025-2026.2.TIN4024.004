@@ -1,11 +1,8 @@
 /*
- * ============================================================
- * ESP32 IoT - OLED + Blynk + Telegram
- * Board   : ESP32 DevKit C V4
- * Sensors : DHT22 (GPIO 12), MQ2 analog (GPIO 32)
- * LED     : GPIO 5 (+ resistor 1kΩ)
- * OLED    : SDA=27, SCL=26 (SSD1306 0x3C)
- * ============================================================
+Thông tin nhóm 01
+1. Hà Văn Hòa
+2. Trương Công Bin
+
  */
 #define BLYNK_TEMPLATE_ID "TMPL6Fvb3xPaK"
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
@@ -117,3 +114,5 @@ void setup() {
   } else {
     Serial.println("\nWiFi THAT BAI!");
   }
+
+  
