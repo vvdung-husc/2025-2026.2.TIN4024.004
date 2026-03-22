@@ -1,6 +1,6 @@
 /*
 THÔNG TIN NHÓM 07
-1. Đào Thị Thùy Dương
+1. Duong Thuy
 2. ...
 3. ...
 */
@@ -8,9 +8,9 @@ THÔNG TIN NHÓM 07
 #define BLYNK_PRINT Serial
 
 // ===== BLYNK =====
-#define BLYNK_TEMPLATE_ID "TMPL6wGLoWnZq"
+#define BLYNK_TEMPLATE_ID "TMPL6wGLoWnZq" //đưa token của máy mình vô để chạy bài
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
-#define BLYNK_AUTH_TOKEN "x" //KHÔNG thêm key token vào vì không commic được
+#define BLYNK_AUTH_TOKEN "xx" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC 
 
 #include <Arduino.h>
 #include <WiFi.h>
@@ -30,8 +30,8 @@ unsigned long lastTelegramCheck = 0;
 
 
 //==== TELEGRAM =====
-#define BOT_TOKEN "x" //THÊM key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
-#define GROUP_ID "x" //THÊM ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define BOT_TOKEN "x" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define GROUP_ID "x" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 // ===== PIN  =====
 #define DHTPIN 12
@@ -69,16 +69,3 @@ BLYNK_CONNECTED() {
   Blynk.syncVirtual(V1);
 }
 
-
-// ===== LOOP =====
-void loop()
-{
-  Blynk.run();
-  timer.run();
-
-  if (millis() - lastTelegramCheck > 2500)
-  {
-    handleTelegram();
-    lastTelegramCheck = millis();
-  }
-}
