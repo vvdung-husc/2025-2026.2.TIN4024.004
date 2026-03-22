@@ -17,16 +17,20 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 // Initialize Telegram BOT
-#define BOTtoken "xxxxx"  // your Bot Token (Get from Botfather)
+#define BOTtoken "x"  // your Bot Token (Get from Botfather)
 
 // Dùng ChatGPT để nhờ hướng dẫn tìm giá trị GROUP_ID này
-#define GROUP_ID "group_chatid" //thường là một số âm
+#define GROUP_ID "x" //thường là một số âm
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
 const int motionSensor = 27; // PIR Motion Sensor
 bool motionDetected = false;
+
+//LED
+const int ledPin = 23;
+bool ledState = false;
 
 //Định dạng chuỗi %s,%d,...
 String StringFormat(const char* fmt, ...){
@@ -45,6 +49,58 @@ String StringFormat(const char* fmt, ...){
   return String(s);
 }
 
+// ====== XỬ LÝ LỆNH TELEGRAM ======
+void handleNewMessages(int numNewMessages) {
+
+  for (int i = 0; i < numNewMessages; i++) {
+
+    String text = bot.messages[i].text;
+    String chat_id = bot.messages[i].chat_id;
+
+    if (text == "/start") {
+
+      String welcome = "Xin chào.\n";
+      welcome += "Sử dụng các lệnh sau để điều khiển LED.\n\n";
+      welcome += "Gửi /led_on để bật đèn\n";
+      welcome += "Gửi /led_off để tắt đèn\n";
+      welcome += "Gửi /get_state để yêu cầu trạng thái đèn hiện tại";
+
+      bot.sendMessage(chat_id, welcome, "");
+    }
+
+    if (text == "/led_on") {
+
+      digitalWrite(ledPin, HIGH);
+      ledState = true;
+
+      Serial.println("LED is ON");
+      bot.sendMessage(chat_id, "LED bật sáng", "");
+    }
+
+    if (text == "/led_off") {
+
+      digitalWrite(ledPin, LOW);
+      ledState = false;
+
+      Serial.println("LED is OFF");
+      bot.sendMessage(chat_id, "LED đã tắt", "");
+    }
+
+    if (text == "/get_state") {
+
+      if (ledState){
+        Serial.println("State of LED is ON");
+        bot.sendMessage(chat_id, "LED is ON", "");
+      }
+      else{
+        Serial.println("State of LED is OFF");
+        bot.sendMessage(chat_id, "LED is OFF", "");
+      }
+    }
+
+  }
+}
+
 // Indicates when motion is detected
 void IRAM_ATTR detectsMovement() {
   //Serial.println("MOTION DETECTED!!!");
@@ -59,12 +115,17 @@ void setup() {
   // Set motionSensor pin as interrupt, assign interrupt function and set RISING mode
   attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
 
+  // ====== LED ======
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+
   // Attempt to connect to Wifi network:
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
+
   client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
   
   while (WiFi.status() != WL_CONNECTED) {
@@ -80,6 +141,16 @@ void setup() {
 
 
 void loop() {
+   // ====== ĐỌC LỆNH TELEGRAM ======
+  int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+
+  while(numNewMessages) {
+
+    handleNewMessages(numNewMessages);
+
+    numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+  }
+
   static uint count_ = 0;
 
   if(motionDetected){
@@ -90,4 +161,6 @@ void loop() {
     Serial.print(count_);Serial.println(". Sent successfully to Telegram: Motion Detected");
     motionDetected = false;
   }
+
+  delay(1000);
 }
