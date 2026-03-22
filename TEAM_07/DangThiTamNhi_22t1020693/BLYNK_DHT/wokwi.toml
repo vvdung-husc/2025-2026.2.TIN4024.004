@@ -1,0 +1,7 @@
+[wokwi]
+version = 1
+
+[[wokwi.projects]]
+name = "ESP32 Project"
+firmware = ".pio/build/esp32dev/firmware.bin"
+elf = ".pio/build/esp32dev/firmware.elf"
