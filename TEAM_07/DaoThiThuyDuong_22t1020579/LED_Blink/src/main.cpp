@@ -1,18 +1,33 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+// ĐÚNG CHÂN THEO MẠCH WOKWI
+#define LED_RED    25
+#define LED_YELLOW 33
+#define LED_GREEN  32
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_YELLOW, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, LOW);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  // Đỏ
+  digitalWrite(LED_RED, HIGH);
+  delay(500);
+  digitalWrite(LED_RED, LOW);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  // Vàng
+  digitalWrite(LED_YELLOW, HIGH);
+  delay(500);
+  digitalWrite(LED_YELLOW, LOW);
+
+  // Xanh
+  digitalWrite(LED_GREEN, HIGH);
+  delay(500);
+  digitalWrite(LED_GREEN, LOW);
 }
