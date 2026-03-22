@@ -8,8 +8,8 @@
 #include <ArduinoJson.h>
 #include <BlynkSimpleEsp32.h>
 
-char ssid[] = "YOUR_WIFI";
-char pass[] = "YOUR_PASSWORD";
+char ssid[] = "Wokwi-GUEST"; 
+char pass[] = "";
 
 String apiKey = "5a5c4a9fec1b2237889827fd747858d6";
 
@@ -21,7 +21,7 @@ BlynkTimer timer;
 void getIPLocation()
 {
   HTTPClient http;
-  http.begin("http://ip4.iothings.vn?geo=1");
+  http.begin("http://ip4.iothings.vn/?geo=1");
   int httpCode = http.GET();
 
   if (httpCode == HTTP_CODE_OK)
