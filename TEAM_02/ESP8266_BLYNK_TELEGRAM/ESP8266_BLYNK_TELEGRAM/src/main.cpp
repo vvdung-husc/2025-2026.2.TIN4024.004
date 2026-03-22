@@ -1,5 +1,5 @@
 /*
-	THÔNG TIN NHÓM X
+	THÔNG TIN NHÓM 2
 	1. Trần Hữu Tôn Hoàng Gia
 	2. Lê Thành Huy
 */
