@@ -79,7 +79,55 @@ unsigned long lastGasAlertMs = 0;
 bool gasAlertLatched = false;
 
 // ================= HAM HO TRO =================
+String formatUptime(unsigned long ms) {
+  unsigned long totalSeconds = ms / 1000;
+  unsigned long days = totalSeconds / 86400;
+  unsigned long hours = (totalSeconds % 86400) / 3600;
+  unsigned long minutes = (totalSeconds % 3600) / 60;
+  unsigned long seconds = totalSeconds % 60;
 
+  char buf[24];
+  if (days > 0) {
+    snprintf(buf, sizeof(buf), "%lud %02lu:%02lu:%02lu", days, hours, minutes, seconds);
+  } else {
+    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", hours, minutes, seconds);
+  }
+  return String(buf);
+}
+
+String extractCommand(String text) {
+  text.trim();
+
+  int spacePos = text.indexOf(' ');
+  if (spacePos > 0) {
+    text = text.substring(0, spacePos);
+  }
+
+  int atPos = text.indexOf('@');
+  if (atPos > 0) {
+    text = text.substring(0, atPos);
+  }
+
+  text.toLowerCase();
+  return text;
+}
+
+void setRelay(bool state, bool pushToBlynk = true) {
+  relayState = state;
+  digitalWrite(RELAY_PIN, relayState ? HIGH : LOW);
+
+  if (pushToBlynk && Blynk.connected()) {
+    Blynk.virtualWrite(V1, relayState ? 1 : 0);
+  }
+}
+
+String sensorMessage() {
+  String msg = "THONG TIN CAM BIEN\n";
+  msg += "Nhiet do: " + String(temperature, 1) + " C\n";
+  msg += "Do am: " + String(humidity, 1) + " %\n";
+  msg += "Khi ga: " + String(gasValue);
+  return msg;
+}
 
 // ================= WIFI =================
 
