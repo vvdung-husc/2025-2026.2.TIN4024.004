@@ -7,6 +7,12 @@
 
 
 */
+
+
+#define BLYNK_TEMPLATE_ID "TMPL6QeLqro-4"
+#define BLYNK_TEMPLATE_NAME "ESP32 Team 06"
+#define BLYNK_AUTH_TOKEN    "xxxx"// ae ai làm được cái blynk thì điền hộ vào đống này với
+
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <BlynkSimpleEsp32.h>
@@ -16,13 +22,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define BLYNK_TEMPLATE_ID   " "// ae ai làm được cái blynk thì điền hộ vào đống này với
-#define BLYNK_TEMPLATE_NAME " "// ae ai làm được cái blynk thì điền hộ vào đống này với
-#define BLYNK_AUTH_TOKEN    " "// ae ai làm được cái blynk thì điền hộ vào đống này với
 
 #define BLYNK_PRINT Serial
-
-
 
 // ================= WIFI =================
 const char* ssid = "Wokwi-GUEST";
