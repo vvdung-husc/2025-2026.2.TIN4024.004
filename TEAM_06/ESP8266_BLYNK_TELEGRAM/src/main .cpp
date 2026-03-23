@@ -3,7 +3,7 @@
   1. Nguyen Huu Trinh - 22T1020481
   2. Ho Sy Vinh - 22T1020521
   3. Nguyễn Đăng Bảo Toàn -22T1020470 - telegram : @tanmodsvip
-
+  4. Nguyễn Đình Vĩnh Phú - 22T1020322
 
 
 */
@@ -86,6 +86,23 @@ bool gasAlertLatched = false;
 
 // ================= DOC CAM BIEN =================
 
+void readSensors() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+
+  if (!isnan(t)) temperature = t;
+  if (!isnan(h)) humidity = h;
+
+#if USE_FAKE_MQ2
+  gasValue = random(350, 901);
+#else
+  gasValue = analogRead(MQ2_PIN);
+
+  if (gasValue < 0 || gasValue > 4095) {
+    gasValue = random(350, 901);
+  }
+#endif
+}
 
 // ================= OLED =================
 void updateOLED() {
