@@ -7,13 +7,6 @@
 
 
 */
-
-#define BLYNK_TEMPLATE_ID   " "// ae ai làm được cái blynk thì điền hộ vào đống này với
-#define BLYNK_TEMPLATE_NAME " "// ae ai làm được cái blynk thì điền hộ vào đống này với
-#define BLYNK_AUTH_TOKEN    " "// ae ai làm được cái blynk thì điền hộ vào đống này với
-
-#define BLYNK_PRINT Serial
-
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <BlynkSimpleEsp32.h>
@@ -23,19 +16,27 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#define BLYNK_TEMPLATE_ID   " "// ae ai làm được cái blynk thì điền hộ vào đống này với
+#define BLYNK_TEMPLATE_NAME " "// ae ai làm được cái blynk thì điền hộ vào đống này với
+#define BLYNK_AUTH_TOKEN    " "// ae ai làm được cái blynk thì điền hộ vào đống này với
+
+#define BLYNK_PRINT Serial
+
+
+
 // ================= WIFI =================
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 // ================= TELEGRAM =================
 // Hay thay bang token moi sau khi ban regenerate token
-const char* BOT_TOKEN = "8645266510:AAE9yYZFO0G-scxNUms3ViTluuwUnxFRFwc";
+const char* BOT_TOKEN = "8442569741:AAFc2pbFqw_xFb4RG9V4u0RHvpNFsrSjJi0";
 
 // De rong o lan chay dau tien de lay chat_id tu Serial Monitor
-const char* CHAT_ID = "";
+const char* CHAT_ID = "-1003832029526";
 
 // ================= THONG TIN NHOM =================
-const char* GROUP_INFO = "IoT-Nhóm 2-Team 6";
+const char* GROUP_INFO = "IOT-Team06.004";
 
 // ================= PIN ESP32 =================
 #define DHTPIN      15
