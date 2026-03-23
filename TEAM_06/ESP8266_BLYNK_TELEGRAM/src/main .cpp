@@ -79,110 +79,13 @@ unsigned long lastGasAlertMs = 0;
 bool gasAlertLatched = false;
 
 // ================= HAM HO TRO =================
-String formatUptime(unsigned long ms) {
-  unsigned long totalSeconds = ms / 1000;
-  unsigned long days = totalSeconds / 86400;
-  unsigned long hours = (totalSeconds % 86400) / 3600;
-  unsigned long minutes = (totalSeconds % 3600) / 60;
-  unsigned long seconds = totalSeconds % 60;
 
-  char buf[24];
-  if (days > 0) {
-    snprintf(buf, sizeof(buf), "%lud %02lu:%02lu:%02lu", days, hours, minutes, seconds);
-  } else {
-    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", hours, minutes, seconds);
-  }
-  return String(buf);
-}
-
-String extractCommand(String text) {
-  text.trim();
-
-  int spacePos = text.indexOf(' ');
-  if (spacePos > 0) {
-    text = text.substring(0, spacePos);
-  }
-
-  int atPos = text.indexOf('@');
-  if (atPos > 0) {
-    text = text.substring(0, atPos);
-  }
-
-  text.toLowerCase();
-  return text;
-}
-
-void setRelay(bool state, bool pushToBlynk = true) {
-  relayState = state;
-  digitalWrite(RELAY_PIN, relayState ? HIGH : LOW);
-
-  if (pushToBlynk && Blynk.connected()) {
-    Blynk.virtualWrite(V1, relayState ? 1 : 0);
-  }
-}
-
-String sensorMessage() {
-  String msg = "THONG TIN CAM BIEN\n";
-  msg += "Nhiet do: " + String(temperature, 1) + " C\n";
-  msg += "Do am: " + String(humidity, 1) + " %\n";
-  msg += "Khi ga: " + String(gasValue);
-  return msg;
-}
 
 // ================= WIFI =================
-void connectWiFi() {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
 
-  Serial.print("Dang ket noi WiFi");
-  unsigned long start = millis();
-
-  while (WiFi.status() != WL_CONNECTED && millis() - start < 20000) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("\nWiFi OK");
-    Serial.print("IP: ");
-    Serial.println(WiFi.localIP());
-  } else {
-    Serial.println("\nKhong ket noi duoc WiFi");
-  }
-}
-
-void ensureConnections() {
-  if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("WiFi mat ket noi -> dang thu lai...");
-    WiFi.disconnect();
-    WiFi.begin(ssid, password);
-    return;
-  }
-
-  if (!Blynk.connected()) {
-    Serial.println("Blynk mat ket noi -> dang thu lai...");
-    Blynk.connect(1000);
-  }
-}
 
 // ================= DOC CAM BIEN =================
-void readSensors() {
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
 
-  if (!isnan(t)) temperature = t;
-  if (!isnan(h)) humidity = h;
-
-#if USE_FAKE_MQ2
-  gasValue = random(350, 901);
-#else
-  gasValue = analogRead(MQ2_PIN);
-
-  if (gasValue < 0 || gasValue > 4095) {
-    gasValue = random(350, 901);
-  }
-#endif
-}
 
 // ================= OLED =================
 void updateOLED() {
@@ -225,50 +128,7 @@ void updateBlynk() {
 }
 
 // ================= TELEGRAM =================
-void handleTelegram(int n) {
-  for (int i = 0; i < n; i++) {
-    String rawText = bot.messages[i].text;
-    String command = extractCommand(rawText);
-    String chat_id = String(bot.messages[i].chat_id);
 
-    Serial.print("Telegram chat_id: ");
-    Serial.print(chat_id);
-    Serial.print(" | text: ");
-    Serial.println(rawText);
-
-    // Neu da cau hinh CHAT_ID, chi xu ly dung nhom do
-    if (strlen(CHAT_ID) > 0 && chat_id != String(CHAT_ID)) {
-      bot.sendMessage(chat_id, "Bot chi xu ly lenh tu nhom da cau hinh.", "");
-      continue;
-    }
-
-    if (command == "/start") {
-      String welcome = "Chao mung den voi Nhom 6!\n";
-      welcome += "/led_on - Bat LED\n";
-      welcome += "/led_off - Tat LED\n";
-      welcome += "/led_status - Xem trang thai LED\n";
-      welcome += "/get_weather - Xem nhiet do va do am hien tai";
-      bot.sendMessage(chat_id, welcome, "");
-    }
-    else if (command == "/led_on") {
-      setRelay(true, true);
-      bot.sendMessage(chat_id, "Da bat LED", "");
-    }
-    else if (command == "/led_off") {
-      setRelay(false, true);
-      bot.sendMessage(chat_id, "Da tat LED", "");
-    }
-    else if (command == "/led_status") {
-      bot.sendMessage(chat_id, relayState ? "LED dang ON" : "LED dang OFF", "");
-    }
-    else if (command == "/get_weather") {
-      bot.sendMessage(chat_id, sensorMessage(), "");
-    }
-    else {
-      bot.sendMessage(chat_id, "Lenh khong hop le. Gui /start de xem danh sach lenh.", "");
-    }
-  }
-}
 
 void checkTelegram() {
   if (millis() - lastTelegramPoll < TELEGRAM_POLL_MS) return;
