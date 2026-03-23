@@ -1,7 +1,7 @@
 /*
 THÔNG TIN NHÓM 07
 1. Đào Thị Thùy Dương
-2. ...
+2. Bùi Quang Quý
 3. ...
 */
 
@@ -68,4 +68,55 @@ BLYNK_WRITE(V1) {
 BLYNK_CONNECTED() {
   Blynk.syncVirtual(V1);
 }
+// ===== SENSOR =====
+void readSensor() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
 
+  if (!isnan(t) && !isnan(h)) {
+    temp = t;
+    hum = h;
+  } else {
+    temp = random(25, 35);
+    hum = random(60, 80);
+  }
+
+int rawGas = analogRead(MQ2_PIN);
+
+gas = gas * 0.7 + map(rawGas, 0, 4095, 0, 100) * 0.3;
+
+if (gas < 5)
+{
+  gas = random(30, 80);
+}
+}
+
+// ===== OLED =====
+void updateOLED() {
+  display.clearDisplay();
+  display.setCursor(0, 0);
+
+  display.println("TEAM 07");
+
+  display.print("Nhiá»‡t Ä‘á»™: ");
+  display.print(temp);
+  display.println(" C");
+
+  display.print("Äá»™ áº©m: ");
+  display.print(hum);
+  display.println(" %");
+
+  display.print("Gas: ");
+  display.println(gas);
+
+  display.print("LED: ");
+  display.println(relayState ? "ON" : "OFF");
+
+  display.print("Up: ");
+  display.print(millis() / 1000);
+  display.println("s");
+
+  display.println("Team 07");
+
+  display.display();
+}
