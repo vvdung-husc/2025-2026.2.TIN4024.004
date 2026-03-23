@@ -3,6 +3,7 @@ THÔNG TIN NHÓM 07
 1. Đào Thị Thùy Dương
 2. Bùi Quang Quý
 3. Đặng Thị Tâm Nhi
+4.Hồ Thị Thanh Bình
 */
 
 #define BLYNK_PRINT Serial
@@ -120,6 +121,63 @@ void updateOLED() {
 
   display.display();
 }
+// ===== TELEGRAM =====
+void handleTelegram() {
+  int num = bot.getUpdates(bot.last_message_received + 1);
+
+  while (num) {
+    for (int i = 0; i < num; i++) {
+
+      String text = bot.messages[i].text;
+      String chat_id = bot.messages[i].chat_id;
+
+      if (chat_id != GROUP_ID) continue;
+
+      if (text == "/start") {
+      String welcome = "Xin chào.\n";
+      welcome += "Sử dụng các lệnh sau để điều khiển LED.\n\n";
+      welcome += "Gửi /led_on để bật đèn\n";
+      welcome += "Gửi /led_off để tắt đèn\n";
+      welcome += "Gửi /get_status để yêu cầu trạng thái LED\n";
+      welcome += "Gửi /get_weather để xem nhiệt đọ, độ ẩm";
+
+      bot.sendMessage(chat_id, welcome, "");
+    }
+
+      if (text == "/led_on") {
+        digitalWrite(RELAY_PIN, HIGH);
+        relayState = true;
+        bot.sendMessage(chat_id, "LED ON", "");
+      }
+
+      if (text == "/led_off") {
+        digitalWrite(RELAY_PIN, LOW);
+        relayState = false;
+        bot.sendMessage(chat_id, "LED OFF", "");
+      }
+
+      if (text == "/get_status") {
+        bot.sendMessage(chat_id, relayState ? "LED đang bật sáng" : "LED đang tắt ", "");
+      }
+
+      if (text == "/get_weather") {
+        String msg = "Nhiệt độ: " + String(temp) +
+                     "\nĐộ ẩm: " + String(hum) +
+                     "\nGas: " + String(gas);
+        bot.sendMessage(chat_id, msg, "");
+      }
+    }
+
+    num = bot.getUpdates(bot.last_message_received + 1);
+  }
+}
+
+// ===== TASK =====
+void taskAll() {
+
+  readSensor();
+  updateOLED();
+
 // ===== BLYNK =====
   Blynk.virtualWrite(V0, millis() / 1000); // uptime
   Blynk.virtualWrite(V2, temp);
