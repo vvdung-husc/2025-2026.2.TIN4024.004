@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "devices": [
+    { "type": "esp32-devkit-v1", "id": "esp" },
+    { "type": "wokwi-dht22", "id": "dht" },
+    { "type": "wokwi-led", "id": "led" },
+    { "type": "wokwi-tm1637", "id": "tm" }
+  ],
+  "connections": [
+    ["esp:4", "dht:SDA"],
+    ["esp:3V3", "dht:VCC"],
+    ["esp:GND", "dht:GND"],
+
+    ["esp:2", "led:A"],
+    ["esp:GND", "led:C"],
+
+    ["esp:18", "tm:DIO"],
+    ["esp:19", "tm:CLK"],
+    ["esp:3V3", "tm:VCC"],
+    ["esp:GND", "tm:GND"]
+  ]
+}

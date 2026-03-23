@@ -87,8 +87,7 @@ void setup() {
   Serial.println("\nWiFi da ket noi!");
 
   Blynk.config(BLYNK_AUTH_TOKEN, IPAddress(128,199,144,129), 80);
-  Blynk.connect();   // ⚠️ thiếu dòng này nên Blynk không update
-
+  Blynk.connect();   //
   timer.setInterval(1000L, sendUptime);
   timer.setInterval(5000L, sendSensorData);
 
