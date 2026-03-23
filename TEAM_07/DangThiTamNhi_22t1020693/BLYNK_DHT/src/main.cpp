@@ -1,40 +1,129 @@
-#include <Arduino.h>
-#include <DHT.h>
-#include <TM1637Display.h>
+// #include <Arduino.h>
+// #include <DHT.h>
+// #include <TM1637Display.h>
 
+// #define DHTPIN 4
+// #define DHTTYPE DHT22
+// DHT dht(DHTPIN, DHTTYPE);
+
+// #define CLK 19
+// #define DIO 18
+// TM1637Display display(CLK, DIO);
+
+// #define LED 2
+
+// int timeCount = 0;
+
+// void setup() {
+//   Serial.begin(115200);
+//   dht.begin();
+//   pinMode(LED, OUTPUT);
+//   display.setBrightness(7);
+// }
+
+// void loop() {
+//   float temp = dht.readTemperature();
+//   float hum = dht.readHumidity();
+
+//   // hiển thị nhiệt độ
+//   display.showNumberDec((int)temp);
+
+//   // bật LED nếu >30 độ
+//   if (temp > 30) digitalWrite(LED, HIGH);
+//   else digitalWrite(LED, LOW);
+
+//   // giả lập thời gian hoạt động
+//   timeCount++;
+//   Serial.println(timeCount);
+
+//   delay(1000);
+// }
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_SSD1306.h>
+#include <DHT.h>
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+
+// Thông tin WiFi và Blynk
+char auth[] = "YOUR_BLYNK_TOKEN";
+char ssid[] = "YOUR_WIFI_SSID";
+char pass[] = "YOUR_WIFI_PASSWORD";
+
+// Cảm biến DHT
 #define DHTPIN 4
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
-#define CLK 19
-#define DIO 18
-TM1637Display display(CLK, DIO);
+// OLED display
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#define LED 2
-
-int timeCount = 0;
+unsigned long previousMillis = 0;
+const long interval = 2000; // 2 giây
 
 void setup() {
   Serial.begin(115200);
   dht.begin();
-  pinMode(LED, OUTPUT);
-  display.setBrightness(7);
+
+  // Khởi động OLED
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0,0);
+  display.println("Khoi dong...");
+  display.display();
+
+  // Kết nối WiFi
+  WiFi.begin(ssid, pass);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected");
+
+  // Kết nối Blynk
+  Blynk.begin(auth, ssid, pass);
 }
 
 void loop() {
-  float temp = dht.readTemperature();
-  float hum = dht.readHumidity();
+  Blynk.run();
 
-  // hiển thị nhiệt độ
-  display.showNumberDec((int)temp);
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
 
-  // bật LED nếu >30 độ
-  if (temp > 30) digitalWrite(LED, HIGH);
-  else digitalWrite(LED, LOW);
+    // Đọc cảm biến DHT
+    float humidity = dht.readHumidity();
+    float temperature = dht.readTemperature();
 
-  // giả lập thời gian hoạt động
-  timeCount++;
-  Serial.println(timeCount);
+    if (isnan(humidity) || isnan(temperature)) {
+      Serial.println("Failed to read from DHT sensor!");
+      return;
+    }
 
-  delay(1000);
+    // Hiển thị lên OLED
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.setTextSize(2);
+    display.print("Nhiet: ");
+    display.print(temperature);
+    display.println(" C");
+    display.setCursor(0,30);
+    display.print("Am: ");
+    display.print(humidity);
+    display.println(" %");
+    display.display();
+
+    // Gửi dữ liệu về Blynk
+    Blynk.virtualWrite(V1, temperature);
+    Blynk.virtualWrite(V2, humidity);
+  }
 }
