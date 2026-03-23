@@ -155,20 +155,20 @@ void handleTelegram(int n) {
     }
     else if (command == "/led_on") {
       setRelay(true, true);
-      bot.sendMessage(chat_id, "Da bat LED", "");
+      bot.sendMessage(chat_id, "Đã bật led", "");
     }
     else if (command == "/led_off") {
       setRelay(false, true);
-      bot.sendMessage(chat_id, "Da tat LED", "");
+      bot.sendMessage(chat_id, "đã tắt led", "");
     }
     else if (command == "/led_status") {
-      bot.sendMessage(chat_id, relayState ? "LED dang ON" : "LED dang OFF", "");
+      bot.sendMessage(chat_id, relayState ? "LED đang ON" : "LED đang OFF", "");
     }
     else if (command == "/get_weather") {
       bot.sendMessage(chat_id, sensorMessage(), "");
     }
     else {
-      bot.sendMessage(chat_id, "Lenh khong hop le. Gui /start de xem danh sach lenh.", "");
+      bot.sendMessage(chat_id, "Lệnh không hợp lệ. Gửi /Start để xem danh sách lệnh.", "");
     }
   }
 }
@@ -192,7 +192,7 @@ void notifyGasAlert() {
 
   if (gasValue >= GAS_ALERT_THRESHOLD) {
     if (!gasAlertLatched || millis() - lastGasAlertMs > GAS_ALERT_COOLDOWN) {
-      bot.sendMessage(String(CHAT_ID), "CANH BAO: Muc khi ga cao = " + String(gasValue), "");
+      bot.sendMessage(String(CHAT_ID), "CẢNH BÁO: Mức khí gas cao = " + String(gasValue), "");
       gasAlertLatched = true;
       lastGasAlertMs = millis();
     }
