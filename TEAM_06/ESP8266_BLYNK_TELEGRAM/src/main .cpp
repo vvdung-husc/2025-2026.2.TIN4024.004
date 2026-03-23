@@ -128,7 +128,50 @@ void updateBlynk() {
 }
 
 // ================= TELEGRAM =================
+void handleTelegram(int n) {
+  for (int i = 0; i < n; i++) {
+    String rawText = bot.messages[i].text;
+    String command = extractCommand(rawText);
+    String chat_id = String(bot.messages[i].chat_id);
 
+    Serial.print("Telegram chat_id: ");
+    Serial.print(chat_id);
+    Serial.print(" | text: ");
+    Serial.println(rawText);
+
+    
+    if (strlen(CHAT_ID) > 0 && chat_id != String(CHAT_ID)) {
+      bot.sendMessage(chat_id, "Bot chỉ xử lí lệnh đã cấu hình.", "");
+      continue;
+    }
+
+    if (command == "/start") {
+      String welcome = "Chào mừng đến với nhóm 6!\n";
+      welcome += "/led_on - Bật LED\n";
+      welcome += "/led_off - Tắt LED\n";
+      welcome += "/led_status - Xem trạng thái LED\n";
+      welcome += "/get_weather - Xem nhiệt độ hiện tại";
+      bot.sendMessage(chat_id, welcome, "");
+    }
+    else if (command == "/led_on") {
+      setRelay(true, true);
+      bot.sendMessage(chat_id, "Da bat LED", "");
+    }
+    else if (command == "/led_off") {
+      setRelay(false, true);
+      bot.sendMessage(chat_id, "Da tat LED", "");
+    }
+    else if (command == "/led_status") {
+      bot.sendMessage(chat_id, relayState ? "LED dang ON" : "LED dang OFF", "");
+    }
+    else if (command == "/get_weather") {
+      bot.sendMessage(chat_id, sensorMessage(), "");
+    }
+    else {
+      bot.sendMessage(chat_id, "Lenh khong hop le. Gui /start de xem danh sach lenh.", "");
+    }
+  }
+}
 
 void checkTelegram() {
   if (millis() - lastTelegramPoll < TELEGRAM_POLL_MS) return;
