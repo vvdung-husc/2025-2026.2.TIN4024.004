@@ -1,5 +1,5 @@
 /*
-THÔNG TIN NHÓM X
+THÔNG TIN NHÓM 4
 1. Nguyễn Văn Bình - Telegram : binhnv
 2. Lê Nguyễn Hương Nguyên - Telegram : nguyen2019
 3. ...
