@@ -31,8 +31,8 @@ unsigned long lastTelegramCheck = 0;
 
 
 //==== TELEGRAM =====
-#define BOT_TOKEN "x" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
-#define GROUP_ID "x" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define BOT_TOKEN "7613002123:AAFxKSpC4Itq1w3pkrmPZMkksWpu8yX3S3s" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define GROUP_ID "1003739356999" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 // ===== PIN  =====
 #define DHTPIN 12
@@ -246,4 +246,16 @@ void setup() {
   timer.setInterval(2000L, taskAll);
 //gửi thông báo khởi động
   bot.sendMessage(GROUP_ID, "STARTED \nHồ Thị Thanh Bình \nĐào Thị Thùy Dương \nĐặng Thị Tâm Nhi \n Huỳnh Thị Thủy \nBùi Quang Quý", "");
+}
+// ===== LOOP =====
+void loop()
+{
+  Blynk.run();
+  timer.run();
+
+  if (millis() - lastTelegramCheck > 2500)
+  {
+    handleTelegram();
+    lastTelegramCheck = millis();
+  }
 }
