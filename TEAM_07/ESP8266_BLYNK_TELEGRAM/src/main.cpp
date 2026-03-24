@@ -10,7 +10,7 @@ THÔNG TIN NHÓM 07
 // ===== BLYNK =====
 #define BLYNK_TEMPLATE_ID "TMPL6wGLoWnZq" //đưa token của máy mình vô để chạy bài
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
-#define BLYNK_AUTH_TOKEN "0V8HO3nOJK3R6RaXrkRYciZ_stBla-lG" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define BLYNK_AUTH_TOKEN "xx" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 #include <Arduino.h>
 #include <WiFi.h>
@@ -30,8 +30,8 @@ unsigned long lastTelegramCheck = 0;
 
 
 //==== TELEGRAM =====
-#define BOT_TOKEN "7613002123:AAFxKSpC4Itq1w3pkrmPZMkksWpu8yX3S3s" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
-#define GROUP_ID "-1003739356999" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define BOT_TOKEN "x" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define GROUP_ID "x" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 // ===== PIN  =====
 #define DHTPIN 12
