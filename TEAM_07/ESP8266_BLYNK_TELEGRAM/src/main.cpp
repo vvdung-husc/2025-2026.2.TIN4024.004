@@ -1,7 +1,7 @@
 /*
 THÔNG TIN NHÓM 07
 1. Đào Thị Thùy Dương - Telegram: Thuy Duong
-2. ...
+2. Hồ Thị Thanh Bình - Telegram: Thanh Binh
 3. ...
 */
 
