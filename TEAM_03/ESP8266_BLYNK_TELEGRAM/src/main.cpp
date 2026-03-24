@@ -1,260 +1,215 @@
 /*
-	THÔNG TIN NHÓM 3
-	1. Nguyễn Đình Tuấn
-	2. 
-	3. 
-  4.
-  5.
-  6.
+  ===== NHÓM 3 =====
+  1. Nguyễn Đăng Hưng
+  2. Nguyễn Đình Tuấn
 */
-#define BLYNK_TEMPLATE_ID "TMPL6lGFdsfCS"
-#define BLYNK_TEMPLATE_NAME "IOT TEMPLATE"
-#define BLYNK_AUTH_TOKEN "5YIFRBHjduRgj03jUZjm94APWi7rIPRs"
 
-// IMPORTANT: Do NOT define BLYNK_PRINT Serial. 
-// Serial is now dedicated strictly to Blynk communication.
+// ===== BLYNK =====
+#define BLYNK_TEMPLATE_ID "TMPL60lFJ3zny"
+#define BLYNK_TEMPLATE_NAME "ESP8266BlynkTelegram"
+#define BLYNK_AUTH_TOKEN "z2KHpYTqG5sEHpc-IDZi4NlBr2f3dE44"
 
-#define HAS_DHT_SENSOR
-#define DHT_TYPE  DHT11   // hoặc DHT22
- 
-#include <Arduino.h>
-#include <BlynkSimpleStream.h> // Changed from BlynkSimpleEsp8266.h
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
- 
-#ifdef HAS_DHT_SENSOR
-  #include <DHT.h>
-#endif
+// ===== WIFI =====
+#include <WiFi.h>
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
 
-#define OLED_SDA    D2
-#define OLED_SCL    D1
-#define OLED_WIDTH  128
-#define OLED_HEIGHT 64
-#define OLED_ADDR   0x3C
- 
-#define DHT_PIN     D4
-#define LED_PIN     D5
-#define MQ2_PIN     A0
+// ===== TELEGRAM =====
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
+#define BOT_TOKEN "8787158074:AAEouuAU8HpwWoRHVvVVyGU74gEMi4GV-XU"
+#define CHAT_ID "-5199524596"
 
-Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
- 
-#ifdef HAS_DHT_SENSOR
-  DHT dht(DHT_PIN, DHT_TYPE);
-#endif
- 
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOT_TOKEN, client);
+
+// ===== BLYNK =====
+#include <BlynkSimpleEsp32.h>
 BlynkTimer timer;
 
-bool    ledState       = false;
-float   temperature    = 0.0f;
-float   humidity       = 0.0f;
-int     gasValue       = 0;  
-unsigned long uptimeSeconds = 0;
- 
-uint8_t oledPage = 0;
-#define OLED_PAGES 4
- 
-BLYNK_WRITE(V0) {
+// ===== SENSOR =====
+#include <DHT.h>
+#define DHTPIN 12
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+// ===== OLED =====
+#include <Wire.h>
+#include <Adafruit_SSD1306.h>
+Adafruit_SSD1306 display(128, 64, &Wire);
+
+// ===== HARDWARE =====
+#define LED_PIN 5
+#define GAS_PIN 32
+
+bool ledState = false;
+float temp = 0;
+float hum = 0;
+int gas = 0;
+int gas_ppm = 0;
+
+unsigned long startTime;
+bool gasAlertSent = false;
+
+// ===== BLYNK CONTROL =====
+BLYNK_WRITE(V1) {
   ledState = param.asInt();
-  digitalWrite(LED_PIN, ledState ? HIGH : LOW);
+  digitalWrite(LED_PIN, ledState);
 }
 
-void readDHT() {
-#ifdef HAS_DHT_SENSOR
+// ===== READ SENSOR =====
+void readSensor() {
   float t = dht.readTemperature();
   float h = dht.readHumidity();
-  if (!isnan(t)) temperature = t;
-  if (!isnan(h)) humidity    = h;
-#else
-  temperature = 25.0f + (float)(random(-30, 60)) / 10.0f;
-  humidity    = 60.0f + (float)(random(-150, 150)) / 10.0f;
-#endif
+
+  if (!isnan(t)) temp = t;
+  if (!isnan(h)) hum = h;
+
+  gas = analogRead(GAS_PIN);
+  gas_ppm = map(gas, 0, 4095, 0, 1000);
+
+  // Gửi lên Blynk
+  Blynk.virtualWrite(V2, temp);
+  Blynk.virtualWrite(V3, hum);
+  Blynk.virtualWrite(V4, gas_ppm);
+
+  Serial.printf("Temp: %.1f | Hum: %.1f | Gas: %d ppm\n", temp, hum, gas_ppm);
+
+  // 🚨 Cảnh báo gas
+  if (gas_ppm > 700 && !gasAlertSent) {
+    bot.sendMessage(CHAT_ID,
+      "🚨 CANH BAO GAS!\nPPM: " + String(gas_ppm),
+      "");
+    gasAlertSent = true;
+  }
+
+  if (gas_ppm < 500) {
+    gasAlertSent = false;
+  }
 }
 
-void readGas() {
-#ifdef HAS_MQ2_SENSOR
-  int raw  = analogRead(MQ2_PIN);
-  gasValue = map(raw, 0, 1023, 0, 1000);
-#else
-  gasValue = random(50, 301);
-#endif
-}
-
-void updateUptime() {
-  uptimeSeconds++;
-}
-
-void sendToBlynk() {
-  unsigned long h = uptimeSeconds / 3600;
-  unsigned long m = (uptimeSeconds % 3600) / 60;
-  unsigned long s = uptimeSeconds % 60;
-  char uptimeStr[12];
-  snprintf(uptimeStr, sizeof(uptimeStr), "%02lu:%02lu:%02lu", h, m, s);
- 
-  Blynk.virtualWrite(V1, uptimeStr);
-  Blynk.virtualWrite(V2, temperature);
-  Blynk.virtualWrite(V3, humidity);
-  Blynk.virtualWrite(V4, gasValue);
-}
-
-void drawHeader(const char* title) {
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.println(title);
-  display.drawLine(0, 9, OLED_WIDTH - 1, 9, SSD1306_WHITE);
-}
-
-void oledPageUptime() {
-  drawHeader("=== STATUS ===");
- 
-  unsigned long h = uptimeSeconds / 3600;
-  unsigned long m = (uptimeSeconds % 3600) / 60;
-  unsigned long s = uptimeSeconds % 60;
- 
-  display.setTextSize(1);
-  display.setCursor(0, 13);
-  display.print("Uptime:");
-  display.setTextSize(2);
-  display.setCursor(0, 22);
-  char buf[10];
-  snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", h, m, s);
-  display.print(buf);
- 
-  display.setTextSize(1);
-  display.setCursor(0, 42);
-  display.print("LED: ");
-  display.setTextSize(2);
-  display.setCursor(30, 39);
-  display.print(ledState ? "ON " : "OFF");
- 
-  // Changed indicator to USB
-  display.setTextSize(1);
-  display.setCursor(98, 0);
-  display.print("[USB]");
-}
-
-void oledPageTempHum() {
-  drawHeader("=== CLIMATE ===");
- 
-  display.setTextSize(1);
-  display.setCursor(0, 13);
-  display.print("Nhiet do:");
-  display.setTextSize(2);
-  display.setCursor(0, 22);
-  display.print(temperature, 1);
-  display.print(" C");
- 
-  display.setTextSize(1);
-  display.setCursor(0, 42);
-  display.print("Do am:");
-  display.setTextSize(2);
-  display.setCursor(0, 51);
-  display.print(humidity, 1);
-  display.print(" %");
-}
-
-void oledPageGas() {
-  drawHeader("=== GAS MQ2 ===");
- 
-  display.setTextSize(1);
-  display.setCursor(0, 13);
-  display.print("Gas Level:");
- 
-  display.setTextSize(3);
-  display.setCursor(0, 24);
-  display.print(gasValue);
- 
-  display.setTextSize(1);
-  display.setCursor(75, 36);
-  display.print("ppm");
- 
-  display.setTextSize(1);
-  display.setCursor(0, 54);
-  if (gasValue > 400)      display.print("! CANH BAO NGUY HIEM !");
-  else if (gasValue > 200) display.print("  ~ Muc trung binh ~");
-  else                     display.print("     An toan         ");
-}
-
-void oledPageTeam() {
-  display.setTextSize(1);
-  display.setCursor(0, 0);
-  display.println("---- Team 3 ----");
-  display.drawLine(0, 9, OLED_WIDTH - 1, 9, SSD1306_WHITE);
- 
-  display.setCursor(0, 12);
-  display.println("1. Ng. Dinh Tuan");
-  display.println("2. Ng. Dang Hung");
-  display.println("3. Ha Huy Vi");
-  display.println("4. Tran Thang");
-}
-
+// ===== OLED =====
 void updateOLED() {
   display.clearDisplay();
- 
-  switch (oledPage) {
-    case 0: oledPageUptime();  break;
-    case 1: oledPageTempHum(); break;
-    case 2: oledPageGas();     break;
-    case 3: oledPageTeam();    break;
-  }
- 
-  for (uint8_t i = 0; i < OLED_PAGES; i++) {
-    if (i == oledPage)
-      display.fillCircle(56 + i * 6, 62, 2, SSD1306_WHITE);
-    else
-      display.drawCircle(56 + i * 6, 62, 2, SSD1306_WHITE);
-  }
- 
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+
+  display.setCursor(0, 0);
+  display.print("Uptime: ");
+  display.println((millis() - startTime) / 1000);
+
+  display.print("LED: ");
+  display.println(ledState ? "ON" : "OFF");
+
+  display.print("Temp: ");
+  display.println(temp);
+
+  display.print("Hum: ");
+  display.println(hum);
+
+  display.print("Gas: ");
+  display.print(gas_ppm);
+  display.println(" ppm");
+
+  display.setCursor(0, 54);
+  display.println("Team 3");
+
   display.display();
-  oledPage = (oledPage + 1) % OLED_PAGES;
+
+  Blynk.virtualWrite(V0, (millis() - startTime) / 1000);
 }
 
-void setup() {
-  // Serial is now ONLY for Blynk. Do not use Serial.print.
-  Serial.begin(115200);
-  
-  randomSeed(analogRead(A0) ^ millis());
- 
-  // GPIO
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW);
- 
-  // I2C + OLED
-  Wire.begin(OLED_SDA, OLED_SCL);
-  if (display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
-    display.clearDisplay();
-    display.setTextSize(1);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(20, 20);
-    display.println("Team 3 - ESP8266");
-    display.setCursor(15, 35);
-    display.println("Chay che do USB...");
-    display.display();
+// ===== TELEGRAM HANDLE =====
+void handleTelegram() {
+  int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+
+  while (numNewMessages) {
+    for (int i = 0; i < numNewMessages; i++) {
+      String text = bot.messages[i].text;
+
+      // ===== LED CONTROL =====
+      if (text == "/led_on") {
+        digitalWrite(LED_PIN, HIGH);
+        ledState = true;
+        Blynk.virtualWrite(V1, 1); // sync
+        bot.sendMessage(CHAT_ID, "LED ON", "");
+      }
+
+      if (text == "/led_off") {
+        digitalWrite(LED_PIN, LOW);
+        ledState = false;
+        Blynk.virtualWrite(V1, 0); // sync
+        bot.sendMessage(CHAT_ID, "LED OFF", "");
+      }
+
+      if (text == "/led_status") {
+        bot.sendMessage(CHAT_ID, ledState ? "LED ON" : "LED OFF", "");
+      }
+
+      // ===== SENSOR =====
+      if (text == "/get_weather") {
+        bot.sendMessage(CHAT_ID,
+          "Temp: " + String(temp) + " C\nHum: " + String(hum) + " %",
+          "");
+      }
+
+      if (text == "/gas") {
+        bot.sendMessage(CHAT_ID,
+          "Gas: " + String(gas_ppm) + " ppm",
+          "");
+      }
+
+      // ===== ALL DATA =====
+      if (text == "/all") {
+        bot.sendMessage(CHAT_ID,
+          "📊 DATA:\nTemp: " + String(temp) +
+          "C\nHum: " + String(hum) +
+          "%\nGas: " + String(gas_ppm) + " ppm",
+          "");
+      }
+    }
+
+    numNewMessages = bot.getUpdates(bot.last_message_received + 1);
   }
- 
-  // DHT
-#ifdef HAS_DHT_SENSOR
-  dht.begin();
-#endif
- 
-  // Read sensors once before loop
-  readDHT();
-  readGas();
- 
-  // Start Blynk via USB Stream
-  Blynk.begin(Serial, BLYNK_AUTH_TOKEN);
- 
-  delay(2000);
- 
-  // ── Timer ─────────────────────────────────────────────────
-  timer.setInterval(1000L,  updateUptime);   
-  timer.setInterval(2000L,  sendToBlynk);    
-  timer.setInterval(2500L,  readDHT);        
-  timer.setInterval(2600L,  readGas);        
-  timer.setInterval(3000L,  updateOLED);     
 }
 
+// ===== SETUP =====
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(LED_PIN, OUTPUT);
+  dht.begin();
+
+  Wire.begin(27, 26);
+
+  // OLED
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  // WiFi
+  WiFi.begin(ssid, pass);
+  Serial.print("Connecting WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi Connected!");
+
+  // Telegram HTTPS
+  client.setInsecure();
+
+  // Blynk
+  Blynk.config(BLYNK_AUTH_TOKEN);
+  Blynk.connect(5000);
+
+  startTime = millis();
+
+  // Timer
+  timer.setInterval(2000L, readSensor);
+  timer.setInterval(1000L, updateOLED);
+  timer.setInterval(1000L, handleTelegram);
+}
+
+// ===== LOOP =====
 void loop() {
   Blynk.run();
   timer.run();

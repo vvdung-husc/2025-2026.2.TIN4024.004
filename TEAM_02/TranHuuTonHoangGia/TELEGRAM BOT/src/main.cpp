@@ -4,8 +4,8 @@
 #include <ArduinoJson.h>
 
 // WiFi
-const char* ssid = "qfwewr";
-const char* password = "12345678";
+const char* ssid = "Wokwi-GUEST";
+const char* password = "";
 
 // Telegram
 #define BOTtoken "8785416571:AAG4ezhAd6Q5qYrpY0gqQHZMOPFszoCXJbk"
