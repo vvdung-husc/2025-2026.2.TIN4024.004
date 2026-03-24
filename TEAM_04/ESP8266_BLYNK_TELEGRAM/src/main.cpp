@@ -1,9 +1,9 @@
 /*
-THÔNG TIN NHÓM X
-1. Lê Ngọc Minh - Telegram : binhnv
+THÔNG TIN NHÓM 4
+1. Nguyễn Văn Bình - Telegram : binhnv
 2. Lê Nguyễn Hương Nguyên - Telegram : nguyen2019
 3. ...
-4. Nguyễn Bá Quý Đạt - Telegram : nguyenbaquydat
+4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
 */
 
 #define BLYNK_TEMPLATE_ID "TMPL6OFwxQT0X"
@@ -13,120 +13,139 @@ THÔNG TIN NHÓM X
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <BlynkSimpleEsp32.h>
-#include <DHT.h>
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
+#include "DHT.h"
 
-// Thông tin WiFi
-char ssid[] = "Wokwi-GUEST";
-char pass[] = "";
+// --- Cấu hình chân kết nối (Theo diagram.json) ---
+#define PIN_LED 5
+#define PIN_DHT 12
+#define PIN_GAS 32
+#define DHTTYPE DHT22
 
-// Thông tin Telegram
-#define BOTtoken "8161835889:AAEfRs92rg80jkTCOpDUR7VdEpOIRNs9spQ"
+// --- Cấu hình Telegram ---
+#define BOT_TOKEN "8161835889:AAEfRs92rg80jkTCOpDUR7VdEpOIRNs9spQ"
 #define CHAT_ID "-5275861628"
 
-// Cấu hình chân Pin (Dựa trên diagram.json)
-#define LED_PIN 5
-#define DHTPIN 12
-#define DHTTYPE DHT22
-#define GAS_PIN 32
+// --- Khởi tạo đối tượng ---
+char ssid[] = "Wokwi-GUEST"; // Thay bằng WiFi của bạn
+char pass[] = "";
 
-DHT dht(DHTPIN, DHTTYPE);
-BlynkTimer timer;
+DHT dht(PIN_DHT, DHTTYPE);
 WiFiClientSecure client;
-UniversalTelegramBot bot(BOTtoken, client);
+UniversalTelegramBot bot(BOT_TOKEN, client);
 
-float temp, hum;
-int gasValue;
-unsigned long lastBotRun;
-const unsigned long botInterval = 1000; // Kiểm tra tin nhắn mỗi 1s
+BlynkTimer timer;
 
-// --- CÁC HÀM XỬ LÝ ---
+float temp, hum, gasValue;
+unsigned long lastTimeBotRan;
+const unsigned long botRequestDelay = 1000; // 1 giây kiểm tra tin nhắn 1 lần
 
-void sendSensorData() {
-  hum = dht.readHumidity();
-  temp = dht.readTemperature();
-  gasValue = analogRead(GAS_PIN);
-
-  if (isnan(hum) || isnan(temp)) {
-    Serial.println("Lỗi đọc cảm biến DHT!");
-    return;
-  }
-
-  // Cập nhật lên Blynk
-  Blynk.virtualWrite(V0, millis() / 1000); // Uptime (giây)
-  Blynk.virtualWrite(V2, temp);
-  Blynk.virtualWrite(V3, hum);
-  Blynk.virtualWrite(V4, gasValue);
-
-  Serial.printf("Temp: %.1f°C, Hum: %.1f%%, Gas: %d\n", temp, hum, gasValue);
-}
-
-// Điều khiển từ App Blynk (V1)
-BLYNK_WRITE(V1) {
-  int state = param.asInt();
-  digitalWrite(LED_PIN, state);
-  String msg = (state == HIGH) ? "Đèn đã BẬT qua Blynk" : "Đèn đã TẮT qua Blynk";
-  bot.sendMessage(CHAT_ID, msg, "");
-}
-
-// Xử lý lệnh từ Telegram
-void handleNewMessages(int numNewMessages) {
-  for (int i = 0; i < numNewMessages; i++) {
+// --- Hàm xử lý lệnh Telegram ---
+void handleNewMessages(int numNewMessages)
+{
+  for (int i = 0; i < numNewMessages; i++)
+  {
     String chat_id = String(bot.messages[i].chat_id);
+    if (chat_id != CHAT_ID)
+      continue; // Chỉ nhận lệnh từ group chỉ định
+
     String text = bot.messages[i].text;
 
-    if (text == "/led_on") {
-      digitalWrite(LED_PIN, HIGH);
-      Blynk.virtualWrite(V1, HIGH);
-      bot.sendMessage(chat_id, "Đèn LED đã được BẬT", "");
+    if (text == "/led_on")
+    {
+      digitalWrite(PIN_LED, HIGH);
+      Blynk.virtualWrite(V1, 1);
+      bot.sendMessage(CHAT_ID, "Đã bật đèn LED!", "");
     }
-    else if (text == "/led_off") {
-      digitalWrite(LED_PIN, LOW);
-      Blynk.virtualWrite(V1, LOW);
-      bot.sendMessage(chat_id, "Đèn LED đã được TẮT", "");
+    else if (text == "/led_off")
+    {
+      digitalWrite(PIN_LED, LOW);
+      Blynk.virtualWrite(V1, 0);
+      bot.sendMessage(CHAT_ID, "Đã tắt đèn LED!", "");
     }
-    else if (text == "/led_status") {
-      String status = digitalRead(LED_PIN) ? "Đang BẬT" : "Đang TẮT";
-      bot.sendMessage(chat_id, "Trạng thái đèn: " + status, "");
+    else if (text == "/led_status")
+    {
+      String status = digitalRead(PIN_LED) ? "ĐANG BẬT" : "ĐANG TẮT";
+      bot.sendMessage(CHAT_ID, "Trạng thái đèn: " + status, "");
     }
-    else if (text == "/get_weather") {
-      String weather = "Nhiệt độ: " + String(temp, 1) + "°C\n";
-      weather += "Độ ẩm: " + String(hum, 1) + "%\n";
-      weather += "Khí gas: " + String(gasValue);
-      bot.sendMessage(chat_id, weather, "");
+    else if (text == "/get_weather")
+    {
+      String msg = "Nhiệt độ: " + String(temp) + "°C\n";
+      msg += "Độ ẩm: " + String(hum) + "%";
+      bot.sendMessage(CHAT_ID, msg, "");
     }
   }
 }
 
-void setup() {
+// --- Đồng bộ trạng thái từ Blynk App về thiết bị ---
+BLYNK_WRITE(V1)
+{
+  int value = param.asInt();
+  digitalWrite(PIN_LED, value);
+  String status = value ? "Bật" : "Tắt";
+  bot.sendMessage(CHAT_ID, "Blynk đã thay đổi trạng thái đèn: " + status, "");
+}
+
+// --- Hàm đọc cảm biến và gửi dữ liệu ---
+void sendSensorData()
+{
+  // 1. Uptime (V0)
+  Blynk.virtualWrite(V0, millis() / 1000);
+
+  // 2. Đọc DHT22 (V2, V3)
+  float newH = dht.readHumidity();
+  float newT = dht.readTemperature();
+
+  if (!isnan(newH) && !isnan(newT))
+  {
+    if (abs(newT - temp) > 0.5 || abs(newH - hum) > 1.0)
+    { // Chỉ gửi khi có thay đổi
+      temp = newT;
+      hum = newH;
+      Blynk.virtualWrite(V2, temp);
+      Blynk.virtualWrite(V3, hum);
+    }
+  }
+
+  // 3. Đọc Gas MQ2 (V4)
+  gasValue = analogRead(PIN_GAS);
+  // Nếu không có cảm biến thật, Wokwi sẽ trả về giá trị mô phỏng từ thanh trượt
+  Blynk.virtualWrite(V4, gasValue);
+}
+
+void setup()
+{
   Serial.begin(115200);
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(PIN_LED, OUTPUT);
   dht.begin();
 
-  // Kết nối Blynk
+  // Cấu hình mạng và Blynk
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  // Cấu hình Telegram client
-  client.setInsecure(); // Bỏ qua xác thực SSL để tiết kiệm bộ nhớ cho ESP32
+  // Cấu hình bảo mật cho Telegram
+  client.setInsecure();
 
-  // Thiết lập thời gian gửi dữ liệu (mỗi 2 giây)
+  // Thiết lập timer gửi dữ liệu mỗi 2 giây
   timer.setInterval(2000L, sendSensorData);
-  
+
   bot.sendMessage(CHAT_ID, "Hệ thống đã sẵn sàng!", "");
 }
 
-void loop() {
+void loop()
+{
   Blynk.run();
   timer.run();
 
-  // Kiểm tra tin nhắn Telegram
-  if (millis() > lastBotRun + botInterval) {
+  // Kiểm tra tin nhắn Telegram định kỳ
+  if (millis() > lastTimeBotRan + botRequestDelay)
+  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-    while (numNewMessages) {
+    while (numNewMessages)
+    {
       handleNewMessages(numNewMessages);
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
-    lastBotRun = millis();
+    lastTimeBotRan = millis();
   }
 }
