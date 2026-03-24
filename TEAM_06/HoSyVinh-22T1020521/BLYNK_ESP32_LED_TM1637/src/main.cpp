@@ -101,4 +101,8 @@ void loop()
   Blynk.run();
   timer.run();
   checkButton();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8052cd726de5d96dd65fa5ba5e9dd7778a5faf1f

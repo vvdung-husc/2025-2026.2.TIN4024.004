@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": " ESP8266_BLYNK_TELEGRAM",
+			"path": "../../ ESP8266_BLYNK_TELEGRAM"
+		},
+		{
+			"name": "ESP32_Blynk_Telegram",
+			"path": "../../ESP32_Blynk_Telegram"
+		},
+		{
+			"name": "ESP8266_BLYNK_TELEGRAM",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
