@@ -1,7 +1,7 @@
 /*
   ===== NHÓM 3 =====
   1. Nguyễn Đăng Hưng
-  2. ...
+  2. Nguyễn Đình Tuấn
 */
 
 // ===== BLYNK =====
