@@ -1,10 +1,8 @@
 /*
 THÔNG TIN NHÓM 07
 1. Đào Thị Thùy Dương
-2. Bùi Quang Quý
-3. Đặng Thị Tâm Nhi
-4.Hồ Thị Thanh Bình
-5. Huỳnh Thị Thuỷ
+2. ...
+3. ...
 */
 
 #define BLYNK_PRINT Serial
@@ -12,7 +10,7 @@ THÔNG TIN NHÓM 07
 // ===== BLYNK =====
 #define BLYNK_TEMPLATE_ID "TMPL6wGLoWnZq" //đưa token của máy mình vô để chạy bài
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
-#define BLYNK_AUTH_TOKEN "xx" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define BLYNK_AUTH_TOKEN "0V8HO3nOJK3R6RaXrkRYciZ_stBla-lG" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 #include <Arduino.h>
 #include <WiFi.h>
@@ -33,7 +31,7 @@ unsigned long lastTelegramCheck = 0;
 
 //==== TELEGRAM =====
 #define BOT_TOKEN "7613002123:AAFxKSpC4Itq1w3pkrmPZMkksWpu8yX3S3s" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
-#define GROUP_ID "1003739356999" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define GROUP_ID "-1003739356999" //thêm ID vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 // ===== PIN  =====
 #define DHTPIN 12
@@ -70,11 +68,13 @@ BLYNK_WRITE(V1) {
 BLYNK_CONNECTED() {
   Blynk.syncVirtual(V1);
 }
+
 // ===== SENSOR =====
 void readSensor() {
   float t = dht.readTemperature();
   float h = dht.readHumidity();
 
+  // Fix lỗi DHT
   if (!isnan(t) && !isnan(h)) {
     temp = t;
     hum = h;
@@ -85,13 +85,16 @@ void readSensor() {
 
 int rawGas = analogRead(MQ2_PIN);
 
+// lọc nhiễu + làm mượt
 gas = gas * 0.7 + map(rawGas, 0, 4095, 0, 100) * 0.3;
 
+// fake nếu chưa gắn cảm biến
 if (gas < 5)
 {
   gas = random(30, 80);
 }
 }
+
 
 // ===== OLED =====
 void updateOLED() {
@@ -100,11 +103,11 @@ void updateOLED() {
 
   display.println("TEAM 07");
 
-  display.print("Nhiá»‡t Ä‘á»™: ");
+  display.print("Nhiet do: ");
   display.print(temp);
   display.println(" C");
 
-  display.print("Äá»™ áº©m: ");
+  display.print("Do am: ");
   display.print(hum);
   display.println(" %");
 
@@ -122,6 +125,7 @@ void updateOLED() {
 
   display.display();
 }
+
 // ===== TELEGRAM =====
 void handleTelegram() {
   int num = bot.getUpdates(bot.last_message_received + 1);
@@ -179,7 +183,7 @@ void taskAll() {
   readSensor();
   updateOLED();
 
-// ===== BLYNK =====
+  // ===== BLYNK =====
   Blynk.virtualWrite(V0, millis() / 1000); // uptime
   Blynk.virtualWrite(V2, temp);
   Blynk.virtualWrite(V3, hum);
@@ -192,28 +196,27 @@ void taskAll() {
     lastTemp = temp;
     lastHum = hum;
 
-    String msg = "Thay đổi!\nNhiệt độ: " + String(temp) +
+    String msg = "Thay doi!\nNhiệt độ: " + String(temp) +
                  "\nĐộ ẩm: " + String(hum);
     bot.sendMessage(GROUP_ID, msg, "");
   }
+
   // GAS ALERT
   if (gas > 70 && millis() - lastGasAlert > 10000) {
-  lastGasAlert = millis();
+    lastGasAlert = millis();
 
-  String msg = "Cảnh báo khí gas vượt ngưỡng!\n";
-  msg += "Gas: " + String(gas);
+  }
+}
 
-  bot.sendMessage(GROUP_ID, msg, "");
-}
-}
 
 // ===== SETUP =====
 void setup() {
+
   Serial.begin(115200);
-//PIN 
+
   pinMode(RELAY_PIN, OUTPUT);
   digitalWrite(RELAY_PIN, LOW);
-//OLED 
+
   Wire.begin(OLED_SDA, OLED_SCL);
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
@@ -224,30 +227,26 @@ void setup() {
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
-//kết nối wifi
+
   WiFi.begin(WIFI_SSID, WIFI_PASS);
-  Serial.print("Connecting WiFi");
-  unsigned long startTime = millis();
   while (WiFi.status() != WL_CONNECTED) {
     delay(300);
     Serial.print(".");
-//timeout sau 10s
-    if (millis() - startTime > 10000) {
-      Serial.println("\nWiFi Connection Failed");
-      break;//thoát vòng lặp nếu không kết nối được
-    }
   }
+
   Serial.println("\nWiFi OK");
-//thiết lập kết nối Blynk
+
   client.setInsecure();
+
   Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASS);
-//khởi động cảm biến DHT
+
   dht.begin();
-//thiết lập timer cho nhiệm vụ định kỳ
+
   timer.setInterval(2000L, taskAll);
-//gửi thông báo khởi động
+
   bot.sendMessage(GROUP_ID, "STARTED \nHồ Thị Thanh Bình \nĐào Thị Thùy Dương \nĐặng Thị Tâm Nhi \n Huỳnh Thị Thủy \nBùi Quang Quý", "");
 }
+
 // ===== LOOP =====
 void loop()
 {
