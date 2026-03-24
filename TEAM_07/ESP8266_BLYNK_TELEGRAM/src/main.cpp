@@ -1,6 +1,6 @@
 /*
 THÔNG TIN NHÓM 07
-1. Đào Thị Thùy Dương
+1. Đào Thị Thùy Dương - Telegram: T Yang
 2. ...
 3. ...
 */
@@ -10,7 +10,7 @@ THÔNG TIN NHÓM 07
 // ===== BLYNK =====
 #define BLYNK_TEMPLATE_ID "TMPL6wGLoWnZq" //đưa token của máy mình vô để chạy bài
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
-#define BLYNK_AUTH_TOKEN "xx" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
+#define BLYNK_AUTH_TOKEN "x" //thêm key token vào khi chạy bài thôi, XÓA KEY ĐI RỒI COMMIC
 
 #include <Arduino.h>
 #include <WiFi.h>
