@@ -19,19 +19,22 @@ UniversalTelegramBot bot(BOTtoken, client);
 //PIR + LED
 const int motionSensor = 27;
 //bool motionDetected = false;
-int led = 4;
+int led1 = 4;
+int led2 = 5;
 
 //TIMER
 unsigned long lastTimeBotRan;
 int botRequestDelay = 1000; // đọc Telegram mỗi 1s
 
 bool lastMotionState = LOW;
+bool ledState = false;
 
 void setup() {
   Serial.begin(115200);
 
   pinMode(motionSensor, INPUT);
-  pinMode(led, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
 
   // WIFI
   WiFi.begin(ssid, password);
@@ -45,7 +48,13 @@ void setup() {
   
   client.setInsecure();
 
-  bot.sendMessage(GROUP_ID, "ESP32 started!", "");
+  bot.sendMessage(GROUP_ID, 
+    "ESP32 started!\n"
+    "/led_on - bật đèn\n"
+  "/led_off - tắt đèn\n"
+  "/get_state - trạng thái"
+  ""
+   );
 }
 
 void handleNewMessages(int numNewMessages) {
@@ -56,15 +65,25 @@ void handleNewMessages(int numNewMessages) {
     // chỉ nhận đúng group
     if (chat_id != GROUP_ID) continue;
 
-    if (text == "/on") {
-      digitalWrite(led, HIGH);
-      bot.sendMessage(GROUP_ID, "💡 LED ON", "");
+    if (text == "/led_on") {
+       digitalWrite(led1, HIGH);
+       digitalWrite(led2, HIGH);
+       ledState = true;
+      bot.sendMessage(GROUP_ID, "💡 LED bật sáng", "");
     }
 
-    if (text == "/off") {
-      digitalWrite(led, LOW);
-      bot.sendMessage(GROUP_ID, "💡 LED OFF", "");
+    else if (text == "/led_off") {
+      digitalWrite(led1, LOW);
+      digitalWrite(led2, LOW);
+      bot.sendMessage(GROUP_ID, "💡 LED đã tắt", "");
     }
+     else if (text == "/get_state") {
+      if (ledState)
+        bot.sendMessage(GROUP_ID, "LED is ON", "");
+      else
+        bot.sendMessage(GROUP_ID, "LED is OFF", "");
+    }
+       
   }
 }
 
@@ -88,12 +107,16 @@ void loop() {
   if (motionState == HIGH && lastMotionState == LOW) {
     Serial.println("Motion detected!");
 
-    digitalWrite(led, HIGH);
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+      ledState = true;
     bot.sendMessage(GROUP_ID, "🚨 Motion detected!", "");
   }
 
   if (motionState == LOW && lastMotionState == HIGH) {
-    digitalWrite(led, LOW);
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    ledState = false;
   }
 
   lastMotionState = motionState;
