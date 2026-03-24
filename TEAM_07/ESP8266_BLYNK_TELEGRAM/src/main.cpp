@@ -4,6 +4,7 @@ THÔNG TIN NHÓM 07
 2. Bùi Quang Quý
 3. Đặng Thị Tâm Nhi
 4.Hồ Thị Thanh Bình
+5. Huỳnh Thị Thuỷ
 */
 
 #define BLYNK_PRINT Serial
