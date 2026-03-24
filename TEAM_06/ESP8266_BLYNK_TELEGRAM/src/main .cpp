@@ -11,7 +11,7 @@
 
 #define BLYNK_TEMPLATE_ID "TMPL6QeLqro-4"
 #define BLYNK_TEMPLATE_NAME "ESP32 Team 06"
-#define BLYNK_AUTH_TOKEN    "xxxx"// ae ai làm được cái blynk thì điền hộ vào đống này với
+#define BLYNK_AUTH_TOKEN    "xxx"// ae ai làm được cái blynk thì điền hộ vào đống này với
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
@@ -130,7 +130,40 @@ String sensorMessage() {
 }
 
 // ================= WIFI =================
+void connectWiFi() {
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
 
+  Serial.print("Dang ket noi WiFi");
+  unsigned long start = millis();
+
+  while (WiFi.status() != WL_CONNECTED && millis() - start < 20000) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nWiFi OK");
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\nKhong ket noi duoc WiFi");
+  }
+}
+
+void ensureConnections() {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi mat ket noi -> dang thu lai...");
+    WiFi.disconnect();
+    WiFi.begin(ssid, password);
+    return;
+  }
+
+  if (!Blynk.connected()) {
+    Serial.println("Blynk mat ket noi -> dang thu lai...");
+    Blynk.connect(1000);
+  }
+}
 
 // ================= DOC CAM BIEN =================
 
