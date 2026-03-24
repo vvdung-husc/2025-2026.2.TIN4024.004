@@ -1,6 +1,6 @@
 /*
 THÔNG TIN NHÓM 07
-1. Đào Thị Thùy Dương - Telegram: T Yang
+1. Đào Thị Thùy Dương - Telegram: Thuy Duong
 2. ...
 3. ...
 */
