@@ -1,3 +1,11 @@
+/*
+THÔNG TIN NHÓM X
+1. Nguyễn Văn Bình - Telegram : binhnv
+2. Lê Nguyễn Hương Nguyên - Telegram : nguyen2019
+3. ...
+4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
+*/
+
 #define BLYNK_TEMPLATE_ID "TMPL6OFwxQT0X"
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
 #define BLYNK_AUTH_TOKEN "fx6qfdwQmVH-Amhcr8kb5kVcIVXMWnZg"
