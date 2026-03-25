@@ -1,9 +1,10 @@
 /*
 THÔNG TIN NHÓM 4
-1. Nguyễn Văn Bình - Telegram : binhnv
-2. Lê Nguyễn Hương Nguyên - Telegram : nguyen2019
-3. ...
+1. 
+2. 
+3. 
 4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
+5. Nguyễn Thành Doanh - Telegram : Doanh
 */
 
 #define BLYNK_TEMPLATE_ID "TMPL6OFwxQT0X"
@@ -28,8 +29,8 @@ THÔNG TIN NHÓM 4
 #define CHAT_ID "-5275861628"
 
 // --- Khởi tạo đối tượng ---
-char ssid[] = "Wokwi-GUEST"; // Thay bằng WiFi của bạn
-char pass[] = "";
+char ssid[] = "CNTT-MMT"; // Thay bằng WiFi của bạn
+char pass[] = "13572468";
 
 DHT dht(PIN_DHT, DHTTYPE);
 WiFiClientSecure client;
