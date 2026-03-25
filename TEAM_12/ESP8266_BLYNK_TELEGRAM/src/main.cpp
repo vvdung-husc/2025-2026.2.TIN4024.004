@@ -3,7 +3,7 @@
 	1. Nguyễn Tống Bảo Phúc - Telegram: @Paradozx2810
 	2. Lê Thị Thuỳ Linh
 	3. Nguyễn Duy Tín - Telegram: @nguyenduytin_22t1020466
-  4. Phan Nguyễn Thành Đạt
+  4. Phan Nguyễn Thành Đạt - Telegram: @tdat0703
   5. Võ Lê Tuấn Hưng
 */
 
