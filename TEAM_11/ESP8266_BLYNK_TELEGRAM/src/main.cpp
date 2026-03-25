@@ -2,7 +2,7 @@
   THÔNG TIN NHÓM 11
   1. Nguyễn Đình Hoàng
   2. Nguyễn Đại Quý
-  3.Phan Hữu Tuấn Kiệt
+  3.Phan Hữu Tuấn Kiệt - Telegram: Kiet dev
   4. Dương Quang Đạt
   5.
   Hệ thống: Điều khiển LED và Giám sát cảm biến qua Telegram / Blynk
