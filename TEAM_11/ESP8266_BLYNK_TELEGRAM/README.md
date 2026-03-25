@@ -2,4 +2,4 @@
 
  - [Ảnh Blynk](Blynk.png)
 
-- [Ảnh Telegram](Tele.png)
+- [Ảnh Telegram](Telegram.png)

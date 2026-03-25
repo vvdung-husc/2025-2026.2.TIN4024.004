@@ -1,15 +1,20 @@
 /*
   THÔNG TIN NHÓM 16
-  1. Châu Kỳ
+  1. Châu Kỳ - Telegram: @chauky_2k4
   2. Nguyễn Ái Danh
   3. Châu Văn Trường Huy
-  4. 
-  5. 
+  4. Trương An Khang
+  5. Phan Văn Việt
 */
+#define BLYNK_PRINT Serial
 
-#define BLYNK_TEMPLATE_ID "TMPL6GePC9FAO"
 #define BLYNK_TEMPLATE_NAME "ESP32BlynkTelegram"
+/* Huy
+#define BLYNK_TEMPLATE_ID "TMPL6GePC9FAO"
 #define BLYNK_AUTH_TOKEN "4bvaSB5fMkGKM_mal8czWRzHhLUXID3T"
+*/
+#define BLYNK_TEMPLATE_ID "TMPL6haiWo-5w"
+#define BLYNK_AUTH_TOKEN "hPZd_EqsL49KSzap970iPuu5L7ABRjq1"
 
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
@@ -36,6 +41,7 @@ const char* password = "";
 #define BOTtoken "8645992932:AAGNLi7s_jUyHqNFLO4ht-KFSOosxhpHq_4"
 #define CHAT_ID "-5193448236"
 
+
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
@@ -51,7 +57,7 @@ DHT dht(DHTPIN, DHTTYPE);
 #define LED_PIN 5
 
 // ================= BUZZER =================
-#define BUZZER_PIN 15
+//#define BUZZER_PIN 15
 
 BlynkTimer timer;
 
@@ -64,13 +70,13 @@ float lastHum  = 0;
 int gasValue = 0;
 float gasPPM = 0;
 float lastGasPPM = 0;
-
+String gasStatus = ""; 
 bool gasAlertSent = false;
 
 unsigned long startTime;
 
 // Ngưỡng gas (ppm)
-const int GAS_THRESHOLD_HIGH = 800;
+const int GAS_THRESHOLD_HIGH = 900;
 const int GAS_THRESHOLD_LOW  = 400;
 
 // ================= ĐỌC CẢM BIẾN =================
@@ -87,7 +93,6 @@ void readSensor() {
 
   // ===== MQ2 =====
   gasValue = analogRead(GAS_PIN);
-
   // Convert ADC → ppm
   gasPPM = (gasValue / 4095.0) * 1000;
 
@@ -96,7 +101,8 @@ void readSensor() {
   Blynk.virtualWrite(V2, hum);
   Blynk.virtualWrite(V3, gasPPM);
   Blynk.virtualWrite(V4, (millis() - startTime) / 1000UL);
-  Blynk.virtualWrite(V5, "TEAM 16 ");
+  Blynk.virtualWrite(V5, "TEAM 16");
+
   // ===== TELEGRAM (TEMP + HUM) =====
   if (abs(temp - lastTemp) > 0.5 || abs(hum - lastHum) > 1) {
     String msg = "Dữ liệu mới từ cảm biến:\n";
@@ -110,17 +116,17 @@ void readSensor() {
 
   // ===== CẢNH BÁO GAS (THEO PPM) =====
   if (gasPPM > GAS_THRESHOLD_HIGH) {
-
+// Nếu chưa gửi cảnh báo hoặc giá trị gas thay đổi đáng kể (chêch lệch 50 ppm), gửi cảnh báo mới
     if (!gasAlertSent || abs(gasPPM - lastGasPPM) > 50) {
       String msg = "⚠️ CẢNH BÁO: Phát hiện khí gas!\n Giá trị = " + String(gasPPM, 0);
       bot.sendMessage(CHAT_ID, msg, "");
     }
 
-    digitalWrite(BUZZER_PIN, HIGH);
+    //digitalWrite(BUZZER_PIN, HIGH);
     gasAlertSent = true;
   }
   else if (gasPPM <= GAS_THRESHOLD_LOW) {
-    digitalWrite(BUZZER_PIN, LOW);
+    //digitalWrite(BUZZER_PIN, LOW);
     gasAlertSent = false;
   }
 
@@ -139,7 +145,7 @@ void displayOLED() {
   display.print("Nhiệt độ: "); display.print(temp, 1); display.println(" C");
   display.print("Độ ẩm:   ");  display.print(hum, 1);  display.println(" %");
   display.print("Gas:     ");  display.print(gasPPM, 0); display.println(" ppm");
-
+// tính thời gian hoạt động của thiết bị
   unsigned long secs = (millis() - startTime) / 1000;
   unsigned long hours = secs / 3600;
   unsigned long mins  = (secs % 3600) / 60;
@@ -156,8 +162,9 @@ void displayOLED() {
 
 // ================= TELEGRAM =================
 void handleTelegram() {
+// Lấy tin nhắn mới từ Telegram
   int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-
+// xử lý từng tin nhắn mới nhận được từ Telegram
   while (numNewMessages) {
     for (int i = 0; i < numNewMessages; i++) {
       String text = bot.messages[i].text;
@@ -207,7 +214,7 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(LED_PIN, OUTPUT);
-  pinMode(BUZZER_PIN, OUTPUT);
+  //pinMode(BUZZER_PIN, OUTPUT);
 
   Wire.begin(27, 26);
 
@@ -223,12 +230,12 @@ void setup() {
 
   dht.begin();
 
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) delay(500);
+  //WiFi.begin(ssid, password);
+  //while (WiFi.status() != WL_CONNECTED) delay(500);
 
   client.setInsecure();
 
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, password);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, password); 
 
   startTime = millis();
 

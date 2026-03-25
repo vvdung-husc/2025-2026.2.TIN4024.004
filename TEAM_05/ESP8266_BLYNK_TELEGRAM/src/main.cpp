@@ -1,9 +1,9 @@
 /*
 THÔNG TIN NHÓM 05
-1. Trương Đức Long
+1. Trương Đức Long -Telegram: longdev0505
 2.Trần Xuân Tấn Vinh
-3.Võ Hoàng Minh Phước
-4.Phan Nguyễn Anh Nhật
+3.Võ Hoàng Minh Phước - Telegram: minhphuoc2411
+4.Phan Nguyễn Anh Nhật -Telegram: alexphan0614
 */
 
 #define BLYNK_TEMPLATE_ID "TMPL60DAN-nlC"
