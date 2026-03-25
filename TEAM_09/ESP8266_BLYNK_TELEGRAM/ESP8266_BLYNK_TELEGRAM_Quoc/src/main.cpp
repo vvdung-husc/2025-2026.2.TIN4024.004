@@ -9,9 +9,13 @@ THÔNG TIN NHÓM 09.004
 */
 
 
-#define BLYNK_TEMPLATE_ID "TMPL6kETqhf8m"
+// #define BLYNK_TEMPLATE_ID "TMPL6kETqhf8m"
+// #define BLYNK_TEMPLATE_NAME "ESP8266"
+// #define BLYNK_AUTH_TOKEN "sU-bAXfAgqGwlxgvZCk-Ks4CKYPQcUL7"
+
+#define BLYNK_TEMPLATE_ID "TMPL6JTM99Cmp"
 #define BLYNK_TEMPLATE_NAME "ESP8266"
-#define BLYNK_AUTH_TOKEN "sU-bAXfAgqGwlxgvZCk-Ks4CKYPQcUL7"
+#define BLYNK_AUTH_TOKEN "werL4X6y8Z7t94PnEcC0SjoCpGDgfeH2"
 
 #include <Arduino.h>
 #include <DHT.h>
@@ -21,8 +25,8 @@ THÔNG TIN NHÓM 09.004
 #include <UniversalTelegramBot.h>
 
 // ===== TELEGRAM =====
-#define BOT_TOKEN "xxx"
-#define CHAT_ID   "xxx"
+#define BOT_TOKEN "8785356162:AAFWBQCwHi-_RW5znQfCWVwFHiM1JnTqGUc"
+#define CHAT_ID   "6711911568"
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
