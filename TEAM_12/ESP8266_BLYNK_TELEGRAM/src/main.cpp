@@ -1,6 +1,6 @@
 /*
 	THÔNG TIN NHÓM 12
-	1. Nguyễn Tống Bảo Phúc
+	1. Nguyễn Tống Bảo Phúc - Telegram: @Paradozx2810
 	2. Lê Thị Thuỳ Linh
 	3. Nguyễn Duy Tín
   4. Phan Nguyễn Thành Đạt
