@@ -2,7 +2,7 @@
 Thông tin nhóm 01
 1. Hà Văn Hòa
 2. Trương Công Bin
-
+3. Lê Văn Đình Dương
  */
 #define BLYNK_TEMPLATE_ID "TMPL6Fvb3xPaK"
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
@@ -232,4 +232,91 @@ void updateOLED() {
   display.display();
 }
 
-  
+void handleTelegram() {
+  int numNew = bot.getUpdates(bot.last_message_received + 1);
+
+  for (int i = 0; i < numNew; i++) {
+    String chat_id = bot.messages[i].chat_id;
+    String text    = bot.messages[i].text;
+    String from_name = bot.messages[i].from_name; // Lấy tên người dùng Telegram
+    text.trim();
+
+    if (ALLOWED_CHAT.length() > 0 && chat_id != ALLOWED_CHAT) {
+      bot.sendMessage(chat_id, "🚫 Bạn không có quyền sử dụng bot này.", "");
+      continue;
+    }
+
+    Serial.println("Telegram [IoT - " + TEAM_NAME + "]: " + text);
+
+    // SỬ DỤNG .startsWith() THAY VÌ "==" ĐỂ CHỐNG LỖI TRONG GROUP CHAT
+    if (text.startsWith("/start")) {
+      String welcome = "👋 Xin chào " + from_name + "!\n";
+      welcome += "Chào mừng bạn đến với hệ thống IoT của " + TEAM_NAME + " 🚀\n\n";
+      welcome += "📋 *DANH SÁCH LỆNH:*\n";
+      welcome += "💡 /led_on      - Bật đèn LED\n";
+      welcome += "🔌 /led_off     - Tắt đèn LED\n";
+      welcome += "📊 /led_status  - Xem trạng thái LED\n";
+      welcome += "⛅ /get_weather - Xem nhiệt độ & độ ẩm\n";
+      welcome += "❓ /help        - Xem lại menu này";
+      bot.sendMessage(chat_id, welcome, "");
+    } 
+    else if (text.startsWith("/help")) {
+      String help = "📋 *DANH SÁCH LỆNH:*\n";
+      help += "💡 /led_on      - Bật đèn LED\n";
+      help += "🔌 /led_off     - Tắt đèn LED\n";
+      help += "📊 /led_status  - Xem trạng thái LED\n";
+      help += "⛅ /get_weather - Xem nhiệt độ & độ ẩm";
+      bot.sendMessage(chat_id, help, "");
+    } 
+    else if (text.startsWith("/led_on")) {
+      ledState = true;
+      digitalWrite(LED_PIN, HIGH);
+      Blynk.virtualWrite(V1, 1);
+      bot.sendMessage(chat_id, "💡 Đèn LED: ĐÃ BẬT 🟢", "");
+    } 
+    else if (text.startsWith("/led_off")) {
+      ledState = false;
+      digitalWrite(LED_PIN, LOW);
+      Blynk.virtualWrite(V1, 0);
+      bot.sendMessage(chat_id, "🔌 Đèn LED: ĐÃ TẮT 🔴", "");
+    } 
+    else if (text.startsWith("/led_status")) {
+      String st = ledState ? "ĐANG BẬT 🟢 💡" : "ĐANG TẮT 🔴 🔌";
+      bot.sendMessage(chat_id, "📊 Trạng thái LED: " + st, "");
+    } 
+    else if (text.startsWith("/get_weather")) {
+      String msg  = "⛅ *Nhiệt độ & Độ ẩm hiện tại:*\n\n";
+             msg += "🌡️ Nhiệt độ : " + String(temperature, 1) + " °C\n";
+             msg += "💧 Độ ẩm    : " + String(humidity,    1) + " %";
+      bot.sendMessage(chat_id, msg, "");
+    } 
+    else {
+      bot.sendMessage(chat_id, "⚠️ Lệnh không hợp lệ. Dùng /help để xem danh sách lệnh.", "");
+    }
+  }
+}
+
+void checkAndNotifyTelegram() {
+  if (ALLOWED_CHAT.length() == 0) return;
+
+  // Bỏ qua cảnh báo lần đầu tiên khi biến chưa có giá trị thực
+  if (lastSentTemp == -999) {
+    lastSentTemp = temperature;
+    lastSentHum  = humidity;
+    return;
+  }
+
+  bool changed = false;
+  // Sử dụng fabs() thay cho abs() để tính độ lệch số thực (float)
+  if (fabs(temperature - lastSentTemp) >= TEMP_THRESHOLD) changed = true;
+  if (fabs(humidity    - lastSentHum ) >= HUM_THRESHOLD ) changed = true;
+
+  if (changed) {
+    lastSentTemp = temperature;
+    lastSentHum  = humidity;
+    String msg  = "⚠️ *[CẢNH BÁO THAY ĐỔI]* ⚠️\n\n";
+           msg += "🌡️ Nhiệt độ : " + String(temperature, 1) + " °C\n";
+           msg += "💧 Độ ẩm    : " + String(humidity,    1) + " %";
+    bot.sendMessage(ALLOWED_CHAT, msg, "");
+  }
+}
