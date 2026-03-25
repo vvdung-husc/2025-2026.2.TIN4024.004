@@ -58,7 +58,7 @@ void loop() {
   u8g2.drawStr(12, 14, "HE THONG ESP8266");
 
   // Hàng 1: Nhiệt độ & Độ ẩm
-  u8g2.setCursor(5, 35);
+  u8g2.setCursor(5, 35); 
   u8g2.print("T:"); u8g2.print(t, 1); u8g2.print("C");
   
   u8g2.setCursor(69, 35);
