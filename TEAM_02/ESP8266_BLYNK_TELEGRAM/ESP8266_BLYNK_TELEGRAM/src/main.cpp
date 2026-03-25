@@ -1,3 +1,9 @@
+
+	//THÔNG TIN NHÓM 2
+	//1. Trần Hữu Tôn Hoàng Gia - Telegram : hoanggia21
+	//2. Lê Thành Huy - Telegram : T.Huy
+
+
 #define BLYNK_TEMPLATE_ID "TMPL6Y0XpCIbF"
 #define BLYNK_TEMPLATE_NAME "Blynk Telegram"
 #define BLYNK_AUTH_TOKEN "jzEwJeQjQEJNkwfoeTU2elGxHKb82qzr"
