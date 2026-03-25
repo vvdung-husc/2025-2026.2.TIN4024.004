@@ -93,7 +93,7 @@ void checkTelegram() {
       String welcome = "Sử dụng các lệnh sau để điều khiển đèn LED:\n";
       welcome += "Gửi /led_on : để bật đèn\n";
       welcome += "Gửi /led_off : để tắt đèn\n";
-      welcome += "Gửi /get_state : để yêu cầu xem trạng thái đèn hiện tại\n";
+      welcome += "Gửi /led_status : để yêu cầu xem trạng thái đèn hiện tại\n";
       welcome += "Gửi /get_weather : để hiển thị nhiệt độ và độ ẩm";
       bot.sendMessage(chat_id, welcome, "");
     }
