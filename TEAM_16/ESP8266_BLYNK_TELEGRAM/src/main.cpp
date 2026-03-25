@@ -3,7 +3,7 @@
   1. Châu Kỳ - Telegram: @chauky_2k4
   2. Nguyễn Ái Danh
   3. Châu Văn Trường Huy
-  4. Trương An Khang
+  4. Trương An Khang - Telegram: @khang678900
   5. Phan Văn Việt
 */
 #define BLYNK_PRINT Serial
