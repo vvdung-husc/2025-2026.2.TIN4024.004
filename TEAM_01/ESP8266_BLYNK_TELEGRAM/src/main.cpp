@@ -1,6 +1,6 @@
 /*
 Thông tin nhóm 01
-1. Hà Văn Hòa
+1. Hà Văn Hòa - Telegram : havanhoa13
 2. Trương Công Bin
 3. Lê Văn Đình Dương - Telegram : Duong1227
  */
