@@ -1,7 +1,7 @@
 
 	//THÔNG TIN NHÓM 2
-	//1. Trần Hữu Tôn Hoàng Gia
-	//2. Lê Thành Huy
+	//1. Trần Hữu Tôn Hoàng Gia - Telegram : hoanggia21
+	//2. Lê Thành Huy - Telegram : T.Huy
 
 
 #define BLYNK_TEMPLATE_ID "TMPL6Y0XpCIbF"

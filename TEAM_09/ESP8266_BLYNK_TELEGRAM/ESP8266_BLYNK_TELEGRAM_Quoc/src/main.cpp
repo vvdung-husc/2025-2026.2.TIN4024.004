@@ -1,9 +1,11 @@
 /*
-THÔNG TIN NHÓM 13
-1.Trần Tuấn Long - Telegram : longtrandevs
-2.Nguyễn Thị Huyền Trân - Telegram : nthtran
-3.Nguyễn Thị Thùy Ngân
-4.Ngô Nghĩa
+THÔNG TIN NHÓM 09.004
+1.Cao Huy Minh Quân
+2.Nguyễn Văn Quốc - Telegram : Quốc Nguyễn
+3.
+4.
+5.
+
 */
 
 
@@ -19,16 +21,16 @@ THÔNG TIN NHÓM 13
 #include <UniversalTelegramBot.h>
 
 // ===== TELEGRAM =====
-#define BOT_TOKEN "8720226773:AAEcgF8rfqW0tKiYq1tzJ3OX6pCkZ7zh2UY"
-#define CHAT_ID   "-4816786821"
+#define BOT_TOKEN "xxx"
+#define CHAT_ID   "xxx"
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
 
 
 
-char ssid[] = "CNTT-MMT";
-char pass[] = "13572468";
+char ssid[] = "Wokwi-GUEST";
+char pass[] = "";
 //PIN
 #define DHTPIN D3
 #define DHTTYPE DHT11
@@ -179,7 +181,7 @@ void loop()
   if (now - tTeam >= intervalTeam)
   {
     tTeam = now;
-    Blynk.virtualWrite(VPIN_TEAM, "IoT - Team 13.004");
+    Blynk.virtualWrite(VPIN_TEAM, "IoT - Team 09.004");
   }
 
   // ===== TELEGRAM =====
