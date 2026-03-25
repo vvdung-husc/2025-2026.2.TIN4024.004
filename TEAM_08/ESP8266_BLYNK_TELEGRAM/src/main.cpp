@@ -1,7 +1,7 @@
 /*
   THÔNG TIN NHÓM 8
   1. Trương Đức Mai Linh
-  2. Zơrâm Nhỏ
+  2. Zơrâm Nhỏ -Telegram: ZoramNho97
   3. Phạm Hữu Anh Kiệt
 */
 
