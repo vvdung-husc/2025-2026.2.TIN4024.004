@@ -6,6 +6,9 @@
 		{
 			"name": "Traffic DHT Sensor",
 			"path": "TEAM_11/NguyenDinhHoang-22t1020133/Traffic DHT Sensor"
+		},
+		{
+			"path": "TEAM_04/ESP8266_BLYNK_TELEGRAM"
 		}
 	],
 	"settings": {
