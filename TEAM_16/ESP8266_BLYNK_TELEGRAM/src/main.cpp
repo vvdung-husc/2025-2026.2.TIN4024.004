@@ -4,7 +4,7 @@
   2. Nguyễn Ái Danh - telegram: @Danhh_1115
   3. Châu Văn Trường Huy
   4. Trương An Khang - Telegram: @khang678900
-  5. Phan Văn Việt
+  5. Phan Văn Việt - telegram:  @pvviet_20
 */
 #define BLYNK_PRINT Serial
 
