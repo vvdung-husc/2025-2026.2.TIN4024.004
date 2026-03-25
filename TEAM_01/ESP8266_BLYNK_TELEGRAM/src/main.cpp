@@ -1,7 +1,7 @@
 /*
 Thông tin nhóm 01
-1. Hà Văn Hòa
-2. Trương Công Bin
+1. Hà Văn Hòa - Telegram : havanhoa13
+2. Trương Công Bin - telegram: TruongCongBin
 3. Lê Văn Đình Dương - Telegram : Duong1227
  */
 #define BLYNK_TEMPLATE_ID "TMPL6Fvb3xPaK"
@@ -118,6 +118,12 @@ void setup() {
   Blynk.config(BLYNK_AUTH);
   Blynk.connect();
   Blynk.virtualWrite(V5, TEAM_NAME);
+
+  // Khởi tạo Blynk sau khi WiFi đã kết nối (Tránh xung đột)
+  Blynk.config(BLYNK_AUTH);
+  Blynk.connect();
+  Blynk.virtualWrite(V5, TEAM_NAME);
+ 
 
   // Cấu hình bỏ qua xác thực chứng chỉ SSL cho Telegram
   secured_client.setInsecure();

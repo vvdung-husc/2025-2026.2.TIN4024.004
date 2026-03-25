@@ -17,7 +17,7 @@ void setup() {
   u8g2.begin();
 
   // --- HIỆU ỨNG CHÀO MỪNG ---
-  String welcomeMsg = "LeeJ Sensor System - By Thanh Doanh";
+  String welcomeMsg = "TEAM 04.004 Sensor System";
   u8g2.setFont(u8g2_font_ncenB14_tr); 
   int msgWidth = u8g2.getUTF8Width(welcomeMsg.c_str()); 
   
