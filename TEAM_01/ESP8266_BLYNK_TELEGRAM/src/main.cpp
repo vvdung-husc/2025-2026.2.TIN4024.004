@@ -2,7 +2,7 @@
 Thông tin nhóm 01
 1. Hà Văn Hòa
 2. Trương Công Bin
-3. Lê Văn Đình Dương
+3. Lê Văn Đình Dương - Telegram : Duong1227
  */
 #define BLYNK_TEMPLATE_ID "TMPL6Fvb3xPaK"
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
