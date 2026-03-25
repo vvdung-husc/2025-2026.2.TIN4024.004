@@ -4,13 +4,19 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
-#include <WiFiClient.h>
+#include <WiFiClientSecure.h>
 #include <BlynkSimpleEsp32.h>
 #include <DHT.h>
+#include <UniversalTelegramBot.h>
+#include <ArduinoJson.h>
 
 /* ===== WIFI ===== */
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
+
+//================= TELEGRAM =================
+#define BOT_TOKEN "8650405639:AAHLjoJqVHYY2XbaiwJrtayKMozftInJ5gg"
+#define GROUP_ID "7268690094"
 
 /* ===== PIN ===== */
 #define LED_PIN 5
@@ -19,6 +25,8 @@ char pass[] = "";
 #define GAS_PIN 32
 
 DHT dht(DHTPIN, DHTTYPE);
+WiFiClientSecure client; 
+UniversalTelegramBot bot(BOT_TOKEN, client);
 
 /* ===== GLOBAL ===== */
 unsigned long uptime = 0;
@@ -27,6 +35,8 @@ bool ledState = true;
 float temperature = 0;
 float humidity = 0;
 int gasValue = 0;
+unsigned long lastBotCheck = 0;
+const unsigned long botInterval = 1000;
 
 /* ===== UPTIME CHUẨN 1 GIÂY ===== */
 void uptimeTask() {
@@ -122,7 +132,7 @@ void setup() {
   dht.begin();
 
   WiFi.begin(ssid, pass);
-
+  client.setInsecure();
   Serial.print("Connecting WiFi");
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -137,6 +147,36 @@ void setup() {
   Serial.println("Blynk Ready");
 }
 
+/* ===== HÀM XỬ LÝ LỆNH TELEGRAM ===== */
+void handleNewMessages(int numNewMessages) {
+  for (int i = 0; i < numNewMessages; i++) {
+    String chat_id = String(bot.messages[i].chat_id);
+    String text = bot.messages[i].text;
+
+    if (text == "/led_on") {
+      ledState = true;
+      digitalWrite(LED_PIN, HIGH);
+      Blynk.virtualWrite(V1, 1);
+      bot.sendMessage(chat_id, "💡 Đèn LED đã BẬT!", "");
+    } 
+    else if (text == "/led_off") {
+      ledState = false;
+      digitalWrite(LED_PIN, LOW);
+      Blynk.virtualWrite(V1, 0);
+      uptime = 0;
+      Blynk.virtualWrite(V0, 0);
+      bot.sendMessage(chat_id, "🌑 Đèn LED đã TẮT!", "");
+    } 
+    else if (text == "/led_status") {
+      bot.sendMessage(chat_id, "Trạng thái đèn: " + String(ledState ? "BẬT" : "TẮT"), "");
+    } 
+    else if (text == "/get_weather") {
+      String msg = "📊 Thông số:\n🌡 " + String(temperature, 1) + "°C\n💧 " + String(humidity, 1) + "%\n☁ Gas: " + String(gasValue);
+      bot.sendMessage(chat_id, msg, "");
+    }
+  }
+}
+
 /* ===== LOOP ===== */
 void loop() {
   Blynk.run();
@@ -144,4 +184,12 @@ void loop() {
   uptimeTask();
   readDHT();
   readGas();
+  if (millis() - lastBotCheck > botInterval) {
+    int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    while (numNewMessages) {
+      handleNewMessages(numNewMessages);
+      numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    }
+    lastBotCheck = millis();
+  }
 }
