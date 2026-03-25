@@ -28,8 +28,8 @@ THÔNG TIN NHÓM 4
 #define CHAT_ID "-5275861628"
 
 // --- Khởi tạo đối tượng ---
-char ssid[] = "Wokwi-GUEST"; // Thay bằng WiFi của bạn
-char pass[] = "";
+char ssid[] = "CNTT-MMT"; // Thay bằng WiFi của bạn
+char pass[] = "13572468";
 
 DHT dht(PIN_DHT, DHTTYPE);
 WiFiClientSecure client;
