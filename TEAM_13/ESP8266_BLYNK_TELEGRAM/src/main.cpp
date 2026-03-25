@@ -1,6 +1,6 @@
 /*
 THÔNG TIN NHÓM 13
-1.Trần Tuấn Long
+1.Trần Tuấn Long - Telegram : longtrandevs
 2.Nguyễn Thị Huyền Trân
 3.Nguyễn Thị Thùy Ngân
 4.Ngô Nghĩa
