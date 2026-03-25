@@ -3,6 +3,8 @@ THÔNG TIN NHÓM 07
 1. Đào Thị Thùy Dương - Telegram: Thuy Duong
 2. Hồ Thị Thanh Bình - Telegram: Thanh Binh
 3. Huỳnh Thị Thuỷ - Telegram: Huỳnh Thị Thuỷ
+4. Đặng Thị Tâm Nhi - Telegram: Tâm Nhi
+5. Bùi Quang Quý - Telegram: Quý Bùi
 */
 
 #define BLYNK_PRINT Serial
