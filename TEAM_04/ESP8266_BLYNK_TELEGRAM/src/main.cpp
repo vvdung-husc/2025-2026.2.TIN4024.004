@@ -6,9 +6,9 @@ THÔNG TIN NHÓM 4
 4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
 */
 
-#define BLYNK_TEMPLATE_ID "TMPL6OFwxQT0X"
+#define BLYNK_TEMPLATE_ID "TMPL6RmReeSmB"
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
-#define BLYNK_AUTH_TOKEN "fx6qfdwQmVH-Amhcr8kb5kVcIVXMWnZg"
+#define BLYNK_AUTH_TOKEN "faQwlaluq7wEwAihqh2ZAB6G0hjwN2Ew"
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
@@ -28,8 +28,8 @@ THÔNG TIN NHÓM 4
 #define CHAT_ID "-5275861628"
 
 // --- Khởi tạo đối tượng ---
-char ssid[] = "CNTT-MMT"; // Thay bằng WiFi của bạn
-char pass[] = "13572468";
+char ssid[] = "Wokwi-GUEST"; // Thay bằng WiFi của bạn
+char pass[] = "";
 
 DHT dht(PIN_DHT, DHTTYPE);
 WiFiClientSecure client;
