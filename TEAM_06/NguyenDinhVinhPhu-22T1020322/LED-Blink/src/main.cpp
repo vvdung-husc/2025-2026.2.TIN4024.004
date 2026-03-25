@@ -1,5 +1,4 @@
 #include <Arduino.h>
-
 #define GREEN_LED   25
 #define YELLOW_LED  26
 #define RED_LED     27
