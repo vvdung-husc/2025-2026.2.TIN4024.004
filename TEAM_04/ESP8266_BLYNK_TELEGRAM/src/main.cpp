@@ -1,7 +1,7 @@
 /*
 THÔNG TIN NHÓM 4
 1. 
-2. 
+2. Võ Hữu Lộc - Telegram : Võ Hữu Lộc
 3. Hồ Ngọc Phúc Thăng - Telegram : Kk K
 4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
 5. Nguyễn Thành Doanh - Telegram : Doanh
