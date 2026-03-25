@@ -1,6 +1,6 @@
 /*
   Nhom 6
-  1. Nguyen Huu Trinh - 22T1020481
+  1. Nguyen Huu Trinh - 22T1020481 - @NgHuuTrungp
   2. Ho Sy Vinh - 22T1020521
   3. Nguyễn Đăng Bảo Toàn -22T1020470 - telegram : @toan2666607
   4. Nguyễn Đình Vĩnh Phú - 22T1020322
