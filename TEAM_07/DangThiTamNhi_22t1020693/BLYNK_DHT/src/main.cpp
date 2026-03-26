@@ -7,7 +7,7 @@
 #include <BlynkSimpleEsp32.h>
 
 // Thông tin WiFi và Blynk
-char auth[] = "YOUR_BLYNK_TOKEN";
+char auth[] = "AkzENOVrDqenRMlowoa-bPdHDlPajTft";
 char ssid[] = "Duc Thinh";
 char pass[] = "0971527584";
 
