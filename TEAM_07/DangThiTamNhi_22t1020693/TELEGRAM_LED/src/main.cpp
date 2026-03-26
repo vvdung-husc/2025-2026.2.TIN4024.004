@@ -8,7 +8,7 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 // 2. Cấu hình Telegram (THAY THÔNG TIN CỦA BẠN VÀO ĐÂY)
-#define BOTtoken "8389983706:AAEDIXxbf-Ldyo-rb1TejH3X3XAruQ1ney8"  // Copy đủ cả số và chữ từ BotFather
+#define BOTtoken "token_id"  // Copy đủ cả số và chữ từ BotFather
 #define GROUP_ID "-5179083739"   
 // 3. Khai báo chân Pin theo sơ đồ Wokwi
 const int ledPin = 23;       
