@@ -10,11 +10,11 @@
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
 
-#define DHTPIN 15
+#define DHTPIN 16
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
-#define LED_PIN 2
+#define LED_PIN 21
 #define BUTTON_PIN 4
 
 #define CLK 18
