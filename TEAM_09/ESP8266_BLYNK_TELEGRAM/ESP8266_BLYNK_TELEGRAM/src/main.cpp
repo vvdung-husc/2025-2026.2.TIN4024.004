@@ -1,7 +1,7 @@
 /*
 THÔNG TIN NHÓM 09.004
 1.Cao Huy Minh Quân - Telegram : Quân Minh
-2.Phan Anh Tài - Telegram : Tài
+2.Phan Anh Tài - Telegram : Tài Phan
 3.Quách Đạo Mạnh - Telegram : Đạo Mạnh
 4.Nguyễn Văn Quốc - Telegram : Quốc Nguyễn
 5.
