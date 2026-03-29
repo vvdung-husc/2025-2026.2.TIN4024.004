@@ -8,8 +8,9 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 // 2. Cấu hình Telegram (THAY THÔNG TIN CỦA BẠN VÀO ĐÂY)
-#define BOTtoken "token_id"  // Copy đủ cả số và chữ từ BotFather
-#define GROUP_ID "-5179083739"   
+#define BOTtoken "8601824728:AAFdEzYCcaDlhVXIumKvcJeVipTEjAbD75g"  // Copy đủ cả số và chữ từ BotFather
+#define GROUP_ID "-1003733381439"    // ID nhóm (thường bắt đầu bằng -100)
+
 // 3. Khai báo chân Pin theo sơ đồ Wokwi
 const int ledPin = 23;       
 const int motionSensor = 27; 
@@ -47,7 +48,7 @@ void handleNewMessages(int numNewMessages) {
       bot.sendMessage(chat_id, " Trạng thái: Đèn " + status, "");
     } 
     else if (text == "/start") {
-      bot.sendMessage(chat_id, "Chào Tâm Nhi! Hệ thống sẵn sàng. Hãy dùng Menu lệnh.", "");
+      bot.sendMessage(chat_id, "Hệ thống sẵn sàng. Hãy dùng Menu lệnh.", "");
     }
   }
 }
