@@ -1,17 +1,17 @@
 /*
 THÔNG TIN NHÓM 09.004
-1.Cao Huy Minh Quân
-2.Phan Anh Tài
-3.Quách Đạo Mạnh
-4.
+1.Cao Huy Minh Quân - Telegram : Quân Minh
+2.Phan Anh Tài - Telegram : Tài Phan
+3.Quách Đạo Mạnh - Telegram : Đạo Mạnh
+4.Nguyễn Văn Quốc - Telegram : Quốc Nguyễn
 5.
 
 */
 
 
-#define BLYNK_TEMPLATE_ID "TMPL6kETqhf8m"
-#define BLYNK_TEMPLATE_NAME "ESP8266"
-#define BLYNK_AUTH_TOKEN "sU-bAXfAgqGwlxgvZCk-Ks4CKYPQcUL7"
+#define BLYNK_TEMPLATE_ID "TMPL6Vm8AwsXQ"
+#define BLYNK_TEMPLATE_NAME "EspBlynkTelegram"
+#define BLYNK_AUTH_TOKEN "wq9Z1dMFv-pqVcZoRh96nlXYKOEII7Dc"
 
 #include <Arduino.h>
 #include <DHT.h>
@@ -21,8 +21,8 @@ THÔNG TIN NHÓM 09.004
 #include <UniversalTelegramBot.h>
 
 // ===== TELEGRAM =====
-#define BOT_TOKEN "xxx"
-#define CHAT_ID   "xxx"
+#define BOT_TOKEN "8650405639:AAHLjoJqVHYY2XbaiwJrtayKMozftInJ5gg"
+#define GROUP_ID "7268690094"
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
@@ -88,25 +88,25 @@ void handleTelegram()
       msg += "/led_off - Tat LED\n";
       msg += "/led_status - Trang thai LED\n";
       msg += "/get_weather - Xem nhiet do, do am";
-      bot.sendMessage(CHAT_ID, msg, "");
+      bot.sendMessage(GROUP_ID, msg, "");
     }
 
     else if (text == "/led_on")
     {
       digitalWrite(LED_PIN, HIGH);
-      bot.sendMessage(CHAT_ID, "LED ON", "");
+      bot.sendMessage(GROUP_ID, "LED ON", "");
     }
 
     else if (text == "/led_off")
     {
       digitalWrite(LED_PIN, LOW);
-      bot.sendMessage(CHAT_ID, "LED OFF", "");
+      bot.sendMessage(GROUP_ID, "LED OFF", "");
     }
 
     else if (text == "/led_status")
     {
       String msg = digitalRead(LED_PIN) ? "LED ON" : "LED OFF";
-      bot.sendMessage(CHAT_ID, msg, "");
+      bot.sendMessage(GROUP_ID, msg, "");
     }
 
     else if (text == "/get_weather")
@@ -114,7 +114,7 @@ void handleTelegram()
       String msg = "Temp: " + String(temp) + " C\n";
       msg += "Hum: " + String(hum) + " %";
 
-      bot.sendMessage(CHAT_ID, msg, "");
+      bot.sendMessage(GROUP_ID, msg, "");
     }
   }
 }
@@ -162,7 +162,7 @@ void loop()
       String msg = "Update:\nTemp: " + String(temp) + " C\n";
       msg += "Hum: " + String(hum) + " %";
 
-      bot.sendMessage(CHAT_ID, msg, "");
+      bot.sendMessage(GROUP_ID, msg, "");
 
       lastTemp = temp;
       lastHum = hum;
