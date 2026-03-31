@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "author": "Toan",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -10, "left": -20, "attrs": {} },
+    { "type": "board-mfrc522", "id": "rfid", "top": -30, "left": 320, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo1", "top": 218.8, "left": 326.4, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "ledGreen",
+      "top": 150,
+      "left": 119,
+      "attrs": { "color": "green" }
+    },
+    { "type": "wokwi-led", "id": "ledRed", "top": 150, "left": 167, "attrs": { "color": "red" } },
+    { "type": "wokwi-buzzer", "id": "buzzer1", "top": 348, "left": 184.2, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 326.6, "left": -28.8, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 270,
+      "left": 90,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 264,
+      "left": 181.85,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "rfid:VCC", "esp:3V3", "red", [ "h0" ] ],
+    [ "rfid:GND", "esp:GND.1", "black", [ "h0" ] ],
+    [ "rfid:SDA", "esp:D5", "green", [ "h0" ] ],
+    [ "rfid:SCK", "esp:D18", "blue", [ "h0" ] ],
+    [ "rfid:MOSI", "esp:D23", "orange", [ "h0" ] ],
+    [ "rfid:MISO", "esp:D19", "purple", [ "h0" ] ],
+    [ "rfid:RST", "esp:D21", "gray", [ "h0" ] ],
+    [ "servo1:PWM", "esp:D13", "green", [ "h-348.4", "v-159.5" ] ],
+    [ "servo1:V+", "esp:5V", "red", [ "h0" ] ],
+    [ "servo1:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "relay1:IN", "esp:D27", "green", [ "h-38.4", "v-264.2" ] ],
+    [ "relay1:VCC", "esp:5V", "red", [ "h0" ] ],
+    [ "relay1:GND", "esp:GND.2", "black", [ "h-48", "v-216.6" ] ],
+    [ "esp:D26", "ledGreen:A", "green", [ "h-81", "v-148.6", "h201.6", "v249.6" ] ],
+    [ "ledGreen:C", "r1:1", "black", [ "v0" ] ],
+    [ "r1:2", "esp:GND.3", "black", [ "v0" ] ],
+    [ "esp:D25", "ledRed:A", "green", [ "h-61.8", "v-148.5", "h230.4", "v259.2" ] ],
+    [ "ledRed:C", "r2:1", "black", [ "v0" ] ],
+    [ "r2:2", "esp:GND.3", "black", [ "v0" ] ],
+    [ "buzzer1:1", "esp:D14", "green", [ "h-307.2", "v-322" ] ],
+    [ "buzzer1:2", "esp:GND.3", "black", [ "h0" ] ]
+  ],
+  "dependencies": {},
+  "serialMonitor": {
+    "display": "always",
+    "convertEol": true,
+    "newline": "lf"
+  }
+}

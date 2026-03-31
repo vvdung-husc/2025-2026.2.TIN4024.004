@@ -1,10 +1,11 @@
 /*
 THÔNG TIN NHÓM 4
 1. 
-2. 
-3. 
+2. Võ Hữu Lộc - Telegram : Võ Hữu Lộc
+3. Hồ Ngọc Phúc Thăng - Telegram : Kk K
 4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
 5. Nguyễn Thành Doanh - Telegram : Doanh
+6. Lê Ngọc Minh - Telegram : Minh LeNgoc
 */
 
 #define BLYNK_TEMPLATE_ID "TMPL6RmReeSmB"
