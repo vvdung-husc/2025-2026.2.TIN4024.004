@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "author": "Tuan Nguyen",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir", "top": -92, "left": 223.02, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -51.6,
+      "left": -53.8,
+      "attrs": { "color": "red" }
+    },
+    { "type": "board-ssd1306", "id": "oled", "top": 12.74, "left": 144.23, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "pir:VCC", "esp:5V", "red", [ "v240", "h-254.59" ] ],
+    [ "pir:GND", "esp:GND.1", "black", [ "v249.6", "h-307.46", "v-96" ] ],
+    [ "pir:OUT", "esp:13", "green", [ "v220.8", "h-288.14", "v-57.6" ] ],
+    [ "led1:A", "esp:12", "green", [ "v0" ] ],
+    [ "led1:C", "esp:GND.1", "black", [ "v0" ] ],
+    [ "oled:VCC", "esp:3V3", "red", [ "v-28.8", "h-177.64" ] ],
+    [ "oled:GND", "esp:GND.2", "black", [ "v-19.2", "h-72.04" ] ],
+    [ "oled:SDA", "esp:21", "blue", [ "v-57.6", "h-76.73", "v192" ] ],
+    [ "oled:SCL", "esp:22", "yellow", [ "v-48", "h-76.5", "v153.6" ] ]
+  ],
+  "dependencies": {}
+}

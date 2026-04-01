@@ -3,7 +3,7 @@
 //Thay thông số BLYNK của bạn vào đây
 #define BLYNK_TEMPLATE_ID "TMPL6YF7fAJKF"
 #define BLYNK_TEMPLATE_NAME "BLYNK API"
-#define BLYNK_AUTH_TOKEN "4AoDamcXTydoCEd8GJxG-Srv6QOq0NZ-"
+#define BLYNK_AUTH_TOKEN "TOKEN_BLYNK"
 
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -82,7 +82,7 @@ void parseGeoInfo(String payload, IP4_Info& ipInfo) {
 }
 
 //Key lấy từ openweathermap.org khi đăng ký tài khoản
-#define OPENWEATHERMAP_KEY "YOUR_KEY" //Thay KEY của bạn vào đây
+#define OPENWEATHERMAP_KEY "key_api" //Thay KEY của bạn vào đây
 String urlWeather;  //Biến lưu url https://openweathermap.org/
 
 //API Get http://ip4.iothings.vn/?geo=1
@@ -138,7 +138,7 @@ void updateTemp(){
     Serial.println(response);
           
     //Xử lý JSON trả về từ APIAPI
-    JsonDocument doc;
+    StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, response);
     if (error) {
       Serial.println("Failed to parse JSON");
@@ -164,20 +164,24 @@ void updateTemp(){
 void onceCalled(){
   static bool done_ = false;
   if (done_) return;
-  done_ = true;
-  String link = StringFormat("https://www.google.com/maps/place/%s,%s",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str());
 
-  Blynk.virtualWrite(V1, ip4Info.ip4.c_str());  //Gửi giá trị lên chân ảo V1 trên ứng dụng Blynk.
-  Blynk.virtualWrite(V2, link.c_str());  //Gửi giá trị lên chân ảo V2 trên ứng dụng Blynk.
+  if (ip4Info.ip4 == "") return; // FIX
+
+  done_ = true;
+
+  String link = StringFormat("https://www.google.com/maps/place/%s,%s",
+  ip4Info.latitude.c_str(), ip4Info.longtitude.c_str());
+
+  Blynk.virtualWrite(V1, ip4Info.ip4);
+  Blynk.virtualWrite(V2, link);
 }
 
 //Cập nhật uptime lên BlynkBlynk
 void uptimeBlynk(){
   static ulong lastTime = 0;
-  
-  if (!IsReady(lastTime, 1000)) return; //Kiểm tra và cập nhật lastTime sau mỗi 1 giây
-  ulong value = lastTime / 1000;
-  Blynk.virtualWrite(V0, value);  //Gửi giá trị lên chân ảo V0 trên ứng dụng Blynk.
+  if (!IsReady(lastTime, 1000)) return;
+  ulong value = millis() / 1000; // FIX
+  Blynk.virtualWrite(V0, value);
 }
 
 void setup(void) {
