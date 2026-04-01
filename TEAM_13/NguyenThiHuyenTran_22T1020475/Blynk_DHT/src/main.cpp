@@ -1,16 +1,21 @@
-#include <Arduino.h>
-#include <TM1637Display.h>
-#include <DHT.h>
-
 #define BLYNK_TEMPLATE_ID "TMPL6BErqh1q7"
 #define BLYNK_TEMPLATE_NAME "BLYNK"
 #define BLYNK_AUTH_TOKEN "C7ByGk0j8lEY3YbbaX_cveDKR90qE0gj"
 
+#include <Arduino.h>
+#include <TM1637Display.h>
+#include <DHT.h>
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
+
+// ===== DATastream =====
+#define V_TEMP     V0
+#define V_HUM      V1
+#define V_LED      V2
+#define V_COUNTER  V3
 
 // ===== PIN CONFIG =====
 #define CLK 18
@@ -24,24 +29,26 @@ char pass[] = "";
 // ===== OBJECT =====
 TM1637Display display(CLK, DIO);
 DHT dht(DHTPIN, DHTTYPE);
-
-// ===== TIMER =====
 BlynkTimer timer;
 
 // ===== VARIABLES =====
 int counter = 0;
 bool ledState = false;
 
-
 // ===== BLYNK CONTROL LED =====
-BLYNK_WRITE(V2)
+BLYNK_WRITE(V_LED)
 {
-  int value = param.asInt();
-  ledState = value;
+  ledState = param.asInt();
   digitalWrite(LED_PIN, ledState);
+  if (ledState) {
+    Serial.println("LED ON");
+  } else {
+    Serial.println("LED OFF");
+  }
 }
 
-
+float tempGlobal = 0;
+float humGlobal = 0;
 // ===== READ SENSOR =====
 void sendSensor()
 {
@@ -49,35 +56,33 @@ void sendSensor()
   float hum = dht.readHumidity();
 
   if (isnan(temp) || isnan(hum)) {
-    Serial.println("DHT read failed");
+    Serial.println("DHT read failed!");
     return;
   }
 
-  Serial.print("Temp: ");
-  Serial.println(temp);
+  // Serial.printf("Temp: %.2f | Hum: %.2f\r\n", temp, hum);
+  tempGlobal = temp;
+  humGlobal = hum;
 
-  Serial.print("Humidity: ");
-  Serial.println(hum);
-
-  // gửi dữ liệu lên Blynk
-  Blynk.virtualWrite(V0, temp);   // Nhietdo
-  Blynk.virtualWrite(V1, hum);    // Doam
+  // Gửi lên Blynk
+  Blynk.virtualWrite(V_TEMP, temp);
+  Blynk.virtualWrite(V_HUM, hum);
 }
-
 
 // ===== TIMER COUNTER =====
 void updateCounter()
 {
   counter++;
 
-  Blynk.virtualWrite(V3, counter); // Thoigianhoatdong
+  Blynk.virtualWrite(V_COUNTER, counter);
 
   display.showNumberDec(counter);
 
-  Serial.print("Time: ");
-  Serial.println(counter);
+  // Serial.print("Time: ");
+  // Serial.println(counter);
+  Serial.printf("Time: %d | Temp: %.2f C | Hum: %.2f %%\r\n",
+                counter, tempGlobal, humGlobal);
 }
-
 
 // ===== BUTTON CONTROL =====
 void checkButton()
@@ -87,12 +92,18 @@ void checkButton()
     ledState = !ledState;
     digitalWrite(LED_PIN, ledState);
 
-    Blynk.virtualWrite(V2, ledState);
+    Blynk.virtualWrite(V_LED, ledState);
 
-    delay(200);
+    if (ledState) {
+    Serial.println("LED ON");
+  } else {
+    Serial.println("LED OFF");
+  }
+    delay(200); // debounce
   }
 }
 
+// ===== SETUP =====
 void setup()
 {
   Serial.begin(115200);
@@ -104,24 +115,24 @@ void setup()
 
   dht.begin();
 
-  Serial.begin(115200);
-
   WiFi.begin(ssid, pass);
+  Serial.print("[WiFi] Connecting");
 
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
+  delay(500);
+  Serial.print(".");
+}
 
-  Serial.println("WiFi connected");
+  Serial.println("\r\n[WiFi] Connected!");
 
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 
-  // Timer chạy nền
-  timer.setInterval(2000L, sendSensor);
+  // Timer
+  timer.setInterval(900L, sendSensor);
   timer.setInterval(1000L, updateCounter);
 }
 
+// ===== LOOP =====
 void loop()
 {
   Blynk.run();
