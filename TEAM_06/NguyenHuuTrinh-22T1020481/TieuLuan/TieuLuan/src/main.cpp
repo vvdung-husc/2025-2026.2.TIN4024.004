@@ -6,59 +6,26 @@
 #include <AccelStepper.h>
 #include <time.h>
 
-// =========================
-// WiFi + Telegram config
-// =========================
-// Wokwi:
 const char* WIFI_SSID = "Wokwi-GUEST";
 const char* WIFI_PASSWORD = "";
-
-// Telegram Bot Token - lấy từ BotFather
 const char* BOT_TOKEN = "8034409980:AAEGnnHqDMRA4ZwqmP1bArb-FDIgjBQmrDE";
-
-// Để trống lần đầu chạy.
-// Sau khi bạn nhắn /start cho bot, mở Serial Monitor để lấy chat_id.
-// Sau đó dán vào đây để chỉ cho phép 1 tài khoản điều khiển.
 const char* ALLOWED_CHAT_ID = "7999542154";
-
-// =========================
-// Stepper config
-// =========================
 static const uint8_t PIN_STEP = 26;
 static const uint8_t PIN_DIR  = 27;
 static const uint8_t PIN_EN   = 25;
-
-// Số bước tương ứng rèm mở hoàn toàn
-// Bạn cần tinh chỉnh theo cơ cấu kéo rèm của bạn
 static const long CURTAIN_FULL_OPEN_STEPS = 4000;
-
-// Tốc độ/ gia tốc
 static const float MAX_SPEED     = 1200.0;
 static const float ACCELERATION  = 700.0;
-
-// =========================
-// Global objects
-// =========================
 WiFiClientSecure securedClient;
 UniversalTelegramBot bot(BOT_TOKEN, securedClient);
 AccelStepper stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR);
-
-// Poll Telegram ngắn để stepper vẫn chạy mượt
 unsigned long lastBotCheck = 0;
 const unsigned long BOT_POLL_INTERVAL = 700;
-
-// Vị trí quy ước
 const long CLOSED_POS = 0;
 const long OPEN_POS   = CURTAIN_FULL_OPEN_STEPS;
-
-// Gửi thông báo khi tới đích
 String activeChatId = "";
 bool notifyWhenArrive = false;
 bool wasMoving = false;
-
-// =========================
-// Helpers
-// =========================
 long clampLong(long value, long low, long high) {
   if (value < low) return low;
   if (value > high) return high;
