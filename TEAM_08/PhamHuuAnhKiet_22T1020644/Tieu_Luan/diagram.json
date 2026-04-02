@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "author": "Nhom 3 - He thong canh bao Gas",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-buzzer", "id": "buzzer1", "top": -120, "left": 180, "attrs": {} },
+    { "type": "wokwi-led", "id": "led_red", "top": -80, "left": 100, "attrs": { "color": "red" } },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 192.3, "left": 263.4, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot_gas", "top": 150, "left": -150, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:32", "buzzer1:1", "red", [] ],
+    [ "esp:GND.1", "buzzer1:2", "black", [] ],
+    [ "esp:33", "led_red:A", "red", [] ],
+    [ "esp:GND.1", "led_red:C", "black", [] ],
+    [ "esp:25", "dht1:SDA", "blue", [] ],
+    [ "esp:3V3", "dht1:VCC", "red", [] ],
+    [ "esp:GND.1", "dht1:GND", "black", [] ],
+    [ "esp:34", "pot_gas:SIG", "green", [] ],
+    [ "esp:3V3", "pot_gas:VCC", "red", [] ],
+    [ "esp:GND.1", "pot_gas:GND", "black", [] ]
+  ],
+  "dependencies": {}
+}
