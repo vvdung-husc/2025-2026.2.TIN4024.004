@@ -128,7 +128,7 @@ void setup() {
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_6x10_tf);
   u8g2.drawStr(20, 25, "ESP8266 IoT");
-  u8g2.drawStr(10, 42, "Nguyen Tong Bao Phuc");
+  u8g2.drawStr(10, 42, "Linh Lê Thị Thuỳ");
   u8g2.sendBuffer();
   delay(1500);
 
@@ -152,14 +152,14 @@ void loop() {
     digitalWrite(LED_BLUE, ledState ? LOW : HIGH); // LED xanh ESP8266: LOW = sáng
   }
 
-  // ĐỌC CẢM BIẾN mỗi 2 giây
+  // ✅ ĐỌC CẢM BIẾN mỗi 2 giây
   if (now - lastDHTRead >= DHT_INTERVAL) {
     lastDHTRead = now;
     readDHT();
     readMQ2();
   }
 
-  // CẬP NHẬT OLED mỗi 1 giây
+  // ✅ CẬP NHẬT OLED mỗi 1 giây
   if (now - lastOLEDUpdate >= OLED_INTERVAL) {
     lastOLEDUpdate = now;
     updateOLED();
