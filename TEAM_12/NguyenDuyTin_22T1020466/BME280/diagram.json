@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "author": "Nguyễn Duy Tín",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": -9.6, "left": -52.76, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht", "top": 77.1, "left": -178.2, "attrs": {} },
+    { "type": "board-bmp180", "id": "bmp", "top": -42.56, "left": -182.14, "attrs": {} },
+    { "type": "wokwi-oled-ssd1306", "id": "oled", "top": -150, "left": 180, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn",
+      "top": -70.6,
+      "left": -38.4,
+      "attrs": { "color": "blue" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led-blue",
+      "top": -61.2,
+      "left": 71,
+      "attrs": { "color": "blue" }
+    }
+  ],
+  "connections": [
+    [ "esp:3V3", "dht:VCC", "red", [ "v0" ] ],
+    [ "esp:GND", "dht:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "bmp:VIN", "red", [ "v0" ] ],
+    [ "esp:GND", "bmp:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "oled:VCC", "red", [ "v0" ] ],
+    [ "esp:GND", "oled:GND", "black", [ "v0" ] ],
+    [ "esp:21", "oled:SDA", "blue", [ "v0" ] ],
+    [ "esp:22", "oled:SCL", "yellow", [ "v0" ] ],
+    [ "esp:13", "btn:1.L", "orange", [ "v0" ] ],
+    [ "esp:GND", "btn:2.R", "black", [ "v0" ] ],
+    [ "esp:GND", "led-blue:C", "black", [ "v0" ] ],
+    [ "dht:SDA", "esp:15", "green", [ "v0" ] ],
+    [ "dht:GND", "esp:GND.2", "black", [ "v0" ] ],
+    [ "esp:3V3", "bmp:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.2", "bmp:GND", "black", [ "v0" ] ],
+    [ "esp:21", "bmp:SDA", "blue", [ "h0" ] ],
+    [ "esp:22", "bmp:SCL", "gold", [ "h0" ] ],
+    [ "led-blue:A", "esp:2", "magenta", [ "v0" ] ],
+    [ "led-blue:C", "esp:GND.2", "black", [ "v0" ] ],
+    [ "btn:1.l", "esp:13", "orange", [ "h0" ] ],
+    [ "btn:2.r", "esp:GND.2", "black", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
