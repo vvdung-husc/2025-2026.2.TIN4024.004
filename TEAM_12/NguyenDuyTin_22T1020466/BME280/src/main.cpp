@@ -1,66 +1,77 @@
-#include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
+#define BLYNK_TEMPLATE_ID "TMPL6nbN7KgOW"
+#define BLYNK_TEMPLATE_NAME "BME280"
+#define BLYNK_AUTH_TOKEN "5hXUF9fQfJUWPFkBQapuOOhABrnBA8ob"
+
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_BMP085.h>
 #include "DHT.h"
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+// Cấu hình CHUẨN theo diagram.json của bạn
+#define BUTTON_PIN 13  // Dây màu orange
+#define LED_PIN    2   // Dây màu magenta
+#define DHTPIN     15  // Dây màu green
+#define DHTTYPE    DHT22
 
-#define DHTPIN 15
-#define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
-
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
 Adafruit_BMP085 bmp;
-#define LED_PIN 23
+DHT dht(DHTPIN, DHTTYPE);
+BlynkTimer timer;
+
+bool oledState = true;
+
+// Hàm ngắt nút bấm (GPIO 13)
+void IRAM_ATTR toggleOLED() {
+  static unsigned long lastTime = 0;
+  if (millis() - lastTime > 250) { // Chống rung phím
+    oledState = !oledState;
+  }
+  lastTime = millis();
+}
+
+void updateSystem() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float p = bmp.readPressure() / 100.0F;
+
+  if (isnan(h) || isnan(t)) return;
+
+  // Đẩy dữ liệu lên Blynk
+  Blynk.virtualWrite(V1, t); // Datastream V1: Temp
+  Blynk.virtualWrite(V2, h); // Datastream V2: Humi
+  Blynk.virtualWrite(V3, p); // Datastream V3: Pres
+
+  if (oledState) {
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("TIN'S STATION");
+    display.printf("Nhiet: %.1f C\n", t);
+    display.printf("Do am: %.1f %%\n", h);
+    display.printf("Ap suat: %.1f hPa", p);
+    display.display();
+    digitalWrite(LED_PIN, HIGH); // Sáng LED khi màn hình bật
+  } else {
+    display.clearDisplay();
+    display.display();
+    digitalWrite(LED_PIN, LOW); // Tắt LED khi màn hình tắt
+  }
+}
 
 void setup() {
-  Serial.begin(115200);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
+  attachInterrupt(BUTTON_PIN, toggleOLED, FALLING);
 
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println("LOI: OLED ko chay!");
-    for(;;);
-  }
-  
-  display.clearDisplay();
-  display.setTextColor(WHITE);
-  display.setCursor(0, 20);
-  display.print("DANG KHOI DONG...");
-  display.display();
-
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   dht.begin();
-  if (!bmp.begin()) {
-    Serial.println("LOI: Khong thay BMP180!");
-    while(1) { 
-        digitalWrite(LED_PIN, HIGH); delay(100); digitalWrite(LED_PIN, LOW); delay(100);
-    }
-  }
-  Serial.println("HE THONG DA SAN SANG!");
+  bmp.begin();
+
+  Blynk.begin(BLYNK_AUTH_TOKEN, "Wokwi-GUEST", "");
+  timer.setInterval(2000L, updateSystem);
 }
 
 void loop() {
-  digitalWrite(LED_PIN, HIGH);
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
-  float p = bmp.readPressure() / 100.0F;
-
-  // In ra Terminal
-  Serial.print("T: "); Serial.print(t);
-  Serial.print(" H: "); Serial.print(h);
-  Serial.print(" P: "); Serial.println(p);
-
-  // In ra OLED
-  display.clearDisplay();
-  display.setCursor(0,0);
-  display.println("THONG SO:");
-  display.print("Temp: "); display.print(t, 1); display.println(" C");
-  display.print("Humi: "); display.print(h, 1); display.println(" %");
-  display.print("Pres: "); display.print(p, 1); display.println(" hPa");
-  display.display();
-
-  digitalWrite(LED_PIN, LOW);
-  delay(2000);
+  Blynk.run();
+  timer.run();
 }
