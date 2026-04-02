@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"name": "BLYNK_DHT",
+			"path": "../../BLYNK_DHT"
+		},
+		{
+			"name": "BLYNK_API",
+			"path": ".."
+		},
+		{
+			"name": "TELEGRAM_LED",
+			"path": "../../TELEGRAM_LED"
+		}
+	],
+	"settings": {}
+}

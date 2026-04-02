@@ -1,8 +1,14 @@
 /*
   THÔNG TIN NHÓM 8
+<<<<<<< HEAD
   1. Trương Đức Mai Linh
   2. Zơrâm Nhỏ -Telegram: ZoramNho97
   3. Phạm Hữu Anh Kiệt
+=======
+  1. Trương Đức Mai Linh - Telegram: @linhtr020304
+  2. Zơrâm Nhỏ - Telegram: ZoramNho97
+  3. Phạm Hữu Anh Kiệt - Telegram: @Prophje
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
 */
 
 #define BLYNK_TEMPLATE_ID "TMPL69uPnysdL"
