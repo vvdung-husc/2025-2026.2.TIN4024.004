@@ -4,7 +4,7 @@
 	2. Lê Thị Thuỳ Linh - Telegram: @tlinhne23_4
 	3. Nguyễn Duy Tín - Telegram: @nguyenduytin_22t1020466
   4. Phan Nguyễn Thành Đạt - Telegram: @tdat0703
-  5. Võ Lê Tuấn Hưng
+  5. Võ Lê Tuấn Hưng - Telegram: @tuanhung0511
 */
 
 #define BLYNK_TEMPLATE_ID   "TMPL6ji_DGcOL"      // ← thay của bạn
