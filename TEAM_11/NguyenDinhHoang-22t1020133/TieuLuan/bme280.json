@@ -1,0 +1,37 @@
+{
+  "name": "BME280",
+  "author": "Uri Shaked",
+  "description": "BME280 Humidity and Pressure Sensor",
+  "pins": [
+    { "name": "VCC", "description": "Power supply" },
+    { "name": "GND", "description": "Ground" },
+    { "name": "SCL", "description": "I2C Clock" },
+    { "name": "SDA", "description": "I2C Data" }
+  ],
+  "controls": [
+    {
+      "id": "temperature",
+      "type": "slider",
+      "label": "Temperature (°C)",
+      "min": -40,
+      "max": 85,
+      "value": 24
+    },
+    {
+      "id": "humidity",
+      "type": "slider",
+      "label": "Humidity (%)",
+      "min": 0,
+      "max": 100,
+      "value": 40
+    },
+    {
+      "id": "pressure",
+      "type": "slider",
+      "label": "Pressure (hPa)",
+      "min": 300,
+      "max": 1100,
+      "value": 1013
+    }
+  ]
+}

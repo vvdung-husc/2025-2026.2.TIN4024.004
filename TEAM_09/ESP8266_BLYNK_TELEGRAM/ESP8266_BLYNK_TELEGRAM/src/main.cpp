@@ -20,7 +20,19 @@ THÔNG TIN NHÓM 09.004
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
 
+<<<<<<< HEAD
+// ===== TELEGRAM =====
+#define BOT_TOKEN "8650405639:AAHLjoJqVHYY2XbaiwJrtayKMozftInJ5gg"
+#define GROUP_ID "7268690094"
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOT_TOKEN, client);
+
+
+
+=======
 /* ===== WIFI ===== */
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
 
@@ -61,7 +73,54 @@ void uptimeTask() {
       Serial.print("Uptime: ");
       Serial.println(uptime);
 
+<<<<<<< HEAD
+void handleTelegram()
+{
+  int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+
+  for (int i = 0; i < numNewMessages; i++)
+  {
+    String text = bot.messages[i].text;
+
+    // ===== START MENU =====
+    if (text == "/start")
+    {
+      String msg = "IoT Bot Ready\n\n";
+      msg += "Chọn lệnh bên dưới:\n";
+      msg += "/led_on - Bat LED\n";
+      msg += "/led_off - Tat LED\n";
+      msg += "/led_status - Trang thai LED\n";
+      msg += "/get_weather - Xem nhiet do, do am";
+      bot.sendMessage(GROUP_ID, msg, "");
+    }
+
+    else if (text == "/led_on")
+    {
+      digitalWrite(LED_PIN, HIGH);
+      bot.sendMessage(GROUP_ID, "LED ON", "");
+    }
+
+    else if (text == "/led_off")
+    {
+      digitalWrite(LED_PIN, LOW);
+      bot.sendMessage(GROUP_ID, "LED OFF", "");
+    }
+
+    else if (text == "/led_status")
+    {
+      String msg = digitalRead(LED_PIN) ? "LED ON" : "LED OFF";
+      bot.sendMessage(GROUP_ID, msg, "");
+    }
+
+    else if (text == "/get_weather")
+    {
+      String msg = "Temp: " + String(temp) + " C\n";
+      msg += "Hum: " + String(hum) + " %";
+
+      bot.sendMessage(GROUP_ID, msg, "");
+=======
       Blynk.virtualWrite(V0, uptime);
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
     }
   }
 }
@@ -163,6 +222,34 @@ void handleNewMessages(int numNewMessages) {
     String chat_id = String(bot.messages[i].chat_id);
     String text = bot.messages[i].text;
 
+<<<<<<< HEAD
+  unsigned long now = millis();
+
+  // ===== SENSOR =====
+  if (now - tSensor >= intervalSensor)
+  {
+    tSensor = now;
+
+    float t = dht.readTemperature();
+    float h = dht.readHumidity();
+
+    if (!isnan(t)) temp = t;
+    if (!isnan(h)) hum = h;
+
+    Blynk.virtualWrite(VPIN_TEMP, temp);
+    Blynk.virtualWrite(VPIN_HUM, hum);
+
+    // ===== TELEGRAM AUTO SEND =====
+    if (abs(temp - lastTemp) > 1 || abs(hum - lastHum) > 3)
+    {
+      String msg = "Update:\nTemp: " + String(temp) + " C\n";
+      msg += "Hum: " + String(hum) + " %";
+
+      bot.sendMessage(GROUP_ID, msg, "");
+
+      lastTemp = temp;
+      lastHum = hum;
+=======
     if (text == "/led_on") {
       ledState = true;
       digitalWrite(LED_PIN, HIGH);
@@ -183,6 +270,7 @@ void handleNewMessages(int numNewMessages) {
     else if (text == "/get_weather") {
       String msg = "📊 Thông số:\n🌡 " + String(temperature, 1) + "°C\n💧 " + String(humidity, 1) + "%\n☁ Gas: " + String(gasValue);
       bot.sendMessage(chat_id, msg, "");
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
     }
   }
 }

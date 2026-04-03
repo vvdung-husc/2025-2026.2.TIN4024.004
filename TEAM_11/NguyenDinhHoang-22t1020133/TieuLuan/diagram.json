@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "author": "Nguyen Hoang",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-v1", "id": "esp", "top": -40, "left": 0, "attrs": {} },
+    { "type": "board-ssd1306", "id": "oled1", "top": -121.66, "left": -124.57, "attrs": {} },
+    { "type": "chip-bme280", "id": "bme1", "top": -124.8, "left": 144, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:GND.2", "oled1:GND", "black", [ "h-20", "v-60", "h-40" ] ],
+    [ "esp:3V3", "oled1:VCC", "red", [ "h-30", "v-80", "h-50" ] ],
+    [ "esp:D21", "oled1:SDA", "blue", [ "h-40", "v-100", "h-60" ] ],
+    [ "esp:D22", "oled1:SCL", "yellow", [ "h-50", "v-120", "h-70" ] ],
+    [ "esp:GND.2", "bme1:GND", "black", [ "h20", "v-60", "h40" ] ],
+    [ "esp:3V3", "bme1:VCC", "red", [ "h30", "v-80", "h50" ] ],
+    [ "esp:D21", "bme1:SDA", "blue", [ "h40", "v-100", "h60" ] ],
+    [ "esp:D22", "bme1:SCL", "yellow", [ "h50", "v-120", "h70" ] ]
+  ],
+  "dependencies": {}
+}
