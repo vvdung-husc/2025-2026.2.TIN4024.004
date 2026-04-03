@@ -22,10 +22,15 @@ DHT dht(PIN_DHT, DHTTYPE);
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
 
+// --- Biến quản lý thời gian ---
 unsigned long lastTimeBotRan;
 const unsigned long botRequestDelay = 1000; // 1 giây quét lệnh 1 lần
+
+unsigned long lastDHTReadTime = 0;       // Thời điểm đọc DHT cuối cùng
+const unsigned long dhtReadDelay = 2000; // Đọc mỗi 2 giây
+
 float temperature, humidity;
-bool isAlerted = false; // Biến cờ để tránh gửi tin nhắn cảnh báo liên tục
+bool isAlerted = false;
 
 void handleNewMessages(int numNewMessages)
 {
@@ -39,13 +44,13 @@ void handleNewMessages(int numNewMessages)
 
     if (text == "/on")
     {
-      digitalWrite(PIN_LED, HIGH);
-      bot.sendMessage(CHAT_ID, "Máy bớm đã được BẬT", "");
+      digitalWrite(PIN_PUMP, HIGH); // Chỉnh lại bật máy bơm
+      bot.sendMessage(CHAT_ID, "✅ Máy bơm đã được BẬT", "");
     }
     else if (text == "/off")
     {
-      digitalWrite(PIN_LED, LOW);
-      bot.sendMessage(CHAT_ID, "Máy bơm đã được TẮT", "");
+      digitalWrite(PIN_PUMP, LOW); // Chỉnh lại tắt máy bơm
+      bot.sendMessage(CHAT_ID, "❌ Máy bơm đã được TẮT", "");
     }
     else if (text == "/get_weather")
     {
@@ -56,8 +61,8 @@ void handleNewMessages(int numNewMessages)
     else if (text == "/get_state")
     {
       String state = "🤖 TRẠNG THÁI HỆ THỐNG:\n";
-      state += "Đèn: " + String(digitalRead(PIN_LED) ? "BẬT" : "TẮT") + "\n";
-      state += "Máy bơm: " + String(digitalRead(PIN_PUMP) ? "ĐANG TƯỚI" : "NGỪNG") + "\n";
+      state += "Đèn (Cảnh báo): " + String(digitalRead(PIN_LED) ? "BẬT" : "TẮT") + "\n";
+      state += "Máy bơm (Tưới): " + String(digitalRead(PIN_PUMP) ? "ĐANG TƯỚI" : "NGỪNG") + "\n";
       state += "Nhiệt độ hiện tại: " + String(temperature, 1) + "°C";
       bot.sendMessage(CHAT_ID, state, "");
     }
@@ -74,7 +79,6 @@ void setup()
 
   dht.begin();
 
-  // Kết nối WiFi
   Serial.print("Connecting to WiFi");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
@@ -84,52 +88,52 @@ void setup()
   }
   Serial.println("\nWiFi connected");
 
-  // Bỏ qua kiểm tra SSL để tăng tốc độ cho ESP32
   client.setInsecure();
-
-  bot.sendMessage(CHAT_ID, "🚀 Hệ thống ESP32 Tưới cây tự động đã sẵn sàng!", "");
+  bot.sendMessage(CHAT_ID, "🚀 Hệ thống ESP32 Tưới cây đã sẵn sàng!", "");
 }
 
 void loop()
 {
-  // Đọc cảm biến DHT22
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
-
-  if (!isnan(t) && !isnan(h))
+  // 1. Đọc cảm biến DHT22 mỗi 2 giây
+  if (millis() - lastDHTReadTime > dhtReadDelay)
   {
-    temperature = t;
-    humidity = h;
-  }
+    float t = dht.readTemperature();
+    float h = dht.readHumidity();
 
-  // Logic tự động: Nhiệt độ > 38°C
-  if (temperature > 38.0)
-  {
-    digitalWrite(PIN_PUMP, HIGH); // Tự động tưới
-    digitalWrite(PIN_LED, HIGH);  // Bật đèn sáng
-
-    if (!isAlerted)
-    { // Chỉ gửi cảnh báo 1 lần khi vượt ngưỡng
-      String alertMsg = "⚠️ CẢNH BÁO NGUY HIỂM!\n";
-      alertMsg += "Nhiệt độ đã vượt ngưỡng: " + String(temperature, 1) + "°C\n";
-      alertMsg += "Hệ thống đang tự động tưới cây và bật đèn!";
-      bot.sendMessage(CHAT_ID, alertMsg, "");
-      isAlerted = true;
-    }
-  }
-  else
-  {
-    // Nếu nhiệt độ giảm xuống dưới ngưỡng an toàn (ví dụ 37°C để tránh dao động)
-    if (temperature < 37.0 && isAlerted)
+    if (!isnan(t) && !isnan(h))
     {
-      digitalWrite(PIN_PUMP, LOW);
-      bot.sendMessage(CHAT_ID, "✅ Nhiệt độ đã ổn định. Ngừng tưới tự động.", "");
-      isAlerted = false;
+      temperature = t;
+      humidity = h;
+      Serial.printf("Temp: %.1f°C | Hum: %.1f%%\n", temperature, humidity);
+
+      // Logic tự động: Nhiệt độ > 38°C
+      if (temperature > 38.0)
+      {
+        digitalWrite(PIN_PUMP, HIGH); // Tự động tưới
+        digitalWrite(PIN_LED, HIGH);  // Bật đèn cảnh báo
+
+        if (!isAlerted)
+        {
+          String alertMsg = "⚠️ CẢNH BÁO NGUY HIỂM!\n";
+          alertMsg += "Nhiệt độ đã vượt ngưỡng: " + String(temperature, 1) + "°C\n";
+          alertMsg += "Hệ thống đang tự động tưới cây và bật đèn!";
+          bot.sendMessage(CHAT_ID, alertMsg, "");
+          isAlerted = true;
+        }
+      }
+      else if (temperature < 37.0 && isAlerted)
+      {
+        digitalWrite(PIN_PUMP, LOW);
+        digitalWrite(PIN_LED, LOW);
+        bot.sendMessage(CHAT_ID, "✅ Nhiệt độ ổn định. Đã tắt tưới tự động.", "");
+        isAlerted = false;
+      }
     }
+    lastDHTReadTime = millis(); // Cập nhật lại thời gian đọc cuối cùng
   }
 
-  // Kiểm tra tin nhắn Telegram
-  if (millis() > lastTimeBotRan + botRequestDelay)
+  // 2. Kiểm tra tin nhắn Telegram định kỳ (mỗi 1 giây)
+  if (millis() - lastTimeBotRan > botRequestDelay)
   {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     while (numNewMessages)
