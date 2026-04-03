@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "LiquidCrystal_I2C": "1.1.2",
+    "DHT sensor library for ESPx": "1.19",
+    "ThingSpeak": "2.0.0"
+  }
+}

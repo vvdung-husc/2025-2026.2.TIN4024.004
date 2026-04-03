@@ -1,10 +1,10 @@
 /*
   THÔNG TIN NHÓM 11
-  1. Nguyễn Đình Hoàng
-  2. Nguyễn Đại Quý
+  1. Nguyễn Đình Hoàng - Telegram: Nguyễn Đình Hoàng
+  2. Nguyễn Đại Quý - Telegram: Nguyễn Đại Quý
   3.Phan Hữu Tuấn Kiệt - Telegram: Kiet dev
-  4. Dương Quang Đạt
-  5.
+  4. Dương Quang Đạt - Telegram: Dương Quang Đạt
+  5.Pham Quốc Bảo - Telegram: Bao Pham
   Hệ thống: Điều khiển LED và Giám sát cảm biến qua Telegram / Blynk
 */
 

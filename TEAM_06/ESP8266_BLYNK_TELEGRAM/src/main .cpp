@@ -1,7 +1,7 @@
 /*
   Nhom 6
   1. Nguyen Huu Trinh - 22T1020481 - @NgHuuTrungp
-  2. Ho Sy Vinh - 22T1020521
+  2. Ho Sy Vinh - 22T1020521 - tele: @hsvinnwin
   3. Nguyễn Đăng Bảo Toàn -22T1020470 - telegram : @toan2666607
   4. Nguyễn Đình Vĩnh Phú - 22T1020322 - telegram : @ndinvokerrs
 
@@ -395,7 +395,7 @@ void setup()
     
     bot.sendMessage(String(CHAT_ID), 
     "Nhóm 6 đã sẵn sàng\n"
-    "1. Nguyen Huu Trinh - 22T1020481\n"
+    "1. Nguyen Huu Trinh - 22T1020481 - @NgHuuTrungp\n"
     "2. Ho Sy Vinh - 22T1020521\n"
     "3. Nguyễn Đăng Bảo Toàn - 22T1020470 - telegram: @toan2666607\n"
     "4. Nguyễn Đình Vĩnh Phú - 22T1020322", "");
