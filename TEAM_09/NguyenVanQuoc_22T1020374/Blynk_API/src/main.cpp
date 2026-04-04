@@ -3,7 +3,7 @@
 //Thay thông số BLYNK của bạn vào đây
 #define BLYNK_TEMPLATE_ID "TMPL6bLgoJPtW"
 #define BLYNK_TEMPLATE_NAME "BLYNKAPI"
-#define BLYNK_AUTH_TOKEN "ORMG82NM-HGIWRK04CcoEfkVIICT0q42"
+#define BLYNK_AUTH_TOKEN "ORMG82NM-HGIWRK04CcoEfkVIICT0q42" 
 
 
 #include <WiFi.h>
@@ -26,9 +26,9 @@ struct IP4_Info{
 
 IP4_Info ip4Info; //Biến lưu trữ cấu trúc nhận được từ GET http://ip4.iothings.vn/?geo=1
 
-unsigned long currentMiliseconds = 0; //Thời gian hiện tại - miliseconds 
+ulong currentMiliseconds = 0; //Thời gian hiện tại - miliseconds 
 
-bool IsReady(unsigned long &ulTimer, uint32_t milisecond)
+bool IsReady(ulong &ulTimer, uint32_t milisecond)
 {
   if (currentMiliseconds - ulTimer < milisecond) return false;
   ulTimer = currentMiliseconds;
@@ -83,7 +83,7 @@ void parseGeoInfo(String payload, IP4_Info& ipInfo) {
 }
 
 //Key lấy từ openweathermap.org khi đăng ký tài khoản
-#define OPENWEATHERMAP_KEY "xxxxxx" //Thay KEY của bạn vào đây
+#define OPENWEATHERMAP_KEY "4199d2e70a11208a06398ee638fcc15c" //Thay KEY của bạn vào đây
 String urlWeather;  //Biến lưu url https://openweathermap.org/
 
 //API Get http://ip4.iothings.vn/?geo=1
@@ -107,7 +107,7 @@ void getAPI(){
     Serial.printf("IPv4 => %s \r\n",ip4Info.ip4.c_str());
     Serial.println(urlGooleMaps.c_str());
 
-    urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%ss&units=metric",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str(),OPENWEATHERMAP_KEY);
+    urlWeather = StringFormat("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric",ip4Info.latitude.c_str(),ip4Info.longtitude.c_str(),OPENWEATHERMAP_KEY);
 
     Serial.printf("URL => %s \r\n",urlWeather.c_str());      
   }else{
@@ -192,7 +192,7 @@ void setup(void) {
   }
   Serial.println(" Connected!");
 
-  Blynk.config(BLYNK_AUTH_TOKEN); // Cấu hình Blynk với mã token
+  Blynk.config(BLYNK_AUTH_TOKEN, "blynk.cloud", 80); // Cấu hình Blynk với mã token
   Blynk.connect();                // Kết nối Blynk
 
   getAPI();
@@ -200,7 +200,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  return; //commnet để chạy vòng lặp
   
   Blynk.run();  // Chạy vòng lặp Blynk
   
