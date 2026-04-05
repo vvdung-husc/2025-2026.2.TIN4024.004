@@ -1,21 +1,33 @@
 {
   "version": 1,
-  "author": "Nguyen Hoang",
+  "author": "Hoàng Kashima",
   "editor": "wokwi",
   "parts": [
-    { "type": "board-esp32-devkit-v1", "id": "esp", "top": -40, "left": 0, "attrs": {} },
-    { "type": "board-ssd1306", "id": "oled1", "top": -121.66, "left": -124.57, "attrs": {} },
-    { "type": "chip-bme280", "id": "bme1", "top": -124.8, "left": 144, "attrs": {} }
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": -110.36, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 60.74,
+      "left": -268.57,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -105.3, "left": 81, "attrs": {} },
+    { "type": "board-bmp180", "id": "bmp1", "top": -90.56, "left": -268.54, "attrs": {} }
   ],
   "connections": [
-    [ "esp:GND.2", "oled1:GND", "black", [ "h-20", "v-60", "h-40" ] ],
-    [ "esp:3V3", "oled1:VCC", "red", [ "h-30", "v-80", "h-50" ] ],
-    [ "esp:D21", "oled1:SDA", "blue", [ "h-40", "v-100", "h-60" ] ],
-    [ "esp:D22", "oled1:SCL", "yellow", [ "h-50", "v-120", "h-70" ] ],
-    [ "esp:GND.2", "bme1:GND", "black", [ "h20", "v-60", "h40" ] ],
-    [ "esp:3V3", "bme1:VCC", "red", [ "h30", "v-80", "h50" ] ],
-    [ "esp:D21", "bme1:SDA", "blue", [ "h40", "v-100", "h60" ] ],
-    [ "esp:D22", "bme1:SCL", "yellow", [ "h50", "v-120", "h70" ] ]
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "oled1:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "oled1:GND", "esp:GND.1", "black", [ "v-28.8", "h96", "v115.2" ] ],
+    [ "oled1:SDA", "esp:21", "green", [ "v-86.4", "h211.27", "v9.6" ] ],
+    [ "oled1:SCL", "esp:22", "green", [ "v-76.8", "h211.5", "v9.6" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "h-48", "v-67.2", "h-163.35" ] ],
+    [ "dht1:GND", "esp:GND.2", "black", [ "v0" ] ],
+    [ "dht1:SDA", "esp:15", "green", [ "v0" ] ],
+    [ "bmp1:VCC", "esp:3V3", "red", [ "h57.6", "v115.2" ] ],
+    [ "bmp1:GND", "esp:GND.1", "black", [ "h48", "v230.59" ] ],
+    [ "bmp1:SCL", "esp:22", "green", [ "h220.8", "v115.39" ] ],
+    [ "bmp1:SDA", "esp:21", "green", [ "h230.4", "v134.59" ] ]
   ],
   "dependencies": {}
 }
