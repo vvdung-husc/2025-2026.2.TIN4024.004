@@ -5,12 +5,11 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-// --- THÔNG SỐ TELEGRAM & WIFI ---
 const char* ssid = "Wokwi-GUEST"; 
 const char* password = "";
 
-#define BOT_TOKEN "YOUR_BOT_TOKEN_HERE" // Thay Token Bot của bạn vào đây
-#define CHAT_ID "YOUR_CHAT_ID_HERE"     // Thay Chat ID của bạn vào đây
+#define BOT_TOKEN "8606889770:AAFEyWTRWIDLCWFmKKjt3C34ylZiZMiGJ4k" // Thay Token Bot của bạn vào đây
+#define CHAT_ID "-1003769844639"     // Thay Chat ID của bạn vào đây
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
@@ -71,7 +70,7 @@ void setup() {
   
   // Thông báo khởi động thành công
   updateOLED("He thong san sang!", 0, 0);
-  bot.sendMessage(CHAT_ID, "Hệ thống giám sát cửa đã khởi động!", "");
+  bot.sendMessage(CHAT_ID, "Hệ thống giám sát vào/ra đã khởi động!", "");
 }
 
 void loop() {
@@ -144,10 +143,10 @@ void sendTelegram(bool isIn, int total) {
   String message = "";
   if (isIn) {
     message += "Phát hiện có người đi vào!\n";
-    message += "Tổng người đã vào: ";
+    message += "Tổng người đã đi vào: ";
   } else {
     message += "Phát hiện có người đi ra!\n";
-    message += "Tổng người đã ra: ";
+    message += "Tổng người đã đi ra: ";
   }
   message += String(total);
   
