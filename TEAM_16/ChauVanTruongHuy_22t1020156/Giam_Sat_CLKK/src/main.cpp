@@ -53,7 +53,7 @@ void readPMS() {
   } else {
     // Nếu chưa đọc được, simulate để test
     pm25 = 15 + random(0, 45);   // Giá trị giả để thấy thay đổi
-    Serial.println("→ PMS5003 chưa đọc được, đang simulate...");
+    //Serial.println("→ PMS5003 chưa đọc được, đang simulate...");
   }
 }
 
@@ -81,7 +81,7 @@ void updateDisplay() {
   display.clearDisplay();
   display.setCursor(0, 0);
   display.setTextSize(1);
-  display.println(" Nồng độ không khí");
+  display.println(" Air Quality Monitor");
   display.println("--------------------");
   display.print("CO   : "); display.print(co_ppm, 0); display.println(" ppm");
   display.print("PM2.5: "); display.print(pm25, 0); display.println(" ug/m3");
@@ -112,8 +112,8 @@ void setup() {
   timer.setInterval(2000L, updateDisplay);     // OLED + Blynk
   timer.setInterval(2500L, printToSerial);     // Serial Monitor
 
-  Serial.println("\n=== He thong san sang ===");
-  Serial.println("Dang doc du lieu tu MQ-135 va PMS5003...");
+  Serial.println("\n Đã kết nối...");
+  Serial.println("Đang đọc dữ liệu từ MQ-135 và PMS5003...");
 }
 
 // ====================== BLYNK ======================
