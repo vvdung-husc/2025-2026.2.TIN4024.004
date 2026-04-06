@@ -1,30 +1,12 @@
 {
-  "version": 1,
-  "author": "Nguyen Huu Trinh",
-  "editor": "wokwi",
+  "version": 1,"author": "Nguyen Huu Trinh","editor": "wokwi",
   "parts": [
-    {
-      "type": "board-esp32-devkit-c-v4",
-      "id": "esp",
-      "top": 0,
-      "left": 0,
-      "attrs": {}
+    {"type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {}
     },
-    {
-      "type": "wokwi-a4988",
-      "id": "drv",
-      "top": -16,
-      "left": 270,
-      "attrs": {}
+    { "type": "wokwi-a4988","id": "drv","top": -16,"left": 270, "attrs": {}
     },
-    {
-      "type": "wokwi-stepper-motor",
-      "id": "motor",
-      "top": -110,
-      "left": 470,
-      "attrs": {
-        "size": "17",
-        "display": "angle"
+    {"type": "wokwi-stepper-motor", "id": "motor", "top": -110,  "left": 470,  "attrs": {   "size": "17", 
+     "display": "angle"
       }
     }
   ],
