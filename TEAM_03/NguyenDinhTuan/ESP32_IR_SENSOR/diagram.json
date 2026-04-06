@@ -4,28 +4,32 @@
   "editor": "wokwi",
   "parts": [
     { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
-    { "type": "wokwi-pir-motion-sensor", "id": "pir", "top": -92, "left": 223.02, "attrs": {} },
     {
-      "type": "wokwi-led",
-      "id": "led1",
-      "top": -51.6,
-      "left": -53.8,
-      "attrs": { "color": "red" }
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir_in",
+      "top": 148,
+      "left": -247.38,
+      "attrs": {}
     },
-    { "type": "board-ssd1306", "id": "oled", "top": 12.74, "left": 144.23, "attrs": {} }
+    { "type": "wokwi-pir-motion-sensor", "id": "pir_out", "top": 4, "left": -180.18, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": -100, "left": -50, "attrs": { "color": "red" } },
+    { "type": "board-ssd1306", "id": "oled", "top": -25.66, "left": 163.43, "attrs": {} }
   ],
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
     [ "esp:RX", "$serialMonitor:TX", "", [] ],
-    [ "pir:VCC", "esp:5V", "red", [ "v240", "h-254.59" ] ],
-    [ "pir:GND", "esp:GND.1", "black", [ "v249.6", "h-307.46", "v-96" ] ],
-    [ "pir:OUT", "esp:13", "green", [ "v220.8", "h-288.14", "v-57.6" ] ],
+    [ "pir_in:VCC", "esp:5V", "red", [ "v19.2", "h67.2", "v-57.6" ] ],
+    [ "pir_in:GND", "esp:GND.1", "black", [ "v9.6", "h66.94", "v-96" ] ],
+    [ "pir_in:OUT", "esp:13", "green", [ "v38.4", "h124.66", "v-172.8" ] ],
+    [ "pir_out:VCC", "esp:5V", "red", [ "v105.6", "h124.8" ] ],
+    [ "pir_out:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "pir_out:OUT", "esp:14", "orange", [ "v0" ] ],
     [ "led1:A", "esp:12", "green", [ "v0" ] ],
     [ "led1:C", "esp:GND.1", "black", [ "v0" ] ],
-    [ "oled:VCC", "esp:3V3", "red", [ "v-28.8", "h-177.64" ] ],
-    [ "oled:GND", "esp:GND.2", "black", [ "v-19.2", "h-72.04" ] ],
-    [ "oled:SDA", "esp:21", "blue", [ "v-57.6", "h-76.73", "v192" ] ],
-    [ "oled:SCL", "esp:22", "yellow", [ "v-48", "h-76.5", "v153.6" ] ]
+    [ "oled:VCC", "esp:3V3", "red", [ "v-38.4", "h-206.44" ] ],
+    [ "oled:GND", "esp:GND.2", "black", [ "v-19.2", "h-100.84" ] ],
+    [ "oled:SDA", "esp:21", "blue", [ "v-86.4", "h-95.93", "v182.4" ] ],
+    [ "oled:SCL", "esp:22", "yellow", [ "v-67.2", "h-105.3", "v134.4" ] ]
   ],
   "dependencies": {}
 }

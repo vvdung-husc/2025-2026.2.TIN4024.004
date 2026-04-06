@@ -1,80 +1,155 @@
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-// Định nghĩa kích thước màn hình OLED
+// --- THÔNG SỐ TELEGRAM & WIFI ---
+const char* ssid = "Wokwi-GUEST"; 
+const char* password = "";
+
+#define BOT_TOKEN "YOUR_BOT_TOKEN_HERE" // Thay Token Bot của bạn vào đây
+#define CHAT_ID "YOUR_CHAT_ID_HERE"     // Thay Chat ID của bạn vào đây
+
+WiFiClientSecure secured_client;
+UniversalTelegramBot bot(BOT_TOKEN, secured_client);
+
+// --- THÔNG SỐ OLED ---
 #define SCREEN_WIDTH 128 
 #define SCREEN_HEIGHT 64 
 #define OLED_RESET    -1 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-// Định nghĩa chân cắm theo diagram.json
-#define PIR_PIN 13
+// --- THÔNG SỐ CHÂN CẮM ---
+#define PIR_IN_PIN 13   
+#define PIR_OUT_PIN 14  
 #define LED_PIN 12
 
-int count = 0;              // Biến đếm số người
-int lastPirState = LOW;     // Trạng thái trước đó của cảm biến
+// --- BIẾN TOÀN CỤC ---
+int countIn = 0;
+int countOut = 0;
+int lastPirInState = LOW;
+int lastPirOutState = LOW;
+
+// ==========================================
+// KHAI BÁO HÀM (FUNCTION PROTOTYPES) Ở ĐÂY
+// Để PlatformIO biết các hàm này tồn tại
+// ==========================================
+void flashLed();
+void updateOLED(String message, int in, int out);
+void sendTelegram(bool isIn, int total);
 
 void setup() {
   Serial.begin(115200);
   
-  // Khởi tạo chân I/O
-  pinMode(PIR_PIN, INPUT);
+  pinMode(PIR_IN_PIN, INPUT);
+  pinMode(PIR_OUT_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
 
-  // Khởi tạo màn hình OLED với địa chỉ I2C mặc định là 0x3C
+  // 1. Khởi tạo OLED
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
     Serial.println(F("Khởi tạo SSD1306 thất bại!"));
-    for(;;); // Dừng chương trình nếu lỗi OLED
+    for(;;);
   }
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+  display.setTextSize(1);
+  display.setCursor(0, 10);
+  display.println("Connecting to WiFi...");
+  display.display();
 
-  // Hiển thị trạng thái ban đầu (chưa có ai)
-  updateOLED();
+  // 2. Kết nối WiFi
+  WiFi.begin(ssid, password);
+  secured_client.setInsecure(); 
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected.");
+  
+  // Thông báo khởi động thành công
+  updateOLED("He thong san sang!", 0, 0);
+  bot.sendMessage(CHAT_ID, "Hệ thống giám sát cửa đã khởi động!", "");
 }
 
 void loop() {
-  // Đọc trạng thái hiện tại của cảm biến chuyển động
-  int currentPirState = digitalRead(PIR_PIN);
+  int currentPirIn = digitalRead(PIR_IN_PIN);
+  int currentPirOut = digitalRead(PIR_OUT_PIN);
 
-  // Kiểm tra: Nếu lúc trước không có người (LOW) mà bây giờ có người (HIGH)
-  if (currentPirState == HIGH && lastPirState == LOW) {
-    count++; // Tăng biến đếm lên 1
+  // XỬ LÝ SỰ KIỆN: NGƯỜI ĐI VÀO
+  if (currentPirIn == HIGH && lastPirInState == LOW) {
+    countIn++;
+    String consoleMsg = "Phat hien co nguoi vao!";
+    Serial.println(consoleMsg + " Tong Vao: " + String(countIn));
     
-    // Bật đèn LED 1 phát
-    digitalWrite(LED_PIN, HIGH);
-    
-    // Cập nhật màn hình OLED với số đếm mới
-    updateOLED();
-    
-    // Giữ đèn sáng trong 0.5 giây rồi tắt để tạo hiệu ứng "nháy"
-    delay(500); 
-    digitalWrite(LED_PIN, LOW);
+    flashLed();
+    updateOLED(consoleMsg, countIn, countOut);
+    sendTelegram(true, countIn); 
   }
 
-  // Lưu lại trạng thái hiện tại để so sánh cho vòng lặp tiếp theo
-  lastPirState = currentPirState;
+  // XỬ LÝ SỰ KIỆN: NGƯỜI ĐI RA
+  if (currentPirOut == HIGH && lastPirOutState == LOW) {
+    countOut++;
+    String consoleMsg = "Phat hien co nguoi ra!";
+    Serial.println(consoleMsg + " Tong Ra: " + String(countOut));
+    
+    flashLed();
+    updateOLED(consoleMsg, countIn, countOut);
+    sendTelegram(false, countOut); 
+  }
+
+  lastPirInState = currentPirIn;
+  lastPirOutState = currentPirOut;
   
-  delay(50); // Delay nhỏ để ổn định vòng lặp
+  delay(50); 
 }
 
-// Hàm phụ trợ để cập nhật màn hình OLED cho gọn code
-void updateOLED() {
-  display.clearDisplay(); // Xóa màn hình cũ
+// --- CÁC HÀM PHỤ TRỢ ---
+
+void flashLed() {
+  digitalWrite(LED_PIN, HIGH);
+  delay(300); 
+  digitalWrite(LED_PIN, LOW);
+}
+
+void updateOLED(String message, int in, int out) {
+  display.clearDisplay(); 
   
-  display.setTextSize(1);      // Kích cỡ chữ
-  display.setTextColor(WHITE); // Màu chữ (trắng trên nền đen)
+  // Dòng trạng thái (Vào/Ra)
+  display.setTextSize(1);     
+  display.setCursor(0, 5);
+  display.print(message);
   
-  // Dòng 1: Phat hien X nguoi!
-  display.setCursor(0, 15);
-  display.print("Phat hien ");
-  display.print(count);
-  display.print(" nguoi!");
+  // Cột đếm số người VÀO
+  display.setCursor(0, 25);
+  display.print("Vao:");
+  display.setTextSize(2);
+  display.setCursor(0, 40);
+  display.print(in);
   
-  // Dòng 2: Count: X
-  display.setTextSize(2); // In to hơn một chút cho dòng Count
-  display.setCursor(0, 35);
-  display.print("Count: ");
-  display.print(count);
+  // Cột đếm số người RA
+  display.setTextSize(1);
+  display.setCursor(70, 25);
+  display.print("Ra:");
+  display.setTextSize(2);
+  display.setCursor(70, 40);
+  display.print(out);
   
-  display.display(); // Lệnh này bắt buộc phải có để đẩy dữ liệu ra màn hình
+  display.display(); 
+}
+
+void sendTelegram(bool isIn, int total) {
+  String message = "";
+  if (isIn) {
+    message += "Phát hiện có người đi vào!\n";
+    message += "Tổng người đã vào: ";
+  } else {
+    message += "Phát hiện có người đi ra!\n";
+    message += "Tổng người đã ra: ";
+  }
+  message += String(total);
+  
+  bot.sendMessage(CHAT_ID, message, "");
 }
