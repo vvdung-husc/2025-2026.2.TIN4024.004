@@ -1,15 +1,23 @@
 /*
 THÔNG TIN NHÓM 4
 1. 
+<<<<<<< HEAD
 2. 
 3. 
 4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
 5. Nguyễn Thành Doanh - Telegram : Doanh
+=======
+2. Võ Hữu Lộc - Telegram : Võ Hữu Lộc
+3. Hồ Ngọc Phúc Thăng - Telegram : Kk K
+4. Nguyễn Bá Quý Đạt - Telegram : Đạt Nguyễn
+5. Nguyễn Thành Doanh - Telegram : Doanh
+6. Lê Ngọc Minh - Telegram : Minh LeNgoc
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
 */
 
-#define BLYNK_TEMPLATE_ID "TMPL6OFwxQT0X"
+#define BLYNK_TEMPLATE_ID "TMPL6RmReeSmB"
 #define BLYNK_TEMPLATE_NAME "ESP8266 BLYNK TELEGRAM"
-#define BLYNK_AUTH_TOKEN "fx6qfdwQmVH-Amhcr8kb5kVcIVXMWnZg"
+#define BLYNK_AUTH_TOKEN "faQwlaluq7wEwAihqh2ZAB6G0hjwN2Ew"
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "Ngô Thời Quang",
+  "author": "woki",
   "editor": "wokwi",
   "parts": [
     { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": -4.76, "attrs": {} },

@@ -2,8 +2,8 @@
 THÔNG TIN NHÓM 13
 1.Trần Tuấn Long - Telegram : longtrandevs
 2.Nguyễn Thị Huyền Trân - Telegram : nthtran
-3.Nguyễn Thị Thùy Ngân
-4.Ngô Nghĩa - telegram : nghia130504
+3.Nguyễn Thị Thùy Ngân - Telegram : Ngan19042004
+4.Ngô Nghĩa - telegram: nghia130504
 */
 
 

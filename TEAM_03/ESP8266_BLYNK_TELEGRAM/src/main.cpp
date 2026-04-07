@@ -1,6 +1,6 @@
 /*
   ===== NHÓM 3 =====
-  1. Nguyễn Đăng Hưng
+  1. Nguyễn Đăng Tuấn-Telegram : Nguyễn Đăng Hưng
   2. Nguyễn Đình Tuấn
 */
 
