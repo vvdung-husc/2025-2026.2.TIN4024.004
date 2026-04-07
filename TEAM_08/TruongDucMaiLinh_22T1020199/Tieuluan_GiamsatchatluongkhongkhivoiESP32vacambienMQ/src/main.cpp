@@ -10,14 +10,16 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 #define BOT_TOKEN "8658703604:AAEgrj6xBJLp7qGayZAe9wVk-_7LfnSF-zU"
 #define CHAT_ID "-5117661455" 
-#define LED_ON LOW
-#define LED_OFF HIGH
+#define LED_ON HIGH
+#define LED_OFF LOW
 
 // --- Khai báo chân cắm ---
 #define MQ135_PIN 34
 #define DHTPIN 14
 #define DHTTYPE DHT22
 #define LED_PIN 4 
+#define PIR_PIN 13       
+
 
 DHT dht(DHTPIN, DHTTYPE);
 WiFiClientSecure client;
@@ -30,6 +32,8 @@ float temp = 0.0, hum = 0.0, pm25 = 0.0;
 bool ledStatus = false;
 unsigned long lastTimeBotRan = 0;
 String globalIP = "";
+int lastMotionState = LOW;
+unsigned long botRequestDelay = 1000; // Ngưỡng thời gian check Telegram
 
 // --- Giao diện Web ---
 String getHTML() {
@@ -57,8 +61,8 @@ void handleNewMessages(int numNewMessages) {
       String msg = "🔍 **TRẠNG THÁI HỆ THỐNG**\n\n";
       msg += "💨 Khí CO: " + String(airValue) + " PPM\n";
       msg += "🌫️ Bụi PM2.5: " + String(pm25, 1) + " µg/m³\n";
-      msg += "🌡️ Temp: " + String(temp, 1) + "°C\n";
-      msg += "💧 Humid: " + String(hum, 1) + "%\n";
+      msg += "🌡️ Nhiệt độ: " + String(temp, 1) + "°C\n";
+      msg += "💧 Độ ẩm: " + String(hum, 1) + "%\n";
       msg += "💡 Đèn: " + String(ledStatus ? "ON" : "OFF") + "\n";
     msg += String("🌐 IP: ") + globalIP;
       bot.sendMessage(chat_id, msg, "Markdown");
@@ -71,12 +75,12 @@ void handleNewMessages(int numNewMessages) {
     }
     else if (text == "/led_on") {
       ledStatus = true;
-      digitalWrite(LED_PIN, LOW);
+      digitalWrite(LED_PIN, HIGH);
       bot.sendMessage(chat_id, "💡 Đã bật đèn LED thành công!", "");
     }
     else if (text == "/led_off") {
       ledStatus = false;
-      digitalWrite(LED_PIN, HIGH);
+      digitalWrite(LED_PIN, LOW);
       bot.sendMessage(chat_id, "🌑 Đã tắt đèn LED thành công!", "");
     }
     else if (text == "/start") {
@@ -92,45 +96,57 @@ void handleNewMessages(int numNewMessages) {
 
 void setup() {
   Serial.begin(115200);
-
+  
+  // Khởi tạo cảm biến và LED
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LED_ON);
-  delay(2000);
-  digitalWrite(LED_PIN, LED_OFF);
-
   dht.begin();
 
+  // Kết nối WiFi
+  Serial.print("Connecting to WiFi");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
 
-  // ✅ Đặt ở đây mới đúng
+  // Quan trọng: In ra IP để chắc chắn ESP32 đã "thấy" mạng
   globalIP = WiFi.localIP().toString();
-  Serial.println("\nWiFi Connected! IP: " + globalIP);
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(globalIP);
 
-  client.setInsecure();
-  server.on("/", []() { server.send(200, "text/html", getHTML()); });
+  // Khởi động Web Server
+  server.on("/", []() {
+    server.send(200, "text/html", getHTML());
+  });
+  
   server.begin();
+  Serial.println("HTTP server started");
 
- // bot.sendMessage(String(CHAT_ID),
-  //  "Hệ thống đã sẵn sàng!\n/get_weather\n/get_status\n/led_on\n/led_off", "");
+  client.setInsecure(); // Cần thiết cho Telegram
 }
 
 void loop() {
+  // 1. Xử lý Web Server
   server.handleClient();
+
+  // 2. Đọc dữ liệu cảm biến định kỳ (2 giây một lần)
   static unsigned long lastMeasure = 0;
   if (millis() - lastMeasure > 2000) {
     airValue = analogRead(MQ135_PIN);
     pm25 = (airValue / 4095.0) * 150.0 + random(0, 3);
     float t = dht.readTemperature();
     float h = dht.readHumidity();
-    if (!isnan(t) && !isnan(h)) { temp = t; hum = h; }
+    if (!isnan(t) && !isnan(h)) { 
+      temp = t; 
+      hum = h; 
+    }
     lastMeasure = millis();
   }
 
-  if (millis() - lastTimeBotRan > 1000) {
+  // 3. Xử lý Telegram (Không gây lag hệ thống)
+  if (millis() - lastTimeBotRan > botRequestDelay) {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     while (numNewMessages) {
       handleNewMessages(numNewMessages);
@@ -138,4 +154,26 @@ void loop() {
     }
     lastTimeBotRan = millis();
   }
+
+  // 4. Logic cảm biến chuyển động (PIR) để bật đèn
+  int motionState = digitalRead(PIR_PIN);
+
+  if (motionState == HIGH && lastMotionState == LOW) {
+    Serial.println("Phát hiện chuyển động!");
+    
+    // Bật đèn
+    ledStatus = true;
+    digitalWrite(LED_PIN, LED_ON); 
+    
+    // Gửi thông báo Telegram
+    bot.sendMessage(CHAT_ID, "🚨 Cảnh báo: Phát hiện chuyển động trong khu vực giám sát!", "");
+  } 
+  else if (motionState == LOW && lastMotionState == HIGH) {
+    Serial.println("Hết chuyển động.");
+    // Tắt đèn (Nếu bạn muốn đèn tự tắt khi hết chuyển động)
+    ledStatus = false;
+    digitalWrite(LED_PIN, LED_OFF);
+  }
+
+  lastMotionState = motionState;
 }

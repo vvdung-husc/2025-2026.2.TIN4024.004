@@ -6,16 +6,23 @@
     { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0 },
     { "type": "wokwi-dht22", "id": "dht1", "top": 140, "left": -120 },
     { "type": "wokwi-gas-sensor", "id": "mq135", "top": 140, "left": 120 },
-    { "type": "wokwi-led", "id": "led1", "top": -90, "left": 100, "attrs": { "color": "red" } }
+    { "type": "wokwi-led", "id": "led1", "top": -90, "left": 100, "attrs": { "color": "red" } },
+    { "type": "wokwi-pir-sensor", "id": "pir1", "top": -200, "left": 0 }
   ],
   "connections": [
     [ "dht1:VCC", "esp:3V3", "red", [ "v0" ] ],
     [ "dht1:GND", "esp:GND.1", "black", [ "v0" ] ],
     [ "dht1:SDA", "esp:14", "blue", [ "v0" ] ],
+    
     [ "mq135:VCC", "esp:3V3", "red", [ "v0" ] ],
     [ "mq135:GND", "esp:GND.2", "black", [ "v0" ] ],
     [ "mq135:A0", "esp:34", "green", [ "v0" ] ],
+    
     [ "led1:A", "esp:4", "orange", [ "v0" ] ],
-    [ "led1:K", "esp:GND.3", "black", [ "v0" ] ]
+    [ "led1:C", "esp:GND.3", "black", [ "v10", "h-20" ] ], 
+    
+    [ "pir1:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "pir1:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "pir1:OUT", "esp:13", "purple", [ "v0" ] ]
   ]
 }
