@@ -3,7 +3,7 @@
   "author": "22T1020052",
   "editor": "wokwi",
   "parts": [
-    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 48, "left": -119.96, "attrs": {} },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 48, "left": -119.96, "attrs": { "flashSize": "4"}},
     { "type": "wokwi-led", "id": "led1", "top": -13.2, "left": 23, "attrs": { "color": "red" } },
     {
       "type": "wokwi-resistor",
