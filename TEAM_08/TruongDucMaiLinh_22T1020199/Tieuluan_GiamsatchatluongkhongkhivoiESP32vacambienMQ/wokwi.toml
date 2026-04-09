@@ -1,0 +1,8 @@
+[wokwi]
+version = 1
+firmware = ".pio/build/esp32dev/firmware.bin"
+elf = ".pio/build/esp32dev/firmware.elf"
+
+[[net.forward]]
+from = "localhost:9080"
+to = "10.13.37.2:80"

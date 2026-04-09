@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "author": "Dũng Võ Việt",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": -19.2, "left": 52.84, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 12.74,
+      "left": -124.57,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": -32.4, "left": 157.4, "attrs": { "color": "blue" } },
+    { "type": "wokwi-dht22", "id": "dht1", "top": 67.5, "left": 205.8, "attrs": {} },
+    { "type": "wokwi-gas-sensor", "id": "gas1", "top": 127.5, "left": -127.4, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 51.4,
+      "left": 152.75,
+      "rotate": 270,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "dht1:VCC", "esp:3V3", "red", [] ],
+    [ "dht1:GND", "esp:GND.1", "black", [] ],
+    [ "dht1:SDA", "esp:12", "green", [] ],
+
+    [ "gas1:VCC", "esp:3V3", "red", [] ],
+    [ "gas1:GND", "esp:GND.1", "black", [] ],
+    [ "gas1:AOUT", "esp:32", "violet", [] ],
+
+    [ "led1:C", "esp:GND.2", "black", [] ],
+    [ "led1:A", "r1:2", "blue", [] ],
+    [ "r1:1", "esp:5", "blue", [] ],
+
+    [ "oled1:GND", "esp:GND.1", "black", [] ],
+    [ "oled1:VCC", "esp:3V3", "red", [] ],
+    [ "oled1:SCL", "esp:26", "gold", [] ],
+    [ "oled1:SDA", "esp:27", "orange", [] ]
+  ],
+  "dependencies": {}
+}

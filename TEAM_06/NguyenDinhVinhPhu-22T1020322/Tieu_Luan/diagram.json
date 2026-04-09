@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "author": "Nguyen Dinh Vinh Phu",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": -19.2, "left": -4.76, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -150, "left": 150, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 195.14,
+      "left": -258.97,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 38.6, "left": 259.2, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 61.55,
+      "left": 403.2,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "fan_led",
+      "top": -42,
+      "left": 445.4,
+      "attrs": { "color": "blue", "label": "FAN (Simulated)" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:16", "dht1:SDA", "green", [ "h76.8", "v-67.2", "h1.7" ] ],
+    [ "esp:3V3", "dht1:VCC", "red", [ "v-38.4", "h165.15" ] ],
+    [ "esp:13", "oled1:SDA", "green", [ "h0" ] ],
+    [ "esp:3V3", "oled1:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.1", "oled1:GND", "black", [ "h0" ] ],
+    [ "r1:2", "fan_led:A", "blue", [ "h0" ] ],
+    [ "esp:GND.2", "fan_led:C", "black", [ "h0" ] ],
+    [ "relay1:NO", "esp:5V", "red", [ "v123", "h-363.75" ] ],
+    [ "r1:1", "relay1:COM", "blue", [ "v0" ] ],
+    [ "esp:0", "dht1:GND", "black", [ "h0" ] ],
+    [ "relay1:IN", "esp:2", "red", [ "v67", "h-163.2" ] ],
+    [ "esp:GND.3", "relay1:GND", "black", [ "h0" ] ],
+    [ "relay1:VCC", "esp:3V3", "red", [ "v-86.4", "h-259.35" ] ],
+    [ "oled1:SCL", "esp:12", "blue", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

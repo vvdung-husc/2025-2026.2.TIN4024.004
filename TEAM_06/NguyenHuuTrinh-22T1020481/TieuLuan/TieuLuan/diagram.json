@@ -1,0 +1,32 @@
+{
+  "version": 1,"author": "Nguyen Huu Trinh","editor": "wokwi",
+  "parts": [
+    {"type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {}
+    },
+    { "type": "wokwi-a4988","id": "drv","top": -16,"left": 270, "attrs": {}
+    },
+    {"type": "wokwi-stepper-motor", "id": "motor", "top": -110,  "left": 470,  "attrs": {   "size": "17", 
+     "display": "angle"
+      }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "esp:3V3", "drv:VDD", "red", [] ],
+    [ "esp:GND.1", "drv:GND", "black", [] ],
+
+    [ "esp:25", "drv:ENABLE", "green", [] ],
+    [ "esp:26", "drv:STEP", "blue", [] ],
+    [ "esp:27", "drv:DIR", "orange", [] ],
+
+    [ "drv:RESET", "drv:SLEEP", "gray", [] ],
+
+    [ "drv:1A", "motor:B+", "purple", [] ],
+    [ "drv:1B", "motor:B-", "purple", [] ],
+    [ "drv:2A", "motor:A+", "darkgreen", [] ],
+    [ "drv:2B", "motor:A-", "darkgreen", [] ]
+  ],
+  "dependencies": {}
+}
