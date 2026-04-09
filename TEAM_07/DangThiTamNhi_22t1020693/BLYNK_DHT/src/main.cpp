@@ -1,14 +1,28 @@
+<<<<<<< HEAD
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_SSD1306.h>
+#include <DHT.h>
+=======
 #define BLYNK_TEMPLATE_ID "TMPL62m8s-mHd"
 #define BLYNK_TEMPLATE_NAME "BLYNK DHT"
 #define BLYNK_AUTH_TOKEN "AkzENOVrDqenRMlowoa-bPdHDlPajTft"
 
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 #include <DHT.h>
 #include <TM1637Display.h>
 
+<<<<<<< HEAD
+// Thông tin WiFi và Blynk
+char auth[] = "YOUR_BLYNK_TOKEN";
+char ssid[] = "Duc Thinh";
+char pass[] = "0971527584";
+=======
 char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
 
 #define DHTPIN 16
 #define DHTTYPE DHT22

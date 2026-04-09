@@ -1,5 +1,22 @@
 #include <Arduino.h>
 
+<<<<<<< HEAD
+// put function declarations here:
+int myFunction(int, int);
+
+void setup() {
+  // put your setup code here, to run once:
+  int result = myFunction(2, 3);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+}
+
+// put function definitions here:
+int myFunction(int x, int y) {
+  return x + y;
+=======
 //Thay thông số BLYNK của bạn vào đây
 #define BLYNK_TEMPLATE_ID "TMPL6YF7fAJKF"
 #define BLYNK_TEMPLATE_NAME "BLYNK API"
@@ -212,4 +229,5 @@ void loop(void) {
   updateTemp();
   uptimeBlynk();
 
+>>>>>>> 5602a92cc9d530667b86fb8a7dfbb50a7b85c4b2
 }
