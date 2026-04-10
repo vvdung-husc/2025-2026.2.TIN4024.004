@@ -1,0 +1,8 @@
+[wokwi]
+version = 1
+firmware = '.pio\build\esp32dev\firmware.bin'
+elf = '.pio\build\esp32dev\firmware.elf'
+
+[[chip]]
+name = "max30100-custom"
+binary = "max30100-custom.chip.wasm"
