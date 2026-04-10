@@ -279,7 +279,7 @@ void updateSystem() {
       !errorPH && !errorTemp && !errorLight) {
     msg  = "✅ MÔI TRƯỜNG ỔN ĐỊNH\n";
     msg += "pH: "    + String(pH, 2)        + " | ";
-    msg += "Temp: "  + String(tempWater, 1) + "°C | ";
+    msg += "Water: "  + String(tempWater, 1) + "°C | ";
     msg += "Light: " + String(lightPercent) + "%";
     sendTelegram(msg);
   }
