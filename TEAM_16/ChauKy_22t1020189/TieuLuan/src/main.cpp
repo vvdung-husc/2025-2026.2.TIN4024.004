@@ -18,8 +18,8 @@
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
-#define BOTtoken "8748014125:AAGJeiOY3uvobuXxfnB7B_QcbVjQC-luVto"
-#define CHAT_ID  "-5151368472"
+#define BOTtoken "8778048306:AAExPPULrubga1SJdq_gHb5LuOIXc86nfHM"
+#define CHAT_ID  "-5165562658"
 
 // ================== PIN ==================
 #define PIN_DS18B20     4
