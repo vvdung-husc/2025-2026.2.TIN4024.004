@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "author": "Ngan Nguyen",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-v1", "id": "esp32", "top": -2.72, "left": 4.8, "attrs": {} },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot1",
+      "top": -145.3,
+      "left": -173,
+      "attrs": { "label": "Mức nước" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -164.8,
+      "left": 126.6,
+      "attrs": { "color": "red", "label": "Cảnh báo", "flip": "1" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 2.4,
+      "left": 203.4,
+      "attrs": { "label": "Còi báo" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res1",
+      "top": -82.45,
+      "left": 96,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp32:3V3", "pot1:VCC", "green", [ "h66.71", "v-230.4" ] ],
+    [ "esp32:D34", "pot1:SIG", "blue", [ "v-2.72", "h-167.6" ] ],
+    [ "res1:2", "led1:A", "red", [ "v0" ] ],
+    [ "esp32:GND.1", "led1:K", "black", [ "v0" ] ],
+    [ "esp32:D26", "bz1:1", "purple", [ "h-38.4", "v144", "h259.2" ] ],
+    [ "esp32:GND.1", "bz1:2", "black", [ "h134.31" ] ],
+    [ "pot1:GND", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "res1:1", "esp32:D18", "red", [ "v68.05", "h-0.55", "v115.2" ] ],
+    [ "led1:C", "esp32:GND.1", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
