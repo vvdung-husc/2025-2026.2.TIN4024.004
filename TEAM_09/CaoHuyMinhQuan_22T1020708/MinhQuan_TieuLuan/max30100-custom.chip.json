@@ -1,0 +1,23 @@
+{
+  "name": "MAX30100 Custom",
+  "author": "Minh Quan",
+  "pins": ["VCC", "GND", "SCL", "SDA", "INT"],
+  "controls": [
+    {
+      "id": "bpm",
+      "label": "Heart Rate (BPM)",
+      "type": "range",
+      "min": 40,
+      "max": 180,
+      "step": 1
+    },
+    {
+      "id": "spo2",
+      "label": "SpO2 (%)",
+      "type": "range",
+      "min": 80,
+      "max": 100,
+      "step": 1
+    }
+  ]
+}

@@ -26,7 +26,7 @@ void loop() {
   Serial.print(temp);
   Serial.println(" °C");
 
-  // 🔥 ĐÚNG YÊU CẦU ĐỀ BÀI
+  // nhiet do bat/tat quat
   if (temp > 30) {
     digitalWrite(RELAY_PIN, HIGH); // bật quạt
     digitalWrite(LED_PIN, HIGH);   // LED sáng
