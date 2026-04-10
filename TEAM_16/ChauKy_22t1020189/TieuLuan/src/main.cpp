@@ -117,9 +117,8 @@ void sendState(String chat_id) {
   msg += "☀️ Ánh sáng      : " + String(lightPercent)  + " %" + (errorLight ? " ⚠️" : " ✅") + "\n";
   msg += "──────────────────\n";
   msg += "💡 Đèn  : " + String(errorLight ? "ON" : "OFF") + "\n";
-  msg += "🌀 Quạt : " + String(errorTemp  ? "ON" : "OFF") + "\n";
-  msg += "⏱ Uptime: " + getUptime();
-
+  msg += "🌀 Quạt : " + String(errorTempHI  ? "ON" : "OFF") + "\n";
+  msg += "💧 Bơm : " + String(errorPH ? "ON" : "OFF") + "\n"; 
   sendTelegramWithMenu(chat_id, msg);
 }
 
@@ -165,10 +164,23 @@ void handleTelegram() {
 // V4 — Nút bơm thủ công (Button SWITCH)
 BLYNK_WRITE(V4) {
   int val = param.asInt();
-  manualMode = true;
-  manualPump = (val == 1);
-  Blynk.virtualWrite(V5, 1);
-  sendTelegram(manualPump ? "🟢 [Blynk] Bơm BẬT (Manual)" : "🔴 [Blynk] Bơm TẮT (Manual)");
+
+  Serial.print("V4 value: ");
+  Serial.println(val);  // DEBUG
+
+  if (manualMode) {
+    if (val == 1) {
+      manualPump = true;
+      sendTelegram("🟢 [Blynk] Bơm/Quạt gió/Đèn trồng BẬT (Manual)");
+    } else {
+      manualPump = false;
+      sendTelegram("🔴 [Blynk] Bơm/Quạt gió/Đèn trồng TẮT (Manual)");
+    }
+  } 
+  else {
+    Blynk.virtualWrite(V4, 0);
+    sendTelegram("⚠️ Đang ở AUTO - Không thể điều khiển");
+  }
 }
 
 // V5 — Nút chế độ (Button SWITCH)
@@ -204,13 +216,13 @@ void updateSystem() {
   lightPercent = map(rawLDR, 0, 4095, 100, 0);
 
   // ===== LOGIC =====
-  errorPH    = (pH < 5.5 || pH > 7.5);
+  errorPH    = (pH < 5.5 || pH > 6.5);
   errorTempHI = (tempWater > 26);     // NÓNG → Quạt V7 ON  
   errorTempLO = (tempWater < 18); 
   errorLight = (lightPercent < 40);
-  bool pumpOn = manualMode ? manualPump : (errorPH || errorTempHI);  
+  //bool pumpOn = manualMode ? manualPump : (errorPH || errorTempHI);  
   //bool pumpOn = manualMode ? manualPump : (errorPH || errorTemp);
-
+  bool pumpOn = manualMode ? manualPump : errorPH;
   // ===== OUTPUT =====
   digitalWrite(PIN_RELAY,     pumpOn     ? LOW  : HIGH);
   digitalWrite(PIN_LED_PH,    errorPH    ? HIGH : LOW);
@@ -237,7 +249,7 @@ void updateSystem() {
   Blynk.virtualWrite(V2, lightPercent);
   Blynk.virtualWrite(V3, pumpOn     ? 255 : 0);
   Blynk.virtualWrite(V6, errorLight ? 255 : 0);
-  Blynk.virtualWrite(V7, errorTemp  ? 255 : 0);
+  Blynk.virtualWrite(V7, errorTempHI  ? 255 : 0);
 
   // ===== TELEGRAM CẢNH BÁO =====
   // Chỉ gửi đúng 1 lần khi trạng thái VỪA chuyển sang lỗi
