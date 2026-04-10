@@ -45,12 +45,15 @@ bool manualMode = false;
 bool manualPump = false;
 
 bool errorPH = false, errorTemp = false, errorLight = false;
+bool errorTempHI = false, errorTempLO = false;
+
 bool lastErrorPH = false, lastErrorTemp = false, lastErrorLight = false;
+bool lastErrorTempHI = false, lastErrorTempLO = false;
 
 float tempWater = 0, tempAir = 0, humidity = 0, pH = 7;
 int lightPercent = 0;
 
-// Telegram polling — tránh xung đột với Blynk
+
 unsigned long lastTelegramCheck = 0;
 #define TELEGRAM_INTERVAL 1000
 
@@ -114,9 +117,8 @@ void sendState(String chat_id) {
   msg += "☀️ Ánh sáng      : " + String(lightPercent)  + " %" + (errorLight ? " ⚠️" : " ✅") + "\n";
   msg += "──────────────────\n";
   msg += "💡 Đèn  : " + String(errorLight ? "ON" : "OFF") + "\n";
-  msg += "🌀 Quạt : " + String(errorTemp  ? "ON" : "OFF") + "\n";
-  msg += "⏱ Uptime: " + getUptime();
-
+  msg += "🌀 Quạt : " + String(errorTempHI  ? "ON" : "OFF") + "\n";
+  msg += "💧 Bơm : " + String(errorPH ? "ON" : "OFF") + "\n"; 
   sendTelegramWithMenu(chat_id, msg);
 }
 
@@ -162,10 +164,23 @@ void handleTelegram() {
 // V4 — Nút bơm thủ công (Button SWITCH)
 BLYNK_WRITE(V4) {
   int val = param.asInt();
-  manualMode = true;
-  manualPump = (val == 1);
-  Blynk.virtualWrite(V5, 1);
-  sendTelegram(manualPump ? "🟢 [Blynk] Bơm BẬT (Manual)" : "🔴 [Blynk] Bơm TẮT (Manual)");
+
+  Serial.print("V4 value: ");
+  Serial.println(val);  // DEBUG
+
+  if (manualMode) {
+    if (val == 1) {
+      manualPump = true;
+      sendTelegram("🟢 [Blynk] Bơm/Quạt gió/Đèn trồng BẬT (Manual)");
+    } else {
+      manualPump = false;
+      sendTelegram("🔴 [Blynk] Bơm/Quạt gió/Đèn trồng TẮT (Manual)");
+    }
+  } 
+  else {
+    Blynk.virtualWrite(V4, 0);
+    sendTelegram("⚠️ Đang ở AUTO - Không thể điều khiển");
+  }
 }
 
 // V5 — Nút chế độ (Button SWITCH)
@@ -201,17 +216,18 @@ void updateSystem() {
   lightPercent = map(rawLDR, 0, 4095, 100, 0);
 
   // ===== LOGIC =====
-  errorPH    = (pH < 5.5 || pH > 7.5);
-  errorTemp  = (tempWater > 30);
+  errorPH    = (pH < 5.5 || pH > 6.5);
+  errorTempHI = (tempWater > 26);     // NÓNG → Quạt V7 ON  
+  errorTempLO = (tempWater < 18); 
   errorLight = (lightPercent < 40);
-
-  bool pumpOn = manualMode ? manualPump : (errorPH || errorTemp);
-
+  //bool pumpOn = manualMode ? manualPump : (errorPH || errorTempHI);  
+  //bool pumpOn = manualMode ? manualPump : (errorPH || errorTemp);
+  bool pumpOn = manualMode ? manualPump : errorPH;
   // ===== OUTPUT =====
   digitalWrite(PIN_RELAY,     pumpOn     ? LOW  : HIGH);
   digitalWrite(PIN_LED_PH,    errorPH    ? HIGH : LOW);
   digitalWrite(PIN_LED_LIGHT, errorLight ? HIGH : LOW);
-  digitalWrite(PIN_LED_PUMP,  errorTemp  ? HIGH : LOW);
+  digitalWrite(PIN_LED_PUMP,  errorTempHI  ? HIGH : LOW);
 
   // ===== OLED =====
   display.clearDisplay();
@@ -233,7 +249,7 @@ void updateSystem() {
   Blynk.virtualWrite(V2, lightPercent);
   Blynk.virtualWrite(V3, pumpOn     ? 255 : 0);
   Blynk.virtualWrite(V6, errorLight ? 255 : 0);
-  Blynk.virtualWrite(V7, errorTemp  ? 255 : 0);
+  Blynk.virtualWrite(V7, errorTempHI  ? 255 : 0);
 
   // ===== TELEGRAM CẢNH BÁO =====
   // Chỉ gửi đúng 1 lần khi trạng thái VỪA chuyển sang lỗi
@@ -244,11 +260,16 @@ void updateSystem() {
     msg += "pH = " + String(pH, 2) + " → bật bơm";
     sendTelegram(msg);
   }
-  if (errorTemp && !lastErrorTemp) {
-    msg  = "⚠️ CẢNH BÁO NHIỆT ĐỘ\n";
-    msg += String(tempWater, 1) + "°C > 30°C → bật quạt";
-    sendTelegram(msg);
-  }
+  if (errorTempHI && !lastErrorTempHI) {  // NÓNG
+  msg  = "🔥 NHIỆT ĐỘ NÓNG\n";
+  msg += String(tempWater,1) + "°C > 26°C → bật quạt";
+  sendTelegram(msg);
+}
+  if (errorTempLO && !lastErrorTempLO) {   // LẠNH  
+  msg  = "❄️ NHIỆT ĐỘ LẠNH\n";
+  msg += String(tempWater,1) + "°C < 18°C → Cảnh báo nước lạnh";
+  sendTelegram(msg);
+}
   if (errorLight && !lastErrorLight) {
     msg  = "⚠️ CẢNH BÁO ÁNH SÁNG\n";
     msg += String(lightPercent) + "% < 40% → bật đèn trồng";
@@ -258,13 +279,14 @@ void updateSystem() {
       !errorPH && !errorTemp && !errorLight) {
     msg  = "✅ MÔI TRƯỜNG ỔN ĐỊNH\n";
     msg += "pH: "    + String(pH, 2)        + " | ";
-    msg += "Temp: "  + String(tempWater, 1) + "°C | ";
+    msg += "Water: "  + String(tempWater, 1) + "°C | ";
     msg += "Light: " + String(lightPercent) + "%";
     sendTelegram(msg);
   }
 
   lastErrorPH    = errorPH;
-  lastErrorTemp  = errorTemp;
+  lastErrorTempHI = errorTempHI;
+  lastErrorTempLO = errorTempLO;
   lastErrorLight = errorLight;
 }
 
