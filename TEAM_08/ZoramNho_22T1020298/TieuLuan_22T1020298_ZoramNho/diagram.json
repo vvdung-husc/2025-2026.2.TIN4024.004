@@ -1,0 +1,31 @@
+{
+    "version": 1,
+    "author": "ESP32 LED Control",
+    "editor": "wokwi",
+    "parts": [
+      { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+      {
+        "type": "wokwi-relay-module",
+        "id": "relay1",
+        "top": 105.8,
+        "left": -288,
+        "attrs": { "channel": "1" }
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led1",
+        "top": 44.4,
+        "left": -101.8,
+        "attrs": { "color": "yellow" }
+      }
+    ],
+    "connections": [
+      [ "esp:3V3", "relay1:VCC", "red", [] ],
+      [ "esp:GND", "relay1:GND", "black", [] ],
+      [ "esp:23", "relay1:IN", "green", [] ],
+      [ "relay1:COM", "led1:A", "orange", [] ],
+      [ "relay1:NO", "esp:3V3", "red", [] ],
+      [ "led1:C", "esp:GND", "black", [] ]
+    ],
+    "dependencies": {}
+  }
