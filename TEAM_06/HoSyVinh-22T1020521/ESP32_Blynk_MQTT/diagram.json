@@ -4,15 +4,20 @@
   "editor": "wokwi",
   "parts": [
     { "type": "board-esp32-devkit-v1", "id": "esp32", "top": 0, "left": 0, "attrs": {} },
-    { "type": "wokwi-led", "id": "led1", "top": -100, "left": 150, "attrs": { "color": "red" } },
-    { "type": "wokwi-resistor", "id": "res1", "top": -40, "left": 150, "attrs": { "value": "220" } },
-    { "type": "wokwi-pushbutton", "id": "btn1", "top": 160, "left": 150, "attrs": { "color": "green" } }
+    { "type": "wokwi-led", "id": "led1", "top": -138, "left": 109.4, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-resistor",
+      "id": "res1",
+      "top": -60,
+      "left": 150,
+      "attrs": { "value": "220" }
+    }
   ],
   "connections": [
-    [ "esp32:15", "led1:A", "red", [ "v0" ] ],
+    [ "esp32:15", "led1:A", "red", [ "v0" ] ], 
     [ "led1:C", "res1:1", "black", [ "v0" ] ],
     [ "res1:2", "esp32:GND.1", "black", [ "v0" ] ],
-    [ "esp32:GND.2", "btn1:1.l", "black", [ "v0" ] ],
-    [ "btn1:2.l", "esp32:4", "green", [ "v0" ] ]
-  ]
+    [ "led1:A", "esp32:D15", "green", [ "v230.4", "h-28.8" ] ]
+  ],
+  "dependencies": {}
 }
