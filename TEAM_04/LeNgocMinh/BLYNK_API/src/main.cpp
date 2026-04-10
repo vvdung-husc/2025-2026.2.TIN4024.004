@@ -15,7 +15,7 @@
 #define WIFI_PASSWORD ""
 
 // OpenWeather API
-#define OPENWEATHERMAP_KEY "170055364c21bd4c1a8b3c0e8ef7daa2"
+//#define OPENWEATHERMAP_KEY "170055364c21bd4c1a8b3c0e8ef7daa2"
 
 // Lưu thông tin IP
 struct IP4_Info {
