@@ -13,14 +13,7 @@ char ssid[] = "Wokwi-GUEST";
 char pass[] = "";
 
 #define PIN_LED      21
-#define PIN_BTN      23
-#define PIN_TM_CLK   18
-#define PIN_TM_DIO   19
-#define PIN_DHT      16
-#define DHT_TYPE     DHT22
 
-bool IsReady(unsigned long &ulTimer, uint32_t millisecond) {
-    if (millis() - ulTimer < millisecond) {
         return false;
     }
     ulTimer = millis();
