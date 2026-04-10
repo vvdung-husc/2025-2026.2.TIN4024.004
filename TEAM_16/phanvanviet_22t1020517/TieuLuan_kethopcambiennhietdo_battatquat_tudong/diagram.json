@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "author": "Phan Văn Việt",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 9.6, "left": 110.44, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -134.1, "left": 282.6, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": -109.2,
+      "left": 119,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_green",
+      "top": 52.8,
+      "left": 239.45,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 115.4, "left": 249.6, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "led_green:C", "esp:GND.2", "black", [] ],
+    [ "led_green:A", "r_green:1", "green", [] ],
+    [ "r_green:2", "esp:15", "green", [] ],
+    [ "dht1:VCC", "esp:3V3", "red", [] ],
+    [ "dht1:GND", "esp:GND.3", "black", [] ],
+    [ "dht1:SDA", "esp:16", "green", [] ],
+    [ "relay1:VCC", "esp:5V", "red", [] ],
+    [ "relay1:GND", "esp:GND", "black", [] ],
+    [ "relay1:IN", "esp:23", "blue", [] ]
+  ],
+  "dependencies": {}
+}
