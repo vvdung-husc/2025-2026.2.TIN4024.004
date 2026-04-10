@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "Nguyễn Tống Bảo Phúc",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp32", "top": 0,   "left": 0   },
+    { "type": "wokwi-led",  "id": "led_red",    "top": -60, "left": 200, "attrs": { "color": "red"    } },
+    { "type": "wokwi-led",  "id": "led_yellow", "top":  20, "left": 200, "attrs": { "color": "yellow" } },
+    { "type": "wokwi-led",  "id": "led_green",  "top": 100, "left": 200, "attrs": { "color": "green"  } },
+    { "type": "wokwi-resistor", "id": "r1", "top": -50, "left": 150, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top":  30, "left": 150, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r3", "top": 110, "left": 150, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "esp32:D25", "r1:1", "red",    [] ], [ "r1:2", "led_red:A",    "red",    [] ],
+    [ "led_red:C",    "esp32:GND.1", "black", [] ],
+    [ "esp32:D26", "r2:1", "orange", [] ], [ "r2:2", "led_yellow:A", "orange", [] ],
+    [ "led_yellow:C", "esp32:GND.1", "black", [] ],
+    [ "esp32:D27", "r3:1", "green",  [] ], [ "r3:2", "led_green:A",  "green",  [] ],
+    [ "led_green:C",  "esp32:GND.1", "black", [] ]
+  ]
+}

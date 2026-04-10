@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "author": "Hưng Võ Lê Tuấn",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 28.8,
+      "left": -33.56,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-mpu6050",
+      "id": "mpu",
+      "top": -60,
+      "left": 180,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 6,
+      "left": -200,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 6,
+      "left": -270,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    ["esp:TX", "$serialMonitor:RX", "", []],
+    ["esp:RX", "$serialMonitor:TX", "", []],
+
+    ["esp:3V3", "mpu:VCC", "red",   ["h0"]],
+    ["esp:GND.1", "mpu:GND", "black", ["h0"]],
+    ["esp:21",  "mpu:SDA", "green", ["h0"]],
+    ["esp:22",  "mpu:SCL", "blue",  ["h0"]],
+
+    ["esp:2",    "r1:2",   "yellow", ["h0"]],
+    ["r1:1",     "led1:A", "yellow", ["h0"]],
+    ["led1:C",   "esp:GND.2", "black", ["h0"]]
+  ],
+  "dependencies": {}
+}
