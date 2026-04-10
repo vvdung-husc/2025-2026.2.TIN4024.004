@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "author": "Minh Quan",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled",
+      "top": 150,
+      "left": 180,
+      "attrs": { "i2cAddress": "0x3C" }
+    },
+    {
+      "type": "chip-max30100-custom",
+      "id": "max30100",
+      "top": 10,
+      "left": 290,
+      "attrs": {
+        "bpm": "100",
+        "spo2": "98"
+      }
+    }
+  ],
+  "connections": [
+    [ "esp:3V3", "oled:VCC", "red", [] ],
+    [ "esp:GND.1", "oled:GND", "black", [] ],
+    [ "esp:21", "oled:SDA", "green", [] ],
+    [ "esp:22", "oled:SCL", "blue", [] ],
+
+    [ "esp:3V3", "max30100:VCC", "red", [] ],
+    [ "esp:GND.2", "max30100:GND", "black", [] ],
+    [ "esp:21", "max30100:SDA", "green", [] ],
+    [ "esp:22", "max30100:SCL", "blue", [] ],
+    [ "esp:19", "max30100:INT", "orange", [] ]
+  ]
+}

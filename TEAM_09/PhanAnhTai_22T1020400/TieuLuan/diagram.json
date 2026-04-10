@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "author": "ESP32 LED FIX",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -4.9, "left": -24.2, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -109.2,
+      "left": 80.6,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res1",
+      "top": 61.55,
+      "left": 96,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -66.9, "left": -101.4, "attrs": {} },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": -89.6,
+      "left": 140,
+      "attrs": { "pins": "i2c" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 67.4, "left": 172.8, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:2", "led1:A", "green", [] ],
+    [ "led1:C", "res1:1", "black", [] ],
+    [ "res1:2", "esp:GND", "black", [] ],
+    [ "esp:D2", "led1:A", "green", [ "h0" ] ],
+    [ "esp:GND.1", "res1:2", "black", [ "h0" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v134.4", "h182.4" ] ],
+    [ "dht1:SDA", "esp:D4", "green", [ "v0" ] ],
+    [ "dht1:GND", "esp:GND.2", "black", [ "v0" ] ],
+    [ "relay1:GND", "esp:GND.1", "black", [ "h0" ] ],
+    [ "relay1:VCC", "esp:VIN", "red", [ "h19.2", "v76.8" ] ],
+    [ "relay1:IN", "esp:D5", "green", [ "h0" ] ],
+    [ "lcd1:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "lcd1:VCC", "esp:VIN", "red", [ "h0" ] ],
+    [ "lcd1:SDA", "esp:D21", "green", [ "h0" ] ],
+    [ "lcd1:SCL", "esp:D22", "green", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
