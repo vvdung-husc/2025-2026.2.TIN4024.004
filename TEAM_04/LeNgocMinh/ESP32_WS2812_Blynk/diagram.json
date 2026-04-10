@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "author": "Minh Lê Ngọc",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 86.4, "left": 187.24, "attrs": {} },
+    {
+      "type": "wokwi-led-strip",
+      "id": "strip1",
+      "top": 11.7,
+      "left": 422.4,
+      "attrs": { "pixels": "16" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 111.8,
+      "left": 19.2,
+      "attrs": { "color": "blue", "label": "Mode" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 51.95,
+      "left": 105.6,
+      "attrs": { "value": "330" }
+    },
+    {
+      "type": "wokwi-capacitor",
+      "id": "cap1",
+      "top": -100,
+      "left": 150,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "strip1:VDD", "esp:5V", "red", [ "v-28.8", "h405.6", "v76.8", "h-636.15" ] ],
+    [ "strip1:VSS", "esp:GND.2", "black", [ "h-9.6", "v76", "h-124.8" ] ],
+    [ "btn1:1.l", "esp:14", "blue", [ "v0" ] ],
+    [ "esp:GND.1", "cap1:2", "black", [ "v10", "h130" ] ],
+    [ "cap1:2", "strip1:VSS", "black", [ "v-20", "h-180" ] ],
+    [ "btn1:2.l", "esp:GND.2", "black", [ "v117.4", "h281" ] ],
+    [ "esp:16", "r1:2", "green", [ "h-124.8", "v-163.2", "h-229.2" ] ],
+    [ "r1:1", "strip1:DIN", "green", [ "v-28.8", "h201.6", "v0.4" ] ]
+  ],
+  "dependencies": {}
+}
