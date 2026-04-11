@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "author": "Nguyễn Đại Quý",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-buzzer", "id": "bz1", "top": -60, "left": 150, "attrs": { "volume": "0.1" } },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": 120, "left": 150, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "bz1:1", "esp:2", "red", [ "v0", "h-40", "v40" ] ],
+    [ "bz1:0", "esp:GND.1", "black", [ "v0", "h40", "v120", "h-110" ] ],
+    [ "pot1:VCC", "esp:3V3", "red", [ "v20", "h-80", "v-160" ] ],
+    [ "pot1:GND", "esp:GND.2", "black", [ "v20", "h-60", "v-80" ] ],
+    [ "pot1:SIG", "esp:34", "green", [ "v-30", "h-50" ] ]
+  ]
+}
