@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"name": "ESP32_Blynk",
+			"path": "../ESP32_Blynk"
+		},
+		{
+			"name": "BotTele",
+			"path": "../BotTele"
+		},
+		{
+			"name": "ESP8266",
+			"path": "../ESP8266"
+		},
+		{
+			"name": "ESP8266_new",
+			"path": "../ESP8266_new"
+		},
+		{
+			"name": "ESP32_Check_in_out",
+			"path": "."
+		},
+		{
+			"name": "ESP32demo",
+			"path": "../ESP32demo"
+		}
+	],
+	"settings": {}
+}
