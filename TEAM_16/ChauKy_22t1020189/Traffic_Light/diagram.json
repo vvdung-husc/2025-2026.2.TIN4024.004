@@ -90,12 +90,9 @@
     [ "led2:A", "r2:2", "green", [ "h0" ] ],
     [ "sevseg1:CLK", "esp:32", "green", [ "h38.4", "v48" ] ],
     [ "sevseg1:DIO", "esp:33", "green", [ "h28.8", "v48" ] ],
-    [ "sevseg1:VCC", "esp:GND.1", "black", [ "h9.6", "v96", "h38.25" ] ],
-    [ "sevseg1:GND", "esp:5V", "red", [ "h19.2", "v144", "h28.65" ] ],
     [ "btn1:2.r", "esp:GND.1", "black", [ "h38.6", "v-9.4" ] ],
     [ "btn1:1.r", "esp:27", "green", [ "h67.4", "v-19.2" ] ],
     [ "led4:C", "esp:GND.1", "black", [ "h28.8", "v38" ] ],
-    [ "esp:GND.3", "ldr1:VCC", "black", [ "h192", "v57.6" ] ],
     [ "led4:A", "esp:26", "blue", [ "h0" ] ],
     [
       "esp:35",
@@ -103,10 +100,13 @@
       "limegreen",
       [ "h-9.45", "v144", "h115.2", "v-124.8", "h201.6", "v77.5" ]
     ],
-    [ "esp:3V3", "ldr1:GND", "magenta", [ "v-38.4", "h115.35", "v115.2", "h182.4", "v48.4" ] ],
     [ "esp:22", "r2:1", "green", [ "h0" ] ],
     [ "esp:23", "r1:1", "red", [ "h9.6", "v-19.2" ] ],
-    [ "esp:21", "r3:1", "yellow", [ "h0" ] ]
+    [ "esp:21", "r3:1", "yellow", [ "h0" ] ],
+    [ "ldr1:GND", "esp:GND.3", "black", [ "h9.6", "v-67.6" ] ],
+    [ "ldr1:VCC", "esp:3V3", "magenta", [ "h19.2", "v-38.4", "h-182.4", "v-115.2", "h-115.35" ] ],
+    [ "sevseg1:GND", "esp:GND.1", "black", [ "h9.6", "v86.4" ] ],
+    [ "sevseg1:VCC", "esp:5V", "red", [ "h19.2", "v153.6", "h28.65" ] ]
   ],
   "dependencies": {}
 }
