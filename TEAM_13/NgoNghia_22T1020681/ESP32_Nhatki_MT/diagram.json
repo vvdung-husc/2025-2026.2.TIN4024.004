@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "Nghia Ngo - Optimized by Gemini",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 48, "left": -14 },
+    { "type": "wokwi-dht22", "id": "dht", "top": -150, "left": 150 },
+    { "type": "wokwi-microsd-card", "id": "sd", "top": 100, "left": 150 }
+  ],
+  "connections": [
+    ["esp:3V3", "dht:VCC", "red", ["v0"]],
+    ["esp:GND.1", "dht:GND", "black", ["v0"]],
+    ["esp:4", "dht:SDA", "green", ["v0"]],
+
+    ["esp:5", "sd:CS", "yellow", ["v10"]],
+    ["esp:18", "sd:SCK", "yellow", ["v0"]],
+    ["esp:23", "sd:MOSI", "yellow", ["v0"]],
+    ["esp:19", "sd:MISO", "yellow", ["v0"]],
+    ["esp:GND.2", "sd:GND", "black", ["v0"]],
+    ["esp:3V3", "sd:VCC", "red", ["v0"]]
+  ]
+}
