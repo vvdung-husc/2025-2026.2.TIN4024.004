@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 100.7, "left": -43.4, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnA",
+      "top": 25.4,
+      "left": -201.6,
+      "attrs": { "label": "Sensor A (Outer)", "color": "green" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnB",
+      "top": 44.6,
+      "left": 153.6,
+      "attrs": { "label": "Sensor B (Inner)", "color": "blue" }
+    }
+  ],
+  "connections": [
+    [ "esp:GND.1", "btnA:2.L", "black", [ "v0" ] ],
+    [ "esp:GND.1", "btnB:2.L", "black", [ "v0" ] ],
+    [ "esp:14", "btnA:1.L", "green", [ "v0" ] ],
+    [ "esp:27", "btnB:1.L", "blue", [ "v0" ] ],
+    [ "esp:D14", "btnA:1.r", "green", [ "h-67.2", "v-153.5" ] ],
+    [ "esp:GND.2", "btnA:2.r", "black", [ "h0" ] ],
+    [ "esp:D27", "btnB:1.l", "green", [ "h-28.8", "v-134.7" ] ],
+    [ "esp:GND.1", "btnB:2.l", "black", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
